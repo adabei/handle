@@ -4,6 +4,3 @@
 bin
 obj
 
-# NuGet
-!packages.config
-packages/*
