@@ -1,0 +1,9 @@
+*.suo
+
+# Build Folders
+bin
+obj
+
+# NuGet
+!packages.config
+packages/*
