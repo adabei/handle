@@ -31,12 +31,12 @@
 
     <Rectangle x:Name="HeaderAreaRectangle" Grid.ColumnSpan="3" Grid.Row="0" Fill="Gray" Width="Auto" Height="Auto" cal:Message.Attach="[Event MouseDown] = [Action HeaderMouseDown($this, $eventArgs)]"/>
 
-    <Canvas Grid.Column="2" Grid.Row="0">
-      <Button x:Name="Minimize" Canvas.Right="60"  Style="{StaticResource WindowStateButton}" ToolTip="Minimize">0</Button>
-      <Button x:Name="Maximize" Canvas.Right="30" Style="{StaticResource WindowStateButton}" ToolTip="Maximize" Visibility="{Binding IsNormal, Converter={StaticResource booleanToVisbility}}">1</Button>
-      <Button x:Name="Restore" Canvas.Right="30" Style="{StaticResource WindowStateButton}" ToolTip="Restore" Visibility="{Binding IsMaximized, Converter={StaticResource booleanToVisbility}}">2</Button>
+    <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+      <Button x:Name="Minimize" Style="{StaticResource WindowStateButton}" ToolTip="Minimize">0</Button>
+      <Button x:Name="Maximize" Style="{StaticResource WindowStateButton}" ToolTip="Maximize" Visibility="{Binding IsNormal, Converter={StaticResource booleanToVisbility}}">1</Button>
+      <Button x:Name="Restore" Style="{StaticResource WindowStateButton}" ToolTip="Restore" Visibility="{Binding IsMaximized, Converter={StaticResource booleanToVisbility}}">2</Button>
       <Button x:Name="Exit" Canvas.Right="0" Style="{StaticResource WindowStateButton}" ToolTip="Close">r</Button>
-    </Canvas>
+    </StackPanel>
 
   </Grid>
 </Window>
