@@ -18,7 +18,7 @@
 
     public double Left {
       get { return _left; }
-      private set {
+      set {
         _left = value;
         NotifyOfPropertyChange(() => Left);
       }
@@ -26,7 +26,7 @@
 
     public double Top {
       get { return _top; }
-      private set {
+      set {
         _top = value;
         NotifyOfPropertyChange(() => Top);
       }
