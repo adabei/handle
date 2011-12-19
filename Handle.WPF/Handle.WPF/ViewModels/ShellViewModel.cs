@@ -8,6 +8,29 @@
   [Export(typeof(IShell))]
   public class ShellViewModel : PropertyChangedBase, IShell {
     private WindowState _windowState;
+    private double _left = 500;
+    private double _top = 50;
+
+    public ShellViewModel() {
+      Left = 10.0;
+      Top = 100.0;
+    }
+
+    public double Left {
+      get { return _left; }
+      private set {
+        _left = value;
+        NotifyOfPropertyChange(() => Left);
+      }
+    }
+
+    public double Top {
+      get { return _top; }
+      private set {
+        _top = value;
+        NotifyOfPropertyChange(() => Top);
+      }
+    }
 
     public WindowState WindowState {
       get {
