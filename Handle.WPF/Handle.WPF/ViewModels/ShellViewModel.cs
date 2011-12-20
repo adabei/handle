@@ -4,6 +4,7 @@
   using System.Windows;
   using Caliburn.Micro;
   using System.Windows.Input;
+  using System.Windows.Media;
 
   [Export(typeof(IShell))]
   public class ShellViewModel : PropertyChangedBase, IShell {
