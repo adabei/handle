@@ -12,11 +12,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Handle.WPF.Views {
+namespace Handle.WPF {
   /// <summary>
   /// Interaction logic for SettingsView.xaml
   /// </summary>
-  public partial class SettingsView : Page {
+  public partial class SettingsView : UserControl {
     public SettingsView() {
       InitializeComponent();
     }

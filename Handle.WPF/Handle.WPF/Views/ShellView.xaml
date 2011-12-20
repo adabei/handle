@@ -63,7 +63,7 @@
       <Button x:Name="Maximize" Style="{StaticResource WindowStateButton}" ToolTip="Maximize" Visibility="{Binding IsNormal, Converter={StaticResource booleanToVisbility}}">1</Button>
       <Button x:Name="Restore" Style="{StaticResource WindowStateButton}" ToolTip="Restore" Visibility="{Binding IsMaximized, Converter={StaticResource booleanToVisbility}}">2</Button>
       <Button x:Name="Exit" Style="{StaticResource WindowStateButton}" ToolTip="Close">r</Button>
-    </StackPanel>  
+    </StackPanel>
+    <ContentControl x:Name="ActiveItem" Grid.Row="1" Grid.ColumnSpan="3"/>
     </Grid>
 </Window>
-    <!--<ContentControl x:Name="ActiveItem" Grid.Row="1" Grid.ColumnSpan="3"/>-->
