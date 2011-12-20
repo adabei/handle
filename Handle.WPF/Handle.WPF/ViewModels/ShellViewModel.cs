@@ -6,7 +6,7 @@
   using System.Windows.Input;
 
   [Export(typeof(IShell))]
-  public class ShellViewModel : PropertyChangedBase, IShell {
+  public class ShellViewModel : Conductor<object>.Collection.OneActive, IShell {
     private WindowState _windowState;
     private double _left = 500;
     private double _top = 50;
