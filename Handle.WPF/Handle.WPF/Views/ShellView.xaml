@@ -31,9 +31,7 @@
       <RowDefinition Height="40"/>
       <RowDefinition/>
     </Grid.RowDefinitions>
-
-    <Rectangle x:Name="HeaderAreaRectangle" Grid.ColumnSpan="3" Grid.Row="0" Fill="Gray" Width="Auto" Height="Auto" MouseDown="HeaderAreaRectangle_MouseDown"
-               cal:Message.Attach="[Event MouseDown] = [Action HeaderMouseDown($this, $eventArgs)]"/>
+    <Rectangle x:Name="HeaderAreaRectangle" Grid.ColumnSpan="3" Grid.Row="0" Fill="Gray" Width="Auto" Height="Auto" MouseDown="HeaderAreaRectangle_MouseDown"/>
 
     <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
       <Button x:Name="Minimize" Style="{StaticResource WindowStateButton}" ToolTip="Minimize">0</Button>
