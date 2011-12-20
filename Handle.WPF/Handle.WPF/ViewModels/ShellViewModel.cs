@@ -14,6 +14,7 @@
     public ShellViewModel() {
       Left = 10.0;
       Top = 100.0;
+      ActivateItem(new SettingsViewModel());
     }
 
     public double Left {
