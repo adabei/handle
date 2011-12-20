@@ -37,5 +37,6 @@
       <Button x:Name="Exit" Style="{StaticResource WindowStateButton}" ToolTip="Close">r</Button>
     </StackPanel>
 
+    <ContentControl x:Name="ActiveItem" Grid.Row="1" Grid.ColumnSpan="3"/>
   </Grid>
 </Window>
