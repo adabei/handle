@@ -73,6 +73,7 @@
     }
 
     public void HeaderMouseDown(object sender, MouseButtonEventArgs e) {
+      Console.WriteLine("hello from CM");
       if (e.LeftButton == MouseButtonState.Pressed) {
         if (e.ClickCount == 2) {
           if (IsNormal) {

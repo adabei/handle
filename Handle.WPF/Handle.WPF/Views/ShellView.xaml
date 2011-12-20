@@ -7,7 +7,7 @@
         Top="{Binding Top, Mode=TwoWay}" Left="{Binding Left, Mode=TwoWay}" 
         MaxWidth="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenWidthKey}}"
         MaxHeight="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenHeightKey}}">
-  
+
   <Window.Resources>
     <Style x:Key="WindowStateButton" TargetType="Button">
       <Setter Property="Width" Value="30"/>
@@ -18,21 +18,21 @@
     </Style>
     <BooleanToVisibilityConverter x:Key="booleanToVisbility"/>
   </Window.Resources>
-  
-  <Grid ShowGridLines="True"> 
-    
+
+  <Grid ShowGridLines="True">
+
     <Grid.ColumnDefinitions>
       <ColumnDefinition/>
       <ColumnDefinition/>
       <ColumnDefinition/>
     </Grid.ColumnDefinitions>
-    
+
     <Grid.RowDefinitions>
       <RowDefinition Height="40"/>
       <RowDefinition/>
     </Grid.RowDefinitions>
 
-    <Rectangle x:Name="HeaderAreaRectangle" Grid.ColumnSpan="3" Grid.Row="0" Fill="Gray" Width="Auto" Height="Auto" 
+    <Rectangle x:Name="HeaderAreaRectangle" Grid.ColumnSpan="3" Grid.Row="0" Fill="Gray" Width="Auto" Height="Auto" MouseDown="HeaderAreaRectangle_MouseDown"
                cal:Message.Attach="[Event MouseDown] = [Action HeaderMouseDown($this, $eventArgs)]"/>
 
     <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
@@ -44,4 +44,3 @@
 
   </Grid>
 </Window>
-
