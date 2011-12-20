@@ -7,7 +7,7 @@
         Top="{Binding Top, Mode=TwoWay}" Left="{Binding Left, Mode=TwoWay}" 
         MaxWidth="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenWidthKey}}"
         MaxHeight="{DynamicResource {x:Static SystemParameters.MaximizedPrimaryScreenHeightKey}}">
-  
+
   <Window.Resources>
     <Style x:Key="WindowStateButton" TargetType="Button">
       <Setter Property="Width" Value="30"/>
@@ -43,30 +43,27 @@
     </Style>
     <BooleanToVisibilityConverter x:Key="booleanToVisbility"/>
   </Window.Resources>
-  
-  <Grid ShowGridLines="True"> 
-    
+
+  <Grid ShowGridLines="True">
+
     <Grid.ColumnDefinitions>
       <ColumnDefinition/>
       <ColumnDefinition/>
       <ColumnDefinition/>
     </Grid.ColumnDefinitions>
-    
+
     <Grid.RowDefinitions>
       <RowDefinition Height="40"/>
       <RowDefinition/>
     </Grid.RowDefinitions>
-
-    <Rectangle x:Name="HeaderAreaRectangle" Grid.ColumnSpan="3" Grid.Row="0" Fill="Gray" Width="Auto" Height="Auto" 
-               cal:Message.Attach="[Event MouseDown] = [Action HeaderMouseDown($this, $eventArgs)]"/>
+    <Rectangle x:Name="HeaderAreaRectangle" Grid.ColumnSpan="3" Grid.Row="0" Fill="Gray" Width="Auto" Height="Auto" MouseDown="HeaderAreaRectangle_MouseDown"/>
 
     <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
       <Button x:Name="Minimize" Style="{StaticResource WindowStateButton}" ToolTip="Minimize">0</Button>
       <Button x:Name="Maximize" Style="{StaticResource WindowStateButton}" ToolTip="Maximize" Visibility="{Binding IsNormal, Converter={StaticResource booleanToVisbility}}">1</Button>
       <Button x:Name="Restore" Style="{StaticResource WindowStateButton}" ToolTip="Restore" Visibility="{Binding IsMaximized, Converter={StaticResource booleanToVisbility}}">2</Button>
       <Button x:Name="Exit" Style="{StaticResource WindowStateButton}" ToolTip="Close">r</Button>
-    </StackPanel>
-        
+    </StackPanel>  
     </Grid>
 </Window>
-
+    <!--<ContentControl x:Name="ActiveItem" Grid.Row="1" Grid.ColumnSpan="3"/>-->

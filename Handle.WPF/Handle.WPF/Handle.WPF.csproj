@@ -144,6 +144,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SettingsView.xaml.cs">
+      <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="Views\ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\ShellViewModel.cs" />
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -151,9 +158,13 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="IShell.cs" />
-    <Page Include="Views\ShellView.xaml">
-      <Generator>MSBuild:Compile</Generator>
+    <Page Include="SettingsView.xaml">
       <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ShellView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>

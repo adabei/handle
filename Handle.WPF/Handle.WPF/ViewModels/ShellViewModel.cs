@@ -7,7 +7,7 @@
   using System.Windows.Media;
 
   [Export(typeof(IShell))]
-  public class ShellViewModel : PropertyChangedBase, IShell {
+  public class ShellViewModel : Conductor<object>.Collection.OneActive, IShell {
     private WindowState _windowState;
     private double _left = 500;
     private double _top = 50;
@@ -15,6 +15,7 @@
     public ShellViewModel() {
       Left = 10.0;
       Top = 100.0;
+      ActivateItem(new SettingsViewModel());
     }
 
     public double Left {
@@ -71,19 +72,6 @@
 
     public void Restore() {
       WindowState = WindowState.Normal;
-    }
-
-    public void HeaderMouseDown(object sender, MouseButtonEventArgs e) {
-      if (e.LeftButton == MouseButtonState.Pressed) {
-        if (e.ClickCount == 2) {
-          if (IsNormal) {
-            Maximize();
-          }
-          else {
-            Restore();
-          }
-        }
-      }
     }
   }
 }
