@@ -12,9 +12,6 @@
     <Style x:Key="WindowStateButton" TargetType="Button">
       <Setter Property="Width" Value="30"/>
       <Setter Property="FontFamily" Value="Webdings"/>
-      <Setter Property="Background" Value="Transparent"/>
-      <Setter Property="BorderThickness" Value="0"/>
-      <Setter Property="BorderBrush" Value="Transparent"/>
     </Style>
     <BooleanToVisibilityConverter x:Key="booleanToVisbility"/>
   </Window.Resources>
