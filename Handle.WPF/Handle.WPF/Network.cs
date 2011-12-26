@@ -36,6 +36,21 @@ namespace Handle.WPF
   public class Network
   {
     /// <summary>
+    /// Initializes a new instance of the Network class.
+    /// </summary>
+    /// <param name="name">The name of the network.</param>
+    /// <param name="address">The address of the network</param>
+    /// <param name="isFavorite">Whether the network is a favorite or not</param>
+    /// <param name="connectCommands">The commands to be executed upon connecting.</param>
+    public Network(string name, string address, bool isFavorite, string connectCommands)
+    {
+      this.Name = name;
+      this.Address = address;
+      this.IsFavorite = isFavorite;
+      this.ConnectCommands = connectCommands;
+    }
+
+    /// <summary>
     /// Gets or sets the network's name.
     /// </summary>
     public string Name { get; set; }
