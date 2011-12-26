@@ -31,16 +31,28 @@ namespace Handle.WPF
   using System.Text;
 
   /// <summary>
-  /// TODO: Update summary.
+  /// A class representing an IRC network.
   /// </summary>
   public class Network
   {
+    /// <summary>
+    /// Gets or sets the network's name.
+    /// </summary>
     public string Name { get; set; }
 
+    /// <summary>
+    /// Gets or sets the network's address.
+    /// </summary>
     public string Address { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the network is a favorite.
+    /// </summary>
     public bool IsFavorite { get; set; }
 
+    /// <summary>
+    /// Gets or sets the commands to be executed upon connecting.
+    /// </summary>
     public string ConnectCommands { get; set; }
   }
 }
