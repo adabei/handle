@@ -40,5 +40,7 @@ namespace Handle.WPF
     public string Address { get; set; }
 
     public bool IsFavorite { get; set; }
+
+    public string ConnectCommands { get; set; }
   }
 }
