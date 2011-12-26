@@ -32,10 +32,22 @@ namespace Handle.WPF
   using System.Text;
 
   /// <summary>
-  /// TODO: Update summary.
+  /// A class representing an identity used to authenticate with NickServ.
   /// </summary>
   public class Identity
   {
+    /// <summary>
+    /// The encrypted password.
+    /// </summary>
+    private string password;
+
+    /// <summary>
+    /// Initializes a new instance of the Identity class.
+    /// </summary>
+    /// <param name="name">The name displayed to other users.</param>
+    /// <param name="password">The password used to connect with NickServ</param>
+    /// <param name="alternativeName">An alternative name if the prefered one is already taken.</param>
+    /// <param name="realName">The user's real name</param>
     public Identity(string name, string password, string alternativeName, string realName)
     {
       this.Name = name;
@@ -44,15 +56,23 @@ namespace Handle.WPF
       this.RealName = realName;
     }
 
+    /// <summary>
+    /// Gets or sets the users nickname.
+    /// </summary>
     public string Name { get; set; }
 
+    /// <summary>
+    /// Gets or sets the nickname that is used, when Name is already taken.
+    /// </summary>
     public string AlternativeName { get; set; }
 
+    /// <summary>
+    /// Gets or sets the users real name.
+    /// </summary>
     public string RealName { get; set; }
 
-    private string password;
-
     /// <summary>
+    /// Gets or sets the password used to authenticate with NickServ.
     /// TODO: Actually encrypt the password.
     /// </summary>
     public string Password
