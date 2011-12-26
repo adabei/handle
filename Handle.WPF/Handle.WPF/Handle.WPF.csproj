@@ -146,6 +146,10 @@
     </ApplicationDefinition>
     <Compile Include="Identity.cs" />
     <Compile Include="Network.cs" />
+    <Compile Include="ViewModels\NetworkSelectionViewModel.cs" />
+    <Compile Include="Views\NetworkSelectionView.xaml.cs">
+      <DependentUpon>NetworkSelectionView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>
@@ -160,6 +164,10 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="IShell.cs" />
+    <Page Include="Views\NetworkSelectionView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SettingsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

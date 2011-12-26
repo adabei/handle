@@ -69,5 +69,14 @@ namespace Handle.WPF
     /// Gets or sets the commands to be executed upon connecting.
     /// </summary>
     public string ConnectCommands { get; set; }
+
+    /// <summary>
+    /// Returns the name of the network.
+    /// </summary>
+    /// <returns>The name of the network</returns>
+    public override string ToString()
+    {
+      return this.Name;
+    }
   }
 }
