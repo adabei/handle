@@ -6,7 +6,7 @@
   using System.Text;
   using Caliburn.Micro;
 
-  public class NetworkSelectionViewModel : Screen
+  public class SettingsViewModel : Screen
   {
   }
 }
