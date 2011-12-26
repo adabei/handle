@@ -1,3 +1,6 @@
-﻿namespace Handle.WPF {
-    public interface IShell {}
+﻿namespace Handle.WPF
+{
+  public interface IShell
+  {
+  }
 }

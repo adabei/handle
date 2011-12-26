@@ -1,10 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Caliburn.Micro;
+﻿namespace Handle.WPF
+{
+  using System;
+  using System.Collections.Generic;
+  using System.Linq;
+  using System.Text;
+  using Caliburn.Micro;
 
-namespace Handle.WPF {
-  class SettingsViewModel : Screen {
+  public class SettingsViewModel : Screen
+  {
   }
 }
