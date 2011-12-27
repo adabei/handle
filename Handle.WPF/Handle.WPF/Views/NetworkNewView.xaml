@@ -23,14 +23,14 @@
       </Grid.RowDefinitions>
 
       <Label Grid.Column="0" Grid.Row="0">Name:</Label>
-      <TextBox Grid.Column="1" Grid.Row="0" Height="20" Width="75"/>
+      <TextBox Grid.Column="1" Grid.Row="0" Height="20" Width="75" x:Name="Network_Name"/>
 
       <Label Grid.Column="0" Grid.Row="1">Address:</Label>
-      <TextBox Grid.Column="1" Grid.Row="1" Height="20" Width="75"/>
+      <TextBox Grid.Column="1" Grid.Row="1" Height="20" Width="75" x:Name="Network_Address"/>
     </Grid>
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-      <Button x:Name="Ok"  Content="OK" ToolTip="OK" Width="40" Height="25"/>
-      <Button x:Name="Cancel" Content="Cancel" ToolTip="Cancel" Width="40" Height="25" />
+      <Button x:Name="Ok"  Content="OK" ToolTip="OK" Width="40" Height="Auto"/>
+      <Button x:Name="Cancel" Content="Cancel" ToolTip="Cancel" Width="Auto" Height="25" />
     </StackPanel>
 
   </Grid>

@@ -52,10 +52,23 @@ namespace Handle.WPF
     /// </summary>
     public Identity GlobalIdentity { get; set; }
 
+    private List<Network> networks;
+
     /// <summary>
     /// Gets or sets a list of networks.
     /// </summary>
-    public List<Network> Networks { get; set; }
+    public List<Network> Networks
+    {
+      get
+      {
+        return this.networks;
+      }
+      set
+      {
+        this.networks = value;
+        NotifyOfPropertyChange(() => this.Networks);
+      }
+    }
 
     /// <summary>
     /// Opens a dialog to add new networks.
@@ -63,6 +76,7 @@ namespace Handle.WPF
     public void Add()
     {
       IWindowManager wm;
+      NetworkNewViewModel nnvm = new NetworkNewViewModel();
       try
       {
         wm = IoC.Get<IWindowManager>();
@@ -71,8 +85,12 @@ namespace Handle.WPF
       {
         wm = new WindowManager();
       }
-
-      wm.ShowDialog(new NetworkNewViewModel());
+      
+      if (wm.ShowDialog(nnvm) == true)
+      {
+        this.Networks.Add(nnvm.Network);
+        serializeNetworks();
+      }
     }
 
     /// <summary>
@@ -92,6 +110,33 @@ namespace Handle.WPF
       }
 
       this.Networks = JsonConvert.DeserializeObject<List<Network>>(new StreamReader(isolatedStream).ReadToEnd());
+      if (this.Networks == null)
+      {
+        this.Networks = new List<Network>();
+      } 
+    }
+
+    private void serializeNetworks()
+    {
+      string json = JsonConvert.SerializeObject(this.Networks, Formatting.Indented);
+      var store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
+      IsolatedStorageFileStream isolatedStream;
+      try
+      {
+        isolatedStream = new IsolatedStorageFileStream("networks.json", FileMode.Open, store);
+      }
+      catch
+      {
+        isolatedStream = new IsolatedStorageFileStream("networks.json", FileMode.Create, store);
+      }
+      StreamWriter sw = new StreamWriter(isolatedStream);
+      sw.Write(json);
+      sw.Close();
+    }
+
+    public void Connect()
+    {
+
     }
   }
 }

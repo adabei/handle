@@ -29,11 +29,42 @@ namespace Handle.WPF
   using System.Collections.Generic;
   using System.Linq;
   using System.Text;
+  using Caliburn.Micro;
 
   /// <summary>
   /// TODO: Update summary.
   /// </summary>
-  public class NetworkNewViewModel
+  public class NetworkNewViewModel : Screen
   {
+    private Network network;
+
+    public NetworkNewViewModel(){
+      this.Network = new Network();
+    }
+
+    public Network Network
+    {
+      get
+      {
+        return this.network;
+      }
+      set
+      {
+        this.network = value;
+        NotifyOfPropertyChange(() => this.Network);
+      }
+    }
+
+    public void Ok()
+    {
+      NetworkNewView nnv = GetView() as NetworkNewView;
+      nnv.DialogResult = true;
+    }
+
+    public void Cancel()
+    {
+      NetworkNewView nnv = GetView() as NetworkNewView;
+      nnv.DialogResult = false;
+    }
   }
 }

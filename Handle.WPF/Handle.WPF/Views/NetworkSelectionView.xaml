@@ -39,7 +39,8 @@
       <!-- <ListView x:Name="Networks" Grid.Row="1"/> -->
 </StackPanel>
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-      <Button x:Name="Add" Content="Add" ToolTip="Add a new network" Width="40" Height="25"/>
+      <Button x:Name="Add" Content="Add" ToolTip="Add a new network" Width="Auto" Height="25"/>
+      <Button x:Name="Connect" Content="Connect" ToolTip="Connect" Width="Auto" Height="25"/>
     </StackPanel>
     
   </Grid>
