@@ -8,16 +8,39 @@
       xmlns:cal="http://www.caliburnproject.org">
 
     <Grid ShowGridLines="True">
-      <Grid.ColumnDefinitions>
-      </Grid.ColumnDefinitions>
-
       <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition/>
       <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
-    <TextBlock FontSize="22">networks</TextBlock>
-    <ListView x:Name="Networks" Grid.Row="1"/>
-    <Button x:Name="Add" Grid.Row="2" Content="Add" ToolTip="Add a new network" Width="40" Height="25"/>
+    <TextBlock Grid.Row="0" FontSize="22">network list</TextBlock>
+<StackPanel Orientation="Horizontal" Grid.Row="1">
+      <Grid Grid.Row="1" ShowGridLines="True">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition/>
+        <ColumnDefinition/>
+      </Grid.ColumnDefinitions>
+
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+      
+      <Label Grid.Column="0" Grid.Row="0">Nick name:</Label>
+        <TextBox Grid.Column="1" Grid.Row="0" x:Name="GlobalIdentity_Name" Height="20" Width="75"/>
+      
+      <Label Grid.Column="0" Grid.Row="1">Alternative:</Label>
+      <TextBox Grid.Column="1" Grid.Row="1" x:Name="GlobalIdentity_Alternative" Height="20" Width="75"/>
+ 
+      <Label Grid.Column="0" Grid.Row="2">Real name:</Label>
+        <TextBox Grid.Column="1" Grid.Row="2" x:Name="GlobalIdentity_RealName" Height="20" Width="75"/>
+    </Grid>
+      <!-- <ListView x:Name="Networks" Grid.Row="1"/> -->
+</StackPanel>
+    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+      <Button x:Name="Add" Content="Add" ToolTip="Add a new network" Width="40" Height="25"/>
+    </StackPanel>
+    
   </Grid>
 </UserControl>

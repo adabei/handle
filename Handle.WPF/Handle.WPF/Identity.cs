@@ -46,13 +46,13 @@ namespace Handle.WPF
     /// </summary>
     /// <param name="name">The name displayed to other users.</param>
     /// <param name="password">The password used to connect with NickServ</param>
-    /// <param name="alternativeName">An alternative name if the prefered one is already taken.</param>
+    /// <param name="alternative">An alternative name if the prefered one is already taken.</param>
     /// <param name="realName">The user's real name</param>
-    public Identity(string name, string password, string alternativeName, string realName)
+    public Identity(string name, string password, string alternative, string realName)
     {
       this.Name = name;
       this.Password = password;
-      this.AlternativeName = alternativeName;
+      this.Alternative = alternative;
       this.RealName = realName;
     }
 
@@ -64,7 +64,7 @@ namespace Handle.WPF
     /// <summary>
     /// Gets or sets the nickname that is used, when Name is already taken.
     /// </summary>
-    public string AlternativeName { get; set; }
+    public string Alternative { get; set; }
 
     /// <summary>
     /// Gets or sets the users real name.

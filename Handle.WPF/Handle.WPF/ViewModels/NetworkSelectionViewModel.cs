@@ -48,9 +48,32 @@ namespace Handle.WPF
     }
 
     /// <summary>
+    /// Gets or sets the global identity.
+    /// </summary>
+    public Identity GlobalIdentity { get; set; }
+
+    /// <summary>
     /// Gets or sets a list of networks.
     /// </summary>
     public List<Network> Networks { get; set; }
+
+    /// <summary>
+    /// Opens a dialog to add new networks.
+    /// </summary>
+    public void Add()
+    {
+      IWindowManager wm;
+      try
+      {
+        wm = IoC.Get<IWindowManager>();
+      }
+      catch
+      {
+        wm = new WindowManager();
+      }
+
+      wm.ShowDialog(new NetworkNewViewModel());
+    }
 
     /// <summary>
     /// Loads networks from a config file in IsolatedStorage.
