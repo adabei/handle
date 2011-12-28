@@ -18,7 +18,6 @@
     {
       this.Left = 10.0;
       this.Top = 100.0;
-      ActivateItem(new NetworkSelectionViewModel());
     }
 
     public double Left
