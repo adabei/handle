@@ -46,25 +46,26 @@
   </Window.Resources>
 
   <Grid ShowGridLines="True">
-
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition/>
-      <ColumnDefinition/>
-      <ColumnDefinition/>
-    </Grid.ColumnDefinitions>
-
     <Grid.RowDefinitions>
       <RowDefinition Height="40"/>
       <RowDefinition/>
     </Grid.RowDefinitions>
     <Rectangle x:Name="HeaderAreaRectangle" Grid.ColumnSpan="3" Grid.Row="0" Width="Auto" Height="Auto" Fill="Transparent" MouseDown="HeaderAreaRectangle_MouseDown"/>
 
-    <StackPanel Grid.Column="2" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
-      <Button x:Name="Minimize" Style="{StaticResource WindowStateButton}" ToolTip="Minimize">0</Button>
-      <Button x:Name="Maximize" Style="{StaticResource WindowStateButton}" ToolTip="Maximize" Visibility="{Binding IsNormal, Converter={StaticResource booleanToVisbility}}">1</Button>
-      <Button x:Name="Restore" Style="{StaticResource WindowStateButton}" ToolTip="Restore" Visibility="{Binding IsMaximized, Converter={StaticResource booleanToVisbility}}">2</Button>
-      <Button x:Name="Exit" Style="{StaticResource WindowStateButton}" ToolTip="Close">r</Button>
-    </StackPanel>
-    <ContentControl x:Name="ActiveItem" Grid.Row="1" Grid.ColumnSpan="3"/>
+    <Grid Grid.Row="0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition/>
+        <ColumnDefinition/>
+        <ColumnDefinition/>
+      </Grid.ColumnDefinitions>
+      <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
+        <Button x:Name="Minimize" Style="{StaticResource WindowStateButton}" ToolTip="Minimize">0</Button>
+        <Button x:Name="Maximize" Style="{StaticResource WindowStateButton}" ToolTip="Maximize" Visibility="{Binding IsNormal, Converter={StaticResource booleanToVisbility}}">1</Button>
+        <Button x:Name="Restore" Style="{StaticResource WindowStateButton}" ToolTip="Restore" Visibility="{Binding IsMaximized, Converter={StaticResource booleanToVisbility}}">2</Button>
+        <Button x:Name="Exit" Style="{StaticResource WindowStateButton}" ToolTip="Close">r</Button>
+      </StackPanel>
+    </Grid>
+
+    <ContentControl x:Name="ActiveItem" Grid.Row="1"/>
     </Grid>
 </Window>
