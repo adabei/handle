@@ -37,7 +37,10 @@
                         <Trigger Property="IsMouseOver" Value="false">
                             <Setter Property="Foreground" Value="Gray"/>
                         </Trigger>
-                    </ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed" Value="True">
+                            <Setter Property="Foreground" Value="DarkGray"/>
+                        </Trigger>
+            </ControlTemplate.Triggers>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
