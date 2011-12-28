@@ -14,6 +14,22 @@
     private double left = 500;
     private double top = 50;
 
+    public Thickness WindowStateCorrection
+    {
+      get
+      {
+        if (IsNormal)
+        {
+          return new Thickness(0, 2, 0, 0);
+        }
+        else if (IsMaximized)
+        {
+          return new Thickness(0, 10, 7, 0);
+        }
+        return new Thickness(0, 0, 0, 0);
+      }
+    }
+
     public ShellViewModel()
     {
       this.Left = 10.0;
@@ -61,6 +77,7 @@
         NotifyOfPropertyChange(() => this.WindowState);
         NotifyOfPropertyChange(() => this.IsMaximized);
         NotifyOfPropertyChange(() => this.IsNormal);
+        NotifyOfPropertyChange(() => this.WindowStateCorrection);
       }
     }
 
