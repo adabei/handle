@@ -13,12 +13,16 @@
     private WindowState windowState;
     private double left = 500;
     private double top = 50;
+    public Settings Settings { get; set; }
 
     public ShellViewModel()
     {
       this.Left = 10.0;
       this.Top = 100.0;
-      ActivateItem(new SettingsViewModel());
+      this.Settings = new Settings();
+      this.Settings.CanLog = true;
+      ActivateItem(new SettingsViewModel(this.Settings));
+
     }
 
     public double Left
