@@ -14,6 +14,9 @@
   using System.Windows.Media.Imaging;
   using System.Windows.Shapes;
 
+  /// <summary>
+  /// Interaction logic for ShellView.xaml
+  /// </summary>
   public partial class ShellView : Window
   {
     public ShellView()
