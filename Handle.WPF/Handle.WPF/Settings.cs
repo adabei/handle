@@ -40,7 +40,72 @@ namespace Handle.WPF
     /// Initializes a new instance of the Settings class.
     /// </summary>
     public Settings() 
-    { 
+    {
+      this.Notifications = new Dictionary<string, bool>();
+      this.Shortcuts = new Dictionary<string, string>();
     }
+
+    /// <summary>
+    /// Gets or sets a value indicating wheter logs are saved
+    /// </summary>
+    public bool CanLog { get; set; }
+
+    /// <summary>
+    /// Gets or sets the LogSavePath
+    /// </summary>
+    public string LogSavePath { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether an URL will be displayed as a link
+    /// </summary>
+    public bool CanDisplayURLAsLink { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether a customized leave message will be sent
+    /// </summary>
+    public bool CanSendLeaveMessage { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Leave Message
+    /// </summary>
+    public string LeaveMessage { get; set; }
+
+    /// <summary>
+    /// Gets or sets the FontFamily
+    /// </summary>
+    public string FontFamily { get; set; }
+
+    /// <summary>
+    /// Gets or sets the FontSize
+    /// </summary>
+    public int FontSize { get; set; }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether timestamps will be displayed
+    /// </summary>
+    public bool CanShowTimeStamps { get; set; }
+
+    /// <summary>
+    /// Gets or sets the TimeStampFormat
+    /// </summary>
+    public string TimeStampFormat { get; set; }
+
+    /// <summary>
+    /// Gets or sets the NotificationStyles
+    /// </summary>
+    public Dictionary<string,bool> Notifications { get; set; }
+
+    /// <summary>
+    /// Gets or sets the Shortcuts
+    /// </summary>
+    public Dictionary<string, string> Shortcuts { get; set; }
+
+    /// <summary>
+    /// Gets or sets the a value indicating whether updates will be applied
+    /// </summary>
+    public bool CanUpdate { get; set; }
+
+
+    
   }
 }
