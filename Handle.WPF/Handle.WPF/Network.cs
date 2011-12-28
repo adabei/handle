@@ -81,5 +81,10 @@ namespace Handle.WPF
     {
       return this.Name;
     }
+
+    public Network ShallowCopy()
+    {
+      return (Network)this.MemberwiseClone();
+    }
   }
 }

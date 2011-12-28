@@ -57,13 +57,13 @@ namespace Handle.WPF
 
     public void Ok()
     {
-      NetworkNewView nnv = GetView() as NetworkNewView;
+      var nnv = GetView() as NetworkNewView;
       nnv.DialogResult = true;
     }
 
     public void Cancel()
     {
-      NetworkNewView nnv = GetView() as NetworkNewView;
+      var nnv = GetView() as NetworkNewView;
       nnv.DialogResult = false;
     }
   }

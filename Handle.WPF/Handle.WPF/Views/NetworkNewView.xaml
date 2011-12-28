@@ -3,13 +3,13 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="NetworkNewView" Height="300" Width="300"
         xmlns:cal="http://www.caliburnproject.org">
-    <Grid ShowGridLines="True">
+    <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition/>
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-    <TextBlock FontSize="22">new network</TextBlock>
+    <TextBlock FontSize="22" Grid.Row="0" Text="new network"/>
     <Grid Grid.Row="1">
       <Grid.ColumnDefinitions>
         <ColumnDefinition/>
@@ -29,7 +29,7 @@
       <TextBox Grid.Column="1" Grid.Row="1" Height="20" Width="75" x:Name="Network_Address"/>
     </Grid>
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-      <Button x:Name="Ok"  Content="OK" ToolTip="OK" Width="40" Height="Auto"/>
+      <Button x:Name="Ok"  Content="OK" ToolTip="OK" Width="Auto" Height="25"/>
       <Button x:Name="Cancel" Content="Cancel" ToolTip="Cancel" Width="Auto" Height="25" />
     </StackPanel>
 

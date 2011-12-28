@@ -34,7 +34,37 @@ namespace Handle.WPF
   /// <summary>
   /// TODO: Update summary.
   /// </summary>
-  public class NetworkEditViewModel : PropertyChangedBase
+  public class NetworkEditViewModel : Screen
   {
+    private Network network;
+
+    public NetworkEditViewModel(Network network){
+      this.Network = network;
+    }
+
+    public Network Network
+    {
+      get
+      {
+        return this.network;
+      }
+      set
+      {
+        this.network = value;
+        NotifyOfPropertyChange(() => this.Network);
+      }
+    }
+
+    public void Ok()
+    {
+      var nev = GetView() as NetworkEditView;
+      nev.DialogResult = true;
+    }
+
+    public void Cancel()
+    {
+      var nev = GetView() as NetworkEditView;
+      nev.DialogResult = false;
+    }
   }
 }
