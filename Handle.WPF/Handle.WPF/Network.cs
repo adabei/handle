@@ -38,6 +38,7 @@ namespace Handle.WPF
     public Network()
     {
     }
+
     /// <summary>
     /// Initializes a new instance of the Network class.
     /// </summary>

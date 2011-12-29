@@ -10,7 +10,7 @@
 
   public class AppBootstrapper : Bootstrapper<IShell>
   {
-    CompositionContainer container;
+    private CompositionContainer container;
 
     /// <summary>
     /// By default, we are configured to use MEF

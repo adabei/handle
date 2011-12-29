@@ -32,6 +32,9 @@ namespace Handle.WPF
   using System.Windows.Media;
   using Caliburn.Micro;
 
+  /// <summary>
+  /// Represents a ViewModel for ShellViews
+  /// </summary>
   [Export(typeof(IShell))]
   public class ShellViewModel : Conductor<object>.Collection.OneActive, IShell
   {
@@ -39,27 +42,31 @@ namespace Handle.WPF
     private double left = 500;
     private double top = 50;
 
-    public Thickness WindowStateCorrection
-    {
-      get
-      {
-        if (IsNormal)
-        {
-          return new Thickness(7, 2, 0, 0);
-        }
-        else if (IsMaximized)
-        {
-          return new Thickness(10, 10, 10, 0);
-        }
-        return new Thickness(0, 0, 0, 0);
-      }
-    }
-
+    /// <summary>
+    /// Initializes a new instance of the ShellViewModel class
+    /// </summary>
     public ShellViewModel()
     {
       this.Left = 10.0;
       this.Top = 100.0;
       ActivateItem(new IrcMainViewModel());
+    }
+
+    public Thickness WindowStateCorrection
+    {
+      get
+      {
+        if (this.IsNormal)
+        {
+          return new Thickness(7, 2, 0, 0);
+        }
+        else if (this.IsMaximized)
+        {
+          return new Thickness(10, 10, 10, 0);
+        }
+
+        return new Thickness(0, 0, 0, 0);
+      }
     }
 
     public double Left

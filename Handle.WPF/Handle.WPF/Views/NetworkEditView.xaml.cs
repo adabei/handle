@@ -43,6 +43,9 @@ namespace Handle.WPF
   /// </summary>
   public partial class NetworkEditView : Window
   {
+    /// <summary>
+    /// Initializes a new instance of the NetworkEditView class
+    /// </summary>
     public NetworkEditView()
     {
       InitializeComponent();

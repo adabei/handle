@@ -35,10 +35,12 @@ namespace Handle.WPF
   using Newtonsoft.Json;
 
   /// <summary>
-  /// ViewModel for the network list.
+  /// Represents a ViewModel for NetworkSelectionViews
   /// </summary>
   public class NetworkSelectionViewModel : Screen
   {
+    private BindableCollection<Network> networks;
+
     /// <summary>
     /// Initializes a new instance of the NetworkSelectionViewModel class.
     /// </summary>
@@ -52,8 +54,6 @@ namespace Handle.WPF
     /// </summary>
     public Identity GlobalIdentity { get; set; }
 
-    private BindableCollection<Network> networks;
-
     /// <summary>
     /// Gets or sets a list of networks.
     /// </summary>
@@ -63,6 +63,7 @@ namespace Handle.WPF
       {
         return this.networks;
       }
+
       set
       {
         this.networks = value;
@@ -85,27 +86,54 @@ namespace Handle.WPF
       {
         wm = new WindowManager();
       }
-      
+
       if (wm.ShowDialog(nnvm) == true)
       {
         this.Networks.Add(nnvm.Network);
-        serializeNetworks();
+        this.serializeNetworks();
       }
     }
 
-    /// <summary>
-    /// Loads networks from a config file in IsolatedStorage.
-    /// </summary>
-    private void initializeNetworks()
+    public void Connect()
     {
-      var store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
-      IsolatedStorageFileStream isolatedStream;
-      isolatedStream = new IsolatedStorageFileStream("networks.json", FileMode.OpenOrCreate, store);
-      this.Networks = JsonConvert.DeserializeObject<BindableCollection<Network>>(new StreamReader(isolatedStream).ReadToEnd());
-      if (this.Networks == null)
+    }
+
+    public void Remove()
+    {
+      var nsv = GetView() as NetworkSelectionView;
+      while (nsv.Networks.SelectedIndex != -1)
       {
-        this.Networks = new BindableCollection<Network>();
-      } 
+        this.Networks.RemoveAt(nsv.Networks.SelectedIndex);
+      }
+
+      this.serializeNetworks();
+    }
+
+    public void Edit()
+    {
+      var nsv = GetView() as NetworkSelectionView;
+      int index = nsv.Networks.SelectedIndex;
+      if (index == -1)
+      {
+        return;
+      }
+
+      IWindowManager wm;
+      NetworkEditViewModel nevm = new NetworkEditViewModel(this.Networks.ElementAt(index).ShallowCopy());
+      try
+      {
+        wm = IoC.Get<IWindowManager>();
+      }
+      catch
+      {
+        wm = new WindowManager();
+      }
+
+      if (wm.ShowDialog(nevm) == true)
+      {
+        this.Networks.RemoveAt(index);
+        this.Networks.Insert(index, nevm.Network);
+      }
     }
 
     private void serializeNetworks()
@@ -121,49 +149,24 @@ namespace Handle.WPF
       {
         isolatedStream = new IsolatedStorageFileStream("networks.json", FileMode.Create, store);
       }
+
       StreamWriter sw = new StreamWriter(isolatedStream);
       sw.Write(json);
       sw.Close();
     }
 
-    public void Connect()
+    /// <summary>
+    /// Loads networks from a config file in IsolatedStorage.
+    /// </summary>
+    private void initializeNetworks()
     {
-    }
-
-    public void Remove()
-    {
-      var nsv = GetView() as NetworkSelectionView;
-      while (nsv.Networks.SelectedIndex != -1)
+      var store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
+      IsolatedStorageFileStream isolatedStream;
+      isolatedStream = new IsolatedStorageFileStream("networks.json", FileMode.OpenOrCreate, store);
+      this.Networks = JsonConvert.DeserializeObject<BindableCollection<Network>>(new StreamReader(isolatedStream).ReadToEnd());
+      if (this.Networks == null)
       {
-        this.Networks.RemoveAt(nsv.Networks.SelectedIndex);
-      }
-      this.serializeNetworks();
-    }
-
-    public void Edit()
-    {
-      var nsv = GetView() as NetworkSelectionView;
-      int index = nsv.Networks.SelectedIndex;
-      if (index == -1)
-      {
-        return;
-      }
-      IWindowManager wm;
-      NetworkEditViewModel nevm = new NetworkEditViewModel(this.Networks.ElementAt(index).ShallowCopy());
-      try
-      {
-        wm = IoC.Get<IWindowManager>();
-      }
-      catch
-      {
-        wm = new WindowManager();
-      }
-
-      if (wm.ShowDialog(nevm) == true)
-      {
-        
-        this.Networks.RemoveAt(index);
-        this.Networks.Insert(index, nevm.Network);
+        this.Networks = new BindableCollection<Network>();
       }
     }
   }

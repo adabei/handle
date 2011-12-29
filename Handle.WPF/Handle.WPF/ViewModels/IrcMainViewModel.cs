@@ -30,18 +30,23 @@ namespace Handle.WPF
   using System.Linq;
   using System.Text;
   using Caliburn.Micro;
+  using IrcDotNet;
 
   /// <summary>
-  /// TODO: Update summary.
+  /// Represents a ViewModel for IrcMainViews
   /// </summary>
   public class IrcMainViewModel : Screen
   {
-    public BindableCollection<IrcNetworkViewModel> Networks { get; set; }
-
-    public IrcMainViewModel(){
+    /// <summary>
+    /// Initializes a new instance of the IrcMainViewModel class
+    /// </summary>
+    public IrcMainViewModel()
+    {
       this.Networks = new BindableCollection<IrcNetworkViewModel>();
       this.Networks.Add(new IrcNetworkViewModel());
       this.Networks.Add(new IrcNetworkViewModel());
     }
+
+    public BindableCollection<IrcNetworkViewModel> Networks { get; set; }
   }
 }

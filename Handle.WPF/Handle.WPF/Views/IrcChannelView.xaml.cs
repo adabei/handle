@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IrcMainView.xaml.cs" company="">
+// <copyright file="IrcChannelView.xaml.cs" company="">
 // Copyright (c) 2011 Bernhard Schwarz, Florian Lembeck
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -40,11 +40,11 @@ namespace Handle.WPF
   using System.Windows.Shapes;
 
   /// <summary>
-  /// Interaction logic for IrcMainView.xaml
+  /// Interaction logic for IrcChannelView.xaml
   /// </summary>
-  public partial class IrcMainView : UserControl
+  public partial class IrcChannelView : UserControl
   {
-    public IrcMainView()
+    public IrcChannelView()
     {
       InitializeComponent();
     }

@@ -30,29 +30,34 @@ namespace Handle.WPF
   using System.Linq;
   using System.Text;
   using Caliburn.Micro;
+  using IrcDotNet;
 
   /// <summary>
   /// TODO: Update summary.
   /// </summary>
   public class IrcChannelViewModel : Screen
   {
-
     private string displayName;
+
+    /// <summary>
+    /// Initializes a new instance of the IrcChannelViewModel class
+    /// </summary>
+    public IrcChannelViewModel()
+    {
+      this.DisplayName = "Testung";
+    }
+
     public override string DisplayName
     {
       get
       {
         return this.displayName;
       }
+
       set
       {
         this.displayName = value;
       }
-    }
-
-    public IrcChannelViewModel()
-    {
-      this.DisplayName = "Testung";
     }
   }
 }

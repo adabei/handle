@@ -38,7 +38,11 @@ namespace Handle.WPF
   {
     private Network network;
 
-    public NetworkNewViewModel(){
+    /// <summary>
+    /// Initializes a new instance of the NetworkNewViewModel class
+    /// </summary>
+    public NetworkNewViewModel()
+    {
       this.Network = new Network();
     }
 
@@ -48,6 +52,7 @@ namespace Handle.WPF
       {
         return this.network;
       }
+
       set
       {
         this.network = value;
