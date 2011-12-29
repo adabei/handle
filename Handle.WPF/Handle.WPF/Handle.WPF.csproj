@@ -145,6 +145,18 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Identity.cs" />
+    <Compile Include="IrcChannelView.xaml.cs">
+      <DependentUpon>IrcChannelView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="IrcChannelViewModel.cs" />
+    <Compile Include="Views\IrcNetworkView.xaml.cs">
+      <DependentUpon>IrcNetworkView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\IrcMainViewModel.cs" />
+    <Compile Include="ViewModels\IrcNetworkViewModel.cs" />
+    <Compile Include="Views\IrcMainView.xaml.cs">
+      <DependentUpon>IrcMainView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Network.cs" />
     <Compile Include="Views\NetworkNewView.xaml.cs">
       <DependentUpon>NetworkNewView.xaml</DependentUpon>
@@ -172,6 +184,18 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="IShell.cs" />
+    <Page Include="IrcChannelView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\IrcNetworkView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\IrcMainView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\NetworkNewView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
