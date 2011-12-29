@@ -53,10 +53,10 @@ namespace Handle.WPF
       this.Shortcuts["DisconnectWithCurrentNetwork"] = "ja";
       this.Shortcuts["OpenChannelSearch"] = "ja";
       this.Shortcuts["OpenNetworklist"] = "ja";
-      //this.Shortcuts["ActivateLastActiveChannelFromNetworkFirstKey"] = "ja";
-      //this.Shortcuts["ActivateLastActiveChannelFromNetworkSecondKey"] = "ja";
-      //this.Shortcuts["ChannelSwitchFirstKey"] = "ja";
-      //this.Shortcuts["ChannelSwitchSecondKey"] = "ja"; 
+      this.Shortcuts["ActivateLastActiveChannelFromNetworkFirstKey"] = "ja";
+      this.Shortcuts["ActivateLastActiveChannelFromNetworkSecondKey"] = "ja";
+      this.Shortcuts["ChannelSwitchFirstKey"] = "ja";
+      this.Shortcuts["ChannelSwitchSecondKey"] = "ja"; 
       this.Shortcuts["LeaveCurrentChannel"] = "ja";
     }
 
@@ -267,57 +267,57 @@ namespace Handle.WPF
       }
     }
 
-    //public string SActivateLastActiveChannelFromNetworkFirstKey
-    //{
-    //  get
-    //  {
-    //    return this.Shortcuts["ActivateLastActiveChannelFromNetworkFirstKey"];
-    //  }
+    public string SActivateLastActiveChannelFromNetworkFirstKey
+    {
+      get
+      {
+        return this.Shortcuts["ActivateLastActiveChannelFromNetworkFirstKey"];
+      }
 
-    //  set
-    //  {
-    //    this.Shortcuts["ActivateLastActiveChannelFromNetworkFirstKey"] = value;
-    //  }
-    //}
+      set
+      {
+        this.Shortcuts["ActivateLastActiveChannelFromNetworkFirstKey"] = value;
+      }
+    }
 
-    //public string SActivateLastActiveChannelFromNetworkSecondKey
-    //{
-    //  get
-    //  {
-    //    return this.Shortcuts["ActivateLastActiveChannelFromNetworkSecondKey"];
-    //  }
+    public string SActivateLastActiveChannelFromNetworkSecondKey
+    {
+      get
+      {
+        return this.Shortcuts["ActivateLastActiveChannelFromNetworkSecondKey"];
+      }
 
-    //  set
-    //  {
-    //    this.Shortcuts["ActivateLastActiveChannelFromNetworkSecondKey"] = value;
-    //  }
-    //}
+      set
+      {
+        this.Shortcuts["ActivateLastActiveChannelFromNetworkSecondKey"] = value;
+      }
+    }
 
-    //public string SChannelSwitchFirstKey
-    //{
-    //  get
-    //  {
-    //    return this.Shortcuts["ChannelSwitchFirstKey"];
-    //  }
+    public string SChannelSwitchFirstKey
+    {
+      get
+      {
+        return this.Shortcuts["ChannelSwitchFirstKey"];
+      }
 
-    //  set
-    //  {
-    //    this.Shortcuts["ChannelSwitchFirstKey"] = value;
-    //  }
-    //}
+      set
+      {
+        this.Shortcuts["ChannelSwitchFirstKey"] = value;
+      }
+    }
 
-    //public string SChannelSwitchSecondKey
-    //{
-    //  get
-    //  {
-    //    return this.Shortcuts["ChannelSwitchSecondKey"];
-    //  }
+    public string SChannelSwitchSecondKey
+    {
+      get
+      {
+        return this.Shortcuts["ChannelSwitchSecondKey"];
+      }
 
-    //  set
-    //  {
-    //    this.Shortcuts["ChannelSwitchSecondKey"] = value;
-    //  }
-    //}
+      set
+      {
+        this.Shortcuts["ChannelSwitchSecondKey"] = value;
+      }
+    }
 
     /// <summary>
     /// Gets or sets a value indicating whether updates will be applied

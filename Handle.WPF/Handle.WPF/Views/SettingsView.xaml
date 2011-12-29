@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
              d:DesignHeight="419" d:DesignWidth="570">
   <Grid ShowGridLines="True">
@@ -36,7 +37,7 @@
               </Grid.ColumnDefinitions>
               <Label Content="Save Path" Height="28"   Grid.Column="0"/>
               <TextBox Height="23" IsEnabled="{Binding ElementName=Settings_CanLog, Path=IsChecked}"  Grid.Column="1" x:Name="Settings_LogSavePath"  Width="120" />
-              <Button Content="Browse..." Height="23" IsEnabled="{Binding ElementName=Settings_CanLog, Path=IsChecked}" x:Name="LogBrowseButton"  Grid.Column="2" Width="75" />
+              <Button Content="Browse..." Height="23" IsEnabled="{Binding ElementName=Settings_CanLog, Path=IsChecked}" x:Name="LogBrowse"  Grid.Column="2" Width="75" />
             </Grid>
             <Label Content="URIs" Height="28"  Grid.Row="3"  FontWeight="Bold" FontSize="13" />
             <CheckBox Content="URIs as Links" Height="16"  Grid.Row="4" x:Name="Settings_CanDisplayURLAsLink"  />
@@ -46,20 +47,10 @@
           </Grid>
         </TabItem>
         <TabItem Header="Display" x:Name="DisplayTabItem">
-          <Grid Height="Auto">
             <Grid>
               <Grid.Resources>
                 <DataTemplate x:Key="fontFamilyPreview">
                   <TextBlock Text="{Binding Path=Source}" FontFamily="{Binding}" />
-                </DataTemplate>
-                <DataTemplate x:Key="fontStyle">
-                  <TextBlock Text="{Binding Path=Style}" FontStyle="{Binding Path=Style}" />
-                </DataTemplate>
-                <DataTemplate x:Key="fontWeight">
-                  <TextBlock Text="{Binding Path=Weight}" FontWeight="{Binding Path=Weight}" />
-                </DataTemplate>
-                <DataTemplate x:Key="fontStretch">
-                  <TextBlock Text="{Binding Path=Stretch}" FontStretch="{Binding Path=Stretch}" />
                 </DataTemplate>
                 <CollectionViewSource x:Key="fonts" Source="{Binding Source={x:Static Fonts.SystemFontFamilies}}" />
               </Grid.Resources>
@@ -78,9 +69,9 @@
                     <RowDefinition Height="Auto" />
                   </Grid.RowDefinitions>
                   <Label Content="Appearance" Height="28"  Grid.Row="0"  FontSize="13" FontWeight="Bold" />
-                  <ListView x:Name="FontFamilyListView" SelectionMode="Single" ItemsSource="{Binding}" Margin="4" Grid.Row="1">
-                    <ListView.View>
-                      <GridView>
+                <ListView x:Name="FontFamilyListView" SelectionMode="Single" ItemsSource="{Binding}" Margin="4" Grid.Row="1" cal:Message.Attach="[Event SelectionChanged] = [Action FontChanging]">
+                  <ListView.View>
+                    <GridView>
                         <GridView.Columns>
                           <GridViewColumn Header="Font Family" Width="140" />
                           <GridViewColumn Header="Preview" CellTemplate="{StaticResource fontFamilyPreview}" Width="190" />
@@ -88,55 +79,24 @@
                       </GridView>
                     </ListView.View>
                   </ListView>
-                  <!--<TextBlock Text="Selected Font Styles" Margin="4 8 4 4" Grid.Row="2" />
-                <ListView Name="typefaceList" SelectionMode="Single" Margin="4" Grid.Row="3"
-                      ItemsSource="{Binding ElementName=FontFamilyListView, Path=SelectedItem.FamilyTypefaces}">
-                  <ListView.View>
-                    <GridView>
-                      <GridView.Columns>
-                        <GridViewColumn Header="Style" Width="110" CellTemplate="{StaticResource fontStyle}" />
-                        <GridViewColumn Header="Weight" Width="110" CellTemplate="{StaticResource fontWeight}" />
-                        <GridViewColumn Header="Stretch" Width="110" CellTemplate="{StaticResource fontStretch}" />
-                      </GridView.Columns>
-                    </GridView>
-                  </ListView.View>
-                </ListView>
-              </Grid>
-
-              <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="Auto" />
-                  <RowDefinition Height="200" />
-                  <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-
-                <TextBlock Text="Sample Text" Margin="4" />
-                <TextBox Margin="4" AcceptsReturn="True" TextWrapping="Wrap" Grid.Row="1"
-                     Text="The quick brown fox jumps over the lazy dog."
-                     FontSize="{Binding ElementName=sizeSlider, Path=Value}"
-                     FontFamily="{Binding ElementName=fontFamilyList, Path=SelectedItem}"
-                     FontStyle="{Binding ElementName=typefaceList, Path=SelectedItem.Style}"
-                     FontWeight="{Binding ElementName=typefaceList, Path=SelectedItem.Weight}"
-                     FontStretch="{Binding ElementName=typefaceList, Path=SelectedItem.Stretch}" />-->
                   <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2">
-                    <TextBlock Text="{Binding ElementName=sizeSlider, Path=Value}" Margin="4 4 0 4" MinWidth="30" TextAlignment="Right" />
+                    <TextBlock Text="{Binding ElementName=Settings_FontSize, Path=Value}" Margin="4 4 0 4" MinWidth="30" TextAlignment="Right" />
                     <TextBlock Text=" px" Margin="0 4 4 4" />
-                    <Slider x:Name="Settings_FontSize" Minimum="3" Maximum="120" Value="18" Margin="4" Width="200" IsSnapToTickEnabled="True" />
+                  <Slider x:Name="Settings_FontSize" Minimum="3" Maximum="120" Margin="4" Width="200" IsSnapToTickEnabled="True" cal:Message.Attach="[Event ValueChanged] = [Action SliderValueChanged]"/>
                   </StackPanel>
                   <Label Content="Time Stamps" Height="28"  Grid.Row="3"  FontSize="13" FontWeight="Bold" />
-                  <CheckBox Content="Show Timestamps" Height="16"  Grid.Row="4" x:Name="Settings_CanShowTimeStamps"  />
+                  <CheckBox Content="Show Timestamps" Height="16" Grid.Row="4" x:Name="Settings_CanShowTimeStamps"/>
                   <Grid Grid.Row="5">
                     <Grid.ColumnDefinitions>
                       <ColumnDefinition Width="Auto"></ColumnDefinition>
                       <ColumnDefinition Width="Auto"></ColumnDefinition>
                     </Grid.ColumnDefinitions>
                     <Label Content="Format" Height="28"  Grid.Column="0"  />
-                    <TextBox Height="23" IsEnabled="{Binding ElementName=Settings_CanShowTimeStamps, Path=IsChecked}"  Grid.Column="1" x:Name="Settings_TimeStampFormat"  Width="120" Text="&lt;hh:mm&gt;" />
+                    <TextBox Height="23" IsEnabled="{Binding ElementName=Settings_CanShowTimeStamps, Path=IsChecked}"  Grid.Column="1" x:Name="Settings_TimeStampFormat"  Width="120" />
                   </Grid>
                 </Grid>
               </Grid>
             </Grid>
-          </Grid>
         </TabItem>
         <TabItem Header="Notifications" x:Name="NotificationsTabItem">
           <Grid>
@@ -187,14 +147,10 @@
                   <ColumnDefinition Width="Auto"></ColumnDefinition>
                   <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <ComboBox Height="23"  Grid.Column="0" x:Name="Settings_SChannelSwitchFirstKey"  Width="120">
-                  <ComboBoxItem Content="Alt"/>
-                  <ComboBoxItem Content="Strg"/>
+                <ComboBox Height="23"  Grid.Column="0" x:Name="SChannelSwitchFirstKey"  Width="120">
                 </ComboBox>
                 <Label Content="+" Height="28"  Grid.Column="1"  />
-                <ComboBox Height="23"  Grid.Column="2" x:Name="Settings_SChannelSwitchSecondKey"  Width="120">
-                  <ComboBoxItem Content="1-8"/>
-                  <ComboBoxItem Content="F1-F8"/>
+                <ComboBox Height="23"  Grid.Column="2" x:Name="SChannelSwitchSecondKey"  Width="120">
                 </ComboBox>
               </Grid>
               <Label Content="Activate last Channel in current Network" Height="28"  Grid.Row="2"  />
@@ -204,7 +160,7 @@
                   <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBox Height="23"  Grid.Column="0" x:Name="Settings_SActivateLastChannel"  Width="120" />
-                <Button Content="Button" Height="23"  Grid.Column="1" x:Name="SActivateLastChannelButton"  Width="75" />
+                <Button Content="Fetch" Height="23"  Grid.Column="1" x:Name="SActivateLastChannel"  Width="75" />
               </Grid>
               <Label Content="Switch between neighbour Channels" Height="28"  Grid.Row="4"  />
               <Grid Grid.Row="5">
@@ -213,7 +169,7 @@
                   <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBox Height="23"  Grid.Column="0" x:Name="Settings_SSwitchBetweenNeighbourChannelForward"  Width="120" />
-                <Button Content="Button" Height="23"  Grid.Column="1" x:Name="SSwitchBetweenNeighbourChannelForwardButton"  Width="75" />
+                <Button Content="Fetch" Height="23"  Grid.Column="1" x:Name="SSwitchBetweenNeighbourChannelForward"  Width="75" />
               </Grid>
               <Grid Grid.Row="6">
                 <Grid.ColumnDefinitions>
@@ -221,7 +177,7 @@
                   <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBox Height="23"  Grid.Column="0" x:Name="Settings_SSwitchBetweenNeighbourChannelBack"  Width="120" />
-                <Button Content="Button" Height="23"  Grid.Column="1" x:Name="SSwitchBetweenNeighbourChannelBackButton"  Width="75" />
+                <Button Content="Fetch" Height="23"  Grid.Column="1" x:Name="SSwitchBetweenNeighbourChannelBack"  Width="75" />
               </Grid>
               <Label Content="Activate last active Channel from Network 1-8" Height="28"  Grid.Row="7"  />
               <Grid Grid.Row="8">
@@ -229,14 +185,10 @@
                   <ColumnDefinition Width="Auto"></ColumnDefinition>
                   <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <ComboBox Height="23"  Grid.Column="0" x:Name="Settings_SActivateLastActiveChannelFromNetworkFirstKey"  Width="120">
-                  <ComboBoxItem Content="Alt"/>
-                  <ComboBoxItem Content="Strg"/>
+                <ComboBox Height="23"  Grid.Column="0" x:Name="SActivateLastActiveChannelFromNetworkFirstKey"  Width="120">
                 </ComboBox>
                 <Label Content="+" Height="28"  Grid.Column="1"  />
-                <ComboBox Height="23"  Grid.Column="2" x:Name="Settings_SActivateLastActiveChannelFromNetworkSecondKey"  Width="120">
-                  <ComboBoxItem Content="1-8"/>
-                  <ComboBoxItem Content="F1-F8"/>
+                <ComboBox Height="23"  Grid.Column="2" x:Name="SActivateLastActiveChannelFromNetworkSecondKey"  Width="120">
                 </ComboBox>
               </Grid>
               <Label Content="Activate last active Channel from the last Network" Height="28"  Grid.Row="9"  />
@@ -246,7 +198,7 @@
                   <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBox Height="23"  Grid.Column="0" x:Name="Settings_SActivateLastActiveChannelFromTheLastNetwork"  Width="120" />
-                <Button Content="Button" Height="23"  Grid.Column="1" x:Name="SActivateLastActiveChannelFromTheLastNetworkButton"  Width="75" />
+                <Button Content="Fetch" Height="23"  Grid.Column="1" x:Name="SActivateLastActiveChannelFromTheLastNetwork"  Width="75" />
               </Grid>
               <Label Content="Leave current Channel" Height="28"  Grid.Row="11"  />
               <Grid Grid.Row="12">
@@ -255,7 +207,7 @@
                   <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBox Height="23"  Grid.Column="0" x:Name="Settings_SLeaveCurrentChannel"  Width="120" />
-                <Button Content="Button" Height="23"  Grid.Column="1" x:Name="SLeaveCurrentChannelButton"  Width="75" />
+                <Button Content="Fetch" Height="23"  Grid.Column="1" x:Name="SLeaveCurrentChannel"  Width="75" />
               </Grid>
               <Label Content="Disconnect with current Network" Height="28"  Grid.Row="13"  />
               <Grid Grid.Row="14">
@@ -264,7 +216,7 @@
                   <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBox Height="23"  Grid.Column="0" x:Name="Settings_SDisconnectWithCurrentNetwork"  Width="120" />
-                <Button Content="Button" Height="23"  Grid.Column="1" x:Name="SDisconnectWithCurrentNetworkButton"  Width="75" />
+                <Button Content="Fetch" Height="23"  Grid.Column="1" x:Name="SDisconnectWithCurrentNetwork"  Width="75" />
               </Grid>
               <Label Content="Open Channel-Search" Height="28"  Grid.Row="15"  />
               <Grid Grid.Row="16">
@@ -273,7 +225,7 @@
                   <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBox Height="23"  Grid.Column="0" x:Name="Settings_SOpenChannelSearch"  Width="120" />
-                <Button Content="Button" Height="23"  Grid.Column="1" x:Name="SOpenChannelSearchButton"  Width="75" />
+                <Button Content="Fetch" Height="23"  Grid.Column="1" x:Name="SOpenChannelSearch"  Width="75" />
               </Grid>
               <Label Content="Open Networklist" Height="28"  Grid.Row="17"  />
               <Grid Grid.Row="18">
@@ -282,7 +234,7 @@
                   <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBox Height="23"  Grid.Column="0" x:Name="Settings_SOpenNetworklist"  Width="120" />
-                <Button Content="Button" Height="23"  Grid.Column="1" x:Name="SOpenNetworklistButton"  Width="75" />
+                <Button Content="Fetch" Height="23"  Grid.Column="1" x:Name="SOpenNetworklist"  Width="75" />
               </Grid>
             </Grid>
           </ScrollViewer>
@@ -294,14 +246,14 @@
               <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
             <CheckBox Content="Automatically check for updates on launch" Height="16"  Grid.Row="0" x:Name="Settings_CanUpdate"  />
-            <Button Content="check for updates now" Height="23"  Grid.Row="1" x:Name="CheckForUpdatesButton"  Width="126" />
+            <Button Content="check for updates now" Height="23"  Grid.Row="1" x:Name="CheckForUpdates"  Width="126" />
           </Grid>
         </TabItem>
       </TabControl>
     </StackPanel>
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2">
-      <Button Content="Save" Height="23"  x:Name="SaveButton"  Width="75" />
-      <Button Content="Cancel" Height="23"  x:Name="CancelButton"  Width="75" />
+      <Button Content="Save" Height="23"  x:Name="OK"  Width="75" />
+      <Button Content="Cancel" Height="23"  x:Name="Cancel"  Width="75" />
     </StackPanel>
   </Grid>
 </UserControl>
