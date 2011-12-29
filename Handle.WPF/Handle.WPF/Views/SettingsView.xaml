@@ -159,7 +159,7 @@
                   <ColumnDefinition Width="Auto"></ColumnDefinition>
                   <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <TextBox Height="23"  Grid.Column="0" x:Name="Settings_SActivateLastChannel"  Width="120" />
+                <TextBox Height="23"  Grid.Column="0" x:Name="Settings_SActivateLastChannel"  Width="120" cal:Message.Attach="[Event KeyDown] = [Action KeysAreDown($eventargs)]"/>
                 <Button Content="Fetch" Height="23"  Grid.Column="1" x:Name="SActivateLastChannel"  Width="75" />
               </Grid>
               <Label Content="Switch between neighbour Channels" Height="28"  Grid.Row="4"  />

@@ -8,7 +8,6 @@
   using System.IO.IsolatedStorage;
   using System.IO;
   using Newtonsoft.Json;
-  using Handle.WPF.ViewModels;
 
   public class SettingsViewModel : Screen
   {
@@ -89,6 +88,16 @@
       {
         this.Settings.LogSavePath = dlg.SelectedPath;
       }
+    }
+
+    public void KeysAreDown(System.Windows.Input.KeyEventArgs e)
+    {
+      var sv = GetView() as SettingsView;
+      //if (e.Key == System.Windows.Input.Key.LeftCtrl)
+      //{
+
+        sv.Settings_SActivateLastChannel.Text = e.Key.ToString();
+      //}
     }
 
     public void SliderValueChanged() 
@@ -175,24 +184,6 @@
       {
         this.Settings.SActivateLastActiveChannelFromNetworkSecondKey = value;
         NotifyOfPropertyChange(() => SelectedSActivateLastActiveChannelFromNetworkSecondKey);
-      }
-    }
-
-    public void SActivateLastChannel() 
-    {
-      IWindowManager wm;
-      ShortcutViewModel svm = new ShortcutViewModel();
-      try
-      {
-        wm = IoC.Get<IWindowManager>();
-      }
-      catch
-      {
-        wm = new WindowManager();
-      }
-      if (wm.ShowDialog(svm) == true)
-      {
-        //do something
       }
     }
   }
