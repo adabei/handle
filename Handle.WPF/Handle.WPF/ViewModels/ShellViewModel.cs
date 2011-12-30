@@ -6,6 +6,9 @@
   using System.Windows.Input;
   using System.Windows.Media;
   using Caliburn.Micro;
+  using System.IO.IsolatedStorage;
+  using System.IO;
+  using Newtonsoft.Json;
 
   [Export(typeof(IShell))]
   public class ShellViewModel : Conductor<object>.Collection.OneActive, IShell
@@ -19,9 +22,8 @@
     {
       this.Left = 10.0;
       this.Top = 100.0;
-      this.Settings = new Settings();
-      this.Settings.CanLog = true;
-      ActivateItem(new SettingsViewModel(this.Settings));
+      initializeSettings();
+      ActivateItem(new SettingsViewModel(this.Settings.ShallowCopy()));
 
     }
 
@@ -97,6 +99,22 @@
     public void Restore()
     {
       this.WindowState = WindowState.Normal;
+    }
+
+    /// <summary>
+    /// Loads settings from a config file in IsolatedStorage.
+    /// </summary>
+    private void initializeSettings()
+    {
+      var store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
+      IsolatedStorageFileStream isolatedStream;
+      isolatedStream = new IsolatedStorageFileStream("settings.json", FileMode.OpenOrCreate, store);
+      this.Settings = JsonConvert.DeserializeObject<Settings>(new StreamReader(isolatedStream).ReadToEnd());
+      if (this.Settings == null)
+      {
+        this.Settings = new Settings();
+      }
+      isolatedStream.Close();
     }
   }
 }

@@ -43,298 +43,67 @@ namespace Handle.WPF
     public Settings()
     {
       this.Notifications = new Dictionary<string, bool>();
-      this.Notifications["Toast"] = true;
-      this.Notifications["Sound"] = true;
-      this.Notifications["Taskbar"] = true;
       this.Shortcuts = new Dictionary<string, string>();
-      this.Shortcuts["ActivateLastChannel"] = "ja";
-      this.Shortcuts["SwitchBetweenNeighbourChannelForward"] = "ja";
-      this.Shortcuts["SwitchBetweenNeighbourChannelBack"] = "ja";
-      this.Shortcuts["ActivateLastActiveChannelFromTheLastNetwork"] = "ja";
-      this.Shortcuts["DisconnectWithCurrentNetwork"] = "ja";
-      this.Shortcuts["OpenChannelSearch"] = "ja";
-      this.Shortcuts["OpenNetworklist"] = "ja";
-      this.Shortcuts["ActivateLastActiveChannelFromNetworkFirstKey"] = "ja";
-      this.Shortcuts["ActivateLastActiveChannelFromNetworkSecondKey"] = "ja";
-      this.Shortcuts["ChannelSwitchFirstKey"] = "ja";
-      this.Shortcuts["ChannelSwitchSecondKey"] = "ja";
-      this.Shortcuts["LeaveCurrentChannel"] = "ja";
     }
 
     /// <summary>
     /// Gets or sets a value indicating whether logs are saved
     /// </summary>
-    [JsonProperty]
     public bool CanLog { get; set; }
 
     /// <summary>
     /// Gets or sets the LogSavePath
     /// </summary>
-    [JsonProperty]
     public string LogSavePath { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether an URL will be displayed as a link
     /// </summary>
-    [JsonProperty]
     public bool CanDisplayURLAsLink { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether a customized leave message will be sent
     /// </summary>
-    [JsonProperty]
     public bool CanSendLeaveMessage { get; set; }
 
     /// <summary>
     /// Gets or sets the Leave Message
     /// </summary>
-    [JsonProperty]
     public string LeaveMessage { get; set; }
 
     /// <summary>
     /// Gets or sets the FontFamily
     /// </summary>
-    [JsonProperty]
     public string FontFamily { get; set; }
 
     /// <summary>
     /// Gets or sets the FontSize
     /// </summary>
-    [JsonProperty]
     public double FontSize { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether timestamps will be displayed
     /// </summary>
-    [JsonProperty]
     public bool CanShowTimeStamps { get; set; }
 
     /// <summary>
     /// Gets or sets the TimeStampFormat
     /// </summary>
-    [JsonProperty]
     public string TimeStampFormat { get; set; }
 
     /// <summary>
     /// Gets or sets the NotificationStyles
     /// </summary>
-    [JsonProperty]
     public Dictionary<string, bool> Notifications { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether ...
-    /// </summary>
-    public bool NotificationToast
-    {
-      get
-      {
-        return this.Notifications["Toast"];
-      }
-
-      set
-      {
-        this.Notifications["Toast"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether ...
-    /// </summary>
-    public bool NotificationSound
-    {
-      get
-      {
-        return this.Notifications["Sound"];
-      }
-
-      set
-      {
-        this.Notifications["Sound"] = value;
-      }
-    }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether ...
-    /// </summary>
-    public bool NotificationTaskbar
-    {
-      get
-      {
-        return this.Notifications["Taskbar"];
-      }
-
-      set
-      {
-        this.Notifications["Taskbar"] = value;
-      }
-    }
 
     /// <summary>
     /// Gets or sets the Shortcuts
     /// </summary>
-    [JsonProperty]
     public Dictionary<string, string> Shortcuts { get; set; }
-
-    public string SActivateLastChannel
-    {
-      get
-      {
-        return this.Shortcuts["ActivateLastChannel"];
-      }
-
-      set
-      {
-        this.Shortcuts["ActivateLastChannel"] = value;
-      }
-    }
-
-    public string SSwitchBetweenNeighbourChannelForward
-    {
-      get
-      {
-        return this.Shortcuts["SwitchBetweenNeighbourChannelForward"];
-      }
-
-      set
-      {
-        this.Shortcuts["SwitchBetweenNeighbourChannelForward"] = value;
-      }
-    }
-
-    public string SSwitchBetweenNeighbourChannelBack
-    {
-      get
-      {
-        return this.Shortcuts["SwitchBetweenNeighbourChannelBack"];
-      }
-
-      set
-      {
-        this.Shortcuts["SwitchBetweenNeighbourChannelBack"] = value;
-      }
-    }
-
-    public string SActivateLastActiveChannelFromTheLastNetwork
-    {
-      get
-      {
-        return this.Shortcuts["ActivateLastActiveChannelFromTheLastNetwork"];
-      }
-
-      set
-      {
-        this.Shortcuts["ActivateLastActiveChannelFromTheLastNetwork"] = value;
-      }
-    }
-
-    public string SDisconnectWithCurrentNetwork
-    {
-      get
-      {
-        return this.Shortcuts["DisconnectWithCurrentNetwork"];
-      }
-
-      set
-      {
-        this.Shortcuts["DisconnectWithCurrentNetwork"] = value;
-      }
-    }
-
-    public string SOpenChannelSearch
-    {
-      get
-      {
-        return this.Shortcuts["OpenChannelSearch"];
-      }
-
-      set
-      {
-        this.Shortcuts["OpenChannelSearch"] = value;
-      }
-    }
-
-    public string SOpenNetworklist
-    {
-      get
-      {
-        return this.Shortcuts["OpenNetworklist"];
-      }
-
-      set
-      {
-        this.Shortcuts["OpenNetworklist"] = value;
-      }
-    }
-
-    public string SLeaveCurrentChannel
-    {
-      get
-      {
-        return this.Shortcuts["LeaveCurrentChannel"];
-      }
-
-      set
-      {
-        this.Shortcuts["LeaveCurrentChannel"] = value;
-      }
-    }
-
-    public string SActivateLastActiveChannelFromNetworkFirstKey
-    {
-      get
-      {
-        return this.Shortcuts["ActivateLastActiveChannelFromNetworkFirstKey"];
-      }
-
-      set
-      {
-        this.Shortcuts["ActivateLastActiveChannelFromNetworkFirstKey"] = value;
-      }
-    }
-
-    public string SActivateLastActiveChannelFromNetworkSecondKey
-    {
-      get
-      {
-        return this.Shortcuts["ActivateLastActiveChannelFromNetworkSecondKey"];
-      }
-
-      set
-      {
-        this.Shortcuts["ActivateLastActiveChannelFromNetworkSecondKey"] = value;
-      }
-    }
-
-    public string SChannelSwitchFirstKey
-    {
-      get
-      {
-        return this.Shortcuts["ChannelSwitchFirstKey"];
-      }
-
-      set
-      {
-        this.Shortcuts["ChannelSwitchFirstKey"] = value;
-      }
-    }
-
-    public string SChannelSwitchSecondKey
-    {
-      get
-      {
-        return this.Shortcuts["ChannelSwitchSecondKey"];
-      }
-
-      set
-      {
-        this.Shortcuts["ChannelSwitchSecondKey"] = value;
-      }
-    }
 
     /// <summary>
     /// Gets or sets a value indicating whether updates will be applied
     /// </summary>
-    [JsonProperty]
     public bool CanUpdate { get; set; }
 
     /// <summary>

@@ -8,32 +8,32 @@
              d:DesignHeight="419" d:DesignWidth="570">
   <Grid ShowGridLines="True">
     <Grid.RowDefinitions>
-      <RowDefinition Height="Auto"></RowDefinition>
-      <RowDefinition Height="Auto"></RowDefinition>
-      <RowDefinition Height="Auto"></RowDefinition>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition/>
+      <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-    <Label Content="Settings" Height="28" Grid.Row="0" FontWeight="Bold" FontSize="15" />
-    <StackPanel Orientation="Horizontal" Grid.Row="1">
-      <TabControl  x:Name="SettingsTabControl">
+    <TextBlock FontSize="22" Grid.Row="0">settings</TextBlock>
+      <TabControl  x:Name="SettingsTabControl" Grid.Row="1">
         <TabItem Header="General" x:Name="GeneralTabItem">
-          <Grid>
+        <ScrollViewer>
+        <Grid>
             <Grid.RowDefinitions>
-              <RowDefinition Height="Auto"></RowDefinition>
-              <RowDefinition Height="Auto"></RowDefinition>
-              <RowDefinition Height="Auto"></RowDefinition>
-              <RowDefinition Height="Auto"></RowDefinition>
-              <RowDefinition Height="Auto"></RowDefinition>
-              <RowDefinition Height="Auto"></RowDefinition>
-              <RowDefinition Height="Auto"></RowDefinition>
-              <RowDefinition Height="Auto"></RowDefinition>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Label Content="Logs" Height="28"  Grid.Row="0"   FontWeight="Bold" FontSize="13" />
             <CheckBox Content="logging" Height="16"  Grid.Row="1" x:Name="Settings_CanLog"  />
             <Grid Grid.Row="2">
               <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
               </Grid.ColumnDefinitions>
               <Label Content="Save Path" Height="28"   Grid.Column="0"/>
               <TextBox Height="23" IsEnabled="{Binding ElementName=Settings_CanLog, Path=IsChecked}"  Grid.Column="1" x:Name="Settings_LogSavePath"  Width="120" />
@@ -45,8 +45,10 @@
             <CheckBox Content="Leave Message" Height="16"  Grid.Row="6" x:Name="Settings_CanSendLeaveMessage"  />
             <TextBox Height="60"  Grid.Row="7" x:Name="Settings_LeaveMessage" IsEnabled="{Binding ElementName=Settings_CanSendLeaveMessage,Path=IsChecked}" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Width="250" />
           </Grid>
-        </TabItem>
+        </ScrollViewer>
+      </TabItem>
         <TabItem Header="Display" x:Name="DisplayTabItem">
+        <ScrollViewer>
           <Grid>
             <Grid.Resources>
               <DataTemplate x:Key="fontFamilyPreview">
@@ -98,16 +100,18 @@
               </Grid>
             </Grid>
           </Grid>
-        </TabItem>
+        </ScrollViewer>
+      </TabItem>
         <TabItem Header="Notifications" x:Name="NotificationsTabItem">
-          <Grid>
+        <ScrollViewer>
+        <Grid>
             <Grid.RowDefinitions>
-              <RowDefinition Height="Auto"></RowDefinition>
-              <RowDefinition Height="Auto"></RowDefinition>
-              <RowDefinition Height="Auto"></RowDefinition>
-              <RowDefinition Height="Auto"></RowDefinition>
-              <RowDefinition Height="Auto"></RowDefinition>
-              <RowDefinition Height="Auto"></RowDefinition>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Label Content="Notification Toast" Height="28"  Grid.Row="0"  FontWeight="Bold" FontSize="13" />
             <CheckBox Content="On/Off" Height="16"  Grid.Row="1" x:Name="Settings_NotificationToast"  />
@@ -116,30 +120,32 @@
             <Label Content="Windows Taskbar Counter" Height="28"  Grid.Row="4"  FontWeight="Bold" FontSize="13" />
             <CheckBox Content="On/Off" Height="16"  Grid.Row="5" x:Name="Settings_NotificationTaskbar"  />
           </Grid>
-        </TabItem>
-        <TabItem Header="Shortcuts" x:Name="ShortcutsTabItem">
+        </ScrollViewer>
+      </TabItem>
+        
+        <!--<TabItem Header="Shortcuts" x:Name="ShortcutsTabItem">
           <ScrollViewer>
             <Grid>
               <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
-                <RowDefinition Height="Auto"></RowDefinition>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
               </Grid.RowDefinitions>
               <Label Content="Switch between Channel 1-8 in current Network" Height="28"  Grid.Row="0"  />
               <Grid Grid.Row="1">
@@ -239,22 +245,24 @@
               </Grid>
             </Grid>
           </ScrollViewer>
-        </TabItem>
+        </TabItem> -->
+       
         <TabItem Header="Updates" x:Name="UpdatesTabItem">
-          <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <ScrollViewer>
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <Grid.RowDefinitions>
               <RowDefinition Height="Auto"></RowDefinition>
               <RowDefinition Height="Auto"></RowDefinition>
             </Grid.RowDefinitions>
-            <CheckBox Content="Automatically check for updates on launch" Height="16"  Grid.Row="0" x:Name="Settings_CanUpdate"  />
-            <Button Content="check for updates now" Height="23"  Grid.Row="1" x:Name="CheckForUpdates"  Width="126" />
+            <CheckBox Content="Automatically check for updates on launch"  Grid.Row="0" x:Name="Settings_CanUpdate"  />
+            <Button Content="check for updates now" Height="Auto"  Grid.Row="1" x:Name="CheckForUpdates"  Width="Auto" />
           </Grid>
-        </TabItem>
+        </ScrollViewer>
+      </TabItem>
       </TabControl>
-    </StackPanel>
-    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="2">
-      <Button Content="Save" Height="23"  x:Name="OK"  Width="75" />
-      <Button Content="Cancel" Height="23"  x:Name="Cancel"  Width="75" />
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2">
+      <Button Content="Save" Height="Auto"  x:Name="OK"  Width="Auto" />
+      <Button Content="Cancel" Height="Auto"  x:Name="Cancel"  Width="Auto" />
     </StackPanel>
   </Grid>
 </UserControl>

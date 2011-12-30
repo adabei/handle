@@ -11,7 +11,6 @@
 
   public class SettingsViewModel : Screen
   {
-    private Settings settingsReference;
     private Settings settings;
 
     public Settings Settings
@@ -28,26 +27,7 @@
 
     public SettingsViewModel(Settings settings)
     {
-      initializeSettings();
-      // in das wirds später gespeichert
-      this.settingsReference = settings;
-      // das ist das, dass du bindest
-      //this.Settings = settings.ShallowCopy();
-    }
-
-    /// <summary>
-    /// Loads settings from a config file in IsolatedStorage.
-    /// </summary>
-    private void initializeSettings()
-    {
-      var store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
-      IsolatedStorageFileStream isolatedStream;
-      isolatedStream = new IsolatedStorageFileStream("settings.json", FileMode.OpenOrCreate, store);
-      this.Settings = JsonConvert.DeserializeObject<Settings>(new StreamReader(isolatedStream).ReadToEnd());
-      if (this.Settings == null)
-      {
-        this.Settings = new Settings();
-      }
+      this.Settings = settings;
     }
 
     private void serializeSettings()
@@ -75,7 +55,7 @@
 
     public void Cancel()
     {
-      initializeSettings();
+      //TODO
     }
 
     public void LogBrowse()
@@ -113,10 +93,10 @@
 
     public string SelectedSChannelSwitchFirstKey
     {
-      get { return this.Settings.SChannelSwitchFirstKey; }
+      get { return this.Settings.Shortcuts["SChannelSwitchFirstKey"]; }
       set
       {
-        this.Settings.SChannelSwitchFirstKey = value;
+        this.Settings.Shortcuts["SChannelSwitchFirstKey"] = value;
         NotifyOfPropertyChange(() => SelectedSChannelSwitchFirstKey);
       }
     }
@@ -132,10 +112,10 @@
 
     public string SelectedSChannelSwitchSecondKey
     {
-      get { return this.Settings.SChannelSwitchSecondKey; }
+      get { return this.Settings.Shortcuts["SChannelSwitchSecondKey"]; }
       set
       {
-        this.Settings.SChannelSwitchSecondKey = value;
+        this.Settings.Shortcuts["SChannelSwitchSecondKey"] = value;
         NotifyOfPropertyChange(() => SelectedSChannelSwitchSecondKey);
       }
     }
@@ -149,15 +129,6 @@
       }
     }
 
-    public string SelectedSActivateLastActiveChannelFromNetworkFirstKey
-    {
-      get { return this.Settings.SActivateLastActiveChannelFromNetworkFirstKey; }
-      set
-      {
-        this.Settings.SActivateLastActiveChannelFromNetworkFirstKey = value;
-        NotifyOfPropertyChange(() => SelectedSActivateLastActiveChannelFromNetworkFirstKey);
-      }
-    }
 
     public BindableCollection<string> SActivateLastActiveChannelFromNetworkSecondKey
     {
@@ -169,11 +140,60 @@
     }
     public string SelectedSActivateLastActiveChannelFromNetworkSecondKey
     {
-      get { return this.Settings.SActivateLastActiveChannelFromNetworkSecondKey; }
+      get { return this.Settings.Shortcuts["SActivateLastActiveChannelFromNetworkSecondKey"]; }
       set
       {
-        this.Settings.SActivateLastActiveChannelFromNetworkSecondKey = value;
+        this.Settings.Shortcuts["SActivateLastActiveChannelFromNetworkSecondKey"] = value;
         NotifyOfPropertyChange(() => SelectedSActivateLastActiveChannelFromNetworkSecondKey);
+      }
+    }
+
+
+    /// <summary>
+    /// Gets or sets a value indicating whether ...
+    /// </summary>
+    public bool NotificationToast
+    {
+      get
+      {
+        return this.Settings.Notifications["Toast"];
+      }
+
+      set
+      {
+        this.Settings.Notifications["Toast"] = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether ...
+    /// </summary>
+    public bool NotificationSound
+    {
+      get
+      {
+        return this.Settings.Notifications["Sound"];
+      }
+
+      set
+      {
+        this.Settings.Notifications["Sound"] = value;
+      }
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether ...
+    /// </summary>
+    public bool NotificationTaskbar
+    {
+      get
+      {
+        return this.Settings.Notifications["Taskbar"];
+      }
+
+      set
+      {
+        this.Settings.Notifications["Taskbar"] = value;
       }
     }
   }
