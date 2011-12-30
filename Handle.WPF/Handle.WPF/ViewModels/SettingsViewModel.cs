@@ -80,12 +80,13 @@
 
     public void LogBrowse()
     {
-
+      var sv = GetView() as SettingsView;
       System.Windows.Forms.FolderBrowserDialog dlg = new System.Windows.Forms.FolderBrowserDialog();
       System.Windows.Forms.DialogResult result = dlg.ShowDialog();
       if (result.ToString() == "OK")
       {
         this.Settings.LogSavePath = dlg.SelectedPath;
+        sv.Settings_LogSavePath.Text = this.Settings.LogSavePath;
       }
     }
 
