@@ -215,6 +215,7 @@ namespace Handle.WPF
       {
         this.Networks = new BindableCollection<Network>();
       }
+      isolatedStream.Close();
     }
 
     protected override IEnumerable<InputBindingCommand> GetInputBindingCommands()
