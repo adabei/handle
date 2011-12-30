@@ -69,11 +69,9 @@ namespace Handle.WPF
         if (!connectedEvent.Wait(10000))
         {
           this.Client.Dispose();
-          Console.WriteLine("Could not connect to {0}", network.Address);
           return;
         }
       }
-      Console.WriteLine("Connected to {0}", network.Address);
     }
 
     private void clientRegistered(object sender, EventArgs e)
@@ -86,11 +84,6 @@ namespace Handle.WPF
     {
       var icvm = new IrcChannelViewModel(e.Channel);
       this.Channels.Add(icvm);
-    }
-
-    private void channelMessageReceived(object sender, IrcMessageEventArgs e)
-    {
-      Console.WriteLine(e.Text);
     }
 
     public override string DisplayName
