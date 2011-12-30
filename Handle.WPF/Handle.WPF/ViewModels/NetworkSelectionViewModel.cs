@@ -82,7 +82,7 @@ namespace Handle.WPF
     public void Add()
     {
       IWindowManager wm;
-      NetworkNewViewModel nnvm = new NetworkNewViewModel();
+      var nnvm = new NetworkNewViewModel();
       try
       {
         wm = IoC.Get<IWindowManager>();

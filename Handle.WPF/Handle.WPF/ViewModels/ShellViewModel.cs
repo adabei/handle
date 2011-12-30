@@ -61,18 +61,21 @@ namespace Handle.WPF
       this.Left = 10.0;
       this.Top = 100.0;
       this.IrcMainViewModel = new IrcMainViewModel();
+      this.IrcMainViewModel.Parent = this;
       this.Settings = this.deserializeSettings();
       ActivateItem(this.IrcMainViewModel);
     }
 
     private void Connect(Network network)
     {
-      this.IrcMainViewModel.Networks.Add(new IrcNetworkViewModel(network));
+      var invm = new IrcNetworkViewModel(network);
+      invm.Parent = this;
+      this.IrcMainViewModel.Networks.Add(invm);
     }
 
     private void ShowNetworkSelection()
     {
-      NetworkSelectionViewModel nsvm = new NetworkSelectionViewModel();
+      var nsvm = new NetworkSelectionViewModel();
       nsvm.ConnectButtonPressed += Connect;
       ActivateItem(nsvm);
     }

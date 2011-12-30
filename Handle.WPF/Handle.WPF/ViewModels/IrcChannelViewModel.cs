@@ -28,6 +28,8 @@ namespace Handle.WPF
   using System;
   using Caliburn.Micro;
   using IrcDotNet;
+  using System.Windows.Input;
+  using System.Collections.Generic;
 
   /// <summary>
   /// TODO: Update summary.
@@ -96,6 +98,20 @@ namespace Handle.WPF
     public void Send()
     {
       this.IrcChannel.Client.LocalUser.SendMessage(this.IrcChannel, this.Message);
+    }
+
+    /* protected override IEnumerable<InputBindingCommand> GetInputBindingCommands()
+    {
+      yield return new InputBindingCommand(LeaveChannel)
+      {
+        GestureModifier = ModifierKeys.Control,
+        GestureKey = Key.W
+      };
+    } */
+
+    private void LeaveChannel()
+    {
+      Console.WriteLine("left");
     }
   }
 }

@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IrcMainViewModel.cs" company="">
+// <copyright file="ChannelSearchViewModel.cs" company="">
 // Copyright (c) 2011 Bernhard Schwarz, Florian Lembeck
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -25,21 +25,55 @@
 
 namespace Handle.WPF
 {
+  using System;
+  using System.Collections.Generic;
+  using System.Linq;
+  using System.Text;
   using Caliburn.Micro;
 
   /// <summary>
-  /// Represents a ViewModel for IrcMainViews
+  /// TODO: Update summary.
   /// </summary>
-  public class IrcMainViewModel : Screen
+  public class ChannelSearchViewModel : Screen
   {
-    /// <summary>
-    /// Initializes a new instance of the IrcMainViewModel class
-    /// </summary>
-    public IrcMainViewModel()
+
+    public ChannelSearchViewModel()
     {
-      this.Networks = new BindableCollection<IrcNetworkViewModel>();
+
+    }
+    private string pattern;
+    public string Pattern
+    {
+      get
+      {
+        return this.pattern;
+      }
+      set
+      {
+        this.pattern = value;
+      }
     }
 
-    public BindableCollection<IrcNetworkViewModel> Networks { get; set; }
+    public bool CanJoin{
+      get{
+        return true;
+      }
+    }
+
+    public bool CanFilter{
+      get{
+        return true;
+      }
+    }
+
+    public void Join()
+    {
+    }
+
+    public void Filter()
+    {
+
+    }
+
   }
 }

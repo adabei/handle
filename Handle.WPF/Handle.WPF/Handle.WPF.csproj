@@ -148,6 +148,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ChannelSearchViewModel.cs" />
+    <Compile Include="Views\ChannelSearchView.xaml.cs">
+      <DependentUpon>ChannelSearchView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Identity.cs" />
     <Compile Include="InputBindingCommand.cs" />
     <Compile Include="InputBindings.cs" />
@@ -194,6 +198,10 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="IShell.cs" />
+    <Page Include="Views\ChannelSearchView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\IrcChannelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

@@ -29,6 +29,7 @@ namespace Handle.WPF
   using System.Threading;
   using Caliburn.Micro;
   using IrcDotNet;
+  using System.Windows.Input;
 
   /// <summary>
   /// TODO: Update summary.
@@ -74,12 +75,13 @@ namespace Handle.WPF
     private void clientRegistered(object sender, EventArgs e)
     {
       this.Client.LocalUser.JoinedChannel += localUserJoinedChannel;
-      this.Client.Channels.Join("#bots");
+      this.Client.Channels.Join("#rails");
     }
 
     private void localUserJoinedChannel(object sender, IrcChannelEventArgs e)
     {
       var icvm = new IrcChannelViewModel(e.Channel);
+      icvm.Parent = this.Parent;
       this.Channels.Add(icvm);
     }
 

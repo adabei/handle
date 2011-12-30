@@ -1,0 +1,28 @@
+﻿<Window x:Class="Handle.WPF.ChannelSearchView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ChannelSearchView" Height="300" Width="500"
+        xmlns:cal="http://www.caliburnproject.org">
+    <Grid ShowGridLines="True">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+     
+    <TextBlock Text="channels" FontSize="22" Grid.Row="0"/>
+    <StackPanel Grid.Row="1" Orientation="Horizontal">
+      <TextBox x:Name="Pattern" Height="Auto" Width="Auto"/>
+      <Button x:Name="Filter" Content="Filter" Width="Auto" Height="Auto"/>
+    </StackPanel>
+    <ListView x:Name="Results">
+      
+    </ListView>
+    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
+      <Button x:Name="Join" Content="Join" Width="Auto" Height="Auto"/>
+    </StackPanel>
+      
+    
+  </Grid>
+</Window>
