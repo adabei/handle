@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IrcMainViewModel.cs" company="">
+// <copyright file="ViewModelBase.cs" company="">
 // Copyright (c) 2011 Bernhard Schwarz, Florian Lembeck
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -29,22 +29,34 @@ namespace Handle.WPF
   using System.Collections.Generic;
   using System.Linq;
   using System.Text;
+  using System.Windows;
   using Caliburn.Micro;
-  using IrcDotNet;
 
   /// <summary>
-  /// Represents a ViewModel for IrcMainViews
+  /// TODO: Update summary.
   /// </summary>
-  public class IrcMainViewModel : ViewModelBase
+  public class ViewModelBase : Screen, IShell
   {
-    /// <summary>
-    /// Initializes a new instance of the IrcMainViewModel class
-    /// </summary>
-    public IrcMainViewModel()
+    private InputBindings inputBindings;
+
+    protected override void OnViewLoaded(object view)
     {
-      this.Networks = new BindableCollection<IrcNetworkViewModel>();
+      base.OnViewLoaded(view);
+
+      var window = (view as FrameworkElement).GetWindow();
+      this.inputBindings = new InputBindings(window);
+      this.inputBindings.RegisterCommands(GetInputBindingCommands());
     }
 
-    public BindableCollection<IrcNetworkViewModel> Networks { get; set; }
+    protected virtual IEnumerable<InputBindingCommand> GetInputBindingCommands()
+    {
+      yield break;
+    }
+
+    protected override void OnDeactivate(bool close)
+    {
+      base.OnDeactivate(close);
+      this.inputBindings.DeregisterCommands();
+    }
   }
 }

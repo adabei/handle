@@ -35,7 +35,7 @@
       <TextBox Grid.Column="1" Grid.Row="1" x:Name="GlobalIdentity_Alternative" Height="20" Width="75"/>
  
       <Label Grid.Column="0" Grid.Row="2">Real name:</Label>
-        <TextBox Grid.Column="1" Grid.Row="2" x:Name="GlobalIdentity_RealName" Height="20" Width="75"/>
+      <TextBox Grid.Column="1" Grid.Row="2" x:Name="GlobalIdentity_RealName" Height="20" Width="75"/>
     </Grid>
       <ListView x:Name="Networks" Width="150" Height="80">
         <ListView.ItemTemplate>
@@ -49,6 +49,7 @@
       <Button x:Name="Add" Content="Add" ToolTip="Add a new network" Width="Auto" Height="25"/>
       <Button x:Name="Edit" Content="Edit" ToolTip="Edit network" Width="Auto" Height="25"/>
       <Button x:Name="Remove" Content="Remove" ToolTip="Remove selected network(s)" Width="Auto" Height="25"/>
+      <Button x:Name="Cancel" Content="Cancel" ToolTip="Cancel" Width="Auto" Height="25"/>
       <Button x:Name="Connect" Content="Connect" ToolTip="Connect" Width="Auto" Height="25"/>
     </StackPanel>
     

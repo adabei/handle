@@ -6,7 +6,28 @@
              xmlns:cal="http://www.caliburnproject.org" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-            
-    </Grid>
+  <StackPanel>
+<ItemsControl x:Name="Messages">
+        <ItemsControl.ItemTemplate>
+          <DataTemplate>
+            <StackPanel Orientation="Vertical">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="Auto"/>
+              </Grid.ColumnDefinitions>
+              
+              <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+              </Grid.RowDefinitions>
+              
+              <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Sender}"/>
+              <TextBlock Grid.Column="2" Grid.Row="0" Text="{Binding Text}" TextWrapping="Wrap"/>
+            </Grid>
+            </StackPanel>
+          </DataTemplate>
+        </ItemsControl.ItemTemplate>
+      </ItemsControl>
+  </StackPanel>
 </UserControl>

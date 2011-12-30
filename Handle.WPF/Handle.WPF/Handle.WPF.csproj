@@ -145,10 +145,15 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Identity.cs" />
-    <Compile Include="IrcChannelView.xaml.cs">
+    <Compile Include="InputBindingCommand.cs" />
+    <Compile Include="InputBindings.cs" />
+    <Compile Include="Message.cs" />
+    <Compile Include="UiElementExtension.cs" />
+    <Compile Include="ViewModelBase.cs" />
+    <Compile Include="Views\IrcChannelView.xaml.cs">
       <DependentUpon>IrcChannelView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="IrcChannelViewModel.cs" />
+    <Compile Include="ViewModels\IrcChannelViewModel.cs" />
     <Compile Include="Views\IrcNetworkView.xaml.cs">
       <DependentUpon>IrcNetworkView.xaml</DependentUpon>
     </Compile>
@@ -184,7 +189,7 @@
     </Compile>
     <Compile Include="AppBootstrapper.cs" />
     <Compile Include="IShell.cs" />
-    <Page Include="IrcChannelView.xaml">
+    <Page Include="Views\IrcChannelView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

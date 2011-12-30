@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IrcMainViewModel.cs" company="">
+// <copyright file="InputBindingCommand.cs" company="">
 // Copyright (c) 2011 Bernhard Schwarz, Florian Lembeck
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -29,22 +29,58 @@ namespace Handle.WPF
   using System.Collections.Generic;
   using System.Linq;
   using System.Text;
-  using Caliburn.Micro;
-  using IrcDotNet;
+  using System.Windows.Input;
 
   /// <summary>
-  /// Represents a ViewModel for IrcMainViews
+  /// TODO: Update summary.
   /// </summary>
-  public class IrcMainViewModel : ViewModelBase
+  public class InputBindingCommand : ICommand
   {
-    /// <summary>
-    /// Initializes a new instance of the IrcMainViewModel class
-    /// </summary>
-    public IrcMainViewModel()
+#pragma warning disable // never used
+    public event EventHandler CanExecuteChanged;
+#pragma warning restore
+
+    private readonly Action<object> executeDelegate;
+    private Func<object, bool> canExecutePredicate;
+
+    public Key GestureKey { get; set; }
+    public ModifierKeys GestureModifier { get; set; }
+    public MouseAction MouseGesture { get; set; }
+
+    public bool CanExecute(object parameter)
     {
-      this.Networks = new BindableCollection<IrcNetworkViewModel>();
+      return canExecutePredicate(parameter);
     }
 
-    public BindableCollection<IrcNetworkViewModel> Networks { get; set; }
+    public InputBindingCommand(Action executeDelegate)
+    {
+      this.executeDelegate = x => executeDelegate();
+      this.canExecutePredicate = x => true;
+    }
+
+    public InputBindingCommand(Action<object> executeDelegate)
+    {
+      this.executeDelegate = executeDelegate;
+      this.canExecutePredicate = x => true;
+    }
+
+    public void Execute(object parameter)
+    {
+      this.executeDelegate(parameter);
+    }
+
+    public InputBindingCommand If(Func<bool> canExecutePredicate)
+    {
+      this.canExecutePredicate = x => canExecutePredicate();
+
+      return this;
+    }
+
+    public InputBindingCommand If(Func<object, bool> canExecutePredicate)
+    {
+      this.canExecutePredicate = canExecutePredicate;
+
+      return this;
+    }
   }
 }

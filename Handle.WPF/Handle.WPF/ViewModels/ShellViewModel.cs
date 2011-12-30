@@ -31,6 +31,7 @@ namespace Handle.WPF
   using System.Windows.Input;
   using System.Windows.Media;
   using Caliburn.Micro;
+  using System.Collections.Generic;
 
   /// <summary>
   /// Represents a ViewModel for ShellViews
@@ -41,6 +42,14 @@ namespace Handle.WPF
     private WindowState windowState;
     private double left = 500;
     private double top = 50;
+    private IrcMainViewModel ircMainViewModel;
+    private InputBindings inputBindings;
+
+    public IrcMainViewModel IrcMainViewModel
+    {
+      get { return this.ircMainViewModel; }
+      set { this.ircMainViewModel = value; }
+    }
 
     /// <summary>
     /// Initializes a new instance of the ShellViewModel class
@@ -49,7 +58,20 @@ namespace Handle.WPF
     {
       this.Left = 10.0;
       this.Top = 100.0;
-      ActivateItem(new IrcMainViewModel());
+      this.IrcMainViewModel = new IrcMainViewModel();
+      ActivateItem(this.IrcMainViewModel);
+    }
+
+    private void Connect(Network network)
+    {
+      this.IrcMainViewModel.Networks.Add(new IrcNetworkViewModel(network));
+    }
+
+    private void ShowNetworkSelection()
+    {
+      NetworkSelectionViewModel nsvm = new NetworkSelectionViewModel();
+      nsvm.ConnectButtonPressed += Connect;
+      ActivateItem(nsvm);
     }
 
     public Thickness WindowStateCorrection
@@ -147,6 +169,23 @@ namespace Handle.WPF
     public void DisplaySettings()
     {
       ActivateItem(new SettingsViewModel());
+    }
+
+    protected override void OnViewLoaded(object view)
+    {
+      base.OnViewLoaded(view);
+      var window = GetView() as ShellView;
+      this.inputBindings = new InputBindings(window);
+      inputBindings.RegisterCommands(GetInputBindingCommands());
+    }
+
+    protected IEnumerable<InputBindingCommand> GetInputBindingCommands()
+    {
+      yield return new InputBindingCommand(ShowNetworkSelection)
+      {
+        GestureModifier = ModifierKeys.Control,
+        GestureKey = Key.N
+      };
     }
   }
 }

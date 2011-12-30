@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="IrcMainViewModel.cs" company="">
+// <copyright file="InputBindings.cs" company="">
 // Copyright (c) 2011 Bernhard Schwarz, Florian Lembeck
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -29,22 +29,41 @@ namespace Handle.WPF
   using System.Collections.Generic;
   using System.Linq;
   using System.Text;
-  using Caliburn.Micro;
-  using IrcDotNet;
+  using System.Windows.Input;
+  using System.Windows;
 
   /// <summary>
-  /// Represents a ViewModel for IrcMainViews
+  /// TODO: Update summary.
   /// </summary>
-  public class IrcMainViewModel : ViewModelBase
+  public class InputBindings
   {
-    /// <summary>
-    /// Initializes a new instance of the IrcMainViewModel class
-    /// </summary>
-    public IrcMainViewModel()
+    private readonly InputBindingCollection inputBindings;
+    private readonly Stack<KeyBinding> stash;
+
+    public InputBindings(Window bindingsOwner)
     {
-      this.Networks = new BindableCollection<IrcNetworkViewModel>();
+      this.inputBindings = bindingsOwner.InputBindings;
+      this.stash = new Stack<KeyBinding>();
     }
 
-    public BindableCollection<IrcNetworkViewModel> Networks { get; set; }
+    public void RegisterCommands(IEnumerable<InputBindingCommand> inputBindingCommands)
+    {
+      foreach (var inputBindingCommand in inputBindingCommands)
+      {
+        var binding = new KeyBinding(inputBindingCommand, inputBindingCommand.GestureKey, inputBindingCommand.GestureModifier);
+
+        this.stash.Push(binding);
+        inputBindings.Add(binding);
+      }
+    }
+
+    public void DeregisterCommands()
+    {
+      if (this.inputBindings == null)
+        return;
+
+      foreach (var keyBinding in stash)
+        inputBindings.Remove(keyBinding);
+    }
   }
 }

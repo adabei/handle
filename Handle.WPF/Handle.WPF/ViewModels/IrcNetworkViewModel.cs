@@ -31,6 +31,7 @@ namespace Handle.WPF
   using System.Text;
   using Caliburn.Micro;
   using IrcDotNet;
+  using System.Threading;
 
   /// <summary>
   /// TODO: Update summary.
@@ -39,18 +40,58 @@ namespace Handle.WPF
   {
     private string displayName;
 
+    private IrcClient client;
+
+    public BindableCollection<IrcChannelViewModel> Channels { get; set; }
+
     /// <summary>
     /// Initializes a new instance of the IrcNetworkViewModel class
     /// </summary>
-    public IrcNetworkViewModel()
+    public IrcNetworkViewModel(Network network)
     {
-      this.DisplayName = "Testung";
       this.Channels = new BindableCollection<IrcChannelViewModel>();
-      this.Channels.Add(new IrcChannelViewModel());
-      this.Channels.Add(new IrcChannelViewModel());
+      this.DisplayName = network.Name;
+      IrcRegistrationInfo info = new IrcUserRegistrationInfo()
+      {
+        NickName = network.Identity.Name,
+        UserName = network.Identity.Name,
+        RealName = network.Identity.RealName
+      };
+
+      this.Client = new IrcClient();
+      this.Client.Registered += new EventHandler<EventArgs>(this.clientRegistered);
+
+      using (var connectedEvent = new ManualResetEventSlim(false))
+      {
+        this.Client.Connected += (sender, e) => connectedEvent.Set();
+        client.Connect(network.Address, false, info);
+
+        if (!connectedEvent.Wait(10000))
+        {
+          this.Client.Dispose();
+          Console.WriteLine("Could not connect to {0}", network.Address);
+          return;
+        }
+      }
+      Console.WriteLine("Connected to {0}", network.Address);
     }
 
-    public BindableCollection<IrcChannelViewModel> Channels { get; set; }
+    private void clientRegistered(object sender, EventArgs e)
+    {
+      this.Client.LocalUser.JoinedChannel += localUserJoinedChannel;
+      this.Client.Channels.Join("#bots");
+    }
+
+    private void localUserJoinedChannel(object sender, IrcChannelEventArgs e)
+    {
+      var icvm = new IrcChannelViewModel(e.Channel);
+      this.Channels.Add(icvm);
+    }
+
+    private void channelMessageReceived(object sender, IrcMessageEventArgs e)
+    {
+      Console.WriteLine(e.Text);
+    }
 
     public override string DisplayName
     {
@@ -62,6 +103,19 @@ namespace Handle.WPF
       set
       {
         this.displayName = value;
+      }
+    }
+
+    public IrcClient Client
+    {
+      get
+      {
+        return this.client;
+      }
+
+      set
+      {
+        this.client = value;
       }
     }
   }

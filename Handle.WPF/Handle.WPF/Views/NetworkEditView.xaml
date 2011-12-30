@@ -21,6 +21,7 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
 
       <Label Grid.Column="0" Grid.Row="0" Content="Name:"/>
@@ -31,7 +32,10 @@
 
       <Label Grid.Column="0" Grid.Row="2" Content="Favorite:"/>
       <CheckBox Grid.Column="1" Grid.Row="2" x:Name="Network_IsFavorite"/>
- 
+
+      <Label Grid.Column="0" Grid.Row="3" Content="Use Global Identity:"/>
+      <CheckBox Grid.Column="1" Grid.Row="3" x:Name="Network_UseGlobalIdentity"/>
+
     </Grid>
 
       <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">

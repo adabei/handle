@@ -29,6 +29,9 @@ namespace Handle.WPF
   using System.Collections.Generic;
   using System.Linq;
   using System.Text;
+  using System.IO.IsolatedStorage;
+  using System.IO;
+  using Newtonsoft.Json;
 
   /// <summary>
   /// A class representing an IRC network.
@@ -46,12 +49,13 @@ namespace Handle.WPF
     /// <param name="address">The address of the network</param>
     /// <param name="isFavorite">Whether the network is a favorite or not</param>
     /// <param name="connectCommands">The commands to be executed upon connecting.</param>
-    public Network(string name, string address, bool isFavorite, string connectCommands)
+    public Network(string name, string address, bool isFavorite, string connectCommands, bool useGlobalIdentity = true)
     {
       this.Name = name;
       this.Address = address;
       this.IsFavorite = isFavorite;
       this.ConnectCommands = connectCommands;
+      this.UseGlobalIdentity = useGlobalIdentity;
     }
 
     /// <summary>
@@ -82,6 +86,34 @@ namespace Handle.WPF
     {
       return this.Name;
     }
+    private Identity identity;
+
+    public Identity Identity
+    {
+      get
+      {
+        if (this.UseGlobalIdentity)
+        {
+          var store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
+          IsolatedStorageFileStream isolatedStream;
+          isolatedStream = new IsolatedStorageFileStream("identity.json", FileMode.OpenOrCreate, store);
+          var ret = JsonConvert.DeserializeObject<Identity>(new StreamReader(isolatedStream).ReadToEnd());
+          isolatedStream.Close();
+          return ret;
+          
+        }
+        return this.identity;
+      }
+      set
+      {
+        if (!this.UseGlobalIdentity)
+        {
+          this.identity = value;
+        }
+      }
+    }
+
+    public bool UseGlobalIdentity { get; set; }
 
     public Network ShallowCopy()
     {

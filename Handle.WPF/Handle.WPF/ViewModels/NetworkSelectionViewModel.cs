@@ -33,11 +33,12 @@ namespace Handle.WPF
   using System.Text;
   using Caliburn.Micro;
   using Newtonsoft.Json;
+  using System.Windows.Input;
 
   /// <summary>
   /// Represents a ViewModel for NetworkSelectionViews
   /// </summary>
-  public class NetworkSelectionViewModel : Screen
+  public class NetworkSelectionViewModel : ViewModelBase
   {
     private BindableCollection<Network> networks;
 
@@ -47,7 +48,11 @@ namespace Handle.WPF
     public NetworkSelectionViewModel()
     {
       this.initializeNetworks();
+      this.deserializeGlobalIdentity();
     }
+
+    public delegate void ConnectEventHandler(Network network);
+    public event ConnectEventHandler ConnectButtonPressed;
 
     /// <summary>
     /// Gets or sets the global identity.
@@ -94,8 +99,48 @@ namespace Handle.WPF
       }
     }
 
+    private void deserializeGlobalIdentity()
+    {
+      var store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
+      IsolatedStorageFileStream isolatedStream;
+      isolatedStream = new IsolatedStorageFileStream("identity.json", FileMode.OpenOrCreate, store);
+      this.GlobalIdentity = JsonConvert.DeserializeObject<Identity>(new StreamReader(isolatedStream).ReadToEnd());
+      if (this.GlobalIdentity == null)
+      {
+        this.GlobalIdentity = new Identity(string.Empty, string.Empty, string.Empty, string.Empty);
+      }
+      isolatedStream.Close();
+    }
+
+    private void serializeGlobalIdentity()
+    {
+      string json = JsonConvert.SerializeObject(this.GlobalIdentity, Formatting.Indented);
+      var store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
+      IsolatedStorageFileStream isolatedStream;
+      try
+      {
+        isolatedStream = new IsolatedStorageFileStream("identity.json", FileMode.Truncate, store);
+      }
+      catch
+      {
+        isolatedStream = new IsolatedStorageFileStream("identity.json", FileMode.Create, store);
+      }
+
+      StreamWriter sw = new StreamWriter(isolatedStream);
+      sw.Write(json);
+      sw.Close();
+    }
+
     public void Connect()
     {
+      var nsv = GetView() as NetworkSelectionView;
+      var parent = this.Parent as ShellViewModel;
+      if (nsv.Networks.SelectedIndex != -1)
+      {
+        this.ConnectButtonPressed(this.Networks[nsv.Networks.SelectedIndex]);
+      }
+      serializeGlobalIdentity();
+      parent.ActivateItem(parent.IrcMainViewModel);
     }
 
     public void Remove()
@@ -119,7 +164,7 @@ namespace Handle.WPF
       }
 
       IWindowManager wm;
-      NetworkEditViewModel nevm = new NetworkEditViewModel(this.Networks.ElementAt(index).ShallowCopy());
+      NetworkEditViewModel nevm = new NetworkEditViewModel(this.Networks[index].ShallowCopy());
       try
       {
         wm = IoC.Get<IWindowManager>();
@@ -134,6 +179,8 @@ namespace Handle.WPF
         this.Networks.RemoveAt(index);
         this.Networks.Insert(index, nevm.Network);
       }
+
+      this.serializeNetworks();
     }
 
     private void serializeNetworks()
@@ -168,6 +215,21 @@ namespace Handle.WPF
       {
         this.Networks = new BindableCollection<Network>();
       }
+    }
+
+    protected override IEnumerable<InputBindingCommand> GetInputBindingCommands()
+    {
+      yield return new InputBindingCommand(Cancel)
+      {
+        GestureKey = Key.Escape
+      };
+    }
+
+    public void Cancel()
+    {
+      var parent = this.Parent as ShellViewModel;
+      serializeGlobalIdentity();
+      parent.ActivateItem(parent.IrcMainViewModel);
     }
   }
 }

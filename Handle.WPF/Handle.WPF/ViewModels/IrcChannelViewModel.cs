@@ -37,15 +37,23 @@ namespace Handle.WPF
   /// </summary>
   public class IrcChannelViewModel : Screen
   {
-    private string displayName;
+    public IrcChannel IrcChannel { get; set; }
+
+    public BindableCollection<Message> Messages { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the IrcChannelViewModel class
     /// </summary>
-    public IrcChannelViewModel()
+    public IrcChannelViewModel(IrcChannel channel)
     {
-      this.DisplayName = "Testung";
+      this.Messages = new BindableCollection<Message>();
+      this.DisplayName = channel.Name;
+      this.IrcChannel = channel;
+      this.IrcChannel.MessageReceived += this.channelMessageReceived;
     }
+
+
+    private string displayName;
 
     public override string DisplayName
     {
@@ -58,6 +66,18 @@ namespace Handle.WPF
       {
         this.displayName = value;
       }
+    }
+
+    private void channelMessageReceived(object sender, IrcMessageEventArgs e)
+    {
+     /* this.Messages.Add(new Message()
+      {
+        Received = DateTime.Now,
+        Text = e.Text,
+        Sender = e.Source.Name
+      }); */
+      this.Messages.Add(new Message(e.Text, DateTime.Now, e.Source.Name));
+      Console.WriteLine(e.Source.Name + ": " + e.Text);
     }
   }
 }
