@@ -2,10 +2,267 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-
-    </Grid>
+             d:DesignHeight="419" d:DesignWidth="570">
+  <Grid ShowGridLines="True">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <TextBlock FontSize="22" Grid.Row="0">settings</TextBlock>
+      <TabControl  x:Name="SettingsTabControl" Grid.Row="1">
+        <TabItem Header="General" x:Name="GeneralTabItem">
+        <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Logs" Height="28"  Grid.Row="0"   FontWeight="Bold" FontSize="13" />
+            <CheckBox Content="logging" Height="16"  Grid.Row="1" x:Name="Settings_CanLog"  />
+            <Grid Grid.Row="2">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+              </Grid.ColumnDefinitions>
+              <Label Content="Save Path" Height="28"   Grid.Column="0"/>
+              <TextBox Height="23" IsEnabled="{Binding ElementName=Settings_CanLog, Path=IsChecked}"  Grid.Column="1" x:Name="Settings_LogSavePath"  Width="120" />
+              <Button Content="Browse..." Height="23" IsEnabled="{Binding ElementName=Settings_CanLog, Path=IsChecked}" x:Name="LogBrowse"  Grid.Column="2" Width="75" />
+            </Grid>
+            <Label Content="URIs" Height="28"  Grid.Row="3"  FontWeight="Bold" FontSize="13" />
+            <CheckBox Content="URIs as Links" Height="16"  Grid.Row="4" x:Name="Settings_CanDisplayURLAsLink"  />
+            <Label Content="Leave Message" Height="28"  Grid.Row="5"  FontWeight="Bold" FontSize="13" />
+            <CheckBox Content="Leave Message" Height="16"  Grid.Row="6" x:Name="Settings_CanSendLeaveMessage"  />
+            <TextBox Height="60"  Grid.Row="7" x:Name="Settings_LeaveMessage" IsEnabled="{Binding ElementName=Settings_CanSendLeaveMessage,Path=IsChecked}" TextWrapping="Wrap" AcceptsReturn="True" VerticalScrollBarVisibility="Visible" Width="250" />
+          </Grid>
+        </ScrollViewer>
+      </TabItem>
+        <TabItem Header="Display" x:Name="DisplayTabItem">
+        <ScrollViewer>
+          <Grid>
+            <Grid.Resources>
+              <DataTemplate x:Key="fontFamilyPreview">
+                <TextBlock Text="{Binding Path=Source}" FontFamily="{Binding}" />
+              </DataTemplate>
+              <CollectionViewSource x:Key="fonts" Source="{Binding Source={x:Static Fonts.SystemFontFamilies}}" />
+            </Grid.Resources>
+            <Grid DataContext="{StaticResource fonts}" Margin="4">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="370" />
+                <ColumnDefinition />
+              </Grid.ColumnDefinitions>
+              <Grid>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="100" />
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label Content="Appearance" Height="28"  Grid.Row="0"  FontSize="13" FontWeight="Bold" />
+                <ListView x:Name="FontFamilyListView" SelectionMode="Single" ItemsSource="{Binding}" Margin="4" Grid.Row="1" cal:Message.Attach="[Event SelectionChanged] = [Action FontChanging]">
+                  <ListView.View>
+                    <GridView>
+                      <GridView.Columns>
+                        <GridViewColumn Header="Font Family" Width="140" />
+                        <GridViewColumn Header="Preview" CellTemplate="{StaticResource fontFamilyPreview}" Width="190" />
+                      </GridView.Columns>
+                    </GridView>
+                  </ListView.View>
+                </ListView>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2">
+                  <!--<TextBox x:Name="Settings_FontSize" Height="28" Width="75" cal:Message.Attach="[Event TextChanged] = [Action SliderValueChanged]"/>-->
+                  <!--<TextBlock Text="{Binding ElementName=}" Margin="4 4 0 4" MinWidth="30" TextAlignment="Right" />-->
+                  <TextBlock Text=" px" Margin="0 4 4 4" />
+                  <Slider x:Name="Settings_FontSize" Minimum="3" Maximum="120" Margin="4" Width="200" IsSnapToTickEnabled="True" cal:Message.Attach="[Event ValueChanged] = [Action SliderValueChanged]"/>
+                </StackPanel>
+                <Label Content="Time Stamps" Height="28"  Grid.Row="3"  FontSize="13" FontWeight="Bold" />
+                <CheckBox Content="Show Timestamps" Height="16" Grid.Row="4" x:Name="Settings_CanShowTimeStamps"/>
+                <Grid Grid.Row="5">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                  </Grid.ColumnDefinitions>
+                  <Label Content="Format" Height="28"  Grid.Column="0"  />
+                  <TextBox Height="23" IsEnabled="{Binding ElementName=Settings_CanShowTimeStamps, Path=IsChecked}"  Grid.Column="1" x:Name="Settings_TimeStampFormat"  Width="120" />
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
+        </ScrollViewer>
+      </TabItem>
+        <TabItem Header="Notifications" x:Name="NotificationsTabItem">
+        <ScrollViewer>
+        <Grid>
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Label Content="Notification Toast" Height="28"  Grid.Row="0"  FontWeight="Bold" FontSize="13" />
+            <CheckBox Content="On/Off" Height="16"  Grid.Row="1" x:Name="Settings_NotificationToast"  />
+            <Label Content="Notification Sound" Height="28"  Grid.Row="2"  FontWeight="Bold" FontSize="13" />
+            <CheckBox Content="On/Off" Height="16"  Grid.Row="3" x:Name="Settings_NotificationSound"  />
+            <Label Content="Windows Taskbar Counter" Height="28"  Grid.Row="4"  FontWeight="Bold" FontSize="13" />
+            <CheckBox Content="On/Off" Height="16"  Grid.Row="5" x:Name="Settings_NotificationTaskbar"  />
+          </Grid>
+        </ScrollViewer>
+      </TabItem>
+        
+        <!--<TabItem Header="Shortcuts" x:Name="ShortcutsTabItem">
+          <ScrollViewer>
+            <Grid>
+              <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              <RowDefinition Height="Auto"/>
+              </Grid.RowDefinitions>
+              <Label Content="Switch between Channel 1-8 in current Network" Height="28"  Grid.Row="0"  />
+              <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <ComboBox Height="23"  Grid.Column="0" x:Name="SChannelSwitchFirstKey"  Width="120">
+                </ComboBox>
+                <Label Content="+" Height="28"  Grid.Column="1"  />
+                <ComboBox Height="23"  Grid.Column="2" x:Name="SChannelSwitchSecondKey"  Width="120">
+                </ComboBox>
+              </Grid>
+              <Label Content="Activate last Channel in current Network" Height="28"  Grid.Row="2"  />
+              <Grid Grid.Row="3">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox Height="23"  Grid.Column="0" x:Name="Settings_SActivateLastChannel"  Width="120"/>
+                <Button Content="Fetch" Height="23"  Grid.Column="1" x:Name="SActivateLastChannel"  Width="75" />
+              </Grid>
+              <Label Content="Switch between neighbour Channels" Height="28"  Grid.Row="4"  />
+              <Grid Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox Height="23"  Grid.Column="0" x:Name="Settings_SSwitchBetweenNeighbourChannelForward"  Width="120" />
+                <Button Content="Fetch" Height="23"  Grid.Column="1" x:Name="SSwitchBetweenNeighbourChannelForward"  Width="75" />
+              </Grid>
+              <Grid Grid.Row="6">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox Height="23"  Grid.Column="0" x:Name="Settings_SSwitchBetweenNeighbourChannelBack"  Width="120" />
+                <Button Content="Fetch" Height="23"  Grid.Column="1" x:Name="SSwitchBetweenNeighbourChannelBack"  Width="75" />
+              </Grid>
+              <Label Content="Activate last active Channel from Network 1-8" Height="28"  Grid.Row="7"  />
+              <Grid Grid.Row="8">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <ComboBox Height="23"  Grid.Column="0" x:Name="SActivateLastActiveChannelFromNetworkFirstKey"  Width="120">
+                </ComboBox>
+                <Label Content="+" Height="28"  Grid.Column="1"  />
+                <ComboBox Height="23"  Grid.Column="2" x:Name="SActivateLastActiveChannelFromNetworkSecondKey"  Width="120">
+                </ComboBox>
+              </Grid>
+              <Label Content="Activate last active Channel from the last Network" Height="28"  Grid.Row="9"  />
+              <Grid Grid.Row="10">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox Height="23"  Grid.Column="0" x:Name="Settings_SActivateLastActiveChannelFromTheLastNetwork"  Width="120" />
+                <Button Content="Fetch" Height="23"  Grid.Column="1" x:Name="SActivateLastActiveChannelFromTheLastNetwork"  Width="75" />
+              </Grid>
+              <Label Content="Leave current Channel" Height="28"  Grid.Row="11"  />
+              <Grid Grid.Row="12">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox Height="23"  Grid.Column="0" x:Name="Settings_SLeaveCurrentChannel"  Width="120" />
+                <Button Content="Fetch" Height="23"  Grid.Column="1" x:Name="SLeaveCurrentChannel"  Width="75" />
+              </Grid>
+              <Label Content="Disconnect with current Network" Height="28"  Grid.Row="13"  />
+              <Grid Grid.Row="14">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox Height="23"  Grid.Column="0" x:Name="Settings_SDisconnectWithCurrentNetwork"  Width="120" />
+                <Button Content="Fetch" Height="23"  Grid.Column="1" x:Name="SDisconnectWithCurrentNetwork"  Width="75" />
+              </Grid>
+              <Label Content="Open Channel-Search" Height="28"  Grid.Row="15"  />
+              <Grid Grid.Row="16">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox Height="23"  Grid.Column="0" x:Name="Settings_SOpenChannelSearch"  Width="120" />
+                <Button Content="Fetch" Height="23"  Grid.Column="1" x:Name="SOpenChannelSearch"  Width="75" />
+              </Grid>
+              <Label Content="Open Networklist" Height="28"  Grid.Row="17"  />
+              <Grid Grid.Row="18">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                  <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox Height="23"  Grid.Column="0" x:Name="Settings_SOpenNetworklist"  Width="120" />
+                <Button Content="Fetch" Height="23"  Grid.Column="1" x:Name="SOpenNetworklist"  Width="75" />
+              </Grid>
+            </Grid>
+          </ScrollViewer>
+        </TabItem> -->
+       
+        <TabItem Header="Updates" x:Name="UpdatesTabItem">
+        <ScrollViewer>
+        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <Grid.RowDefinitions>
+              <RowDefinition Height="Auto"></RowDefinition>
+              <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <CheckBox Content="Automatically check for updates on launch"  Grid.Row="0" x:Name="Settings_CanUpdate"  />
+            <Button Content="check for updates now" Height="Auto"  Grid.Row="1" x:Name="CheckForUpdates"  Width="Auto" />
+          </Grid>
+        </ScrollViewer>
+      </TabItem>
+      </TabControl>
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2">
+      <Button Content="Save" Height="Auto"  x:Name="OK"  Width="Auto" />
+      <Button Content="Cancel" Height="Auto"  x:Name="Cancel"  Width="Auto" />
+    </StackPanel>
+  </Grid>
 </UserControl>

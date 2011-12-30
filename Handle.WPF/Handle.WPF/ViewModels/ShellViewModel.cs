@@ -30,6 +30,9 @@ namespace Handle.WPF
   using System.Windows;
   using System.Windows.Input;
   using Caliburn.Micro;
+  using System.IO.IsolatedStorage;
+  using System.IO;
+  using Newtonsoft.Json;
 
   /// <summary>
   /// Represents a ViewModel for ShellViews
@@ -48,6 +51,7 @@ namespace Handle.WPF
       get { return this.ircMainViewModel; }
       set { this.ircMainViewModel = value; }
     }
+    public Settings Settings { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the ShellViewModel class
@@ -166,7 +170,7 @@ namespace Handle.WPF
 
     public void DisplaySettings()
     {
-      ActivateItem(new SettingsViewModel());
+      ActivateItem(new SettingsViewModel(this.Settings));
     }
 
     protected override void OnViewLoaded(object view)
@@ -184,6 +188,22 @@ namespace Handle.WPF
         GestureModifier = ModifierKeys.Control,
         GestureKey = Key.N
       };
+    }
+
+    /// <summary>
+    /// Loads settings from a config file in IsolatedStorage.
+    /// </summary>
+    private void initializeSettings()
+    {
+      var store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
+      IsolatedStorageFileStream isolatedStream;
+      isolatedStream = new IsolatedStorageFileStream("settings.json", FileMode.OpenOrCreate, store);
+      this.Settings = JsonConvert.DeserializeObject<Settings>(new StreamReader(isolatedStream).ReadToEnd());
+      if (this.Settings == null)
+      {
+        this.Settings = new Settings();
+      }
+      isolatedStream.Close();
     }
   }
 }
