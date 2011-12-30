@@ -61,6 +61,7 @@ namespace Handle.WPF
       this.Left = 10.0;
       this.Top = 100.0;
       this.IrcMainViewModel = new IrcMainViewModel();
+      this.Settings = this.deserializeSettings();
       ActivateItem(this.IrcMainViewModel);
     }
 
@@ -168,9 +169,16 @@ namespace Handle.WPF
       this.WindowState = WindowState.Normal;
     }
 
-    public void DisplaySettings()
+    public void ShowSettings()
     {
-      ActivateItem(new SettingsViewModel(this.Settings));
+      var svm = new SettingsViewModel(this.Settings.ShallowCopy());
+      svm.SaveButtonPressed += SaveSettings;
+      ActivateItem(svm);
+    }
+
+    private void SaveSettings(Settings settings)
+    {
+      this.Settings = settings;
     }
 
     protected override void OnViewLoaded(object view)
@@ -193,17 +201,19 @@ namespace Handle.WPF
     /// <summary>
     /// Loads settings from a config file in IsolatedStorage.
     /// </summary>
-    private void initializeSettings()
+    private Settings deserializeSettings()
     {
+      
       var store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
       IsolatedStorageFileStream isolatedStream;
       isolatedStream = new IsolatedStorageFileStream("settings.json", FileMode.OpenOrCreate, store);
-      this.Settings = JsonConvert.DeserializeObject<Settings>(new StreamReader(isolatedStream).ReadToEnd());
-      if (this.Settings == null)
+      var settings = JsonConvert.DeserializeObject<Settings>(new StreamReader(isolatedStream).ReadToEnd());
+      if (settings == null)
       {
-        this.Settings = new Settings();
+        settings = new Settings();
       }
       isolatedStream.Close();
+      return settings;
     }
   }
 }

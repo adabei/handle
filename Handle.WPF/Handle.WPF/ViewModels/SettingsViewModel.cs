@@ -11,19 +11,9 @@
 
   public class SettingsViewModel : Screen
   {
-    private Settings settings;
-
-    public Settings Settings
-    {
-      get
-      {
-        return this.settings;
-      }
-      set
-      {
-        this.settings = value;
-      }
-    }
+    public delegate void SaveEventHandler(Settings settings);
+    public event SaveEventHandler SaveButtonPressed;
+    public Settings Settings { get; set; }
 
     public SettingsViewModel(Settings settings)
     {
@@ -50,7 +40,10 @@
 
     public void OK()
     {
+      this.SaveButtonPressed(this.Settings);
+      var parent = this.Parent as ShellViewModel;
       serializeSettings();
+      parent.ActivateItem(parent.IrcMainViewModel);
     }
 
     public void Cancel()

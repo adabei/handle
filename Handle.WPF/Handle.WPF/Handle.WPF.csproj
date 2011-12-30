@@ -153,7 +153,7 @@
     <Compile Include="InputBindings.cs" />
     <Compile Include="Message.cs" />
     <Compile Include="UiElementExtension.cs" />
-    <Compile Include="ViewModelBase.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\IrcChannelView.xaml.cs">
       <DependentUpon>IrcChannelView.xaml</DependentUpon>
     </Compile>
