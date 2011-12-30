@@ -26,12 +26,9 @@
 namespace Handle.WPF
 {
   using System;
-  using System.Collections.Generic;
-  using System.Linq;
-  using System.Text;
+  using System.Threading;
   using Caliburn.Micro;
   using IrcDotNet;
-  using System.Threading;
 
   /// <summary>
   /// TODO: Update summary.

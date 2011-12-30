@@ -25,13 +25,11 @@
 
 namespace Handle.WPF
 {
-  using System;
+  using System.Collections.Generic;
   using System.ComponentModel.Composition;
   using System.Windows;
   using System.Windows.Input;
-  using System.Windows.Media;
   using Caliburn.Micro;
-  using System.Collections.Generic;
 
   /// <summary>
   /// Represents a ViewModel for ShellViews
