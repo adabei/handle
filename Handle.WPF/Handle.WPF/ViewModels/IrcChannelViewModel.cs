@@ -38,6 +38,29 @@ namespace Handle.WPF
 
     public BindableCollection<Message> Messages { get; set; }
 
+    private string message;
+    public string Message
+    {
+      get
+      {
+        return this.message;
+      }
+      set
+      {
+        this.message = value;
+        NotifyOfPropertyChange(() => this.Message);
+        NotifyOfPropertyChange(() => this.CanSend);
+      }
+    }
+
+    public bool CanSend
+    {
+      get
+      {
+        return !string.IsNullOrWhiteSpace(this.Message);
+      }
+    }
+
     /// <summary>
     /// Initializes a new instance of the IrcChannelViewModel class
     /// </summary>
@@ -68,6 +91,11 @@ namespace Handle.WPF
     private void channelMessageReceived(object sender, IrcMessageEventArgs e)
     {
       this.Messages.Add(new Message(e.Text, DateTime.Now.ToString("HH:mm"), e.Source.Name));
+    }
+
+    public void Send()
+    {
+      this.IrcChannel.Client.LocalUser.SendMessage(this.IrcChannel, this.Message);
     }
   }
 }
