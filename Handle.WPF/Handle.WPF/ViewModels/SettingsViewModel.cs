@@ -47,7 +47,6 @@
       if (this.Settings == null)
       {
         this.Settings = new Settings();
-        
       }
     }
 
@@ -69,17 +68,17 @@
       sw.Close();
     }
 
-    public void OK() 
+    public void OK()
     {
       serializeSettings();
     }
 
-    public void Cancel() 
+    public void Cancel()
     {
       initializeSettings();
     }
 
-    public void LogBrowse() 
+    public void LogBrowse()
     {
 
       System.Windows.Forms.FolderBrowserDialog dlg = new System.Windows.Forms.FolderBrowserDialog();
@@ -90,20 +89,10 @@
       }
     }
 
-    public void KeysAreDown(System.Windows.Input.KeyEventArgs e)
+    public void SliderValueChanged()
     {
       var sv = GetView() as SettingsView;
-      //if (e.Key == System.Windows.Input.Key.LeftCtrl)
-      //{
-
-        sv.Settings_SActivateLastChannel.Text = e.Key.ToString();
-      //}
-    }
-
-    public void SliderValueChanged() 
-    {
-      var sv = GetView() as SettingsView;
-      this.Settings.FontSize = (int)sv.Settings_FontSize.Value;
+      this.Settings.FontSize = sv.Settings_FontSize.Value;
     }
 
     public void FontChanging()
@@ -117,7 +106,7 @@
       get
       {
         return new BindableCollection<string>(
-                         new string[] { "Alt","Strg" });
+                         new string[] { "Alt", "Strg" });
       }
     }
 

@@ -34,12 +34,13 @@ namespace Handle.WPF
   /// <summary>
   /// A class representing all Settings
   /// </summary>
+  [JsonObject(MemberSerialization.OptIn)]
   public class Settings
   {
     /// <summary>
     /// Initializes a new instance of the Settings class.
     /// </summary>
-    public Settings() 
+    public Settings()
     {
       this.Notifications = new Dictionary<string, bool>();
       this.Notifications["Toast"] = true;
@@ -56,71 +57,81 @@ namespace Handle.WPF
       this.Shortcuts["ActivateLastActiveChannelFromNetworkFirstKey"] = "ja";
       this.Shortcuts["ActivateLastActiveChannelFromNetworkSecondKey"] = "ja";
       this.Shortcuts["ChannelSwitchFirstKey"] = "ja";
-      this.Shortcuts["ChannelSwitchSecondKey"] = "ja"; 
+      this.Shortcuts["ChannelSwitchSecondKey"] = "ja";
       this.Shortcuts["LeaveCurrentChannel"] = "ja";
     }
 
     /// <summary>
     /// Gets or sets a value indicating whether logs are saved
     /// </summary>
+    [JsonProperty]
     public bool CanLog { get; set; }
 
     /// <summary>
     /// Gets or sets the LogSavePath
     /// </summary>
+    [JsonProperty]
     public string LogSavePath { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether an URL will be displayed as a link
     /// </summary>
+    [JsonProperty]
     public bool CanDisplayURLAsLink { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether a customized leave message will be sent
     /// </summary>
+    [JsonProperty]
     public bool CanSendLeaveMessage { get; set; }
 
     /// <summary>
     /// Gets or sets the Leave Message
     /// </summary>
+    [JsonProperty]
     public string LeaveMessage { get; set; }
 
     /// <summary>
     /// Gets or sets the FontFamily
     /// </summary>
+    [JsonProperty]
     public string FontFamily { get; set; }
 
     /// <summary>
     /// Gets or sets the FontSize
     /// </summary>
-    public int FontSize { get; set; }
+    [JsonProperty]
+    public double FontSize { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether timestamps will be displayed
     /// </summary>
+    [JsonProperty]
     public bool CanShowTimeStamps { get; set; }
 
     /// <summary>
     /// Gets or sets the TimeStampFormat
     /// </summary>
+    [JsonProperty]
     public string TimeStampFormat { get; set; }
 
     /// <summary>
     /// Gets or sets the NotificationStyles
     /// </summary>
-    public Dictionary<string,bool> Notifications { get; set; }
+    [JsonProperty]
+    public Dictionary<string, bool> Notifications { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether ...
     /// </summary>
     public bool NotificationToast
     {
-      get 
+      get
       {
         return this.Notifications["Toast"];
       }
-      
-      set  
+
+      set
       {
         this.Notifications["Toast"] = value;
       }
@@ -151,7 +162,7 @@ namespace Handle.WPF
       {
         return this.Notifications["Taskbar"];
       }
-      
+
       set
       {
         this.Notifications["Taskbar"] = value;
@@ -161,6 +172,7 @@ namespace Handle.WPF
     /// <summary>
     /// Gets or sets the Shortcuts
     /// </summary>
+    [JsonProperty]
     public Dictionary<string, string> Shortcuts { get; set; }
 
     public string SActivateLastChannel
@@ -169,7 +181,7 @@ namespace Handle.WPF
       {
         return this.Shortcuts["ActivateLastChannel"];
       }
-      
+
       set
       {
         this.Shortcuts["ActivateLastChannel"] = value;
@@ -322,6 +334,7 @@ namespace Handle.WPF
     /// <summary>
     /// Gets or sets a value indicating whether updates will be applied
     /// </summary>
+    [JsonProperty]
     public bool CanUpdate { get; set; }
 
     /// <summary>

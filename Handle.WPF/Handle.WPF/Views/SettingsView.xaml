@@ -47,56 +47,57 @@
           </Grid>
         </TabItem>
         <TabItem Header="Display" x:Name="DisplayTabItem">
-            <Grid>
-              <Grid.Resources>
-                <DataTemplate x:Key="fontFamilyPreview">
-                  <TextBlock Text="{Binding Path=Source}" FontFamily="{Binding}" />
-                </DataTemplate>
-                <CollectionViewSource x:Key="fonts" Source="{Binding Source={x:Static Fonts.SystemFontFamilies}}" />
-              </Grid.Resources>
-              <Grid DataContext="{StaticResource fonts}" Margin="4">
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="370" />
-                  <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-                <Grid>
-                  <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="100" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                  </Grid.RowDefinitions>
-                  <Label Content="Appearance" Height="28"  Grid.Row="0"  FontSize="13" FontWeight="Bold" />
+          <Grid>
+            <Grid.Resources>
+              <DataTemplate x:Key="fontFamilyPreview">
+                <TextBlock Text="{Binding Path=Source}" FontFamily="{Binding}" />
+              </DataTemplate>
+              <CollectionViewSource x:Key="fonts" Source="{Binding Source={x:Static Fonts.SystemFontFamilies}}" />
+            </Grid.Resources>
+            <Grid DataContext="{StaticResource fonts}" Margin="4">
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="370" />
+                <ColumnDefinition />
+              </Grid.ColumnDefinitions>
+              <Grid>
+                <Grid.RowDefinitions>
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="100" />
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+                  <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label Content="Appearance" Height="28"  Grid.Row="0"  FontSize="13" FontWeight="Bold" />
                 <ListView x:Name="FontFamilyListView" SelectionMode="Single" ItemsSource="{Binding}" Margin="4" Grid.Row="1" cal:Message.Attach="[Event SelectionChanged] = [Action FontChanging]">
                   <ListView.View>
                     <GridView>
-                        <GridView.Columns>
-                          <GridViewColumn Header="Font Family" Width="140" />
-                          <GridViewColumn Header="Preview" CellTemplate="{StaticResource fontFamilyPreview}" Width="190" />
-                        </GridView.Columns>
-                      </GridView>
-                    </ListView.View>
-                  </ListView>
-                  <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2">
-                    <TextBlock Text="{Binding ElementName=Settings_FontSize, Path=Value}" Margin="4 4 0 4" MinWidth="30" TextAlignment="Right" />
-                    <TextBlock Text=" px" Margin="0 4 4 4" />
+                      <GridView.Columns>
+                        <GridViewColumn Header="Font Family" Width="140" />
+                        <GridViewColumn Header="Preview" CellTemplate="{StaticResource fontFamilyPreview}" Width="190" />
+                      </GridView.Columns>
+                    </GridView>
+                  </ListView.View>
+                </ListView>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2">
+                  <!--<TextBox x:Name="Settings_FontSize" Height="28" Width="75" cal:Message.Attach="[Event TextChanged] = [Action SliderValueChanged]"/>-->
+                  <!--<TextBlock Text="{Binding ElementName=}" Margin="4 4 0 4" MinWidth="30" TextAlignment="Right" />-->
+                  <TextBlock Text=" px" Margin="0 4 4 4" />
                   <Slider x:Name="Settings_FontSize" Minimum="3" Maximum="120" Margin="4" Width="200" IsSnapToTickEnabled="True" cal:Message.Attach="[Event ValueChanged] = [Action SliderValueChanged]"/>
-                  </StackPanel>
-                  <Label Content="Time Stamps" Height="28"  Grid.Row="3"  FontSize="13" FontWeight="Bold" />
-                  <CheckBox Content="Show Timestamps" Height="16" Grid.Row="4" x:Name="Settings_CanShowTimeStamps"/>
-                  <Grid Grid.Row="5">
-                    <Grid.ColumnDefinitions>
-                      <ColumnDefinition Width="Auto"></ColumnDefinition>
-                      <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    </Grid.ColumnDefinitions>
-                    <Label Content="Format" Height="28"  Grid.Column="0"  />
-                    <TextBox Height="23" IsEnabled="{Binding ElementName=Settings_CanShowTimeStamps, Path=IsChecked}"  Grid.Column="1" x:Name="Settings_TimeStampFormat"  Width="120" />
-                  </Grid>
+                </StackPanel>
+                <Label Content="Time Stamps" Height="28"  Grid.Row="3"  FontSize="13" FontWeight="Bold" />
+                <CheckBox Content="Show Timestamps" Height="16" Grid.Row="4" x:Name="Settings_CanShowTimeStamps"/>
+                <Grid Grid.Row="5">
+                  <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                  </Grid.ColumnDefinitions>
+                  <Label Content="Format" Height="28"  Grid.Column="0"  />
+                  <TextBox Height="23" IsEnabled="{Binding ElementName=Settings_CanShowTimeStamps, Path=IsChecked}"  Grid.Column="1" x:Name="Settings_TimeStampFormat"  Width="120" />
                 </Grid>
               </Grid>
             </Grid>
+          </Grid>
         </TabItem>
         <TabItem Header="Notifications" x:Name="NotificationsTabItem">
           <Grid>
@@ -159,7 +160,7 @@
                   <ColumnDefinition Width="Auto"></ColumnDefinition>
                   <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <TextBox Height="23"  Grid.Column="0" x:Name="Settings_SActivateLastChannel"  Width="120" cal:Message.Attach="[Event KeyDown] = [Action KeysAreDown($eventargs)]"/>
+                <TextBox Height="23"  Grid.Column="0" x:Name="Settings_SActivateLastChannel"  Width="120"/>
                 <Button Content="Fetch" Height="23"  Grid.Column="1" x:Name="SActivateLastChannel"  Width="75" />
               </Grid>
               <Label Content="Switch between neighbour Channels" Height="28"  Grid.Row="4"  />
