@@ -14,10 +14,10 @@ namespace Handle.WPF
   public class Message
   {
     public string Text { get; private set; }
-    public DateTime Received { get; private set; }
+    public string Received { get; private set; }
     public string Sender { get; private set; }
 
-    public Message(string text, DateTime received, string sender)
+    public Message(string text, string received, string sender)
     {
       Text = text;
       Received = received;

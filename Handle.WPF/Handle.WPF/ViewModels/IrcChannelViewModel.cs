@@ -67,14 +67,7 @@ namespace Handle.WPF
 
     private void channelMessageReceived(object sender, IrcMessageEventArgs e)
     {
-     /* this.Messages.Add(new Message()
-      {
-        Received = DateTime.Now,
-        Text = e.Text,
-        Sender = e.Source.Name
-      }); */
-      this.Messages.Add(new Message(e.Text, DateTime.Now, e.Source.Name));
-      Console.WriteLine(e.Source.Name + ": " + e.Text);
+      this.Messages.Add(new Message(e.Text, DateTime.Now.ToString("HH:mm"), e.Source.Name));
     }
   }
 }
