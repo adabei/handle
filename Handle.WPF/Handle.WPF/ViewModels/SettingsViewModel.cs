@@ -8,8 +8,10 @@
   using System.IO.IsolatedStorage;
   using System.IO;
   using Newtonsoft.Json;
+  using System.Windows.Input;
 
-  public class SettingsViewModel : Screen
+
+  public class SettingsViewModel : ViewModelBase
   {
     public delegate void SaveEventHandler(Settings settings);
     public event SaveEventHandler SaveButtonPressed;
@@ -38,7 +40,7 @@
       sw.Close();
     }
 
-    public void OK()
+    public void Save()
     {
       this.SaveButtonPressed(this.Settings);
       var parent = this.Parent as ShellViewModel;
@@ -48,7 +50,8 @@
 
     public void Cancel()
     {
-      //TODO
+      var parent = this.Parent as ShellViewModel;
+      parent.ActivateItem(parent.IrcMainViewModel);
     }
 
     public void LogBrowse()
@@ -188,6 +191,18 @@
       {
         this.Settings.Notifications["Taskbar"] = value;
       }
+    }
+
+    protected override IEnumerable<InputBindingCommand> GetInputBindingCommands()
+    {
+      yield return new InputBindingCommand(Save)
+      {
+        GestureKey = Key.Enter
+      };
+      yield return new InputBindingCommand(Cancel)
+      {
+        GestureKey = Key.Escape
+      };
     }
   }
 }

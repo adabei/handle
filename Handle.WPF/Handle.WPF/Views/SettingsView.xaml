@@ -261,7 +261,7 @@
       </TabItem>
       </TabControl>
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2">
-      <Button Content="Save" Height="Auto"  x:Name="OK"  Width="Auto" />
+      <Button Content="Save" Height="Auto"  x:Name="Save"  Width="Auto" />
       <Button Content="Cancel" Height="Auto"  x:Name="Cancel"  Width="Auto" />
     </StackPanel>
   </Grid>
