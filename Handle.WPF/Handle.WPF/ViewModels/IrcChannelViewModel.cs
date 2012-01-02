@@ -34,7 +34,7 @@ namespace Handle.WPF
   /// <summary>
   /// TODO: Update summary.
   /// </summary>
-  public class IrcChannelViewModel : Screen
+  public class IrcChannelViewModel : ViewModelBase
   {
     public IrcChannel IrcChannel { get; set; }
 
@@ -100,9 +100,18 @@ namespace Handle.WPF
       this.IrcChannel.Client.LocalUser.SendMessage(this.IrcChannel, this.Message);
     }
 
-    private void LeaveChannel()
+    public void LeaveChannel()
     {
-      Console.WriteLine("left");
+      this.IrcChannel.Leave();
+    }
+
+    protected override System.Collections.Generic.IEnumerable<InputBindingCommand> GetInputBindingCommands()
+    {
+      yield return new InputBindingCommand(LeaveChannel)
+      {
+        GestureModifier = ModifierKeys.Control,
+        GestureKey = Key.W
+      };
     }
   }
 }

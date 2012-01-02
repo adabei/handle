@@ -44,6 +44,11 @@ namespace Handle.WPF
       base.OnViewLoaded(view);
 
       var window = (view as FrameworkElement).GetWindow();
+      if (window == null)
+      {
+        window = this.GetWindowViewModel(this).GetView() as Window;
+      }
+
       this.inputBindings = new InputBindings(window);
       this.inputBindings.RegisterCommands(GetInputBindingCommands());
     }
@@ -57,6 +62,25 @@ namespace Handle.WPF
     {
       base.OnDeactivate(close);
       this.inputBindings.DeregisterCommands();
+    }
+
+    protected Screen GetWindowViewModel(Screen vm)
+    {
+      if (vm == null)
+      {
+        return null;
+      }
+
+      if (vm.GetView() is Window)
+      {
+        return vm;
+      }
+      if (vm.Parent == null)
+      {
+        return null;
+      }
+
+      return GetWindowViewModel(vm.Parent as Screen);
     }
   }
 }

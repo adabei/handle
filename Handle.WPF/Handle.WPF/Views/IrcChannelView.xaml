@@ -13,8 +13,10 @@
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
     
+    <!-- Header -->
     <TextBlock Grid.Row="0" x:Name="IrcChannel_Topic"/>
     
+    <!-- Messages -->
     <ScrollViewer Grid.Row="1">
       <ItemsControl x:Name="Messages">
         <ItemsControl.ItemTemplate>
@@ -39,9 +41,11 @@
         </ItemsControl.ItemTemplate>
       </ItemsControl>
     </ScrollViewer>
+    
+    <!-- Footer -->
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-      <TextBox x:Name="Message" Width="50" />
-      <Button x:Name="Send" Content="Send" />
+      <TextBox x:Name="Message" Width="150" Height="50"/>
+      <Button x:Name="Send" Content="Send" Height="Auto"/>
     </StackPanel>
   </Grid>
   

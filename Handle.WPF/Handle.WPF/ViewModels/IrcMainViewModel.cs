@@ -32,7 +32,7 @@ namespace Handle.WPF
   /// <summary>
   /// Represents a ViewModel for IrcMainViews
   /// </summary>
-  public class IrcMainViewModel : Screen, IHaveClosableTabControl
+  public class IrcMainViewModel : ViewModelBase, IHaveClosableTabControl
   {
     /// <summary>
     /// Initializes a new instance of the IrcMainViewModel class
@@ -49,7 +49,7 @@ namespace Handle.WPF
       // TODO Leave message
       foreach (var item in (sender as IrcNetworkViewModel).Channels)
       {
-        item.IrcChannel.Leave();
+        item.LeaveChannel();
       }
       this.Networks.Remove(sender as IrcNetworkViewModel);
     }

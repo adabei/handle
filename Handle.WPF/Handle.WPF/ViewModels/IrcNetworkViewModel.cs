@@ -34,7 +34,7 @@ namespace Handle.WPF
   /// <summary>
   /// TODO: Update summary.
   /// </summary>
-  public class IrcNetworkViewModel : Screen, IHaveClosableTabControl
+  public class IrcNetworkViewModel : ViewModelBase, IHaveClosableTabControl
   {
     private string displayName;
 
@@ -114,9 +114,25 @@ namespace Handle.WPF
     public void CloseItem(object sender)
     {
       // TODO Leave message
-      (sender as IrcChannelViewModel).IrcChannel.Leave();
+      (sender as IrcChannelViewModel).LeaveChannel();
       this.Channels.Remove(sender as IrcChannelViewModel);
-      
+
+    }
+
+    protected override System.Collections.Generic.IEnumerable<InputBindingCommand> GetInputBindingCommands()
+    {
+      yield return new InputBindingCommand(JoinChannel)
+      {
+        GestureModifier = ModifierKeys.Control,
+        GestureKey = Key.T
+      };
+    }
+
+    private void JoinChannel()
+    {
+      WindowManager wm = new WindowManager();
+      wm.ShowDialog(new ChannelSearchViewModel());
     }
   }
+
 }
