@@ -13,14 +13,19 @@
      
     <TextBlock Text="channels" FontSize="22" Grid.Row="0"/>
     <StackPanel Grid.Row="1" Orientation="Horizontal">
-      <TextBox x:Name="Pattern" Height="Auto" Width="Auto"/>
-      <Button x:Name="Filter" Content="Filter" Width="Auto" Height="Auto"/>
+      <TextBox x:Name="Pattern" Height="Auto" Width="430"/>
+      <Button x:Name="Filter" Content="Filter" Width="Auto" Height="Auto" HorizontalAlignment="Right"/>
     </StackPanel>
-    <ListView x:Name="Results">
-      
+    <ListView x:Name="Channels">
+      <ListView.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Text="{Binding Name}"/>
+        </DataTemplate>
+      </ListView.ItemTemplate>
     </ListView>
     <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
       <Button x:Name="Join" Content="Join" Width="Auto" Height="Auto"/>
+      <Button x:Name="Cancel" Content="Cancel" Width="Auto" Height="Auto"/>
     </StackPanel>
       
     

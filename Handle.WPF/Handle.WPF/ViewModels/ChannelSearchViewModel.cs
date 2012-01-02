@@ -30,6 +30,8 @@ namespace Handle.WPF
   using System.Linq;
   using System.Text;
   using Caliburn.Micro;
+  using IrcDotNet;
+  using System.Text.RegularExpressions;
 
   /// <summary>
   /// TODO: Update summary.
@@ -37,11 +39,18 @@ namespace Handle.WPF
   public class ChannelSearchViewModel : Screen
   {
 
-    public ChannelSearchViewModel()
-    {
+    private IrcClient ircClient;
 
+    public BindableCollection<IrcChannelInfo> ChannelInfo { get; set; }
+
+    public ChannelSearchViewModel(IrcClient ircClient)
+    {
+      this.ircClient = ircClient;
+      this.ChannelInfo = new BindableCollection<IrcChannelInfo>();
     }
+
     private string pattern;
+
     public string Pattern
     {
       get
@@ -72,8 +81,10 @@ namespace Handle.WPF
 
     public void Filter()
     {
-
     }
 
+    public void Cancel()
+    {
+    }
   }
 }

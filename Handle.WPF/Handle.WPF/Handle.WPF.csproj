@@ -148,8 +148,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ChannelSearchViewModel.cs" />
     <Compile Include="IHaveClosableTabControl.cs" />
+    <Compile Include="ViewModels\ChannelSearchViewModel.cs" />
     <Compile Include="Views\ChannelSearchView.xaml.cs">
       <DependentUpon>ChannelSearchView.xaml</DependentUpon>
     </Compile>

@@ -75,7 +75,6 @@ namespace Handle.WPF
     private void clientRegistered(object sender, EventArgs e)
     {
       this.Client.LocalUser.JoinedChannel += localUserJoinedChannel;
-      this.Client.Channels.Join("#test");
     }
 
     private void localUserJoinedChannel(object sender, IrcChannelEventArgs e)
@@ -128,10 +127,26 @@ namespace Handle.WPF
       };
     }
 
-    private void JoinChannel()
+    public void JoinChannel()
     {
-      WindowManager wm = new WindowManager();
-      wm.ShowDialog(new ChannelSearchViewModel());
+      IWindowManager wm;
+      var csvm = new ChannelSearchViewModel(this.Client);
+      try
+      {
+        wm = IoC.Get<IWindowManager>();
+      }
+      catch
+      {
+        wm = new WindowManager();
+      }
+
+      if (wm.ShowDialog(csvm) == true)
+      {
+        foreach (var item in csvm.ChannelInfo)
+        {
+          this.Client.Channels.Join(item.Name);
+        }
+      }
     }
   }
 
