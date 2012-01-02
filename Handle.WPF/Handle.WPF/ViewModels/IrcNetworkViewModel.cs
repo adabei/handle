@@ -75,7 +75,7 @@ namespace Handle.WPF
     private void clientRegistered(object sender, EventArgs e)
     {
       this.Client.LocalUser.JoinedChannel += localUserJoinedChannel;
-      this.Client.Channels.Join("#rails");
+      this.Client.Channels.Join("#test");
     }
 
     private void localUserJoinedChannel(object sender, IrcChannelEventArgs e)
@@ -113,7 +113,9 @@ namespace Handle.WPF
 
     public void CloseItem(object sender)
     {
+      (sender as IrcChannelViewModel).IrcChannel.Leave();
       this.Channels.Remove(sender as IrcChannelViewModel);
+      
     }
   }
 }

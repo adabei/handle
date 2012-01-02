@@ -46,6 +46,10 @@ namespace Handle.WPF
 
     public void CloseItem(object sender)
     {
+      foreach (var item in (sender as IrcNetworkViewModel).Channels)
+      {
+        item.IrcChannel.Leave();
+      }
       this.Networks.Remove(sender as IrcNetworkViewModel);
     }
   }
