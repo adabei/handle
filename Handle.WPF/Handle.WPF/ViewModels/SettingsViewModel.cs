@@ -10,7 +10,6 @@
   using Newtonsoft.Json;
   using System.Windows.Input;
 
-
   public class SettingsViewModel : ViewModelBase
   {
     public delegate void SaveEventHandler(Settings settings);
