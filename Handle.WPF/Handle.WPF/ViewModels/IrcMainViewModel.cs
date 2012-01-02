@@ -32,7 +32,7 @@ namespace Handle.WPF
   /// <summary>
   /// Represents a ViewModel for IrcMainViews
   /// </summary>
-  public class IrcMainViewModel : Screen
+  public class IrcMainViewModel : Screen, IHaveClosableTabControl
   {
     /// <summary>
     /// Initializes a new instance of the IrcMainViewModel class
@@ -44,5 +44,9 @@ namespace Handle.WPF
 
     public BindableCollection<IrcNetworkViewModel> Networks { get; set; }
 
+    public void CloseItem(object sender)
+    {
+      this.Networks.Remove(sender as IrcNetworkViewModel);
+    }
   }
 }

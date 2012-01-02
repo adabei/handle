@@ -7,6 +7,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-    <TabControl x:Name="Channels"/>
+    <TabControl x:Name="Channels">
+      <TabControl.ItemTemplate>
+        <DataTemplate>
+          <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding DisplayName}" />
+            <Button Content="X"  
+                                cal:Message.Attach="CloseItem($dataContext)" />
+          </StackPanel>
+        </DataTemplate>
+      </TabControl.ItemTemplate>
+    </TabControl>
     </Grid>
 </UserControl>

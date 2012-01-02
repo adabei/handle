@@ -34,7 +34,7 @@ namespace Handle.WPF
   /// <summary>
   /// TODO: Update summary.
   /// </summary>
-  public class IrcNetworkViewModel : ViewModelBase
+  public class IrcNetworkViewModel : Screen, IHaveClosableTabControl
   {
     private string displayName;
 
@@ -109,6 +109,11 @@ namespace Handle.WPF
       {
         this.client = value;
       }
+    }
+
+    public void CloseItem(object sender)
+    {
+      this.Channels.Remove(sender as IrcChannelViewModel);
     }
   }
 }
