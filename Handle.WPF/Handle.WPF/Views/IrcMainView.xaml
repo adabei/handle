@@ -9,11 +9,10 @@
     <Grid>
     <TabControl x:Name="Networks">
       <TabControl.ItemTemplate>
-      <DataTemplate>
+        <DataTemplate>
           <StackPanel Orientation="Horizontal">
             <TextBlock Text="{Binding DisplayName}" />
-            <Button Content="X"  
-                                cal:Message.Attach="CloseItem($dataContext)" />
+            <Button Content="X" cal:Message.Attach="CloseItem($dataContext)" />
           </StackPanel>
         </DataTemplate>
       </TabControl.ItemTemplate>

@@ -12,8 +12,8 @@
       <RowDefinition/>
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-    <TextBlock Text="Header" Grid.Row="0"/>
-    <TextBlock x:Name="IrcChannel_Topic"/>
+    
+    <TextBlock Grid.Row="0" x:Name="IrcChannel_Topic"/>
     
     <ScrollViewer Grid.Row="1">
       <ItemsControl x:Name="Messages">

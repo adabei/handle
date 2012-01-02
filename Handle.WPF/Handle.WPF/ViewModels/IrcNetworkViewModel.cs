@@ -113,6 +113,7 @@ namespace Handle.WPF
 
     public void CloseItem(object sender)
     {
+      // TODO Leave message
       (sender as IrcChannelViewModel).IrcChannel.Leave();
       this.Channels.Remove(sender as IrcChannelViewModel);
       

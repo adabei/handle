@@ -46,6 +46,7 @@ namespace Handle.WPF
 
     public void CloseItem(object sender)
     {
+      // TODO Leave message
       foreach (var item in (sender as IrcNetworkViewModel).Channels)
       {
         item.IrcChannel.Leave();
