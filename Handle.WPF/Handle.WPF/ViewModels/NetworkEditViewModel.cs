@@ -30,11 +30,12 @@ namespace Handle.WPF
   using System.Linq;
   using System.Text;
   using Caliburn.Micro;
+  using System.Windows.Input;
 
   /// <summary>
   /// TODO: Update summary.
   /// </summary>
-  public class NetworkEditViewModel : Screen
+  public class NetworkEditViewModel : ViewModelBase
   {
     private Network network;
 
@@ -70,6 +71,18 @@ namespace Handle.WPF
     {
       var nev = GetView() as NetworkEditView;
       nev.DialogResult = false;
+    }
+
+    protected override IEnumerable<InputBindingCommand> GetInputBindingCommands()
+    {
+      yield return new InputBindingCommand(Ok)
+      {
+        GestureKey = Key.Enter
+      };
+      yield return new InputBindingCommand(Cancel)
+      {
+        GestureKey = Key.Escape
+      };
     }
   }
 }

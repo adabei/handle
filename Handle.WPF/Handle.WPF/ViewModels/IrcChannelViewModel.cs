@@ -100,15 +100,6 @@ namespace Handle.WPF
       this.IrcChannel.Client.LocalUser.SendMessage(this.IrcChannel, this.Message);
     }
 
-    /* protected override IEnumerable<InputBindingCommand> GetInputBindingCommands()
-    {
-      yield return new InputBindingCommand(LeaveChannel)
-      {
-        GestureModifier = ModifierKeys.Control,
-        GestureKey = Key.W
-      };
-    } */
-
     private void LeaveChannel()
     {
       Console.WriteLine("left");

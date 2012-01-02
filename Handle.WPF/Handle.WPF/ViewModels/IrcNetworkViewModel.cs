@@ -34,7 +34,7 @@ namespace Handle.WPF
   /// <summary>
   /// TODO: Update summary.
   /// </summary>
-  public class IrcNetworkViewModel : Screen
+  public class IrcNetworkViewModel : ViewModelBase
   {
     private string displayName;
 

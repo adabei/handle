@@ -26,6 +26,8 @@
 namespace Handle.WPF
 {
   using Caliburn.Micro;
+  using System.Collections.Generic;
+  using System.Windows.Input;
 
   /// <summary>
   /// Represents a ViewModel for IrcMainViews
@@ -41,5 +43,6 @@ namespace Handle.WPF
     }
 
     public BindableCollection<IrcNetworkViewModel> Networks { get; set; }
+
   }
 }
