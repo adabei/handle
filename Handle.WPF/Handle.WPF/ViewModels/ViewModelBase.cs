@@ -43,14 +43,12 @@ namespace Handle.WPF
     {
       base.OnViewLoaded(view);
 
-      var window = (view as FrameworkElement).GetWindow();
-      if (window == null)
+      var window = (view as FrameworkElement).GetWindow() ?? this.GetWindowViewModel(this).GetView() as Window;
+      if (window != null)
       {
-        window = this.GetWindowViewModel(this).GetView() as Window;
+        this.inputBindings = new InputBindings(window);
+        this.inputBindings.RegisterCommands(GetInputBindingCommands());
       }
-
-      this.inputBindings = new InputBindings(window);
-      this.inputBindings.RegisterCommands(GetInputBindingCommands());
     }
 
     protected virtual IEnumerable<InputBindingCommand> GetInputBindingCommands()
