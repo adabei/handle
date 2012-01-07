@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>6b6ad5e1-02b4-4f0e-b90d-f5ed7b2b189d</ProjectGuid>
+    <ProjectGuid>{12027426-CB2D-41BB-8CEF-BA74E3B29ECC}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Handle.WPF.Test</RootNamespace>
