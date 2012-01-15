@@ -60,23 +60,22 @@ namespace Handle.WPF
       set
       {
         this.pattern = value;
+        NotifyOfPropertyChange(() => CanJoin);
+        NotifyOfPropertyChange(() => CanFilter);
       }
     }
 
     public bool CanJoin{
-      get{
-        return true;
-      }
+      get { return !string.IsNullOrWhiteSpace(Pattern); }
     }
 
     public bool CanFilter{
-      get{
-        return true;
-      }
+      get { return !string.IsNullOrWhiteSpace(Pattern); }
     }
 
     public void Join()
     {
+      this.ircClient.Channels.Join(this.Pattern);
     }
 
     public void Filter()
@@ -85,6 +84,8 @@ namespace Handle.WPF
 
     public void Cancel()
     {
+      // TODO
+      this.TryClose();
     }
   }
 }

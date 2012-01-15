@@ -98,6 +98,8 @@ namespace Handle.WPF
     public void Send()
     {
       this.IrcChannel.Client.LocalUser.SendMessage(this.IrcChannel, this.Message);
+      this.Messages.Add(new Message(this.Message, DateTime.Now.ToString("HH:mm"), this.IrcChannel.Client.LocalUser.NickName));
+      this.Message = String.Empty;
     }
 
     public void LeaveChannel()
