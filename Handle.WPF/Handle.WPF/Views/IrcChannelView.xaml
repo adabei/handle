@@ -25,7 +25,7 @@
               <Grid>
                 <Grid.ColumnDefinitions>
                   <ColumnDefinition Width="50"/>
-                  <ColumnDefinition Width="50"/>
+                  <ColumnDefinition Width="Auto" MaxWidth="250"/>
                   <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
 
@@ -44,8 +44,9 @@
     
     <!-- Footer -->
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+      <Button x:Name="JoinChannel" Content="+channel" Height="Auto" Width="Auto"/>
       <TextBox x:Name="Message" Width="150" Height="50"/>
-      <Button x:Name="Send" Content="Send" Height="Auto"/>
+      <Button x:Name="Send" Content="Send" Height="Auto" Width="Auto"/>
     </StackPanel>
   </Grid>
   

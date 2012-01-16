@@ -32,11 +32,12 @@ namespace Handle.WPF
   using Caliburn.Micro;
   using IrcDotNet;
   using System.Text.RegularExpressions;
+  using System.Windows.Input;
 
   /// <summary>
   /// TODO: Update summary.
   /// </summary>
-  public class ChannelSearchViewModel : Screen
+  public class ChannelSearchViewModel : ViewModelBase
   {
 
     private IrcClient ircClient;
@@ -86,6 +87,14 @@ namespace Handle.WPF
     {
       // TODO
       this.TryClose();
+    }
+
+    protected override System.Collections.Generic.IEnumerable<InputBindingCommand> GetInputBindingCommands()
+    {
+      yield return new InputBindingCommand(Cancel)
+      {
+        GestureKey = Key.Escape
+      };
     }
   }
 }

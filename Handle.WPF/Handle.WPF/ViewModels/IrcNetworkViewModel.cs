@@ -81,6 +81,7 @@ namespace Handle.WPF
     {
       var icvm = new IrcChannelViewModel(e.Channel);
       icvm.Parent = this.Parent;
+      icvm.JoinChannelClicked += JoinChannel;
       this.Channels.Add(icvm);
     }
 

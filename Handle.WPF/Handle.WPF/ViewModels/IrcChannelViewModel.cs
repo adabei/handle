@@ -36,6 +36,9 @@ namespace Handle.WPF
   /// </summary>
   public class IrcChannelViewModel : ViewModelBase
   {
+    public delegate void JoinChannelClickedEventHandler();
+    public event JoinChannelClickedEventHandler JoinChannelClicked;
+
     public IrcChannel IrcChannel { get; set; }
 
     public BindableCollection<Message> Messages { get; set; }
@@ -105,6 +108,14 @@ namespace Handle.WPF
     public void LeaveChannel()
     {
       this.IrcChannel.Leave();
+    }
+
+    public void JoinChannel()
+    {
+      if (this.JoinChannelClicked != null)
+      {
+        this.JoinChannelClicked();
+      }
     }
 
     protected override System.Collections.Generic.IEnumerable<InputBindingCommand> GetInputBindingCommands()
