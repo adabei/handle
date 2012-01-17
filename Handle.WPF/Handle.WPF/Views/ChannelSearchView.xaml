@@ -16,12 +16,14 @@
       <TextBox x:Name="Pattern" Height="Auto" Width="430"/>
       <Button x:Name="Filter" Content="Filter" Width="Auto" Height="Auto" HorizontalAlignment="Right"/>
     </StackPanel>
-    <ListView x:Name="Channels">
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <TextBlock Text="{Binding Name}"/>
-        </DataTemplate>
-      </ListView.ItemTemplate>
+    <ListView x:Name="Channels" Grid.Row="2">
+      <ListView.View>
+        <GridView>
+          <GridViewColumn Width="Auto" Header="Name" DisplayMemberBinding="{Binding Name}"/>
+          <!-- <GridViewColumn Width="Auto" Header="Users" DisplayMemberBinding="{Binding VisibleUsersCount}"/> -->
+          <GridViewColumn Width="Auto" Header="Topic" DisplayMemberBinding="{Binding Topic}"/>
+        </GridView>
+      </ListView.View>
     </ListView>
     <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right">
       <Button x:Name="Join" Content="Join" Width="Auto" Height="Auto"/>

@@ -42,12 +42,20 @@ namespace Handle.WPF
 
     private IrcClient ircClient;
 
-    public BindableCollection<IrcChannelInfo> ChannelInfo { get; set; }
+    public struct ChannelInfo
+    {
+      public string Name { get; set; }
+      public int? VisibleUserCount { get; set; }
+      public string Topic { get; set; }
+    }
+
+    public BindableCollection<ChannelInfo> Channels { get; set; }
 
     public ChannelSearchViewModel(IrcClient ircClient)
     {
       this.ircClient = ircClient;
-      this.ChannelInfo = new BindableCollection<IrcChannelInfo>();
+      this.Channels = new BindableCollection<ChannelInfo>();
+      this.ircClient.ChannelListReceived += new EventHandler<IrcChannelListReceivedEventArgs>(ircClient_ChannelListReceived);
     }
 
     private string pattern;
@@ -61,6 +69,7 @@ namespace Handle.WPF
       set
       {
         this.pattern = value;
+        NotifyOfPropertyChange(() => Pattern);
         NotifyOfPropertyChange(() => CanJoin);
         NotifyOfPropertyChange(() => CanFilter);
       }
@@ -81,12 +90,29 @@ namespace Handle.WPF
 
     public void Filter()
     {
+      this.ircClient.ListChannels();
     }
 
     public void Cancel()
     {
       // TODO
       this.TryClose();
+    }
+
+    protected void ircClient_ChannelListReceived(object sender, IrcChannelListReceivedEventArgs e)
+    {
+      this.Channels.Clear();
+      foreach (var channelInfo in e.Channels.Where(info => Regex.IsMatch(info.Name, this.Pattern)))
+      {
+        this.Channels.Add(new ChannelInfo()
+        {
+          Name = channelInfo.Name,
+          VisibleUserCount = channelInfo.VisibleUsersCount,
+          Topic = channelInfo.Topic
+        });
+      }
+
+      NotifyOfPropertyChange(() => this.Channels);
     }
 
     protected override System.Collections.Generic.IEnumerable<InputBindingCommand> GetInputBindingCommands()

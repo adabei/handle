@@ -143,7 +143,7 @@ namespace Handle.WPF
 
       if (wm.ShowDialog(csvm) == true)
       {
-        foreach (var item in csvm.ChannelInfo)
+        foreach (var item in csvm.Channels)
         {
           this.Client.Channels.Join(item.Name);
         }
