@@ -75,9 +75,19 @@ namespace Handle.WPF
 
     private void ShowNetworkSelection()
     {
+      IWindowManager wm;
       var nsvm = new NetworkSelectionViewModel();
       nsvm.ConnectButtonPressed += Connect;
-      ActivateItem(nsvm);
+      try
+      {
+        wm = IoC.Get<IWindowManager>();
+      }
+      catch
+      {
+        wm = new WindowManager();
+      }
+
+      wm.ShowDialog(nsvm);
     }
 
     public Thickness WindowStateCorrection

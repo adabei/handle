@@ -134,13 +134,11 @@ namespace Handle.WPF
     public void Connect()
     {
       var nsv = GetView() as NetworkSelectionView;
-      var parent = this.Parent as ShellViewModel;
       if (nsv.Networks.SelectedIndex != -1)
       {
         this.ConnectButtonPressed(this.Networks[nsv.Networks.SelectedIndex]);
       }
       serializeGlobalIdentity();
-      parent.ActivateItem(parent.IrcMainViewModel);
     }
 
     public void Remove()
@@ -228,9 +226,7 @@ namespace Handle.WPF
 
     public void Cancel()
     {
-      var parent = this.Parent as ShellViewModel;
       serializeGlobalIdentity();
-      parent.ActivateItem(parent.IrcMainViewModel);
     }
   }
 }

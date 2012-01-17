@@ -42,7 +42,7 @@ namespace Handle.WPF
   /// <summary>
   /// Interaction logic for NetworkSelectionView.xaml
   /// </summary>
-  public partial class NetworkSelectionView : UserControl
+  public partial class NetworkSelectionView : Window
   {
     /// <summary>
     /// Initializes a new instance of the NetworkSelectionView class.
