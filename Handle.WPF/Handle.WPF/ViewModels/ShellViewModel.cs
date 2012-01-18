@@ -64,6 +64,7 @@ namespace Handle.WPF
       this.IrcMainViewModel.Parent = this;
       this.Settings = this.deserializeSettings();
       ActivateItem(this.IrcMainViewModel);
+      this.DisplayName = "Handle";
     }
 
     private void Connect(Network network)
