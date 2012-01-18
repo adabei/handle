@@ -45,7 +45,7 @@ namespace Handle.WPF
     public struct ChannelInfo
     {
       public string Name { get; set; }
-      public int? VisibleUserCount { get; set; }
+      public string VisibleUserCount { get; set; }
       public string Topic { get; set; }
     }
 
@@ -85,7 +85,16 @@ namespace Handle.WPF
 
     public void Join()
     {
-      this.ircClient.Channels.Join(this.Pattern);
+      var csv = GetView() as ChannelSearchView;
+      if (csv.Channels.SelectedIndex == -1)
+      {
+        this.ircClient.Channels.Join(this.Pattern);
+      }
+      else
+      {
+        // todo multiple
+        this.ircClient.Channels.Join(this.Channels[csv.Channels.SelectedIndex].Name);
+      }
     }
 
     public void Filter()
@@ -107,7 +116,7 @@ namespace Handle.WPF
         this.Channels.Add(new ChannelInfo()
         {
           Name = channelInfo.Name,
-          VisibleUserCount = channelInfo.VisibleUsersCount,
+          VisibleUserCount = channelInfo.VisibleUsersCount.ToString(),
           Topic = channelInfo.Topic
         });
       }

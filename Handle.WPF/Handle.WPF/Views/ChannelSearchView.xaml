@@ -20,7 +20,7 @@
       <ListView.View>
         <GridView>
           <GridViewColumn Width="Auto" Header="Name" DisplayMemberBinding="{Binding Name}"/>
-          <!-- <GridViewColumn Width="Auto" Header="Users" DisplayMemberBinding="{Binding VisibleUsersCount}"/> -->
+          <!--  <GridViewColumn Width="Auto" Header="Users" DisplayMemberBinding="{Binding VisibleUsersCount}"/>-->
           <GridViewColumn Width="Auto" Header="Topic" DisplayMemberBinding="{Binding Topic}"/>
         </GridView>
       </ListView.View>
