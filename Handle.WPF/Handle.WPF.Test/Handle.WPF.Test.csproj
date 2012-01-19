@@ -31,28 +31,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Bricks">
-      <HintPath>..\packages\White.0.2.0\lib\net35\Bricks.dll</HintPath>
-    </Reference>
-    <Reference Include="Bricks.RuntimeFramework">
-      <HintPath>..\packages\White.0.2.0\lib\net35\Bricks.RuntimeFramework.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.Core">
-      <HintPath>..\packages\Castle.Core.1.1.0\lib\Castle.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Castle.DynamicProxy2">
-      <HintPath>..\packages\Castle.DynamicProxy.2.1.0\lib\Castle.DynamicProxy2.dll</HintPath>
-    </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\packages\log4net.1.2.11\lib\net40-full\log4net.dll</HintPath>
-    </Reference>
-    <Reference Include="nunit.framework">
+    <Reference Include="nunit.framework, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.framework.dll</HintPath>
     </Reference>
-    <Reference Include="nunit.mocks">
+    <Reference Include="nunit.mocks, Version=2.5.10.11092, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.5.10.11092\lib\nunit.mocks.dll</HintPath>
     </Reference>
-    <Reference Include="pnunit.framework">
+    <Reference Include="pnunit.framework, Version=1.0.4109.34242, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\NUnit.2.5.10.11092\lib\pnunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
@@ -62,46 +47,21 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
-    <Reference Include="White.Core">
-      <HintPath>..\packages\White.0.2.0\lib\net35\White.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="White.CustomControls">
-      <HintPath>..\packages\White.0.2.0\lib\net35\White.CustomControls.dll</HintPath>
-    </Reference>
-    <Reference Include="White.CustomControls.Peers">
-      <HintPath>..\packages\White.0.2.0\lib\net35\White.CustomControls.Peers.dll</HintPath>
-    </Reference>
-    <Reference Include="White.CustomControls.Peers.Silverlight">
-      <HintPath>..\packages\White.0.2.0\lib\net35\White.CustomControls.Peers.Silverlight.dll</HintPath>
-    </Reference>
-    <Reference Include="White.CustomControls.Silverlight">
-      <HintPath>..\packages\White.0.2.0\lib\net35\White.CustomControls.Silverlight.dll</HintPath>
-    </Reference>
-    <Reference Include="White.NUnit">
-      <HintPath>..\packages\White.0.2.0\lib\net35\White.NUnit.dll</HintPath>
-    </Reference>
-    <Reference Include="White.Recorder">
-      <HintPath>..\packages\White.0.2.0\lib\net35\White.Recorder.exe</HintPath>
-    </Reference>
-    <Reference Include="White.Reporting">
-      <HintPath>..\packages\White.0.2.0\lib\net35\White.Reporting.dll</HintPath>
-    </Reference>
-    <Reference Include="White.Repository">
-      <HintPath>..\packages\White.0.2.0\lib\net35\White.Repository.dll</HintPath>
-    </Reference>
-    <Reference Include="White.WebBrowser">
-      <HintPath>..\packages\White.0.2.0\lib\net35\White.WebBrowser.dll</HintPath>
-    </Reference>
-    <Reference Include="Xstream.Core">
-      <HintPath>..\packages\xstream-dot-net.1.0.3552.35177\lib\net20\Xstream.Core.dll</HintPath>
+    <Reference Include="White.Core, Version=0.2.0.0, Culture=neutral, PublicKeyToken=2672efbf3e161801, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\White\White.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Class1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ShortcutTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
