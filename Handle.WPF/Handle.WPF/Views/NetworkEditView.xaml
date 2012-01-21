@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="NetworkDetailsView" Height="300" Width="300"
         xmlns:cal="http://www.caliburnproject.org">
-    <Grid ShowGridLines="True">
+    <Grid>
       <Grid.RowDefinitions>
         <RowDefinition Height="Auto"/>
         <RowDefinition/>

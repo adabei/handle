@@ -19,6 +19,7 @@
     public SettingsViewModel(Settings settings)
     {
       this.Settings = settings;
+      this.DisplayName = "Settings";
     }
 
     private void serializeSettings()

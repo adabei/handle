@@ -45,7 +45,7 @@ namespace Handle.WPF
     public struct ChannelInfo
     {
       public string Name { get; set; }
-      public string VisibleUserCount { get; set; }
+      public int? VisibleUsersCount { get; set; }
       public string Topic { get; set; }
     }
 
@@ -55,7 +55,8 @@ namespace Handle.WPF
     {
       this.ircClient = ircClient;
       this.Channels = new BindableCollection<ChannelInfo>();
-      this.ircClient.ChannelListReceived += new EventHandler<IrcChannelListReceivedEventArgs>(ircClient_ChannelListReceived);
+      this.ircClient.ChannelListReceived += ircClient_ChannelListReceived;
+      this.DisplayName = "Join Channel";
     }
 
     private string pattern;
@@ -92,7 +93,6 @@ namespace Handle.WPF
       }
       else
       {
-        // todo multiple
         this.ircClient.Channels.Join(this.Channels[csv.Channels.SelectedIndex].Name);
       }
     }
@@ -116,7 +116,7 @@ namespace Handle.WPF
         this.Channels.Add(new ChannelInfo()
         {
           Name = channelInfo.Name,
-          VisibleUserCount = channelInfo.VisibleUsersCount.ToString(),
+          VisibleUsersCount = channelInfo.VisibleUsersCount,
           Topic = channelInfo.Topic
         });
       }

@@ -47,14 +47,14 @@
     </Style>
     <BooleanToVisibilityConverter x:Key="booleanToVisbility"/>
   </Window.Resources>
-    <Grid ShowGridLines="True">
+    <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="40"/>
       <RowDefinition/>
     </Grid.RowDefinitions>
     <Rectangle x:Name="HeaderAreaRectangle" Grid.ColumnSpan="3" Grid.Row="0" Width="Auto" Height="Auto" Fill="Transparent" MouseDown="HeaderAreaRectangle_MouseDown"/>
 
-    <Grid Grid.Row="0" ShowGridLines="True">
+    <Grid Grid.Row="0">
       <Grid.ColumnDefinitions>
         <ColumnDefinition/>
         <ColumnDefinition/>

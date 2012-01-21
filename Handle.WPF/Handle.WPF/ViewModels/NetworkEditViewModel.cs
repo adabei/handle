@@ -45,6 +45,7 @@ namespace Handle.WPF
     public NetworkEditViewModel(Network network)
     {
       this.Network = network;
+      this.DisplayName = "Edit Network";
     }
 
     public Network Network

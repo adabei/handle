@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="ChannelSearchView" Height="300" Width="500"
         xmlns:cal="http://www.caliburnproject.org">
-    <Grid ShowGridLines="True">
+    <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
@@ -16,11 +16,11 @@
       <TextBox x:Name="Pattern" Height="Auto" Width="430"/>
       <Button x:Name="Filter" Content="Filter" Width="Auto" Height="Auto" HorizontalAlignment="Right"/>
     </StackPanel>
-    <ListView x:Name="Channels" Grid.Row="2">
+    <ListView x:Name="Channels" Grid.Row="2" SelectionMode="Single">
       <ListView.View>
         <GridView>
           <GridViewColumn Width="Auto" Header="Name" DisplayMemberBinding="{Binding Name}"/>
-          <!--  <GridViewColumn Width="Auto" Header="Users" DisplayMemberBinding="{Binding VisibleUsersCount}"/>-->
+          <GridViewColumn Width="Auto" Header="Users" DisplayMemberBinding="{Binding VisibleUsersCount}"/>
           <GridViewColumn Width="Auto" Header="Topic" DisplayMemberBinding="{Binding Topic}"/>
         </GridView>
       </ListView.View>

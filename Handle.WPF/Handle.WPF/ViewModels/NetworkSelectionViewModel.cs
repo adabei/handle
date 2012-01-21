@@ -48,6 +48,7 @@ namespace Handle.WPF
     public NetworkSelectionViewModel()
     {
       this.initializeNetworks();
+      this.DisplayName = "Networks";
       this.deserializeGlobalIdentity();
     }
 
