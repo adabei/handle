@@ -4,7 +4,10 @@
         Title="NetworkDetailsView" Height="300" Width="300"
         xmlns:cal="http://www.caliburnproject.org">
     <Grid>
-      <Grid.RowDefinitions>
+    <Grid.Resources>
+      <BooleanToVisibilityConverter x:Key="booleanToVisbility"/>
+    </Grid.Resources>
+    <Grid.RowDefinitions>
         <RowDefinition Height="Auto"/>
         <RowDefinition/>
         <RowDefinition Height="Auto"/>
@@ -22,22 +25,38 @@
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
         <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
+      <!-- Network -->
+      <TextBlock FontSize="18" Grid.Row="0" Text="network"/>
+      <Label Grid.Column="0" Grid.Row="1" Content="Name:" Target="{Binding Network_Name}"/>
+      <TextBox Grid.Column="1" Grid.Row="1" Height="20" Width="100" x:Name="Network_Name"/>
 
-      <Label Grid.Column="0" Grid.Row="0" Content="Name:"/>
-      <TextBox Grid.Column="1" Grid.Row="0" Height="20" Width="75" x:Name="Network_Name"/>
+      <Label Grid.Column="0" Grid.Row="2" Content="Address:" Target="{Binding Network_Address}"/>
+      <TextBox Grid.Column="1" Grid.Row="2" Height="20" Width="100" x:Name="Network_Address"/>
+      
+      <!-- Identity -->
+      <CheckBox Grid.Column="0" Grid.Row="4" Content="use global identity" x:Name="Network_UseGlobalIdentity"/>
 
-      <Label Grid.Column="0" Grid.Row="1" Content="Address:"/>
-      <TextBox Grid.Column="1" Grid.Row="1" Height="20" Width="75" x:Name="Network_Address"/>
+      <Label Grid.Column="0" Grid.Row="5" Target="{Binding Network_Identity_Name}" Visibility="{Binding Network_UseGlobalIdentity, Converter={StaticResource booleanToVisbility}}">Nick name:</Label>
+      <TextBox Grid.Column="1" Grid.Row="5" x:Name="Network_Identity_Name" Height="20" Width="100" Visibility="{Binding Network_UseGlobalIdentity, Converter={StaticResource booleanToVisbility}}"/>
+
+      <Label Grid.Column="0" Grid.Row="6" Target="{Binding Network_Identity_Alternative}" Visibility="{Binding Network_UseGlobalIdentity, Converter={StaticResource booleanToVisbility}}">Alternative name:</Label>
+      <TextBox Grid.Column="1" Grid.Row="6" x:Name="Network_Identity_Alternative" Height="20" Width="100" Visibility="{Binding Network_UseGlobalIdentity, Converter={StaticResource booleanToVisbility}}"/>
+
+      <Label Grid.Column="0" Grid.Row="7" Target="{Binding Network_Identity_RealName}" Visibility="{Binding Network_UseGlobalIdentity, Converter={StaticResource booleanToVisbility}}">Real name:</Label>
+      <TextBox Grid.Column="1" Grid.Row="7" x:Name="Network_Identity_RealName" Height="20" Width="100" Visibility="{Binding Network_UseGlobalIdentity, Converter={StaticResource booleanToVisbility}}"/>
+
+      <CheckBox Grid.Column="0" Grid.Row="8" Content="favorite" x:Name="Network_IsFavorite"/>
 
       
-      <CheckBox Grid.Column="0" Grid.Row="2" Content="favorite" x:Name="Network_IsFavorite"/>
-
       
-      <CheckBox Grid.Column="0" Grid.Row="3" Content="use global identity" x:Name="Network_UseGlobalIdentity"/>
 
     </Grid>
-
       <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
       <Button x:Name="Ok"  Content="OK" ToolTip="OK" Width="Auto" Height="25"/>
       <Button x:Name="Cancel" Content="Cancel" ToolTip="Cancel" Width="Auto" Height="25" />

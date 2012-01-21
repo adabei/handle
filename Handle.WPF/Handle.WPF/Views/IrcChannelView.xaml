@@ -46,6 +46,7 @@
     <!-- Footer -->
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
       <Button x:Name="JoinChannel" Content="+channel" Height="Auto" Width="Auto"/>
+      <Button x:Name="JoinNetwork" Content="+network" Height="Auto" Width="Auto"/>
       <TextBox x:Name="Message" Width="150" Height="50"/>
       <Button x:Name="Send" Content="Send" Height="Auto" Width="Auto"/>
     </StackPanel>
