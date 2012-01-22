@@ -49,6 +49,5 @@
       <Button x:Name="Cancel" Content="Cancel" ToolTip="Cancel" Width="Auto" Height="25"/>
       <Button x:Name="Connect" Content="Connect" ToolTip="Connect" Width="Auto" Height="25"/>
     </StackPanel>
-    
   </Grid>
 </Window>
