@@ -75,6 +75,8 @@ namespace Handle.WPF
       this.DisplayName = channel.Name;
       this.IrcChannel = channel;
       this.IrcChannel.MessageReceived += this.channelMessageReceived;
+      this.IrcChannel.UserJoined += this.channelUserJoined;
+      this.IrcChannel.UserLeft += this.channelUserLeft;
     }
 
 
@@ -96,6 +98,19 @@ namespace Handle.WPF
     private void channelMessageReceived(object sender, IrcMessageEventArgs e)
     {
       this.Messages.Add(new Message(e.Text, DateTime.Now.ToString("HH:mm"), e.Source.Name));
+    }
+
+    private void channelUserJoined(object sender, IrcChannelUserEventArgs e)
+    {
+      this.Messages.Add(new Message(String.Format("** {0}@{1} has joined {2}.", e.ChannelUser.User.NickName, e.ChannelUser.User.HostName, e.ChannelUser.Channel.Name), 
+                        DateTime.Now.ToString("HH:mm"), String.Empty));
+    }
+
+    private void channelUserLeft(object sender, IrcChannelUserEventArgs e)
+    {
+      this.Messages.Add(new Message(String.Format("** {0}@{1} has left {2}. ({3})", 
+                        e.ChannelUser.User.NickName, e.ChannelUser.User.HostName, e.ChannelUser.Channel.Name, e.Comment),
+                        DateTime.Now.ToString("HH:mm"), String.Empty));
     }
 
     public void Send()
