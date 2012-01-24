@@ -102,15 +102,15 @@ namespace Handle.WPF
 
     private void channelUserJoined(object sender, IrcChannelUserEventArgs e)
     {
-      this.Messages.Add(new Message(String.Format("** {0}@{1} has joined {2}.", e.ChannelUser.User.NickName, e.ChannelUser.User.HostName, e.ChannelUser.Channel.Name), 
-                        DateTime.Now.ToString("HH:mm"), String.Empty));
+      this.Messages.Add(new Message(String.Format("{0} [{1}] has joined {2}", e.ChannelUser.User.NickName, e.ChannelUser.User.HostName, e.ChannelUser.Channel.Name),
+                        DateTime.Now.ToString("HH:mm"), "=!="));
     }
 
     private void channelUserLeft(object sender, IrcChannelUserEventArgs e)
     {
-      this.Messages.Add(new Message(String.Format("** {0}@{1} has left {2}. ({3})", 
+      this.Messages.Add(new Message(String.Format("{0} [{1}] has left {2} [{3}]", 
                         e.ChannelUser.User.NickName, e.ChannelUser.User.HostName, e.ChannelUser.Channel.Name, e.Comment),
-                        DateTime.Now.ToString("HH:mm"), String.Empty));
+                        DateTime.Now.ToString("HH:mm"), "=!="));
     }
 
     public void Send()
