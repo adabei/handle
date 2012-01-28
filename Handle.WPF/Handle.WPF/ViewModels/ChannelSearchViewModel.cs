@@ -29,10 +29,10 @@ namespace Handle.WPF
   using System.Collections.Generic;
   using System.Linq;
   using System.Text;
-  using Caliburn.Micro;
-  using IrcDotNet;
   using System.Text.RegularExpressions;
   using System.Windows.Input;
+  using Caliburn.Micro;
+  using IrcDotNet;
 
   /// <summary>
   /// TODO: Update summary.
@@ -40,7 +40,7 @@ namespace Handle.WPF
   public class ChannelSearchViewModel : ViewModelBase
   {
 
-    private IrcClient ircClient;
+    private IrcClient client;
 
     public struct ChannelInfo
     {
@@ -51,11 +51,11 @@ namespace Handle.WPF
 
     public BindableCollection<ChannelInfo> Channels { get; set; }
 
-    public ChannelSearchViewModel(IrcClient ircClient)
+    public ChannelSearchViewModel(IrcClient client)
     {
-      this.ircClient = ircClient;
+      this.client = client;
       this.Channels = new BindableCollection<ChannelInfo>();
-      this.ircClient.ChannelListReceived += ircClient_ChannelListReceived;
+      this.client.ChannelListReceived += ircClient_ChannelListReceived;
       this.DisplayName = "Join Channel";
     }
 
@@ -89,17 +89,17 @@ namespace Handle.WPF
       var csv = GetView() as ChannelSearchView;
       if (csv.Channels.SelectedIndex == -1)
       {
-        this.ircClient.Channels.Join(this.Pattern);
+        this.client.Channels.Join(this.Pattern);
       }
       else
       {
-        this.ircClient.Channels.Join(this.Channels[csv.Channels.SelectedIndex].Name);
+        this.client.Channels.Join(this.Channels[csv.Channels.SelectedIndex].Name);
       }
     }
 
     public void Filter()
     {
-      this.ircClient.ListChannels();
+      this.client.ListChannels();
     }
 
     public void Cancel()
@@ -129,6 +129,15 @@ namespace Handle.WPF
       yield return new InputBindingCommand(Cancel)
       {
         GestureKey = Key.Escape
+      };
+      yield return new InputBindingCommand(Filter)
+      {
+        GestureKey = Key.Enter,
+        GestureModifier = ModifierKeys.Shift
+      };
+      yield return new InputBindingCommand(Join)
+      {
+        GestureKey = Key.Enter
       };
     }
   }

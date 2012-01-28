@@ -27,7 +27,8 @@ namespace Handle.WPF
 {
   using System.IO;
   using System.IO.IsolatedStorage;
-  using Newtonsoft.Json;
+  using ServiceStack.Text;
+  using System;
 
   /// <summary>
   /// A class representing an IRC network.
@@ -36,6 +37,7 @@ namespace Handle.WPF
   {
     public Network()
     {
+      this.Identity = new Identity(String.Empty, String.Empty, String.Empty, String.Empty);
     }
 
     /// <summary>
@@ -45,13 +47,13 @@ namespace Handle.WPF
     /// <param name="address">The address of the network</param>
     /// <param name="isFavorite">Whether the network is a favorite or not</param>
     /// <param name="connectCommands">The commands to be executed upon connecting.</param>
-    public Network(string name, string address, bool isFavorite, string connectCommands, bool useGlobalIdentity = true)
+    public Network(string name, string address, bool isFavorite, string connectCommands, Identity identity)
     {
       this.Name = name;
       this.Address = address;
       this.IsFavorite = isFavorite;
       this.ConnectCommands = connectCommands;
-      this.UseGlobalIdentity = useGlobalIdentity;
+      this.Identity = identity;
     }
 
     /// <summary>
@@ -82,34 +84,20 @@ namespace Handle.WPF
     {
       return this.Name;
     }
+
     private Identity identity;
 
     public Identity Identity
     {
       get
       {
-        if (this.UseGlobalIdentity)
-        {
-          var store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
-          IsolatedStorageFileStream isolatedStream;
-          isolatedStream = new IsolatedStorageFileStream("identity.json", FileMode.OpenOrCreate, store);
-          var ret = JsonConvert.DeserializeObject<Identity>(new StreamReader(isolatedStream).ReadToEnd());
-          isolatedStream.Close();
-          return ret;
-          
-        }
         return this.identity;
       }
       set
       {
-        if (!this.UseGlobalIdentity)
-        {
-          this.identity = value;
-        }
+        this.identity = value;
       }
     }
-
-    public bool UseGlobalIdentity { get; set; }
 
     public Network ShallowCopy()
     {

@@ -31,9 +31,9 @@ namespace Handle.WPF
   using System.IO.IsolatedStorage;
   using System.Linq;
   using System.Text;
-  using Caliburn.Micro;
-  using Newtonsoft.Json;
   using System.Windows.Input;
+  using Caliburn.Micro;
+  using ServiceStack.Text;
 
   /// <summary>
   /// Represents a ViewModel for NetworkSelectionViews
@@ -47,18 +47,22 @@ namespace Handle.WPF
     /// </summary>
     public NetworkSelectionViewModel()
     {
-      this.initializeNetworks();
+      this.loadNetworks();
       this.DisplayName = "Networks";
-      this.deserializeGlobalIdentity();
+      try
+      {
+        this.windowManager = IoC.Get<IWindowManager>();
+      }
+      catch
+      {
+        this.windowManager = new WindowManager();
+      }
     }
+
+    private IWindowManager windowManager;
 
     public delegate void ConnectEventHandler(Network network);
     public event ConnectEventHandler ConnectButtonPressed;
-
-    /// <summary>
-    /// Gets or sets the global identity.
-    /// </summary>
-    public Identity GlobalIdentity { get; set; }
 
     /// <summary>
     /// Gets or sets a list of networks.
@@ -77,59 +81,54 @@ namespace Handle.WPF
       }
     }
 
+    private void saveNetworks()
+    {
+      FileStream fs = new FileStream(Settings.PATH + "networks.json", FileMode.Create);
+      try
+      {
+        JsonSerializer.SerializeToStream<BindableCollection<Network>>(this.Networks, fs);
+      }
+      finally
+      {
+        fs.Close();
+      }
+    }
+
+    /// <summary>
+    /// Loads networks from a config file in IsolatedStorage.
+    /// </summary>
+    private void loadNetworks()
+    {
+      FileStream fs = new FileStream(Settings.PATH + "networks.json", FileMode.OpenOrCreate);
+      try
+      {
+        this.Networks = JsonSerializer.DeserializeFromStream<BindableCollection<Network>>(fs) ?? new BindableCollection<Network>();
+      }
+      finally
+      {
+        fs.Close();
+      }
+    }
+
+    protected override IEnumerable<InputBindingCommand> GetInputBindingCommands()
+    {
+      yield return new InputBindingCommand(Cancel)
+      {
+        GestureKey = Key.Escape
+      };
+    }
+
     /// <summary>
     /// Opens a dialog to add new networks.
     /// </summary>
     public void Add()
     {
-      IWindowManager wm;
       var nnvm = new NetworkNewViewModel();
-      try
-      {
-        wm = IoC.Get<IWindowManager>();
-      }
-      catch
-      {
-        wm = new WindowManager();
-      }
-
-      if (wm.ShowDialog(nnvm) == true)
+      if (this.windowManager.ShowDialog(nnvm) == true)
       {
         this.Networks.Add(nnvm.Network);
-        this.serializeNetworks();
+        this.saveNetworks();
       }
-    }
-
-    private void deserializeGlobalIdentity()
-    {
-      var store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
-      IsolatedStorageFileStream isolatedStream;
-      isolatedStream = new IsolatedStorageFileStream("identity.json", FileMode.OpenOrCreate, store);
-      this.GlobalIdentity = JsonConvert.DeserializeObject<Identity>(new StreamReader(isolatedStream).ReadToEnd());
-      if (this.GlobalIdentity == null)
-      {
-        this.GlobalIdentity = new Identity(string.Empty, string.Empty, string.Empty, string.Empty);
-      }
-      isolatedStream.Close();
-    }
-
-    private void serializeGlobalIdentity()
-    {
-      string json = JsonConvert.SerializeObject(this.GlobalIdentity, Formatting.Indented);
-      var store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
-      IsolatedStorageFileStream isolatedStream;
-      try
-      {
-        isolatedStream = new IsolatedStorageFileStream("identity.json", FileMode.Truncate, store);
-      }
-      catch
-      {
-        isolatedStream = new IsolatedStorageFileStream("identity.json", FileMode.Create, store);
-      }
-
-      StreamWriter sw = new StreamWriter(isolatedStream);
-      sw.Write(json);
-      sw.Close();
     }
 
     public void Connect()
@@ -139,7 +138,6 @@ namespace Handle.WPF
       {
         this.ConnectButtonPressed(this.Networks[nsv.Networks.SelectedIndex]);
       }
-      serializeGlobalIdentity();
     }
 
     public void Remove()
@@ -150,7 +148,7 @@ namespace Handle.WPF
         this.Networks.RemoveAt(nsv.Networks.SelectedIndex);
       }
 
-      this.serializeNetworks();
+      this.saveNetworks();
     }
 
     public void Edit()
@@ -162,72 +160,19 @@ namespace Handle.WPF
         return;
       }
 
-      IWindowManager wm;
       NetworkEditViewModel nevm = new NetworkEditViewModel(this.Networks[index].ShallowCopy());
-      try
-      {
-        wm = IoC.Get<IWindowManager>();
-      }
-      catch
-      {
-        wm = new WindowManager();
-      }
 
-      if (wm.ShowDialog(nevm) == true)
+      if (this.windowManager.ShowDialog(nevm) == true)
       {
         this.Networks.RemoveAt(index);
         this.Networks.Insert(index, nevm.Network);
+        this.saveNetworks();
       }
-
-      this.serializeNetworks();
-    }
-
-    private void serializeNetworks()
-    {
-      string json = JsonConvert.SerializeObject(this.Networks, Formatting.Indented);
-      var store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
-      IsolatedStorageFileStream isolatedStream;
-      try
-      {
-        isolatedStream = new IsolatedStorageFileStream("networks.json", FileMode.Truncate, store);
-      }
-      catch
-      {
-        isolatedStream = new IsolatedStorageFileStream("networks.json", FileMode.Create, store);
-      }
-
-      StreamWriter sw = new StreamWriter(isolatedStream);
-      sw.Write(json);
-      sw.Close();
-    }
-
-    /// <summary>
-    /// Loads networks from a config file in IsolatedStorage.
-    /// </summary>
-    private void initializeNetworks()
-    {
-      var store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
-      IsolatedStorageFileStream isolatedStream;
-      isolatedStream = new IsolatedStorageFileStream("networks.json", FileMode.OpenOrCreate, store);
-      this.Networks = JsonConvert.DeserializeObject<BindableCollection<Network>>(new StreamReader(isolatedStream).ReadToEnd());
-      if (this.Networks == null)
-      {
-        this.Networks = new BindableCollection<Network>();
-      }
-      isolatedStream.Close();
-    }
-
-    protected override IEnumerable<InputBindingCommand> GetInputBindingCommands()
-    {
-      yield return new InputBindingCommand(Cancel)
-      {
-        GestureKey = Key.Escape
-      };
     }
 
     public void Cancel()
     {
-      serializeGlobalIdentity();
+      this.TryClose();
     }
   }
 }

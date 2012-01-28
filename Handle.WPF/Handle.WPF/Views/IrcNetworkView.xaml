@@ -7,13 +7,16 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-    <TabControl x:Name="Channels">
-      <TabControl.ItemTemplate>
+    <Grid.Resources>
+      <BooleanToVisibilityConverter x:Key="booleanToVisbility"/>
+    </Grid.Resources>
+      <TabControl x:Name="Channels">
+        <TabControl.ItemTemplate>
         <DataTemplate>
           <StackPanel Orientation="Horizontal">
             <TextBlock Text="{Binding DisplayName}" />
             <Button Content="X"  
-                                cal:Message.Attach="CloseItem($dataContext)" />
+                    cal:Message.Attach="CloseItem($dataContext)" Visibility="{Binding Closable, Converter={StaticResource booleanToVisbility}}"/>
           </StackPanel>
         </DataTemplate>
       </TabControl.ItemTemplate>

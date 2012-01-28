@@ -32,7 +32,7 @@ namespace Handle.WPF
   using Caliburn.Micro;
   using System.IO.IsolatedStorage;
   using System.IO;
-  using Newtonsoft.Json;
+  using System;
 
   /// <summary>
   /// Represents a ViewModel for ShellViews
@@ -62,9 +62,13 @@ namespace Handle.WPF
       this.Top = 100.0;
       this.IrcMainViewModel = new IrcMainViewModel();
       this.IrcMainViewModel.Parent = this;
-      this.Settings = this.deserializeSettings();
-      ActivateItem(this.IrcMainViewModel);
+      DirectoryInfo di = new DirectoryInfo(Settings.PATH);
+      if (!di.Exists)
+        di.Create();
+
+      this.Settings = Settings.FromFile();
       this.DisplayName = "Handle";
+      ActivateItem(this.IrcMainViewModel);
     }
 
     private void Connect(Network network)
@@ -193,6 +197,7 @@ namespace Handle.WPF
     private void SaveSettings(Settings settings)
     {
       this.Settings = settings;
+      this.Settings.Save();
     }
 
     protected override void OnViewLoaded(object view)
@@ -210,24 +215,6 @@ namespace Handle.WPF
         GestureModifier = ModifierKeys.Control,
         GestureKey = Key.N
       };
-    }
-
-    /// <summary>
-    /// Loads settings from a config file in IsolatedStorage.
-    /// </summary>
-    private Settings deserializeSettings()
-    {
-      
-      var store = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
-      IsolatedStorageFileStream isolatedStream;
-      isolatedStream = new IsolatedStorageFileStream("settings.json", FileMode.OpenOrCreate, store);
-      var settings = JsonConvert.DeserializeObject<Settings>(new StreamReader(isolatedStream).ReadToEnd());
-      if (settings == null)
-      {
-        settings = new Settings();
-      }
-      isolatedStream.Close();
-      return settings;
     }
   }
 }

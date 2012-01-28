@@ -40,31 +40,35 @@ namespace Handle.WPF
 
     private IrcClient client;
 
-    public BindableCollection<IrcChannelViewModel> Channels { get; set; }
+    public BindableCollection<dynamic> Channels { get; set; }
+    public IrcStatusTabViewModel StatusTab { get; set; }
+
+    public bool Closable { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the IrcNetworkViewModel class
     /// </summary>
     public IrcNetworkViewModel(Network network)
     {
-      this.Channels = new BindableCollection<IrcChannelViewModel>();
+      this.Channels = new BindableCollection<dynamic>();
+      this.Closable = true;
       this.DisplayName = network.Name;
       IrcRegistrationInfo info = new IrcUserRegistrationInfo()
       {
-        NickName = network.Identity.Name,
-        UserName = network.Identity.Name,
-        RealName = network.Identity.RealName
+        NickName = network.Identity.Name ?? Environment.UserName,
+        UserName = Environment.UserName,
+        RealName = network.Identity.RealName ?? "Rumpelstilzchen",
       };
 
       this.Client = new IrcClient();
-      this.Client.Registered += new EventHandler<EventArgs>(this.clientRegistered);
+      this.Client.Registered += this.clientRegistered;
 
       using (var connectedEvent = new ManualResetEventSlim(false))
       {
         this.Client.Connected += (sender, e) => connectedEvent.Set();
         client.Connect(network.Address, false, info);
 
-        if (!connectedEvent.Wait(10000))
+        if (!connectedEvent.Wait(1000))
         {
           this.Client.Dispose();
           return;
@@ -74,14 +78,17 @@ namespace Handle.WPF
 
     private void clientRegistered(object sender, EventArgs e)
     {
-      this.Client.LocalUser.JoinedChannel += localUserJoinedChannel;
+      this.Client.LocalUser.JoinedChannel += this.localUserJoinedChannel;
+      var istvm = new IrcStatusTabViewModel(this.Client);
+      istvm.Parent = this;
+      this.Channels.Add(istvm);
     }
 
     private void localUserJoinedChannel(object sender, IrcChannelEventArgs e)
     {
       var icvm = new IrcChannelViewModel(e.Channel);
       icvm.Parent = this.Parent;
-      icvm.JoinChannelClicked += JoinChannel;
+      icvm.JoinChannelClicked += this.JoinChannel;
       this.Channels.Add(icvm);
     }
 
