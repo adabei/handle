@@ -25,16 +25,15 @@
 
 namespace Handle.WPF
 {
-  using System;
   using System.Collections.Generic;
-  using System.Linq;
-  using System.Text;
-  using Newtonsoft.Json;
+  using System.IO;
+  using System.IO.IsolatedStorage;
+  using ServiceStack.Text;
+  using System;
 
   /// <summary>
   /// A class representing all Settings
   /// </summary>
-  [JsonObject(MemberSerialization.OptIn)]
   public class Settings
   {
     /// <summary>
@@ -44,7 +43,10 @@ namespace Handle.WPF
     {
       this.Notifications = new Dictionary<string, bool>();
       this.Shortcuts = new Dictionary<string, string>();
+
     }
+
+    public static readonly string PATH = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Handle.WPF\";
 
     /// <summary>
     /// Gets or sets a value indicating whether logs are saved
@@ -113,6 +115,38 @@ namespace Handle.WPF
     public Settings ShallowCopy()
     {
       return (Settings)this.MemberwiseClone();
+    }
+
+    public static Settings FromFile()
+    {
+      FileStream fs = new FileStream(Settings.PATH + "settings.json", FileMode.OpenOrCreate);
+      Settings settings;
+      try
+      {
+        settings = JsonSerializer.DeserializeFromStream<Settings>(fs) ?? new Settings();
+      }
+      catch
+      {
+        settings = new Settings();
+      }
+      finally
+      {
+        fs.Close();
+      }
+      return settings;
+    }
+
+    public void Save()
+    {
+      FileStream fs = new FileStream(Settings.PATH + "settings.json", FileMode.Create);
+      try
+      {
+        JsonSerializer.SerializeToStream<Settings>(this, fs);
+      }
+      finally
+      {
+        fs.Close();
+      }
     }
   }
 }

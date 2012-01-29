@@ -49,7 +49,10 @@ namespace Handle.WPF
       // TODO Leave message
       foreach (var item in (sender as IrcNetworkViewModel).Channels)
       {
-        item.LeaveChannel();
+        if (item.GetType() == typeof(IrcChannelViewModel))
+        {
+          item.LeaveChannel();
+        }
       }
       this.Networks.Remove(sender as IrcNetworkViewModel);
     }

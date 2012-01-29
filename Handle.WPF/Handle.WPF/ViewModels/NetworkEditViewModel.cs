@@ -29,8 +29,8 @@ namespace Handle.WPF
   using System.Collections.Generic;
   using System.Linq;
   using System.Text;
-  using Caliburn.Micro;
   using System.Windows.Input;
+  using Caliburn.Micro;
 
   /// <summary>
   /// TODO: Update summary.

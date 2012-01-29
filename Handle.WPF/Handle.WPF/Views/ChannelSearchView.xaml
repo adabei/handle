@@ -3,14 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="ChannelSearchView" Height="300" Width="500"
         xmlns:cal="http://www.caliburnproject.org">
-    <Grid>
+  <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition Height="Auto"/>
       <RowDefinition/>
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-     
+
     <TextBlock Text="channels" FontSize="22" Grid.Row="0"/>
     <StackPanel Grid.Row="1" Orientation="Horizontal">
       <TextBox x:Name="Pattern" Height="Auto" Width="430"/>
@@ -29,7 +29,6 @@
       <Button x:Name="Join" Content="Join" Width="Auto" Height="Auto"/>
       <Button x:Name="Cancel" Content="Cancel" Width="Auto" Height="Auto"/>
     </StackPanel>
-      
-    
+
   </Grid>
 </Window>

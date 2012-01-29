@@ -34,12 +34,12 @@ namespace Handle.WPF
   /// <summary>
   /// TODO: Update summary.
   /// </summary>
-  public class IrcChannelViewModel : ViewModelBase
+  public class IrcStatusTabViewModel : ViewModelBase
   {
     public delegate void JoinChannelClickedEventHandler();
     public event JoinChannelClickedEventHandler JoinChannelClicked;
 
-    public IrcChannel Channel { get; set; }
+    public IrcClient Client { get; set; }
 
     public BindableCollection<Message> Messages { get; set; }
 
@@ -71,18 +71,20 @@ namespace Handle.WPF
     /// <summary>
     /// Initializes a new instance of the IrcChannelViewModel class
     /// </summary>
-    public IrcChannelViewModel(IrcChannel channel)
+    public IrcStatusTabViewModel(IrcClient client)
     {
       this.Messages = new BindableCollection<Message>();
-      this.Closable = true;
-      this.DisplayName = channel.Name;
-      this.Channel = channel;
-      this.Channel.MessageReceived += this.channelMessageReceived;
-      this.Channel.UserJoined += this.channelUserJoined;
-      this.Channel.UserLeft += this.channelUserLeft;
-      this.Channel.NoticeReceived += this.channelNoticeReceived;
+      this.Closable = false;
+      this.DisplayName = "Status";
+      this.Client = client;
+
+      this.Client.LocalUser.MessageReceived += this.localUserMessageReceived;
     }
 
+    private void localUserMessageReceived(object sender, IrcMessageEventArgs e)
+    {
+      this.Messages.Add(new Message(e.Text, DateTime.Now.ToString("HH:mm"), e.Source.Name));
+    }
 
     private string displayName;
 
@@ -99,39 +101,11 @@ namespace Handle.WPF
       }
     }
 
-    private void channelMessageReceived(object sender, IrcMessageEventArgs e)
-    {
-      this.Messages.Add(new Message(e.Text, DateTime.Now.ToString("HH:mm"), e.Source.Name));
-    }
-
-    private void channelNoticeReceived(object sender, IrcMessageEventArgs e)
-    {
-      this.Messages.Add(new Message(e.Text, DateTime.Now.ToString("HH:mm"), "=!="));
-    }
-
-    private void channelUserJoined(object sender, IrcChannelUserEventArgs e)
-    {
-      this.Messages.Add(new Message(String.Format("{0} [{1}] has joined {2}", e.ChannelUser.User.NickName, e.ChannelUser.User.HostName, e.ChannelUser.Channel.Name),
-                        DateTime.Now.ToString("HH:mm"), "=!="));
-    }
-
-    private void channelUserLeft(object sender, IrcChannelUserEventArgs e)
-    {
-      this.Messages.Add(new Message(String.Format("{0} [{1}] has left {2} [{3}]", 
-                        e.ChannelUser.User.NickName, e.ChannelUser.User.HostName, e.ChannelUser.Channel.Name, e.Comment),
-                        DateTime.Now.ToString("HH:mm"), "=!="));
-    }
-
     public void Send()
     {
-      this.Channel.Client.LocalUser.SendMessage(this.Channel, this.Message);
-      this.Messages.Add(new Message(this.Message, DateTime.Now.ToString("HH:mm"), this.Channel.Client.LocalUser.NickName));
+      // this.IrcChannel.Client.LocalUser.SendMessage(this.IrcChannel, this.Message);
+      // this.Messages.Add(new Message(this.Message, DateTime.Now.ToString("HH:mm"), this.IrcChannel.Client.LocalUser.NickName));
       this.Message = String.Empty;
-    }
-
-    public void LeaveChannel()
-    {
-      this.Channel.Leave();
     }
 
     public void JoinChannel()
@@ -140,15 +114,6 @@ namespace Handle.WPF
       {
         this.JoinChannelClicked();
       }
-    }
-
-    protected override System.Collections.Generic.IEnumerable<InputBindingCommand> GetInputBindingCommands()
-    {
-      yield return new InputBindingCommand(LeaveChannel)
-      {
-        GestureModifier = ModifierKeys.Control,
-        GestureKey = Key.W
-      };
     }
   }
 }

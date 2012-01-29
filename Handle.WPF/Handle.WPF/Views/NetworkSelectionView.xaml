@@ -4,36 +4,36 @@
         Title="NetworkSelectionView" Height="300" Width="300"
         xmlns:cal="http://www.caliburnproject.org">
 
-    <Grid>
-      <Grid.RowDefinitions>
+  <Grid>
+    <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition/>
       <RowDefinition Height="Auto"/>
-      </Grid.RowDefinitions>
+    </Grid.RowDefinitions>
 
-      <TextBlock Grid.Row="0" FontSize="22">network list</TextBlock>
-<StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Left">
-        <Grid>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition/>
-        <ColumnDefinition/>
-      </Grid.ColumnDefinitions>
+    <TextBlock Grid.Row="0" FontSize="22">network list</TextBlock>
+    <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Left">
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition/>
+          <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
 
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-        <RowDefinition Height="Auto"/>
-      </Grid.RowDefinitions>
-      
-      <Label Grid.Column="0" Grid.Row="0">Nick name:</Label>
+        <Grid.RowDefinitions>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+          <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Label Grid.Column="0" Grid.Row="0">Nick name:</Label>
         <TextBox Grid.Column="1" Grid.Row="0" x:Name="GlobalIdentity_Name" Height="20" Width="75"/>
-      
-      <Label Grid.Column="0" Grid.Row="1">Alternative:</Label>
-      <TextBox Grid.Column="1" Grid.Row="1" x:Name="GlobalIdentity_Alternative" Height="20" Width="75"/>
- 
-      <Label Grid.Column="0" Grid.Row="2">Real name:</Label>
-      <TextBox Grid.Column="1" Grid.Row="2" x:Name="GlobalIdentity_RealName" Height="20" Width="75"/>
-    </Grid>
+
+        <Label Grid.Column="0" Grid.Row="1">Alternative:</Label>
+        <TextBox Grid.Column="1" Grid.Row="1" x:Name="GlobalIdentity_Alternative" Height="20" Width="75"/>
+
+        <Label Grid.Column="0" Grid.Row="2">Real name:</Label>
+        <TextBox Grid.Column="1" Grid.Row="2" x:Name="GlobalIdentity_RealName" Height="20" Width="75"/>
+      </Grid>
       <ListView x:Name="Networks" Width="150" Height="80">
         <ListView.ItemTemplate>
           <DataTemplate>

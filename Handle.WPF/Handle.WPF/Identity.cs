@@ -30,6 +30,8 @@ namespace Handle.WPF
   using System.Linq;
   using System.Security.Cryptography;
   using System.Text;
+  using ServiceStack.Text;
+  using System.IO;
 
   /// <summary>
   /// A class representing an identity used to authenticate with NickServ.
@@ -87,6 +89,25 @@ namespace Handle.WPF
         var data = Encoding.Unicode.GetBytes(value);
         this.password = Convert.ToBase64String(data, 0, data.Length);
       }
+    }
+
+    public static Identity GlobalIdentity()
+    {
+      FileStream fs = new FileStream(Settings.PATH + "identity.json", FileMode.OpenOrCreate);
+      Identity identity;
+      try
+      {
+        identity = JsonSerializer.DeserializeFromStream<Identity>(fs) ?? new Identity(String.Empty, String.Empty, String.Empty, String.Empty);
+      }
+      catch
+      {
+        identity = new Identity(String.Empty, String.Empty, String.Empty, String.Empty);
+      }
+      finally
+      {
+        fs.Close();
+      }
+      return identity;
     }
   }
 }

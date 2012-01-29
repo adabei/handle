@@ -42,9 +42,9 @@ namespace Handle.WPF
   /// <summary>
   /// Interaction logic for IrcChannelView.xaml
   /// </summary>
-  public partial class IrcChannelView : UserControl
+  public partial class IrcStatusTabView : UserControl
   {
-    public IrcChannelView()
+    public IrcStatusTabView()
     {
       InitializeComponent();
     }
