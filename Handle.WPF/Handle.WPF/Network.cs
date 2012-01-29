@@ -47,13 +47,14 @@ namespace Handle.WPF
     /// <param name="address">The address of the network</param>
     /// <param name="isFavorite">Whether the network is a favorite or not</param>
     /// <param name="connectCommands">The commands to be executed upon connecting.</param>
-    public Network(string name, string address, bool isFavorite, string connectCommands, Identity identity)
+    public Network(string name, string address, bool isFavorite, string connectCommands, Identity identity, bool useCustomIdentity = false)
     {
       this.Name = name;
       this.Address = address;
       this.IsFavorite = isFavorite;
       this.ConnectCommands = connectCommands;
       this.Identity = identity;
+      this.UseCustomIdentity = useCustomIdentity;
     }
 
     /// <summary>
@@ -103,5 +104,7 @@ namespace Handle.WPF
     {
       return (Network)this.MemberwiseClone();
     }
+
+    public bool UseCustomIdentity { get; set; }
   }
 }

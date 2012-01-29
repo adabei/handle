@@ -53,12 +53,27 @@ namespace Handle.WPF
       this.Channels = new BindableCollection<dynamic>();
       this.Closable = true;
       this.DisplayName = network.Name;
-      IrcRegistrationInfo info = new IrcUserRegistrationInfo()
+      IrcRegistrationInfo info;
+      if (network.UseCustomIdentity)
       {
-        NickName = network.Identity.Name ?? Environment.UserName,
-        UserName = Environment.UserName,
-        RealName = network.Identity.RealName ?? "Rumpelstilzchen",
-      };
+        info = new IrcUserRegistrationInfo()
+        {
+          NickName = network.Identity.Name ?? Environment.UserName,
+          UserName = Environment.UserName,
+          RealName = network.Identity.RealName ?? "Rumpelstilzchen",
+        };
+      }
+      else
+      {
+        Identity id = Identity.GlobalIdentity();
+        info = new IrcUserRegistrationInfo()
+        {
+          NickName = id.Name ?? Environment.UserName,
+          UserName = Environment.UserName,
+          RealName = id.RealName ?? "Rumpelstilzchen",
+        };
+      }
+
 
       this.Client = new IrcClient();
       this.Client.Registered += this.clientRegistered;

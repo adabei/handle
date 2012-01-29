@@ -57,6 +57,7 @@ namespace Handle.WPF
       {
         this.windowManager = new WindowManager();
       }
+      this.GlobalIdentity = Identity.GlobalIdentity();
     }
 
     private IWindowManager windowManager;
@@ -80,6 +81,8 @@ namespace Handle.WPF
         NotifyOfPropertyChange(() => this.Networks);
       }
     }
+
+    public Identity GlobalIdentity { get; set; }
 
     private void saveNetworks()
     {
@@ -138,6 +141,7 @@ namespace Handle.WPF
       {
         this.ConnectButtonPressed(this.Networks[nsv.Networks.SelectedIndex]);
       }
+      saveGlobalIdentity();
     }
 
     public void Remove()
@@ -147,7 +151,6 @@ namespace Handle.WPF
       {
         this.Networks.RemoveAt(nsv.Networks.SelectedIndex);
       }
-
       this.saveNetworks();
     }
 
@@ -172,7 +175,21 @@ namespace Handle.WPF
 
     public void Cancel()
     {
+      saveGlobalIdentity();
       this.TryClose();
+    }
+
+    private void saveGlobalIdentity()
+    {
+      FileStream fs = new FileStream(Settings.PATH + "identity.json", FileMode.Create);
+      try
+      {
+        JsonSerializer.SerializeToStream<Identity>(this.GlobalIdentity, fs);
+      }
+      finally
+      {
+        fs.Close();
+      }
     }
   }
 }

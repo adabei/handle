@@ -33,6 +33,9 @@
         <RowDefinition Height="Auto"/>
       </Grid.RowDefinitions>
 
+      <Grid.Resources>
+        <BooleanToVisibilityConverter x:Key="booleanToVisbility"/>
+      </Grid.Resources>
       <!-- Network -->
       <TextBlock FontSize="18" Grid.Row="0" Text="network"/>
       <Label Grid.Column="0" Grid.Row="1" Content="Name:"/>
@@ -42,16 +45,17 @@
       <TextBox Grid.Column="1" Grid.Row="2" Height="20" Width="100" x:Name="Network_Address"/>
 
       <!-- Identity -->
+      <CheckBox Grid.Column="0" Grid.Row="4" Content="use custom identity" x:Name="Network_UseCustomIdentity"/>
 
-      <Label Grid.Column="0" Grid.Row="5" Content="Nick name:"/>
-      <TextBox Grid.Column="1" Grid.Row="5" x:Name="Network_Identity_Name" Height="20" Width="100"/>
+      <Label Grid.Column="0" Grid.Row="5" Content="Nick name:" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
+      <TextBox Grid.Column="1" Grid.Row="5" x:Name="Network_Identity_Name" Height="20" Width="100" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
 
-      <Label Grid.Column="0" Grid.Row="6" Content="Alternative:"/>
+      <Label Grid.Column="0" Grid.Row="6" Content="Alternative:" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
       <TextBox Grid.Column="1" Grid.Row="6" x:Name="Network_Identity_Alternative" 
-               Height="20" Width="100"/>
+               Height="20" Width="100" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
 
-      <Label Grid.Column="0" Grid.Row="7" Content="Real name:"/>
-      <TextBox Grid.Column="1" Grid.Row="7" x:Name="Network_Identity_RealName" Height="20" Width="100"/>
+      <Label Grid.Column="0" Grid.Row="7" Content="Real name:" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
+      <TextBox Grid.Column="1" Grid.Row="7" x:Name="Network_Identity_RealName" Height="20" Width="100" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
 
       <CheckBox Grid.Column="0" Grid.Row="8" Content="favorite" x:Name="Network_IsFavorite"/>
 
