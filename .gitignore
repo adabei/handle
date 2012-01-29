@@ -7,3 +7,5 @@ obj
 # StyleCop
 StyleCop.Cache
 
+#TestResult
+TestResult.xml
