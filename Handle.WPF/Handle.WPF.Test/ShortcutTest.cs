@@ -30,7 +30,7 @@ namespace Handle.WPF.Test
       Keyboard.LeaveAllKeys();
       Keyboard.HoldKey(KeyboardInput.SpecialKeys.CONTROL);
       Keyboard.Enter("n");
-      NetworkWindow = MainWindow.ModalWindow("Handle.WPF.NetworkSelectionViewModel");
+      NetworkWindow = MainWindow.ModalWindow("Networks");
       Assert.IsNotNull(NetworkWindow);
       Keyboard.LeaveAllKeys();
       NetworkWindow.Close();

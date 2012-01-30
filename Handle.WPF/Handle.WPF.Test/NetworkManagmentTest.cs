@@ -62,7 +62,7 @@ namespace Handle.WPF.Test
     {
       Button edit = NetworkWindow.Get<Button>("Edit");
       edit.Click();
-      Window NewNetworkWindow = NetworkWindow.ModalWindow("Handle.WPF.NetworkEditViewModel");
+      Window NewNetworkWindow = NetworkWindow.ModalWindow("Edit Network");
       Button ok = NewNetworkWindow.Get<Button>("Ok");
       TextBox name = NetworkWindow.Get<TextBox>("Network_Name");
       TextBox address = NetworkWindow.Get<TextBox>("Network_Address");
@@ -86,7 +86,8 @@ namespace Handle.WPF.Test
     {
       Button add = NetworkWindow.Get<Button>("Add");
       add.Click();
-      Window NewNetworkWindow = NetworkWindow.ModalWindow("Handle.WPF.NetworkNewViewModel");
+      Window NewNetworkWindow = NetworkWindow.ModalWindow("New network");
+      Assert.IsNotNull(NewNetworkWindow);
       Button ok = NewNetworkWindow.Get<Button>("Ok");
       TextBox name = NetworkWindow.Get<TextBox>("Network_Name");
       TextBox address = NetworkWindow.Get<TextBox>("Network_Address");
@@ -101,7 +102,7 @@ namespace Handle.WPF.Test
       Keyboard.HoldKey(KeyboardInput.SpecialKeys.CONTROL);
       Keyboard.Enter("n");
       Keyboard.LeaveAllKeys();
-      NetworkWindow = MainWindow.ModalWindow("Handle.WPF.NetworkSelectionViewModel");
+      NetworkWindow = MainWindow.ModalWindow("Networks");
       Assert.IsNotNull(NetworkWindow);
     }
 
