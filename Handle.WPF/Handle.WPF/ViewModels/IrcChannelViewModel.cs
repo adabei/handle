@@ -30,6 +30,7 @@ namespace Handle.WPF
   using IrcDotNet;
   using System.Windows.Input;
   using System.Collections.Generic;
+using System.IO;
 
   /// <summary>
   /// TODO: Update summary.

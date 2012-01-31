@@ -97,6 +97,7 @@ namespace Handle.WPF
       this.Client.LocalUser.InviteReceived += this.localUserInviteReceived;
       var istvm = new IrcStatusTabViewModel(this.Client);
       istvm.Parent = this;
+      istvm.JoinChannelClicked += this.JoinChannel;
       this.Channels.Add(istvm);
     }
 
@@ -145,9 +146,6 @@ namespace Handle.WPF
       // TODO Leave message
       (sender as IrcChannelViewModel).LeaveChannel();
       this.Channels.Remove(sender as IrcChannelViewModel);
-      this.Client.Disconnect();
-      // TODO Wait with the close
-
     }
 
     protected override System.Collections.Generic.IEnumerable<InputBindingCommand> GetInputBindingCommands()
