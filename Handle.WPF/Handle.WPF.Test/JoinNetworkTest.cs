@@ -25,7 +25,7 @@ namespace Handle.WPF.Test
     Tab NetworksTab;
 
     [Test]
-    public void JoinNetworksTest()
+    public void JoinSingleNetworkTest()
     {
       Start();
       OpenNetworkWindow();
@@ -46,6 +46,34 @@ namespace Handle.WPF.Test
       CheckStatusTab();
       LeaveNetwork();
       Exit();
+    }
+
+    [Test]
+    public void JoinMultipleNetworksTest() 
+    {
+      Start();
+      OpenNetworkWindow();
+      SelectItem("freenode");
+      JoinNetwork();
+      OpenNetworkWindow();
+      NewNetwork("Vienna", "vienna.irc.at");
+      SelectItem("Vienna");
+      JoinNetwork();
+      OpenNetworkWindow();
+      NewNetwork("Quakenet", "clanserver4u.de.quakenet.org");
+      SelectItem("Quakenet");
+      JoinNetwork();
+      CheckNetworksStatusTab();
+      LeaveNetwork();
+      CheckNetworksStatusTab();
+      LeaveNetwork();
+      CheckNetworksStatusTab();
+      LeaveNetwork();
+      OpenNetworkWindow();
+      SelectItem("Quakenet");
+      RemoveNetwork();
+      SelectItem("Vienna");
+      RemoveNetwork();
     }
 
     public void LeaveNetwork() 
@@ -74,6 +102,14 @@ namespace Handle.WPF.Test
       TabPage FirstNetwork = MainWindow.Get<TabPage>(SearchCriteria.ByText("Handle.WPF.IrcNetworkViewModel"));
       Assert.IsNotNull(FirstNetwork);
       FirstNetwork.Click();     
+    }
+
+    public void CheckNetworksStatusTab()
+    {
+      TabPage FirstNetwork = MainWindow.Get<TabPage>(SearchCriteria.ByText("Handle.WPF.IrcNetworkViewModel"));
+      Assert.IsNotNull(FirstNetwork);
+      FirstNetwork.Click();
+      CheckStatusTab();
     }
 
     public void Start()
@@ -106,6 +142,27 @@ namespace Handle.WPF.Test
       Keyboard.LeaveAllKeys();
       NetworkWindow = MainWindow.ModalWindow("Networks");
       Assert.IsNotNull(NetworkWindow);
+    }
+
+    public void NewNetwork(string nname, string addresse)
+    {
+      Button add = NetworkWindow.Get<Button>("Add");
+      add.Click();
+      Window NewNetworkWindow = NetworkWindow.ModalWindow("New network");
+      Assert.IsNotNull(NewNetworkWindow);
+      Button ok = NewNetworkWindow.Get<Button>("Ok");
+      TextBox name = NetworkWindow.Get<TextBox>("Network_Name");
+      TextBox address = NetworkWindow.Get<TextBox>("Network_Address");
+      name.Text = nname;
+      address.Text = addresse;
+      ok.Click();
+      NetworkWindow.Focus();
+    }
+
+    public void RemoveNetwork()
+    {
+      Button remove = NetworkWindow.Get<Button>("Remove");
+      remove.Click();
     }
   }
 }
