@@ -79,11 +79,17 @@ namespace Handle.WPF
       this.Client = client;
 
       this.Client.LocalUser.MessageReceived += this.localUserMessageReceived;
+      this.Client.MotdReceived += this.clientMessageOfTheDayReceived;
     }
 
     private void localUserMessageReceived(object sender, IrcMessageEventArgs e)
     {
       this.Messages.Add(new Message(e.Text, DateTime.Now.ToString("HH:mm"), e.Source.Name));
+    }
+
+    private void clientMessageOfTheDayReceived(object sender, EventArgs e)
+    {
+      this.Messages.Add(new Message(this.Client.MessageOfTheDay, DateTime.Now.ToString("HH:mm"), "=!="));
     }
 
     private string displayName;

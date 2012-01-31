@@ -94,9 +94,17 @@ namespace Handle.WPF
     private void clientRegistered(object sender, EventArgs e)
     {
       this.Client.LocalUser.JoinedChannel += this.localUserJoinedChannel;
+      this.Client.LocalUser.InviteReceived += this.localUserInviteReceived;
       var istvm = new IrcStatusTabViewModel(this.Client);
       istvm.Parent = this;
+      istvm.JoinChannelClicked += this.JoinChannel;
       this.Channels.Add(istvm);
+    }
+
+    private void localUserInviteReceived(object sender, IrcChannelInvitationEventArgs e)
+    {
+      // TODO Ask the user before joining the channel
+      this.Client.Channels.Join(e.Channel.Name);
     }
 
     private void localUserJoinedChannel(object sender, IrcChannelEventArgs e)
@@ -138,7 +146,6 @@ namespace Handle.WPF
       // TODO Leave message
       (sender as IrcChannelViewModel).LeaveChannel();
       this.Channels.Remove(sender as IrcChannelViewModel);
-
     }
 
     protected override System.Collections.Generic.IEnumerable<InputBindingCommand> GetInputBindingCommands()

@@ -55,6 +55,8 @@ namespace Handle.WPF
         }
       }
       this.Networks.Remove(sender as IrcNetworkViewModel);
+      (sender as IrcNetworkViewModel).Client.Disconnect();
+      // TODO Wait with the close
     }
   }
 }

@@ -30,6 +30,7 @@ namespace Handle.WPF
   using IrcDotNet;
   using System.Windows.Input;
   using System.Collections.Generic;
+using System.IO;
 
   /// <summary>
   /// TODO: Update summary.
@@ -125,7 +126,7 @@ namespace Handle.WPF
     public void Send()
     {
       this.Channel.Client.LocalUser.SendMessage(this.Channel, this.Message);
-      this.Messages.Add(new Message(this.Message, DateTime.Now.ToString("HH:mm"), this.Channel.Client.LocalUser.NickName));
+      this.Messages.Add(new Message(this.Message.TrimEnd(), DateTime.Now.ToString("HH:mm"), this.Channel.Client.LocalUser.NickName));
       this.Message = String.Empty;
     }
 
