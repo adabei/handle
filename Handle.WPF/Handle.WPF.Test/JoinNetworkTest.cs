@@ -12,7 +12,7 @@ using White.Core.UIItems.TableItems;
 using White.Core.UIItems.ListBoxItems;
 using System.Text;
 using White.Core.UIItems.TabItems;
-using System.Threading;
+using White.Core.Configuration;
 
 namespace Handle.WPF.Test
 {
@@ -42,7 +42,6 @@ namespace Handle.WPF.Test
       OpenNetworkWindow();
       SelectItem("freenode");
       JoinNetwork();
-      Thread.Sleep(10000);
       CheckStatusTab();
       LeaveNetwork();
       Exit();
@@ -74,6 +73,7 @@ namespace Handle.WPF.Test
       RemoveNetwork();
       SelectItem("Vienna");
       RemoveNetwork();
+      Exit();
     }
 
     public void LeaveNetwork() 
@@ -87,7 +87,8 @@ namespace Handle.WPF.Test
     {
       Tab ChannelsTab = MainWindow.Get<Tab>("Channels");
       Assert.IsNotNull(ChannelsTab);
-      TabPage StatusTab = MainWindow.Get<TabPage>(SearchCriteria.ByText("Handle.WPF.IrcStatusTabViewModel"));
+      MainWindow.WaitTill(() => (ChannelsTab = MainWindow.Get<Tab>("Channels")).TabCount == 1);
+      TabPage StatusTab = MainWindow.Get<TabPage>(SearchCriteria.ByText("Handle.WPF.IrcStatusTabViewModel"));     
       Assert.IsNotNull(StatusTab);
     }
 
@@ -114,6 +115,7 @@ namespace Handle.WPF.Test
 
     public void Start()
     {
+      Console.WriteLine(CoreAppXmlConfiguration.Instance.UIAutomationZeroWindowBugTimeout);
       Application = Application.Launch(@"C:\Users\Flotschi\git\handle\Handle.WPF\Handle.WPF\bin\Debug\Handle.WPF.exe");
       Assert.IsNotNull(Application);
       MainWindow = Application.GetWindow("Handle");
