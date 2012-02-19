@@ -30,7 +30,7 @@ namespace Handle.WPF
   using IrcDotNet;
   using System.Windows.Input;
   using System.Collections.Generic;
-using System.IO;
+  using System.IO;
 
   /// <summary>
   /// TODO: Update summary.
@@ -44,6 +44,7 @@ using System.IO;
 
     public BindableCollection<Message> Messages { get; set; }
 
+    private StreamWriter logger;
     private string message;
     public string Message
     {
@@ -72,7 +73,7 @@ using System.IO;
     /// <summary>
     /// Initializes a new instance of the IrcChannelViewModel class
     /// </summary>
-    public IrcChannelViewModel(IrcChannel channel)
+    public IrcChannelViewModel(IrcChannel channel, string networkName)
     {
       this.Messages = new BindableCollection<Message>();
       this.Closable = true;
@@ -82,6 +83,7 @@ using System.IO;
       this.Channel.UserJoined += this.channelUserJoined;
       this.Channel.UserLeft += this.channelUserLeft;
       this.Channel.NoticeReceived += this.channelNoticeReceived;
+      this.logger = new StreamWriter(String.Format("{0}\\logs\\{1}.{2}.txt", Settings.PATH, channel.Name, networkName), true);
     }
 
 
@@ -102,7 +104,10 @@ using System.IO;
 
     private void channelMessageReceived(object sender, IrcMessageEventArgs e)
     {
-      this.Messages.Add(new Message(e.Text, DateTime.Now.ToString("HH:mm"), e.Source.Name));
+      Message m = new Message(e.Text, DateTime.Now.ToString("HH:mm"), e.Source.Name);
+      this.Messages.Add(m);
+      // TODO Use settings
+      logger.WriteLine(String.Format("<{0}> {1}: {2}", m.Received, m.Sender, m.Text));
     }
 
     private void channelNoticeReceived(object sender, IrcMessageEventArgs e)
@@ -118,7 +123,7 @@ using System.IO;
 
     private void channelUserLeft(object sender, IrcChannelUserEventArgs e)
     {
-      this.Messages.Add(new Message(String.Format("{0} [{1}] has left {2} [{3}]", 
+      this.Messages.Add(new Message(String.Format("{0} [{1}] has left {2} [{3}]",
                         e.ChannelUser.User.NickName, e.ChannelUser.User.HostName, e.ChannelUser.Channel.Name, e.Comment),
                         DateTime.Now.ToString("HH:mm"), "=!="));
     }
@@ -126,13 +131,18 @@ using System.IO;
     public void Send()
     {
       this.Channel.Client.LocalUser.SendMessage(this.Channel, this.Message);
-      this.Messages.Add(new Message(this.Message.TrimEnd(), DateTime.Now.ToString("HH:mm"), this.Channel.Client.LocalUser.NickName));
+      Message m = new Message(this.Message.Trim(), DateTime.Now.ToString("HH:mm"), this.Channel.Client.LocalUser.NickName);
+      this.Messages.Add(m);
+      // TODO Use settings
+      logger.WriteLine(String.Format("<{0}> {1}: {2}", m.Received, m.Sender, m.Text));
       this.Message = String.Empty;
     }
 
     public void LeaveChannel()
     {
       this.Channel.Leave();
+      this.Channel.MessageReceived -= this.channelMessageReceived;
+      this.logger.Close();
     }
 
     public void JoinChannel()

@@ -97,6 +97,7 @@ namespace Handle.WPF
       this.Client.LocalUser.InviteReceived += this.localUserInviteReceived;
       var istvm = new IrcStatusTabViewModel(this.Client);
       istvm.Parent = this;
+      istvm.Settings = this.Settings;
       istvm.JoinChannelClicked += this.JoinChannel;
       this.Channels.Add(istvm);
     }
@@ -109,9 +110,10 @@ namespace Handle.WPF
 
     private void localUserJoinedChannel(object sender, IrcChannelEventArgs e)
     {
-      var icvm = new IrcChannelViewModel(e.Channel);
+      var icvm = new IrcChannelViewModel(e.Channel, this.DisplayName);
       icvm.Parent = this.Parent;
       icvm.JoinChannelClicked += this.JoinChannel;
+      icvm.Settings = this.Settings;
       this.Channels.Add(icvm);
     }
 
@@ -161,6 +163,7 @@ namespace Handle.WPF
     {
       IWindowManager wm;
       var csvm = new ChannelSearchViewModel(this.Client);
+      csvm.Settings = this.Settings;
       try
       {
         wm = IoC.Get<IWindowManager>();

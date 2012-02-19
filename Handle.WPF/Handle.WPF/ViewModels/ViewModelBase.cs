@@ -38,6 +38,20 @@ namespace Handle.WPF
   public class ViewModelBase : Screen, IShell
   {
     private InputBindings inputBindings;
+    private Settings settings;
+
+    public Settings Settings
+    {
+      get
+      {
+        return this.settings;
+      }
+      set
+      {
+        this.settings = value;
+        NotifyOfPropertyChange(() => this.Settings);
+      }
+    }
 
     protected override void OnViewLoaded(object view)
     {

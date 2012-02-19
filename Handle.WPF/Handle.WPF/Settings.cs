@@ -41,9 +41,6 @@ namespace Handle.WPF
     /// </summary>
     public Settings()
     {
-      this.Notifications = new Dictionary<string, bool>();
-      this.Shortcuts = new Dictionary<string, string>();
-
     }
 
     public static readonly string PATH = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + @"\Handle.WPF\";
@@ -61,7 +58,7 @@ namespace Handle.WPF
     /// <summary>
     /// Gets or sets a value indicating whether an URL will be displayed as a link
     /// </summary>
-    public bool CanDisplayURLAsLink { get; set; }
+    public bool DisplayURLAsLink { get; set; }
 
     /// <summary>
     /// Gets or sets a value indicating whether a customized leave message will be sent
@@ -91,22 +88,9 @@ namespace Handle.WPF
     /// <summary>
     /// Gets or sets the TimeStampFormat
     /// </summary>
-    public string TimeStampFormat { get; set; }
+    public string TimestampFormat { get; set; }
 
-    /// <summary>
-    /// Gets or sets the NotificationStyles
-    /// </summary>
-    public Dictionary<string, bool> Notifications { get; set; }
-
-    /// <summary>
-    /// Gets or sets the Shortcuts
-    /// </summary>
-    public Dictionary<string, string> Shortcuts { get; set; }
-
-    /// <summary>
-    /// Gets or sets a value indicating whether updates will be applied
-    /// </summary>
-    public bool CanUpdate { get; set; }
+    public bool UseDumbSearch { get; set; }
 
     /// <summary>
     /// Blablabla
@@ -117,7 +101,7 @@ namespace Handle.WPF
       return (Settings)this.MemberwiseClone();
     }
 
-    public static Settings FromFile()
+    public static Settings Load()
     {
       FileStream fs = new FileStream(Settings.PATH + "settings.json", FileMode.OpenOrCreate);
       Settings settings;

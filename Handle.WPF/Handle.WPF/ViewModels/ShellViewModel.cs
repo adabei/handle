@@ -62,11 +62,17 @@ namespace Handle.WPF
       this.Top = 100.0;
       this.IrcMainViewModel = new IrcMainViewModel();
       this.IrcMainViewModel.Parent = this;
+      this.IrcMainViewModel.Settings = this.Settings;
       DirectoryInfo di = new DirectoryInfo(Settings.PATH);
       if (!di.Exists)
         di.Create();
-
-      this.Settings = Settings.FromFile();
+      this.Settings = Settings.Load();
+      if (this.Settings.CanLog)
+      {
+        di = new DirectoryInfo(Settings.PATH + @"logs\");
+        if (!di.Exists)
+          di.Create();
+      }
       this.DisplayName = "Handle";
       ActivateItem(this.IrcMainViewModel);
     }
@@ -74,6 +80,7 @@ namespace Handle.WPF
     private void Connect(Network network)
     {
       var invm = new IrcNetworkViewModel(network);
+      invm.Settings = this.Settings;
       invm.Parent = this;
       this.IrcMainViewModel.Networks.Add(invm);
     }
@@ -92,7 +99,7 @@ namespace Handle.WPF
         wm = new WindowManager();
       }
 
-      wm.ShowDialog(nsvm);
+      wm.ShowWindow(nsvm);
     }
 
     public Thickness WindowStateCorrection

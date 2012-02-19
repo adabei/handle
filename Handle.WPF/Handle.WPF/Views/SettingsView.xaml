@@ -7,6 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="419" d:DesignWidth="570">
   <Grid>
+    <Grid.Resources>
+      <BooleanToVisibilityConverter x:Key="booleanToVisbility"/>
+    </Grid.Resources>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition/>
@@ -15,6 +18,31 @@
     <TextBlock FontSize="22" Grid.Row="0">settings</TextBlock>
     <TabControl  x:Name="SettingsTabControl" Grid.Row="1">
       <TabItem Header="General" x:Name="GeneralTabItem">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+          </Grid.ColumnDefinitions>
+          
+          <CheckBox Content="Activate logging" x:Name="Settings_CanLog" Grid.Row="0" Grid.Column="0"/>
+          
+          <CheckBox Content="Use easy search" x:Name="Settings_UseDumbSearch" Grid.Row="1" Grid.Column="0"/>
+          
+          <CheckBox Content="Send leave messages" x:Name="Settings_CanSendLeaveMessage" Grid.Row="2" Grid.Column="0"/>
+
+          <Label Content="Leave message:" Grid.Row="3" Grid.Column="0" IsEnabled="{Binding ElementName=Settings_CanSendLeaveMessage, Path=IsChecked}"/>
+          <TextBox x:Name="Settings_LeaveMessage" Grid.Row="3" Grid.Column="1" IsEnabled="{Binding ElementName=Settings_CanSendLeaveMessage, Path=IsChecked}"/>
+
+          <Label Content="Timestamp format:" Grid.Row="4" Grid.Column="0"/>
+          <TextBox x:Name="Settings_TimestampFormat" Grid.Row="4" Grid.Column="1"/>
+        </Grid>
       </TabItem>
       <TabItem Header="Display" x:Name="DisplayTabItem">
       </TabItem>
