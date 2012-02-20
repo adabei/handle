@@ -53,8 +53,8 @@ namespace Handle.WPF
     public void Dispose()
     {
       flushLog();
-      fs.Close();
       sw.Close();
+      fs.Close();
     }
 
     public void Append(string message)

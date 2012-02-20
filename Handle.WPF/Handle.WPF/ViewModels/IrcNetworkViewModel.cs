@@ -89,6 +89,11 @@ namespace Handle.WPF
           return;
         }
       }
+      // TODO Display Popup
+      this.Client.ConnectFailed += delegate(object sender, IrcErrorEventArgs e)
+      {
+        Console.WriteLine("Couldn't connect to server");
+      };
     }
 
     private void clientRegistered(object sender, EventArgs e)
