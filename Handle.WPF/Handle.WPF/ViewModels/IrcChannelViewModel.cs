@@ -44,7 +44,7 @@ namespace Handle.WPF
 
     public BindableCollection<Message> Messages { get; set; }
 
-    private StreamWriter logger;
+    private Logger logger;
     private string message;
     public string Message
     {
@@ -57,6 +57,20 @@ namespace Handle.WPF
         this.message = value;
         NotifyOfPropertyChange(() => this.Message);
         NotifyOfPropertyChange(() => this.CanSend);
+      }
+    }
+    private string topic;
+
+    public string Topic
+    {
+      get
+      {
+        return topic;
+      }
+      set
+      {
+        this.topic = value;
+        NotifyOfPropertyChange(() => this.Topic);
       }
     }
 
@@ -83,7 +97,9 @@ namespace Handle.WPF
       this.Channel.UserJoined += this.channelUserJoined;
       this.Channel.UserLeft += this.channelUserLeft;
       this.Channel.NoticeReceived += this.channelNoticeReceived;
-      this.logger = new StreamWriter(String.Format("{0}\\logs\\{1}.{2}.txt", Settings.PATH, channel.Name, networkName), true);
+      this.Channel.TopicChanged += this.channelTopicChanged;
+      this.logger = new Logger(String.Format("{0}\\logs\\{1}.{2}.txt", Settings.PATH, channel.Name, networkName));
+      this.Channel.GetTopic();
     }
 
 
@@ -102,12 +118,17 @@ namespace Handle.WPF
       }
     }
 
+    private void channelTopicChanged(object sender, EventArgs e)
+    {
+      this.Topic = this.Channel.Topic;
+    }
+
     private void channelMessageReceived(object sender, IrcMessageEventArgs e)
     {
       Message m = new Message(e.Text, DateTime.Now.ToString("HH:mm"), e.Source.Name);
       this.Messages.Add(m);
       // TODO Use settings
-      logger.WriteLine(String.Format("<{0}> {1}: {2}", m.Received, m.Sender, m.Text));
+      logger.Append(String.Format("<{0}> {1}: {2}", m.Received, m.Sender, m.Text));
     }
 
     private void channelNoticeReceived(object sender, IrcMessageEventArgs e)
@@ -134,15 +155,16 @@ namespace Handle.WPF
       Message m = new Message(this.Message.Trim(), DateTime.Now.ToString("HH:mm"), this.Channel.Client.LocalUser.NickName);
       this.Messages.Add(m);
       // TODO Use settings
-      logger.WriteLine(String.Format("<{0}> {1}: {2}", m.Received, m.Sender, m.Text));
+      logger.Append(String.Format("<{0}> {1}: {2}", m.Received, m.Sender, m.Text));
       this.Message = String.Empty;
     }
 
     public void LeaveChannel()
     {
-      this.Channel.Leave();
       this.Channel.MessageReceived -= this.channelMessageReceived;
-      this.logger.Close();
+      this.Channel.Leave();
+      // TODO
+      this.logger.Dispose();
     }
 
     public void JoinChannel()

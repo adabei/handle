@@ -7,7 +7,7 @@
              xmlns:convert="clr-namespace:Handle.WPF"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-  
+
   <UserControl.Resources>
     <convert:StringToMessageConverter x:Key="stringToMessageConverter"/>
   </UserControl.Resources>
@@ -18,11 +18,28 @@
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
 
-    <!-- Header -->
-    <TextBlock Grid.Row="0" x:Name="Channel_Topic"/>
-    <!-- TODO Topic -->
+    <Expander x:Name="TopicExpander" ExpandDirection="Down">
+      <Expander.Style>
+        <Style TargetType="Expander">
+          <Setter Property="IsExpanded" Value="False" />
+          <Setter Property="Header">
+            <Setter.Value>
+              <TextBlock Text="{Binding Topic}" TextTrimming="WordEllipsis"/>
+            </Setter.Value>
+          </Setter>
+          <Style.Triggers>
+            <DataTrigger Binding="{Binding IsExpanded,RelativeSource={RelativeSource Self}}" Value="True">
+              <Setter Property="Header">
+                <Setter.Value>
+                  <TextBlock Text="{Binding Topic}" TextWrapping="Wrap"/>
+                </Setter.Value>
+              </Setter>
+            </DataTrigger>
+          </Style.Triggers>
+        </Style>
+      </Expander.Style>
+    </Expander>
 
-    <!-- Messages -->
     <ScrollViewer Grid.Row="1">
       <ItemsControl x:Name="Messages">
         <ItemsControl.ItemTemplate>
@@ -48,7 +65,6 @@
       </ItemsControl>
     </ScrollViewer>
 
-    <!-- Footer -->
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
       <Button x:Name="JoinChannel" Content="+channel" Height="Auto" Width="Auto"/>
       <Button x:Name="JoinNetwork" Content="+network" Height="Auto" Width="Auto"/>

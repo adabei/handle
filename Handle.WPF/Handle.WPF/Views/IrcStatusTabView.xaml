@@ -16,7 +16,7 @@
       <RowDefinition/>
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-    <!-- Messages -->
+
     <ScrollViewer Grid.Row="1">
       <ItemsControl x:Name="Messages">
         <ItemsControl.ItemTemplate>
@@ -34,7 +34,8 @@
                 </Grid.RowDefinitions>
                 <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Received}"/>
                 <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Sender}"/>
-                <ContentControl Grid.Column="2" Grid.Row="0" Content="{Binding Text, Converter={StaticResource stringToMessageConverter}}"/>
+               <!--  <ContentControl Grid.Column="2" Grid.Row="0" Content="{Binding Text, Converter={StaticResource stringToMessageConverter}}"/> -->
+                <TextBlock Grid.Column="2" Grid.Row="0" Text="{Binding Text}"/>
               </Grid>
             </StackPanel>
           </DataTemplate>
@@ -42,7 +43,6 @@
       </ItemsControl>
     </ScrollViewer>
     
-    <!-- Footer -->
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
       <Button x:Name="JoinChannel" Content="+channel" Height="Auto" Width="Auto"/>
       <Button x:Name="JoinNetwork" Content="+network" Height="Auto" Width="Auto"/>
