@@ -77,6 +77,11 @@ namespace Handle.WPF
 
       this.Client = new IrcClient();
       this.Client.Registered += this.clientRegistered;
+      // TODO Display Popup
+      this.Client.ConnectFailed += delegate(object sender, IrcErrorEventArgs e)
+      {
+        Console.WriteLine("Couldn't connect to server");
+      };
 
       using (var connectedEvent = new ManualResetEventSlim(false))
       {
@@ -89,11 +94,6 @@ namespace Handle.WPF
           return;
         }
       }
-      // TODO Display Popup
-      this.Client.ConnectFailed += delegate(object sender, IrcErrorEventArgs e)
-      {
-        Console.WriteLine("Couldn't connect to server");
-      };
     }
 
     private void clientRegistered(object sender, EventArgs e)
