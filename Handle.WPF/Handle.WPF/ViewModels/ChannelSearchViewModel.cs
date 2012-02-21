@@ -42,19 +42,32 @@ namespace Handle.WPF
 
     private IrcClient client;
 
-    public struct ChannelInfo
+    public struct BindableChannelInfo
     {
       public string Name { get; set; }
       public int? VisibleUsersCount { get; set; }
       public string Topic { get; set; }
     }
 
-    public BindableCollection<ChannelInfo> Channels { get; set; }
+    private BindableCollection<BindableChannelInfo> channels;
 
+    public BindableCollection<BindableChannelInfo> Channels
+    {
+      get
+      {
+        return this.channels;
+      }
+      set
+      {
+        this.channels = value;
+      }
+    }
+    private List<BindableChannelInfo> allChannels;
     public ChannelSearchViewModel(IrcClient client)
     {
       this.client = client;
-      this.Channels = new BindableCollection<ChannelInfo>();
+      this.allChannels = new List<BindableChannelInfo>();
+      this.Channels = new BindableCollection<BindableChannelInfo>();
       this.client.ChannelListReceived += ircClient_ChannelListReceived;
       this.DisplayName = "Join Channel";
     }
@@ -99,7 +112,18 @@ namespace Handle.WPF
 
     public void Filter()
     {
-      this.client.ListChannels();
+      if (this.allChannels.Count > 0)
+      {
+        this.Channels.Clear();
+        foreach (var channelInfo in this.allChannels.Where(info => Regex.IsMatch(info.Name, this.Pattern)))
+        {
+          this.Channels.Add(channelInfo);
+        }
+      }
+      else
+      {
+        this.client.ListChannels();
+      }
     }
 
     public void Cancel()
@@ -110,18 +134,21 @@ namespace Handle.WPF
 
     protected void ircClient_ChannelListReceived(object sender, IrcChannelListReceivedEventArgs e)
     {
-      this.Channels.Clear();
-      foreach (var channelInfo in e.Channels.Where(info => Regex.IsMatch(info.Name, this.Pattern)))
+      this.allChannels.Clear();
+      foreach (var channelInfo in e.Channels)
       {
-        this.Channels.Add(new ChannelInfo()
+        BindableChannelInfo info = new BindableChannelInfo()
         {
           Name = channelInfo.Name,
           VisibleUsersCount = channelInfo.VisibleUsersCount,
           Topic = channelInfo.Topic
-        });
+        };
+        this.allChannels.Add(info);
+        if (Regex.IsMatch(channelInfo.Name, this.Pattern, RegexOptions.Compiled))
+        {
+          this.Channels.Add(info);
+        }
       }
-
-      NotifyOfPropertyChange(() => this.Channels);
     }
 
     protected override System.Collections.Generic.IEnumerable<InputBindingCommand> GetInputBindingCommands()
