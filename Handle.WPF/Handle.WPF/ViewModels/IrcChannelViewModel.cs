@@ -94,6 +94,7 @@ namespace Handle.WPF
       this.Closable = true;
       this.DisplayName = channel.Name;
       this.Channel = channel;
+      this.Channel.ModesChanged += this.channelModesChanged;
       this.Channel.UsersListReceived += this.channelUsersListReceived;
       this.Channel.MessageReceived += this.channelMessageReceived;
       this.Channel.UserJoined += this.channelUserJoined;
@@ -104,7 +105,6 @@ namespace Handle.WPF
       this.Channel.GetTopic();
     }
 
-
     private void channelUsersListReceived(object sender, EventArgs e)
     {
       StringBuilder sb = new StringBuilder();
@@ -114,6 +114,10 @@ namespace Handle.WPF
       }
       if (sb[sb.Length - 2] == '|') sb.Length -= 3; 
       this.Users = sb.ToString();
+    }
+
+    private void channelModesChanged(object sender, EventArgs e)
+    {
     }
 
     private string users;
