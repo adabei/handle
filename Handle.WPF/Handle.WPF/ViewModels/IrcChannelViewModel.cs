@@ -31,6 +31,7 @@ namespace Handle.WPF
   using System.Windows.Input;
   using System.Collections.Generic;
   using System.IO;
+  using System.Text;
 
   /// <summary>
   /// TODO: Update summary.
@@ -93,6 +94,7 @@ namespace Handle.WPF
       this.Closable = true;
       this.DisplayName = channel.Name;
       this.Channel = channel;
+      this.Channel.UsersListReceived += this.channelUsersListReceived;
       this.Channel.MessageReceived += this.channelMessageReceived;
       this.Channel.UserJoined += this.channelUserJoined;
       this.Channel.UserLeft += this.channelUserLeft;
@@ -102,6 +104,31 @@ namespace Handle.WPF
       this.Channel.GetTopic();
     }
 
+
+    private void channelUsersListReceived(object sender, EventArgs e)
+    {
+      StringBuilder sb = new StringBuilder();
+      foreach (var user in this.Channel.Users)
+      {
+        sb.Append(user.User.NickName + " | ");
+      }
+      this.Users = sb.ToString();
+    }
+
+    private string users;
+
+    public string Users
+    {
+      get
+      {
+        return this.users;
+      }
+      set
+      {
+        this.users = value;
+        NotifyOfPropertyChange(() => this.Users);
+      }
+    }
 
     private string displayName;
 

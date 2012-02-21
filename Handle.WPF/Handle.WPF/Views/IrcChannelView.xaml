@@ -18,28 +18,53 @@
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
 
-    <Expander x:Name="TopicExpander" ExpandDirection="Down">
-      <Expander.Style>
-        <Style TargetType="Expander">
-          <Setter Property="IsExpanded" Value="False" />
-          <Setter Property="Header">
-            <Setter.Value>
-              <TextBlock Text="{Binding Topic}" TextTrimming="WordEllipsis"/>
-            </Setter.Value>
-          </Setter>
-          <Style.Triggers>
-            <DataTrigger Binding="{Binding IsExpanded,RelativeSource={RelativeSource Self}}" Value="True">
-              <Setter Property="Header">
-                <Setter.Value>
-                  <TextBlock Text="{Binding Topic}" TextWrapping="Wrap"/>
-                </Setter.Value>
-              </Setter>
-            </DataTrigger>
-          </Style.Triggers>
-        </Style>
-      </Expander.Style>
-    </Expander>
+    <StackPanel Grid.Row="0">
+      <Expander x:Name="TopicExpander" ExpandDirection="Down">
+        <Expander.Style>
+          <Style TargetType="Expander">
+            <Setter Property="IsExpanded" Value="False" />
+            <Setter Property="Header">
+              <Setter.Value>
+                <TextBlock Text="{Binding Topic}" TextTrimming="WordEllipsis"/>
+              </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+              <DataTrigger Binding="{Binding IsExpanded,RelativeSource={RelativeSource Self}}" Value="True">
+                <Setter Property="Header">
+                  <Setter.Value>
+                    <TextBlock Text="{Binding Topic}" TextWrapping="Wrap"/>
+                  </Setter.Value>
+                </Setter>
+              </DataTrigger>
+            </Style.Triggers>
+          </Style>
+        </Expander.Style>
+      </Expander>
 
+      <Expander x:Name="UsersExpander" ExpandDirection="Down">
+        <Expander.Style>
+          <Style TargetType="Expander">
+            <Setter Property="IsExpanded" Value="False" />
+            <Setter Property="Header">
+              <Setter.Value>
+                <TextBlock Text="{Binding Users}" TextTrimming="WordEllipsis"/>
+              </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+              <DataTrigger Binding="{Binding IsExpanded,RelativeSource={RelativeSource Self}}" Value="True">
+                <Setter Property="Header">
+                  <Setter.Value>
+                    <TextBlock Text="{Binding Users}" TextWrapping="Wrap"/>
+                  </Setter.Value>
+                </Setter>
+              </DataTrigger>
+            </Style.Triggers>
+          </Style>
+        </Expander.Style>
+      </Expander>
+
+    </StackPanel>
+    
     <ScrollViewer Grid.Row="1">
       <ItemsControl x:Name="Messages">
         <ItemsControl.ItemTemplate>
