@@ -112,6 +112,7 @@ namespace Handle.WPF
       {
         sb.Append(user.User.NickName + " | ");
       }
+      if (sb[sb.Length - 2] == '|') sb.Length -= 3; 
       this.Users = sb.ToString();
     }
 
