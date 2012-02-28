@@ -8,7 +8,7 @@
   using System.Linq;
   using Caliburn.Micro;
 
-  public class AppBootstrapper : Bootstrapper<IShell>
+  public class HandleBootstrapper : Bootstrapper<IShell>
   {
     private CompositionContainer container;
 

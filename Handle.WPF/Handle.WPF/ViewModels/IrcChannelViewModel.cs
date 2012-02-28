@@ -101,6 +101,9 @@ namespace Handle.WPF
       this.Channel.UserLeft += this.channelUserLeft;
       this.Channel.NoticeReceived += this.channelNoticeReceived;
       this.Channel.TopicChanged += this.channelTopicChanged;
+      DirectoryInfo di = new DirectoryInfo(Settings.PATH + "\\logs\\");
+      if (!di.Exists)
+        di.Create();
       this.logger = new Logger(String.Format("{0}\\logs\\{1}.{2}.txt", Settings.PATH, channel.Name, networkName));
       this.Channel.GetTopic();
     }
