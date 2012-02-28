@@ -14,9 +14,9 @@
         <TabControl.ItemTemplate>
         <DataTemplate>
           <StackPanel Orientation="Horizontal">
-            <TextBlock Text="{Binding DisplayName}" />
+            <TextBlock Text="{Binding DisplayName}" FontSize="14"/>
             <Button Content="X"  
-                    cal:Message.Attach="CloseItem($dataContext)" Visibility="{Binding Closable, Converter={StaticResource booleanToVisbility}}"/>
+                    cal:Message.Attach="CloseItem($dataContext)" BorderThickness="0" Background="#41b1e1" Visibility="{Binding Closable, Converter={StaticResource booleanToVisbility}}"/>
           </StackPanel>
         </DataTemplate>
       </TabControl.ItemTemplate>

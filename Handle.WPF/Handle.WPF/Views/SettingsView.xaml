@@ -15,7 +15,7 @@
       <RowDefinition/>
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-    <TextBlock FontSize="22" Grid.Row="0">settings</TextBlock>
+    <TextBlock FontSize="18" Grid.Row="0" Padding="5,0,0,0" Foreground="White" Background="#CC119EDA">Settings</TextBlock>
     <TabControl  x:Name="SettingsTabControl" Grid.Row="1">
       <TabItem Header="General" x:Name="GeneralTabItem">
         <Grid>
