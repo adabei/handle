@@ -38,11 +38,12 @@ namespace Handle.WPF
   using System.Windows.Media.Imaging;
   using System.Windows.Navigation;
   using System.Windows.Shapes;
+  using Handle.WPF.Controls;
 
   /// <summary>
   /// Interaction logic for NetworkSelectionView.xaml
   /// </summary>
-  public partial class NetworkSelectionView : Window
+  public partial class NetworkSelectionView : MetroWindow
   {
     /// <summary>
     /// Initializes a new instance of the NetworkSelectionView class.

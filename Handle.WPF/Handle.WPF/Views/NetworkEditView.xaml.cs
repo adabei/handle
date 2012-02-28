@@ -37,11 +37,12 @@ namespace Handle.WPF
   using System.Windows.Media;
   using System.Windows.Media.Imaging;
   using System.Windows.Shapes;
+  using Handle.WPF.Controls;
 
   /// <summary>
   /// Interaction logic for NetworkDetailsView.xaml
   /// </summary>
-  public partial class NetworkEditView : Window
+  public partial class NetworkEditView : MetroWindow
   {
     /// <summary>
     /// Initializes a new instance of the NetworkEditView class

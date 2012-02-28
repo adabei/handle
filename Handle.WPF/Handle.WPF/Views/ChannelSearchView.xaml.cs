@@ -10,13 +10,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Handle.WPF.Controls;
 
 namespace Handle.WPF
 {
   /// <summary>
   /// Interaction logic for ChannelSearchView.xaml
   /// </summary>
-  public partial class ChannelSearchView : Window
+  public partial class ChannelSearchView : MetroWindow
   {
     public ChannelSearchView()
     {

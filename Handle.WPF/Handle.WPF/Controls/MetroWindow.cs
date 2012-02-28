@@ -12,6 +12,7 @@ namespace Handle.WPF.Controls
 
     public static readonly DependencyProperty ShowIconOnTitleBarProperty = DependencyProperty.Register("ShowIconOnTitleBar", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
     public static readonly DependencyProperty ShowTitleBarProperty = DependencyProperty.Register("ShowTitleBar", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
+    public static readonly DependencyProperty ShowSettingsInTitleBarProperty = DependencyProperty.Register("ShowSettingsInTitleBar", typeof(bool), typeof(MetroWindow), new PropertyMetadata(false));
 
     private WindowCommands windowCommands;
 
@@ -30,6 +31,12 @@ namespace Handle.WPF.Controls
     {
       get { return (bool)GetValue(ShowTitleBarProperty); }
       set { SetValue(ShowTitleBarProperty, value); }
+    }
+
+    public bool ShowSettingsInTitleBar
+    {
+      get { return (bool)GetValue(ShowSettingsInTitleBarProperty); }
+      set { SetValue(ShowSettingsInTitleBarProperty, value); }
     }
 
     public override void OnApplyTemplate()

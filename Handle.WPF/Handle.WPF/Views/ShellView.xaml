@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org" 
         xmlns:Controls="clr-namespace:Handle.WPF.Controls"
-        Title="Handle" Width="900" Height="520">
+        Title="Handle" Width="900" Height="520" ShowSettingsInTitleBar="True">
 
   <Window.Resources>
     <ResourceDictionary>

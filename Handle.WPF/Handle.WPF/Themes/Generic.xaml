@@ -499,13 +499,12 @@
                                     TextTrimming="CharacterEllipsis"
                                     VerticalAlignment="Center" 
                                     Margin="8 0 0 0" 
-                                    FontSize="16" 
+                                    FontSize="13" 
                                     FontFamily="{DynamicResource HeaderFontFamily}"
                                     Foreground="White"/>
                 
               </Grid>
-              <Image Source="/Handle.WPF;component/Images/settings.png" Margin="0,0,100,0" ToolTip="Settings" HorizontalAlignment="Right" VerticalAlignment="Center" MaxHeight="30" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action ShowSettings]"/>
-              <!--<TextBlock HorizontalAlignment="Right" Margin="0,0,100,0" VerticalAlignment="Center" Text="SETTINGS" FontSize="12" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action ShowSettings]"/>-->
+              <Image Source="/Handle.WPF;component/Images/settings.png" Visibility="{TemplateBinding ShowSettingsInTitleBar, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,100,0" ToolTip="Settings" HorizontalAlignment="Right" VerticalAlignment="Center" MaxHeight="30" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action ShowSettings]"/>
               <Controls:WindowCommands 
                                 x:Name="PART_WindowCommands"
                                 Panel.ZIndex="1"

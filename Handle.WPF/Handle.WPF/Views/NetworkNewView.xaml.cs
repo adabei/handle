@@ -37,11 +37,12 @@ namespace Handle.WPF
   using System.Windows.Media;
   using System.Windows.Media.Imaging;
   using System.Windows.Shapes;
+  using Handle.WPF.Controls;
 
   /// <summary>
   /// Interaction logic for NetworkNewView.xaml
   /// </summary>
-  public partial class NetworkNewView : Window
+  public partial class NetworkNewView : MetroWindow
   {
     /// <summary>
     /// Initializes a new instance of the NetworkNewView class.
