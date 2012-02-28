@@ -28,6 +28,7 @@ namespace Handle.WPF
   using Caliburn.Micro;
   using System.Collections.Generic;
   using System.Windows.Input;
+  using System;
 
   /// <summary>
   /// Represents a ViewModel for IrcMainViews
@@ -55,7 +56,14 @@ namespace Handle.WPF
         }
       }
       this.Networks.Remove(sender as IrcNetworkViewModel);
-      (sender as IrcNetworkViewModel).Client.Disconnect();
+      try
+      {
+        (sender as IrcNetworkViewModel).Client.Disconnect();
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine(ex.ToString());
+      }
       // TODO Wait with the close
     }
   }
