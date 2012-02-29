@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 require 'albacore'
 
-desc "Lists all available tasks"
+desc "List all available tasks"
 task :default do
   puts 'All tasks:'
   puts Rake.application.tasks
@@ -14,6 +14,16 @@ namespace :wpf do
     msb.solution = "Handle.WPF/Handle.WPF.sln"
     msb.targets :clean, :build
     msb.properties :configuration => :debug
+  end
+
+  desc "Publish ClickOnce"
+  msbuild :publish do |msb|
+    msb.properties = {"configuration" => "Release",
+                      "PublishDir" => "C:/Temp/",
+                      "PublishUrl" => "C:/Temp/",
+                      "InstallUrl" => "C:/Temp/"}
+    msb.targets :Publish
+    msb.solution = "./Handle.WPF.sln/"
   end
 
   desc "Run unit tests"
