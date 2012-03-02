@@ -25,54 +25,54 @@
 
 namespace Handle.WPF
 {
+  using System;
   using System.Collections.Generic;
   using System.ComponentModel.Composition;
+  using System.IO;
+  using System.Reflection;
   using System.Windows;
   using System.Windows.Input;
   using Caliburn.Micro;
-  using System.IO.IsolatedStorage;
-  using System.IO;
-  using System;
+  using AutoMapper;
 
   /// <summary>
   /// Represents a ViewModel for ShellViews
   /// </summary>
   [Export(typeof(IShell))]
-  public class ShellViewModel : Conductor<object>.Collection.OneActive, IShell
+  public class ShellViewModel : ConductorBase<object>, IShell
   {
-    private WindowState windowState;
     private double left = 500;
     private double top = 50;
     private IrcMainViewModel ircMainViewModel;
-    private InputBindings inputBindings;
 
     public IrcMainViewModel IrcMainViewModel
     {
       get { return this.ircMainViewModel; }
       set { this.ircMainViewModel = value; }
     }
-    public Settings Settings { get; set; }
 
     /// <summary>
     /// Initializes a new instance of the ShellViewModel class
     /// </summary>
-    public ShellViewModel()
+    [ImportingConstructor]
+    public ShellViewModel(Settings settings)  
     {
+      this.Settings = settings;
       this.Left = 10.0;
       this.Top = 100.0;
       this.IrcMainViewModel = new IrcMainViewModel();
       this.IrcMainViewModel.Parent = this;
-      this.IrcMainViewModel.Settings = this.Settings;
+      //this.IrcMainViewModel.Settings = this.Settings;
       DirectoryInfo di = new DirectoryInfo(Settings.PATH);
       if (!di.Exists)
         di.Create();
-      this.Settings = Settings.Load();
       if (this.Settings.CanLog)
       {
         di = new DirectoryInfo(Settings.PATH + @"logs\");
         if (!di.Exists)
           di.Create();
       }
+
       this.DisplayName = "Handle";
       ActivateItem(this.IrcMainViewModel);
     }
@@ -80,9 +80,9 @@ namespace Handle.WPF
     private void Connect(Network network)
     {
       var invm = new IrcNetworkViewModel(network);
-      invm.Settings = this.Settings;
+      // invm.Settings = this.Settings;
       invm.Parent = this;
-      this.IrcMainViewModel.Networks.Add(invm);
+      this.IrcMainViewModel.Items.Add(invm);
     }
 
     private void ShowNetworkSelection()
@@ -100,23 +100,6 @@ namespace Handle.WPF
       }
 
       wm.ShowWindow(nsvm);
-    }
-
-    public Thickness WindowStateCorrection
-    {
-      get
-      {
-        if (this.IsNormal)
-        {
-          return new Thickness(7, 2, 0, 0);
-        }
-        else if (this.IsMaximized)
-        {
-          return new Thickness(10, 10, 10, 0);
-        }
-
-        return new Thickness(0, 0, 0, 0);
-      }
     }
 
     public double Left
@@ -147,53 +130,6 @@ namespace Handle.WPF
       }
     }
 
-    public WindowState WindowState
-    {
-      get
-      {
-        return this.windowState;
-      }
-
-      set
-      {
-        this.windowState = value;
-        NotifyOfPropertyChange(() => this.WindowState);
-        NotifyOfPropertyChange(() => this.IsMaximized);
-        NotifyOfPropertyChange(() => this.IsNormal);
-        NotifyOfPropertyChange(() => this.WindowStateCorrection);
-      }
-    }
-
-    public bool IsNormal
-    {
-      get { return this.WindowState == WindowState.Normal; }
-    }
-
-    public bool IsMaximized
-    {
-      get { return this.WindowState == WindowState.Maximized; }
-    }
-
-    public void Exit()
-    {
-      Application.Current.Shutdown();
-    }
-
-    public void Minimize()
-    {
-      this.WindowState = WindowState.Minimized;
-    }
-
-    public void Maximize()
-    {
-      this.WindowState = WindowState.Maximized;
-    }
-
-    public void Restore()
-    {
-      this.WindowState = WindowState.Normal;
-    }
-
     public void ShowSettings()
     {
       var svm = new SettingsViewModel(this.Settings.ShallowCopy());
@@ -203,19 +139,11 @@ namespace Handle.WPF
 
     private void SaveSettings(Settings settings)
     {
-      this.Settings = settings;
+      PropertyUpdater.Update(this.Settings).With(settings);
       this.Settings.Save();
     }
 
-    protected override void OnViewLoaded(object view)
-    {
-      base.OnViewLoaded(view);
-      var window = GetView() as ShellView;
-      this.inputBindings = new InputBindings(window);
-      inputBindings.RegisterCommands(GetInputBindingCommands());
-    }
-
-    protected IEnumerable<InputBindingCommand> GetInputBindingCommands()
+    public override IEnumerable<InputBindingCommand> GetInputBindingCommands()
     {
       yield return new InputBindingCommand(ShowNetworkSelection)
       {

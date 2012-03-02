@@ -25,6 +25,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
           </Grid.RowDefinitions>
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -42,6 +43,8 @@
 
           <Label Content="Timestamp format:" Grid.Row="4" Grid.Column="0"/>
           <TextBox x:Name="Settings_TimestampFormat" Grid.Row="4" Grid.Column="1"/>
+
+          <CheckBox Content="Make URLs clickable" x:Name="Settings_DisplayURLAsLink" Grid.Row="5" Grid.Column="0"/>
         </Grid>
       </TabItem>
       <TabItem Header="Display" x:Name="DisplayTabItem">

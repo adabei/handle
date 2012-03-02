@@ -48,7 +48,7 @@
     <Grid.Resources>
       <BooleanToVisibilityConverter x:Key="booleanToVisbility"/>
     </Grid.Resources>
-      <TabControl x:Name="Channels">
+      <TabControl x:Name="Items">
         <TabControl.ItemTemplate>
         <DataTemplate>
           <StackPanel Orientation="Horizontal">

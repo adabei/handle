@@ -33,29 +33,26 @@ namespace Handle.WPF
   /// <summary>
   /// Represents a ViewModel for IrcMainViews
   /// </summary>
-  public class IrcMainViewModel : ViewModelBase, IHaveClosableTabControl
+  public class IrcMainViewModel : ConductorBase<IrcNetworkViewModel>, IHaveClosableTabControl
   {
     /// <summary>
     /// Initializes a new instance of the IrcMainViewModel class
     /// </summary>
     public IrcMainViewModel()
     {
-      this.Networks = new BindableCollection<IrcNetworkViewModel>();
     }
-
-    public BindableCollection<IrcNetworkViewModel> Networks { get; set; }
 
     public void CloseItem(object sender)
     {
       // TODO Leave message
-      foreach (var item in (sender as IrcNetworkViewModel).Channels)
+      foreach (var item in (sender as IrcNetworkViewModel).Items)
       {
         if (item.GetType() == typeof(IrcChannelViewModel))
         {
           item.LeaveChannel();
         }
       }
-      this.Networks.Remove(sender as IrcNetworkViewModel);
+      this.Items.Remove(sender as IrcNetworkViewModel);
       try
       {
         (sender as IrcNetworkViewModel).Client.Disconnect();

@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="NetworkEditViewModel.cs" company="">
-// Copyright (c) 2011 Bernhard Schwarz, Florian Lembeck
+// <copyright file="ISupportShortcuts.cs" company="">
+// Copyright (c) 2011-2012 Bernhard Schwarz, Florian Lembeck
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -29,61 +29,12 @@ namespace Handle.WPF
   using System.Collections.Generic;
   using System.Linq;
   using System.Text;
-  using System.Windows.Input;
-  using Caliburn.Micro;
 
   /// <summary>
   /// TODO: Update summary.
   /// </summary>
-  public class NetworkEditViewModel : ViewModelBase
+  public interface ISupportShortcuts
   {
-    private Network network;
-
-    /// <summary>
-    /// Initializes a new instance of the NetworkEditViewModel class
-    /// </summary>
-    public NetworkEditViewModel(Network network)
-    {
-      this.Network = network;
-      this.DisplayName = "Edit Network";
-    }
-
-    public Network Network
-    {
-      get
-      {
-        return this.network;
-      }
-
-      set
-      {
-        this.network = value;
-        NotifyOfPropertyChange(() => this.Network);
-      }
-    }
-
-    public void Ok()
-    {
-      var nev = GetView() as NetworkEditView;
-      nev.DialogResult = true;
-    }
-
-    public void Cancel()
-    {
-      var nev = GetView() as NetworkEditView;
-      nev.DialogResult = false;
-    }
-
-    public override IEnumerable<InputBindingCommand> GetInputBindingCommands()
-    {
-      yield return new InputBindingCommand(Ok)
-      {
-        GestureKey = Key.Enter
-      };
-      yield return new InputBindingCommand(Cancel)
-      {
-        GestureKey = Key.Escape
-      };
-    }
+    IEnumerable<InputBindingCommand> GetInputBindingCommands();
   }
 }

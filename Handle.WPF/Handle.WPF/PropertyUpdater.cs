@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="NetworkEditViewModel.cs" company="">
+// <copyright file="PropertyUpdater.cs" company="">
 // Copyright (c) 2011 Bernhard Schwarz, Florian Lembeck
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -20,6 +20,7 @@
 // LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
 // OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+// Original by StackOverflow user Joel V. Earnest-DeYoung
 // </copyright>
 // -----------------------------------------------------------------------
 
@@ -29,61 +30,48 @@ namespace Handle.WPF
   using System.Collections.Generic;
   using System.Linq;
   using System.Text;
-  using System.Windows.Input;
-  using Caliburn.Micro;
+  using System.Reflection;
 
   /// <summary>
   /// TODO: Update summary.
   /// </summary>
-  public class NetworkEditViewModel : ViewModelBase
+  public class PropertyUpdater
   {
-    private Network network;
+    public static PropertyUpdater<T> Update<T>(T objectToUpdate)
+    {
+      return PropertyUpdater<T>.Update(objectToUpdate);
+    }
+  }
 
+  public class PropertyUpdater<T>
+  {
     /// <summary>
-    /// Initializes a new instance of the NetworkEditViewModel class
+    /// Which object will be updated
     /// </summary>
-    public NetworkEditViewModel(Network network)
+    private readonly T destination;
+
+    private PropertyUpdater(T destination)
     {
-      this.Network = network;
-      this.DisplayName = "Edit Network";
+      this.destination = destination;
     }
 
-    public Network Network
+    public static PropertyUpdater<T> Update(T objectToUpdate)
     {
-      get
+      return new PropertyUpdater<T>(objectToUpdate);
+    }
+
+    public void With(T objectToCopyFrom)
+    {
+      var properties = typeof(T).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+      foreach (var prop in properties)
       {
-        return this.network;
+        // Only copy properties with public get and set methods
+        if (!prop.CanRead || !prop.CanWrite || prop.GetGetMethod(false) == null || prop.GetSetMethod(false) == null) continue;
+        // Skip indexers
+        if (prop.GetGetMethod(false).GetParameters().Length > 0) continue;
+
+        prop.SetValue(this.destination, prop.GetValue(objectToCopyFrom, null), null);
       }
-
-      set
-      {
-        this.network = value;
-        NotifyOfPropertyChange(() => this.Network);
-      }
-    }
-
-    public void Ok()
-    {
-      var nev = GetView() as NetworkEditView;
-      nev.DialogResult = true;
-    }
-
-    public void Cancel()
-    {
-      var nev = GetView() as NetworkEditView;
-      nev.DialogResult = false;
-    }
-
-    public override IEnumerable<InputBindingCommand> GetInputBindingCommands()
-    {
-      yield return new InputBindingCommand(Ok)
-      {
-        GestureKey = Key.Enter
-      };
-      yield return new InputBindingCommand(Cancel)
-      {
-        GestureKey = Key.Escape
-      };
     }
   }
 }

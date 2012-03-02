@@ -97,6 +97,7 @@
     <Compile Include="Behaviours\StylizedBehaviorCollection.cs" />
     <Compile Include="Behaviours\StylizedBehaviors.cs" />
     <Compile Include="Behaviours\TiltBehavior.cs" />
+    <Compile Include="ConductorBase.cs" />
     <Compile Include="Controls\AppBarButton.cs" />
     <Compile Include="Controls\LayoutInvalidationCatcher.cs" />
     <Compile Include="Controls\MetroContentControl.cs" />
@@ -117,6 +118,7 @@
     <Compile Include="Converters\MarkupConverter.cs" />
     <Compile Include="Converters\ToUpperConverter.cs" />
     <Compile Include="IHaveClosableTabControl.cs" />
+    <Compile Include="ISupportShortcuts.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Native\Constants.cs" />
     <Compile Include="Native\CREATESTRUCT.cs" />
@@ -125,6 +127,7 @@
     <Compile Include="Native\MONITORINFO.cs" />
     <Compile Include="Native\POINT.cs" />
     <Compile Include="Native\RECT.cs" />
+    <Compile Include="PropertyUpdater.cs" />
     <Compile Include="StringToMessageConverter.cs" />
     <Compile Include="ViewModels\ChannelSearchViewModel.cs" />
     <Compile Include="ViewModels\IrcStatusTabViewModel.cs" />

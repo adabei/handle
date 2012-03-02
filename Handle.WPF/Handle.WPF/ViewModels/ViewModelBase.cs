@@ -35,7 +35,7 @@ namespace Handle.WPF
   /// <summary>
   /// TODO: Update summary.
   /// </summary>
-  public class ViewModelBase : Screen, IShell
+  public class ViewModelBase : Screen, IShell, ISupportShortcuts
   {
     private InputBindings inputBindings;
     private Settings settings;
@@ -65,7 +65,7 @@ namespace Handle.WPF
       }
     }
 
-    protected virtual IEnumerable<InputBindingCommand> GetInputBindingCommands()
+    public virtual IEnumerable<InputBindingCommand> GetInputBindingCommands()
     {
       yield break;
     }
@@ -76,7 +76,7 @@ namespace Handle.WPF
       this.inputBindings.DeregisterCommands();
     }
 
-    protected Screen GetWindowViewModel(Screen vm)
+    protected Screen GetWindowViewModel(dynamic vm)
     {
       if (vm == null)
       {

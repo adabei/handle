@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="NetworkEditViewModel.cs" company="">
-// Copyright (c) 2011 Bernhard Schwarz, Florian Lembeck
+// <copyright file="ConductorBase.cs" company="">
+// Copyright (c) 2011-2012 Bernhard Schwarz, Florian Lembeck
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -29,61 +29,73 @@ namespace Handle.WPF
   using System.Collections.Generic;
   using System.Linq;
   using System.Text;
-  using System.Windows.Input;
   using Caliburn.Micro;
+  using System.Windows;
 
   /// <summary>
   /// TODO: Update summary.
   /// </summary>
-  public class NetworkEditViewModel : ViewModelBase
+  public class ConductorBase<T> : Conductor<T>.Collection.OneActive, ISupportShortcuts
   {
-    private Network network;
+    private InputBindings inputBindings;
 
-    /// <summary>
-    /// Initializes a new instance of the NetworkEditViewModel class
-    /// </summary>
-    public NetworkEditViewModel(Network network)
-    {
-      this.Network = network;
-      this.DisplayName = "Edit Network";
-    }
+    private Settings settings;
 
-    public Network Network
+    public Settings Settings
     {
       get
       {
-        return this.network;
+        return this.settings;
       }
-
       set
       {
-        this.network = value;
-        NotifyOfPropertyChange(() => this.Network);
+        this.settings = value;
+        NotifyOfPropertyChange(() => this.Settings);
       }
     }
 
-    public void Ok()
+    protected override void OnViewLoaded(object view)
     {
-      var nev = GetView() as NetworkEditView;
-      nev.DialogResult = true;
+      base.OnViewLoaded(view);
+
+      var window = (view as FrameworkElement).GetWindow() ?? this.GetWindowViewModel(this).GetView() as Window;
+      if (window != null)
+      {
+        this.inputBindings = new InputBindings(window);
+        this.inputBindings.RegisterCommands(GetInputBindingCommands());
+      }
     }
 
-    public void Cancel()
+    public virtual IEnumerable<InputBindingCommand> GetInputBindingCommands()
     {
-      var nev = GetView() as NetworkEditView;
-      nev.DialogResult = false;
+      yield break;
     }
 
-    public override IEnumerable<InputBindingCommand> GetInputBindingCommands()
+    protected override void OnDeactivate(bool close)
     {
-      yield return new InputBindingCommand(Ok)
-      {
-        GestureKey = Key.Enter
-      };
-      yield return new InputBindingCommand(Cancel)
-      {
-        GestureKey = Key.Escape
-      };
+      base.OnDeactivate(close);
+      this.inputBindings.DeregisterCommands();
     }
+
+    public Screen GetWindowViewModel(dynamic vm)
+    {
+      if (vm == null)
+      {
+        return null;
+      }
+
+      if (vm.GetView() is Window)
+      {
+        return vm;
+      }
+      if (vm.Parent == null)
+      {
+        return null;
+      }
+
+      return GetWindowViewModel(vm.Parent as Screen);
+    }
+
+
   }
 }

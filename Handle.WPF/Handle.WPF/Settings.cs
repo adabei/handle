@@ -25,15 +25,17 @@
 
 namespace Handle.WPF
 {
-  using System.Collections.Generic;
-  using System.IO;
-  using System.IO.IsolatedStorage;
-  using ServiceStack.Text;
   using System;
+  using System.Collections.Generic;
+  using System.ComponentModel.Composition;
+  using System.IO;
+  using ServiceStack.Text;
 
   /// <summary>
   /// A class representing all Settings
   /// </summary>
+  [PartCreationPolicy (CreationPolicy.Shared)]
+  [Export("Settings")]
   public class Settings
   {
     /// <summary>

@@ -33,13 +33,28 @@ namespace Handle.WPF
   using System.Windows.Controls;
   using System.Windows.Data;
   using System.Windows.Documents;
+  using Caliburn.Micro;
 
   /// <summary>
   /// Represents a concrete ValueConverter to convert strings, possibly containing links, to TextBlocks
   /// </summary>
   public class StringToMessageConverter : IValueConverter
   {
+    private readonly bool displayLinks;
     private const string uriPattern = @"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))";
+
+    public StringToMessageConverter()
+      : base()
+    {
+      try
+      {
+        this.displayLinks = IoC.Get<Settings>().DisplayURLAsLink;
+      }
+      catch
+      {
+        this.displayLinks = true;
+      }
+    }
 
     public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
     {
@@ -47,7 +62,7 @@ namespace Handle.WPF
       Hyperlink hl;
       foreach (string word in (value as string).Trim().Split(' '))
       {
-        if (!Regex.IsMatch(word, uriPattern, RegexOptions.Compiled))
+        if (!Regex.IsMatch(word, uriPattern, RegexOptions.Compiled) || !displayLinks)
         {
           inlines.Add(new Run(word));
         }

@@ -23,5 +23,11 @@ namespace Handle.WPF
     {
       InitializeComponent();
     }
+
+    protected override void OnInitialized(EventArgs e)
+    {
+      base.OnInitialized(e);
+      this.Pattern.Focus();
+    }
   }
 }

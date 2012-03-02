@@ -27,6 +27,7 @@
       batch.AddExportedValue<IEventAggregator>(new EventAggregator());
       batch.AddExportedValue(this.container);
       batch.AddExportedValue(catalog);
+      batch.AddExportedValue<Settings>(Settings.Load());
 
       this.container.Compose(batch);
     }

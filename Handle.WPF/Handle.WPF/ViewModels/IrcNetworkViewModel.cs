@@ -26,22 +26,18 @@
 namespace Handle.WPF
 {
   using System;
+  using System.ComponentModel.Composition;
   using System.Threading;
+  using System.Windows.Input;
   using Caliburn.Micro;
   using IrcDotNet;
-  using System.Windows.Input;
 
   /// <summary>
   /// TODO: Update summary.
   /// </summary>
-  public class IrcNetworkViewModel : ViewModelBase, IHaveClosableTabControl
+  public class IrcNetworkViewModel : ConductorBase<dynamic>, IHaveClosableTabControl
   {
-    private string displayName;
-
     private IrcClient client;
-
-    public BindableCollection<dynamic> Channels { get; set; }
-    public IrcStatusTabViewModel StatusTab { get; set; }
 
     public bool Closable { get; set; }
 
@@ -50,7 +46,6 @@ namespace Handle.WPF
     /// </summary>
     public IrcNetworkViewModel(Network network)
     {
-      this.Channels = new BindableCollection<dynamic>();
       this.Closable = true;
       this.DisplayName = network.Name;
       IrcRegistrationInfo info;
@@ -102,9 +97,9 @@ namespace Handle.WPF
       this.Client.LocalUser.InviteReceived += this.localUserInviteReceived;
       var istvm = new IrcStatusTabViewModel(this.Client);
       istvm.Parent = this;
-      istvm.Settings = this.Settings;
+      // istvm.Settings = this.Settings;
       istvm.JoinChannelClicked += this.JoinChannel;
-      this.Channels.Add(istvm);
+      this.Items.Add(istvm);
     }
 
     private void localUserInviteReceived(object sender, IrcChannelInvitationEventArgs e)
@@ -118,21 +113,8 @@ namespace Handle.WPF
       var icvm = new IrcChannelViewModel(e.Channel, this.DisplayName);
       icvm.Parent = this.Parent;
       icvm.JoinChannelClicked += this.JoinChannel;
-      icvm.Settings = this.Settings;
-      this.Channels.Add(icvm);
-    }
-
-    public override string DisplayName
-    {
-      get
-      {
-        return this.displayName;
-      }
-
-      set
-      {
-        this.displayName = value;
-      }
+      // icvm.Settings = this.Settings;
+      this.Items.Add(icvm);
     }
 
     public IrcClient Client
@@ -152,10 +134,10 @@ namespace Handle.WPF
     {
       // TODO Leave message
       (sender as IrcChannelViewModel).LeaveChannel();
-      this.Channels.Remove(sender as IrcChannelViewModel);
+      this.Items.Remove(sender as IrcChannelViewModel);
     }
 
-    protected override System.Collections.Generic.IEnumerable<InputBindingCommand> GetInputBindingCommands()
+    public override System.Collections.Generic.IEnumerable<InputBindingCommand> GetInputBindingCommands()
     {
       yield return new InputBindingCommand(JoinChannel)
       {
@@ -168,7 +150,7 @@ namespace Handle.WPF
     {
       IWindowManager wm;
       var csvm = new ChannelSearchViewModel(this.Client);
-      csvm.Settings = this.Settings;
+      // csvm.Settings = this.Settings;
       try
       {
         wm = IoC.Get<IWindowManager>();

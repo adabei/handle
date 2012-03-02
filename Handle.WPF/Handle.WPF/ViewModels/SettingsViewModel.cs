@@ -12,20 +12,6 @@
     public delegate void SaveEventHandler(Settings settings);
     public event SaveEventHandler SaveButtonPressed;
 
-    /* private Settings settings;
-    public Settings Settings
-    {
-      get
-      {
-        return this.settings;
-      }
-      set
-      {
-        this.settings = value;
-        NotifyOfPropertyChange(() => this.Settings);
-      }
-    } */
-
     public SettingsViewModel(Settings settings)
     {
       this.Settings = settings;
@@ -45,7 +31,7 @@
       parent.ActivateItem(parent.IrcMainViewModel);
     }
 
-    protected override IEnumerable<InputBindingCommand> GetInputBindingCommands()
+    public override IEnumerable<InputBindingCommand> GetInputBindingCommands()
     {
       yield return new InputBindingCommand(Cancel)
       {

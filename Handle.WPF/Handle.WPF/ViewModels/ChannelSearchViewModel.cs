@@ -151,7 +151,7 @@ namespace Handle.WPF
       }
     }
 
-    protected override System.Collections.Generic.IEnumerable<InputBindingCommand> GetInputBindingCommands()
+    public override System.Collections.Generic.IEnumerable<InputBindingCommand> GetInputBindingCommands()
     {
       yield return new InputBindingCommand(Cancel)
       {

@@ -113,7 +113,7 @@ namespace Handle.WPF
       }
     }
 
-    protected override IEnumerable<InputBindingCommand> GetInputBindingCommands()
+    public override IEnumerable<InputBindingCommand> GetInputBindingCommands()
     {
       yield return new InputBindingCommand(Cancel)
       {

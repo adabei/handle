@@ -45,7 +45,7 @@
     </Style>
   </UserControl.Resources>
     <Grid>
-      <TabControl x:Name="Networks">
+      <TabControl x:Name="Items">
       <TabControl.ItemTemplate>
         <DataTemplate>
           <StackPanel Orientation="Horizontal">
