@@ -128,7 +128,7 @@
     <Compile Include="Behaviours\StylizedBehaviorCollection.cs" />
     <Compile Include="Behaviours\StylizedBehaviors.cs" />
     <Compile Include="Behaviours\TiltBehavior.cs" />
-    <Compile Include="ConductorBase.cs" />
+    <Compile Include="ViewModels\ConductorBase.cs" />
     <Compile Include="Controls\AppBarButton.cs" />
     <Compile Include="Controls\LayoutInvalidationCatcher.cs" />
     <Compile Include="Controls\MetroContentControl.cs" />
@@ -150,7 +150,7 @@
     <Compile Include="Converters\ToUpperConverter.cs" />
     <Compile Include="IHaveClosableTabControl.cs" />
     <Compile Include="ISupportShortcuts.cs" />
-    <Compile Include="Logger.cs" />
+    <Compile Include="Models\Logger.cs" />
     <Compile Include="Native\Constants.cs" />
     <Compile Include="Native\CREATESTRUCT.cs" />
     <Compile Include="Native\MARGINS.cs" />
@@ -158,18 +158,18 @@
     <Compile Include="Native\MONITORINFO.cs" />
     <Compile Include="Native\POINT.cs" />
     <Compile Include="Native\RECT.cs" />
-    <Compile Include="PropertyUpdater.cs" />
-    <Compile Include="StringToMessageConverter.cs" />
+    <Compile Include="Models\PropertyUpdater.cs" />
+    <Compile Include="Converters\StringToMessageConverter.cs" />
     <Compile Include="ViewModels\ChannelSearchViewModel.cs" />
     <Compile Include="ViewModels\IrcStatusTabViewModel.cs" />
     <Compile Include="Views\ChannelSearchView.xaml.cs">
       <DependentUpon>ChannelSearchView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Identity.cs" />
-    <Compile Include="InputBindingCommand.cs" />
-    <Compile Include="InputBindings.cs" />
-    <Compile Include="Message.cs" />
-    <Compile Include="UiElementExtension.cs" />
+    <Compile Include="Models\Identity.cs" />
+    <Compile Include="Models\Shortcuts\InputBindingCommand.cs" />
+    <Compile Include="Models\Shortcuts\InputBindings.cs" />
+    <Compile Include="Models\Message.cs" />
+    <Compile Include="Models\Shortcuts\UiElementExtension.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\IrcChannelView.xaml.cs">
       <DependentUpon>IrcChannelView.xaml</DependentUpon>
@@ -183,7 +183,7 @@
     <Compile Include="Views\IrcMainView.xaml.cs">
       <DependentUpon>IrcMainView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Network.cs" />
+    <Compile Include="Models\Network.cs" />
     <Compile Include="Views\NetworkNewView.xaml.cs">
       <DependentUpon>NetworkNewView.xaml</DependentUpon>
     </Compile>
@@ -196,7 +196,7 @@
     <Compile Include="Views\NetworkSelectionView.xaml.cs">
       <DependentUpon>NetworkSelectionView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Settings.cs" />
+    <Compile Include="Models\Settings.cs" />
     <Compile Include="Views\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
     </Compile>

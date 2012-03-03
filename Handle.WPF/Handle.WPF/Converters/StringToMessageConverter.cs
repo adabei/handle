@@ -23,7 +23,7 @@
 // </copyright>
 // -----------------------------------------------------------------------
 
-namespace Handle.WPF
+namespace Handle.WPF.Converters
 {
   using System;
   using System.Collections.Generic;

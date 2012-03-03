@@ -5,10 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:cal="http://www.caliburnproject.org"
              mc:Ignorable="d"
-             xmlns:convert="clr-namespace:Handle.WPF"
+             xmlns:Converters="clr-namespace:Handle.WPF.Converters"
              d:DesignHeight="300" d:DesignWidth="300">
   <UserControl.Resources>
-    <convert:StringToMessageConverter x:Key="stringToMessageConverter"/>
+    <Converters:StringToMessageConverter x:Key="stringToMessageConverter"/>
   </UserControl.Resources>
   <Grid>
     <Grid.RowDefinitions>
