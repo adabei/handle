@@ -33,7 +33,6 @@ namespace Handle.WPF
   using System.Windows;
   using System.Windows.Input;
   using Caliburn.Micro;
-  using AutoMapper;
 
   /// <summary>
   /// Represents a ViewModel for ShellViews

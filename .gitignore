@@ -9,3 +9,6 @@ StyleCop.Cache
 
 #TestResult
 TestResult.xml
+
+# Doxygen
+Handle.WPF/doc/*
