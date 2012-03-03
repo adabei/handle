@@ -20,11 +20,11 @@ namespace :wpf do
   desc "Publish ClickOnce"
   msbuild :publish do |msb|
     msb.properties = { Configuration: "Release",
-                       PublishUrl: "http://www2.htlwrn.ac.at/d07064/Handle",
+                       PublishUrl: "http://www2.htlwrn.ac.at/handle",
                        TargetZone: "Internet",
                        BootstrapperEnabled: "True",
                        IsWebBootstrapper: "True",
-                       InstallUrl: "http://www2.htlwrn.ac.at/d07064/Handle" }
+                       InstallUrl: "http://www2.htlwrn.ac.at/handle" }
     msb.targets :Publish
     msb.solution = "Handle.WPF/Handle.WPF.sln"
   end
