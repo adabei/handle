@@ -33,19 +33,30 @@ namespace Handle.WPF
   using Caliburn.Micro;
 
   /// <summary>
-  /// TODO: Update summary.
+  /// Represents a base class for all Screen-like ViewModels
   /// </summary>
   public class ViewModelBase : Screen, IShell, ISupportShortcuts
   {
+    /// <summary>
+    /// To keep track of the defined shortcuts
+    /// </summary>
     private InputBindings inputBindings;
+
+    /// <summary>
+    /// Private backing for the Settings property
+    /// </summary>
     private Settings settings;
 
+    /// <summary>
+    /// Gets or sets the settings
+    /// </summary>
     public Settings Settings
     {
       get
       {
         return this.settings;
       }
+
       set
       {
         this.settings = value;
@@ -53,6 +64,29 @@ namespace Handle.WPF
       }
     }
 
+    /// <summary>
+    /// Let's you define your shortcuts.
+    /// </summary>
+    /// <returns>Defined shortcuts</returns>
+    public virtual IEnumerable<InputBindingCommand> GetInputBindingCommands()
+    {
+      yield break;
+    }
+
+    /// <summary>
+    /// Deregisters all commands upon deactivating.
+    /// </summary>
+    /// <param name="close">Whether to close the ViewModel or not</param>
+    protected override void OnDeactivate(bool close)
+    {
+      base.OnDeactivate(close);
+      this.inputBindings.DeregisterCommands();
+    }
+
+    /// <summary>
+    /// Register all shortcuts on the View
+    /// </summary>
+    /// <param name="view">The corosponding view</param>
     protected override void OnViewLoaded(object view)
     {
       base.OnViewLoaded(view);
@@ -61,21 +95,15 @@ namespace Handle.WPF
       if (window != null)
       {
         this.inputBindings = new InputBindings(window);
-        this.inputBindings.RegisterCommands(GetInputBindingCommands());
+        this.inputBindings.RegisterCommands(this.GetInputBindingCommands());
       }
     }
 
-    public virtual IEnumerable<InputBindingCommand> GetInputBindingCommands()
-    {
-      yield break;
-    }
-
-    protected override void OnDeactivate(bool close)
-    {
-      base.OnDeactivate(close);
-      this.inputBindings.DeregisterCommands();
-    }
-
+    /// <summary>
+    /// Recurisve method to obtain a Window, where we can set our shortcuts.
+    /// </summary>
+    /// <param name="vm">Previously tried ViewModel</param>
+    /// <returns>A Window ViewModel</returns>
     protected Screen GetWindowViewModel(dynamic vm)
     {
       if (vm == null)
@@ -87,12 +115,13 @@ namespace Handle.WPF
       {
         return vm;
       }
+
       if (vm.Parent == null)
       {
         return null;
       }
 
-      return GetWindowViewModel(vm.Parent as Screen);
+      return this.GetWindowViewModel(vm.Parent as Screen);
     }
   }
 }

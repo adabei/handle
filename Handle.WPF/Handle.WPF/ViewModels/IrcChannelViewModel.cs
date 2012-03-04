@@ -160,7 +160,7 @@ namespace Handle.WPF
 
     private void channelMessageReceived(object sender, IrcMessageEventArgs e)
     {
-      Message m = new Message(e.Text, DateTime.Now.ToString("HH:mm"), e.Source.Name);
+      Message m = new Message(e.Text, DateTime.Now.ToString("<HH:mm>"), e.Source.Name);
       this.Messages.Add(m);
       // TODO Use settings
       logger.Append(String.Format("<{0}> {1}: {2}", m.Received, m.Sender, m.Text));
@@ -187,19 +187,24 @@ namespace Handle.WPF
     public void Send()
     {
       this.Channel.Client.LocalUser.SendMessage(this.Channel, this.Message);
-      Message m = new Message(this.Message.Trim(), DateTime.Now.ToString("HH:mm"), this.Channel.Client.LocalUser.NickName);
+      Message m = new Message(this.Message.Trim(), DateTime.Now.ToString("<HH:mm>"), this.Channel.Client.LocalUser.NickName);
       this.Messages.Add(m);
       // TODO Use settings
       logger.Append(String.Format("<{0}> {1}: {2}", m.Received, m.Sender, m.Text));
       this.Message = String.Empty;
     }
 
-    public void LeaveChannel()
+    public void LeaveChannel(string message)
     {
       this.Channel.MessageReceived -= this.channelMessageReceived;
-      this.Channel.Leave();
+      this.Channel.Leave(message);
       // TODO
       this.logger.Dispose();
+    }
+
+    public void LeaveChannel()
+    {
+      this.LeaveChannel(string.Empty);
     }
 
     public void JoinChannel()

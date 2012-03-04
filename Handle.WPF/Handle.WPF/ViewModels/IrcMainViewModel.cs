@@ -44,12 +44,21 @@ namespace Handle.WPF
 
     public void CloseItem(object sender)
     {
-      // TODO Leave message
+      string message = null;
+      try
+      {
+        if (IoC.Get<Settings>().CanSendLeaveMessage)
+          message = IoC.Get<Settings>().LeaveMessage;
+      }
+      catch
+      {
+        message = string.Empty;
+      }
       foreach (var item in (sender as IrcNetworkViewModel).Items)
       {
         if (item.GetType() == typeof(IrcChannelViewModel))
         {
-          item.LeaveChannel();
+          item.LeaveChannel(message);
         }
       }
       this.Items.Remove(sender as IrcNetworkViewModel);
