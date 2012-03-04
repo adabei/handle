@@ -26,12 +26,12 @@
 namespace Handle.WPF
 {
   using System;
-  using Caliburn.Micro;
-  using IrcDotNet;
-  using System.Windows.Input;
   using System.Collections.Generic;
   using System.IO;
   using System.Text;
+  using System.Windows.Input;
+  using Caliburn.Micro;
+  using IrcDotNet;
 
   /// <summary>
   /// TODO: Update summary.
@@ -88,8 +88,9 @@ namespace Handle.WPF
     /// <summary>
     /// Initializes a new instance of the IrcChannelViewModel class
     /// </summary>
-    public IrcChannelViewModel(IrcChannel channel, string networkName)
+    public IrcChannelViewModel(IrcChannel channel, string networkName, Settings settings)
     {
+      this.Settings = settings;
       this.Messages = new BindableCollection<Message>();
       this.Closable = true;
       this.DisplayName = channel.Name;
@@ -104,7 +105,12 @@ namespace Handle.WPF
       DirectoryInfo di = new DirectoryInfo(Settings.PATH + "\\logs\\");
       if (!di.Exists)
         di.Create();
-      this.logger = new Logger(String.Format("{0}\\logs\\{1}.{2}.txt", Settings.PATH, channel.Name, networkName));
+      if (this.Settings.CanLog)
+        this.logger = new Logger(String.Format("{0}\\logs\\{1}.{2}.txt", 
+                                 Settings.PATH, 
+                                 channel.Name, 
+                                 networkName));
+
       this.Channel.GetTopic();
     }
 
@@ -115,7 +121,9 @@ namespace Handle.WPF
       {
         sb.Append(user.User.NickName + " | ");
       }
-      if (sb[sb.Length - 2] == '|') sb.Length -= 3; 
+
+      if (sb[sb.Length - 2] == '|') 
+        sb.Length -= 3;
       this.Users = sb.ToString();
     }
 
@@ -160,45 +168,67 @@ namespace Handle.WPF
 
     private void channelMessageReceived(object sender, IrcMessageEventArgs e)
     {
-      Message m = new Message(e.Text, DateTime.Now.ToString("<HH:mm>"), e.Source.Name);
+      Message m = new Message(e.Text,
+                              DateTime.Now.ToString(this.Settings.TimestampFormat),
+                              e.Source.Name);
       this.Messages.Add(m);
-      // TODO Use settings
-      logger.Append(String.Format("<{0}> {1}: {2}", m.Received, m.Sender, m.Text));
+      if (this.Settings.CanLog && this.logger != null)
+        logger.Append(String.Format("{0} {1}: {2}",
+                                    m.Received,
+                                    m.Sender,
+                                    m.Text));
     }
 
     private void channelNoticeReceived(object sender, IrcMessageEventArgs e)
     {
-      this.Messages.Add(new Message(e.Text, DateTime.Now.ToString("HH:mm"), "=!="));
+      this.Messages.Add(new Message(e.Text, DateTime.Now.ToString(this.Settings.TimestampFormat), "=!="));
     }
 
     private void channelUserJoined(object sender, IrcChannelUserEventArgs e)
     {
-      this.Messages.Add(new Message(String.Format("{0} [{1}] has joined {2}", e.ChannelUser.User.NickName, e.ChannelUser.User.HostName, e.ChannelUser.Channel.Name),
-                        DateTime.Now.ToString("HH:mm"), "=!="));
+      this.Messages.Add(new Message(String.Format("{0} [{1}] has joined {2}",
+                                                  e.ChannelUser.User.NickName,
+                                                  e.ChannelUser.User.HostName,
+                                                  e.ChannelUser.Channel.Name),
+                                    DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                    "=!="));
     }
 
     private void channelUserLeft(object sender, IrcChannelUserEventArgs e)
     {
       this.Messages.Add(new Message(String.Format("{0} [{1}] has left {2} [{3}]",
-                        e.ChannelUser.User.NickName, e.ChannelUser.User.HostName, e.ChannelUser.Channel.Name, e.Comment),
-                        DateTime.Now.ToString("HH:mm"), "=!="));
+                                                  e.ChannelUser.User.NickName,
+                                                  e.ChannelUser.User.HostName,
+                                                  e.ChannelUser.Channel.Name,
+                                                  e.Comment),
+                                    DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                    "=!="));
     }
 
     public void Send()
     {
       this.Channel.Client.LocalUser.SendMessage(this.Channel, this.Message);
-      Message m = new Message(this.Message.Trim(), DateTime.Now.ToString("<HH:mm>"), this.Channel.Client.LocalUser.NickName);
+      Message m = new Message(this.Message.Trim(),
+                              DateTime.Now.ToString(this.Settings.TimestampFormat),
+                              this.Channel.Client.LocalUser.NickName);
       this.Messages.Add(m);
-      // TODO Use settings
-      logger.Append(String.Format("<{0}> {1}: {2}", m.Received, m.Sender, m.Text));
+      if (this.Settings.CanLog && this.logger != null)
+        logger.Append(String.Format("{0} {1}: {2}", m.Received, m.Sender, m.Text));
       this.Message = String.Empty;
     }
 
     public void LeaveChannel(string message)
     {
+      // Unsubscribe from all events
+      this.Channel.ModesChanged -= this.channelModesChanged;
+      this.Channel.UsersListReceived -= this.channelUsersListReceived;
       this.Channel.MessageReceived -= this.channelMessageReceived;
+      this.Channel.UserJoined -= this.channelUserJoined;
+      this.Channel.UserLeft -= this.channelUserLeft;
+      this.Channel.NoticeReceived -= this.channelNoticeReceived;
+      this.Channel.TopicChanged -= this.channelTopicChanged;
+
       this.Channel.Leave(message);
-      // TODO
       this.logger.Dispose();
     }
 
@@ -210,9 +240,7 @@ namespace Handle.WPF
     public void JoinChannel()
     {
       if (this.JoinChannelClicked != null)
-      {
         this.JoinChannelClicked();
-      }
     }
 
     public override System.Collections.Generic.IEnumerable<InputBindingCommand> GetInputBindingCommands()

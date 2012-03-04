@@ -82,7 +82,7 @@ namespace Handle.WPF
 
     private void Connect(Network network)
     {
-      var invm = new IrcNetworkViewModel(network);
+      var invm = new IrcNetworkViewModel(network, this.Settings);
       invm.Parent = this;
       this.IrcMainViewModel.Items.Add(invm);
       if (!this.IrcMainViewModel.IsActive)

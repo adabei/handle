@@ -53,11 +53,6 @@ namespace Handle.WPF
     public bool CanLog { get; set; }
 
     /// <summary>
-    /// Gets or sets the LogSavePath
-    /// </summary>
-    public string LogSavePath { get; set; }
-
-    /// <summary>
     /// Gets or sets a value indicating whether an URL will be displayed as a link
     /// </summary>
     public bool DisplayURLAsLink { get; set; }
@@ -90,14 +85,18 @@ namespace Handle.WPF
     public bool UseFuzzySearch { get; set; }
 
     /// <summary>
-    /// Blablabla
+    /// Creates a shallow copy of the instance.
     /// </summary>
-    /// <returns></returns>
+    /// <returns>A shallow copy</returns>
     public Settings ShallowCopy()
     {
-      return (Settings)this.MemberwiseClone();
+      return this.MemberwiseClone() as Settings;
     }
 
+    /// <summary>
+    /// Deserializes saved settings from a JSON file.
+    /// </summary>
+    /// <returns>Saved settings</returns>
     public static Settings Load()
     {
       FileStream fs = new FileStream(Settings.PATH + "settings.json", FileMode.OpenOrCreate);
@@ -108,7 +107,7 @@ namespace Handle.WPF
       }
       catch
       {
-        settings = new Settings();
+        settings = defaultSettings();
       }
       finally
       {
@@ -117,6 +116,9 @@ namespace Handle.WPF
       return settings;
     }
 
+    /// <summary>
+    /// Serializes the object using JSON.
+    /// </summary>
     public void Save()
     {
       FileStream fs = new FileStream(Settings.PATH + "settings.json", FileMode.Create);
@@ -128,6 +130,25 @@ namespace Handle.WPF
       {
         fs.Close();
       }
+    }
+
+    /// <summary>
+    /// Creates a Settings instance with default settings.
+    /// </summary>
+    /// <returns>Default instance of Settings</returns>
+    private static Settings defaultSettings()
+    {
+      return new Settings()
+      {
+        CanLog = false,
+        CanSendLeaveMessage = true,
+        DisplayURLAsLink = true,
+        FontFamily = "Segoe UI",
+        FontSize = 11,
+        LeaveMessage = "Leaving - Using the Handle client",
+        TimestampFormat = "<HH:mm>",
+        UseFuzzySearch = false
+      };
     }
   }
 }

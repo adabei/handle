@@ -129,7 +129,7 @@
     <Compile Include="Behaviours\StylizedBehaviorCollection.cs" />
     <Compile Include="Behaviours\StylizedBehaviors.cs" />
     <Compile Include="Behaviours\TiltBehavior.cs" />
-    <Compile Include="StartupView.xaml.cs">
+    <Compile Include="Views\StartupView.xaml.cs">
       <DependentUpon>StartupView.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\StartupViewModel.cs" />
@@ -228,7 +228,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="StartupView.xaml">
+    <Page Include="Views\StartupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

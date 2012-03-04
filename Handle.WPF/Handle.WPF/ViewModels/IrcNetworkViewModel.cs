@@ -44,10 +44,11 @@ namespace Handle.WPF
     /// <summary>
     /// Initializes a new instance of the IrcNetworkViewModel class
     /// </summary>
-    public IrcNetworkViewModel(Network network)
+    public IrcNetworkViewModel(Network network, Settings settings)
     {
       this.Closable = true;
       this.DisplayName = network.Name;
+      this.Settings = settings;
       IrcRegistrationInfo info;
       if (network.UseCustomIdentity)
       {
@@ -110,7 +111,7 @@ namespace Handle.WPF
 
     private void localUserJoinedChannel(object sender, IrcChannelEventArgs e)
     {
-      var icvm = new IrcChannelViewModel(e.Channel, this.DisplayName);
+      var icvm = new IrcChannelViewModel(e.Channel, this.DisplayName, this.Settings);
       icvm.Parent = this.Parent;
       icvm.JoinChannelClicked += this.JoinChannel;
       // icvm.Settings = this.Settings;
