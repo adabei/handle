@@ -59,9 +59,13 @@ namespace Handle.WPF
       this.Settings = settings;
       this.Left = 10.0;
       this.Top = 100.0;
+
       this.IrcMainViewModel = new IrcMainViewModel();
       this.IrcMainViewModel.Parent = this;
-      //this.IrcMainViewModel.Settings = this.Settings;
+
+      var svm = new StartupViewModel();
+      svm.Parent = this;
+
       DirectoryInfo di = new DirectoryInfo(Settings.PATH);
       if (!di.Exists)
         di.Create();
@@ -73,15 +77,18 @@ namespace Handle.WPF
       }
 
       this.DisplayName = "Handle";
-      ActivateItem(this.IrcMainViewModel);
+      ActivateItem(svm);
     }
 
     private void Connect(Network network)
     {
       var invm = new IrcNetworkViewModel(network);
-      // invm.Settings = this.Settings;
       invm.Parent = this;
       this.IrcMainViewModel.Items.Add(invm);
+      if (!this.IrcMainViewModel.IsActive)
+      {
+        ActivateItem(this.IrcMainViewModel);
+      }
     }
 
     private void ShowNetworkSelection()

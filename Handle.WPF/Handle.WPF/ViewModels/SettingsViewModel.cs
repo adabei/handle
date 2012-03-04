@@ -21,14 +21,12 @@
     public void Save()
     {
       this.SaveButtonPressed(this.Settings);
-      var parent = this.Parent as ShellViewModel;
-      parent.ActivateItem(parent.IrcMainViewModel);
+      this.TryClose();
     }
 
     public void Cancel()
     {
-      var parent = this.Parent as ShellViewModel;
-      parent.ActivateItem(parent.IrcMainViewModel);
+      this.TryClose();
     }
 
     public override IEnumerable<InputBindingCommand> GetInputBindingCommands()

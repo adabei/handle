@@ -62,6 +62,10 @@ namespace Handle.WPF
         Console.WriteLine(ex.ToString());
       }
       // TODO Wait with the close
+      if (this.Items.Count == 0)
+      {
+        this.TryClose();
+      }
     }
   }
 }
