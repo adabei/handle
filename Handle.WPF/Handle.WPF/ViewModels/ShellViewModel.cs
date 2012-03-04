@@ -51,6 +51,9 @@ namespace Handle.WPF
       set { this.ircMainViewModel = value; }
     }
 
+    [Import(RequiredCreationPolicy = CreationPolicy.Shared)]
+    public IProgressService ProgressService { get; set; }
+
     /// <summary>
     /// Initializes a new instance of the ShellViewModel class
     /// </summary>

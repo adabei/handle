@@ -48,9 +48,9 @@ namespace Handle.WPF
 
       batch.AddExportedValue<IWindowManager>(new WindowManager());
       batch.AddExportedValue<IEventAggregator>(new EventAggregator());
-      batch.AddExportedValue(this.container);
-      batch.AddExportedValue(catalog);
       batch.AddExportedValue<Settings>(Settings.Load());
+      batch.AddExportedValue(this.container);
+      batch.AddExportedValue(catalog); 
 
       this.container.Compose(batch);
     }
