@@ -87,7 +87,7 @@ namespace Handle.WPF
     /// </summary>
     public string TimestampFormat { get; set; }
 
-    public bool UseDumbSearch { get; set; }
+    public bool UseFuzzySearch { get; set; }
 
     /// <summary>
     /// Blablabla
