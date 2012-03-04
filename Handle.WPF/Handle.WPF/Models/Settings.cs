@@ -83,11 +83,6 @@ namespace Handle.WPF
     public double FontSize { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether timestamps will be displayed
-    /// </summary>
-    public bool CanShowTimeStamps { get; set; }
-
-    /// <summary>
     /// Gets or sets the TimeStampFormat
     /// </summary>
     public string TimestampFormat { get; set; }
