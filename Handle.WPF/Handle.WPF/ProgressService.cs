@@ -31,6 +31,7 @@ namespace Handle.WPF
   using System.Linq;
   using System.Text;
   using Caliburn.Micro;
+  using System.Threading;
 
   /// <summary>
   /// TODO: Update summary.
@@ -38,12 +39,7 @@ namespace Handle.WPF
   [Export(typeof(IProgressService))]
   public class ProgressService : PropertyChangedBase, IProgressService
   {
-    private bool isActive;
-
-    public ProgressService()
-    {
-      this.IsActive = false;
-    }
+    private int counter;
 
     /// <summary>
     /// Gets or sets a value indicating whether the indicator is active or not.
@@ -52,12 +48,7 @@ namespace Handle.WPF
     {
       get
       {
-        return this.isActive;
-      }
-      private set
-      {
-        this.IsActive = value;
-        NotifyOfPropertyChange(() => this.IsActive);
+        return this.counter > 0;
       }
     }
 
@@ -66,7 +57,10 @@ namespace Handle.WPF
     /// </summary>
     public void Show()
     {
-      this.IsActive = true;
+      if (Interlocked.Increment(ref this.counter) == 1)
+      {
+        NotifyOfPropertyChange(() => this.IsActive);
+      }
     }
 
     /// <summary>
@@ -74,7 +68,10 @@ namespace Handle.WPF
     /// </summary>
     public void Hide()
     {
-      this.IsActive = false;
+      if (Interlocked.Decrement(ref this.counter) == 0)
+      {
+        NotifyOfPropertyChange(() => this.IsActive);
+      }
     }
   }
 }
