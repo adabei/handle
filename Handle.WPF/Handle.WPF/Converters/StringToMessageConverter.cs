@@ -100,8 +100,19 @@ namespace Handle.WPF.Converters
 
     public object ConvertBack(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
     {
-      // TODO Remove all boilerplate and leave only text
-      return string.Empty;
+      StringBuilder stripped = new StringBuilder();
+      foreach (var inline in (value as TextBlock).Inlines)
+      {
+        if (inline is Run)
+        {
+          stripped.Append((inline as Run).Text);
+        }
+        else
+        {
+          stripped.Append(((inline as Hyperlink).Inlines.FirstInline as Run).Text);
+        }
+      }
+      return stripped.ToString();
     }
   }
 }

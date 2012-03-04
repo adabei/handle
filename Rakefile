@@ -21,13 +21,17 @@ namespace :wpf do
   msbuild :publish do |msb|
     msb.properties = { Configuration: "Release",
                        PublishUrl: "http://www2.htlwrn.ac.at/handle/setup/",
+                       PublisherName: "HTLWRN",
+                       ProductName: "Handle.WPF",
+                       Install: "True",
+                       ApplicationVersion: "1.0.0.*",
+                       ApplicationRevision: "8",
+                       GenerateManifests: "True",
                        TargetZone: "Internet",
-                       BootstrapperEnabled: "True",
                        IsWebBootstrapper: "True",
+                       BootstrapperEnabled: "True",
                        SupportUrl: "http://www2.htlwrn.ac.at/handle/",
-                       InstallUrl: "http://www2.htlwrn.ac.at/handle/setup/",
-                       UpdateEnabled: "True",
-                       UpdateUrl: "http://www2.htlwrn.ac.at/handle/setup/" }
+                       UpdateEnabled: "False" }
     msb.targets :Publish
     msb.solution = "Handle.WPF/Handle.WPF.sln"
   end
