@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
 // <copyright file="ShellViewModel.cs" company="">
-// Copyright (c) 2011 Bernhard Schwarz, Florian Lembeck
+// Copyright (c) 2011-2012 Bernhard Schwarz, Florian Lembeck
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -35,13 +35,14 @@ namespace Handle.WPF
   using Caliburn.Micro;
 
   /// <summary>
-  /// Represents a ViewModel for ShellViews
+  /// Represents a ViewModel for View of our main Window.
   /// </summary>
   [Export(typeof(IShell))]
   public class ShellViewModel : ConductorBase<object>, IShell
   {
-    private double left = 500;
-    private double top = 50;
+    /// <summary>
+    /// The private backing for the IrcMainViewModel property.
+    /// </summary>
     private IrcMainViewModel ircMainViewModel;
 
     public IrcMainViewModel IrcMainViewModel
@@ -53,12 +54,11 @@ namespace Handle.WPF
     /// <summary>
     /// Initializes a new instance of the ShellViewModel class
     /// </summary>
+    /// <param name="settings">The Settings singleton, filled in by MEF</param>
     [ImportingConstructor]
-    public ShellViewModel(Settings settings)  
+    public ShellViewModel(Settings settings)
     {
       this.Settings = settings;
-      this.Left = 10.0;
-      this.Top = 100.0;
 
       this.IrcMainViewModel = new IrcMainViewModel();
       this.IrcMainViewModel.Parent = this;
@@ -106,34 +106,6 @@ namespace Handle.WPF
       }
 
       wm.ShowWindow(nsvm);
-    }
-
-    public double Left
-    {
-      get
-      {
-        return this.left;
-      }
-
-      set
-      {
-        this.left = value;
-        NotifyOfPropertyChange(() => this.Left);
-      }
-    }
-
-    public double Top
-    {
-      get
-      {
-        return this.top;
-      }
-
-      set
-      {
-        this.top = value;
-        NotifyOfPropertyChange(() => this.Top);
-      }
     }
 
     public void ShowSettings()
