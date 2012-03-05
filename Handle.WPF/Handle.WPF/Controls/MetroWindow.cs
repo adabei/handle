@@ -13,6 +13,8 @@ namespace Handle.WPF.Controls
     public static readonly DependencyProperty ShowIconOnTitleBarProperty = DependencyProperty.Register("ShowIconOnTitleBar", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
     public static readonly DependencyProperty ShowTitleBarProperty = DependencyProperty.Register("ShowTitleBar", typeof(bool), typeof(MetroWindow), new PropertyMetadata(true));
     public static readonly DependencyProperty ShowSettingsInTitleBarProperty = DependencyProperty.Register("ShowSettingsInTitleBar", typeof(bool), typeof(MetroWindow), new PropertyMetadata(false));
+    public static readonly DependencyProperty TitleTextProperty = DependencyProperty.Register("TitleText", typeof(string), typeof(MetroWindow), new PropertyMetadata(""));
+    public static readonly DependencyProperty ShowProgressBarProperty = DependencyProperty.Register("ShowProgressBar", typeof(bool), typeof(MetroWindow), new PropertyMetadata(false));
 
     private WindowCommands windowCommands;
 
@@ -37,6 +39,18 @@ namespace Handle.WPF.Controls
     {
       get { return (bool)GetValue(ShowSettingsInTitleBarProperty); }
       set { SetValue(ShowSettingsInTitleBarProperty, value); }
+    }
+
+    public string TitleText
+    {
+      get { return (string)GetValue(TitleTextProperty); }
+      set { SetValue(TitleTextProperty, value); }
+    }
+
+    public bool ShowProgressBar
+    {
+      get { return (bool)GetValue(ShowProgressBarProperty); }
+      set { SetValue(ShowProgressBarProperty, value); }
     }
 
     public override void OnApplyTemplate()

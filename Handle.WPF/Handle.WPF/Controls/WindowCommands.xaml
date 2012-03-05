@@ -12,12 +12,12 @@
     <sys:String x:Key="WindowCommandsRestoreToolTip">Restore</sys:String>
     <sys:String x:Key="WindowCommandsCloseToolTip">Close</sys:String>
   </UserControl.Resources>
-  <StackPanel Height="20" Margin="0,5,5,0" Orientation="Horizontal" Width="66">
+  <StackPanel Height="25" Margin="0,5,5,0" Orientation="Horizontal" Width="83">
     <Button x:Name="btnMin"
                 Click="MinimiseClick"
                 Margin="2,0,0,0"
-                Width="20"
-                Height="20"
+                Width="25"
+                Height="25"
                 Style="{DynamicResource ChromelessButtonStyle}"
                 Padding="0"
                 ToolTip="{DynamicResource WindowCommandsMinimiseToolTip}"
@@ -26,8 +26,8 @@
     <Button x:Name="btnMax"
                 Click="MaximiseClick"
                 Margin="2,0,0,0"
-                Width="20"
-                Height="20"
+                Width="25"
+                Height="25"
                 Style="{DynamicResource ChromelessButtonStyle}"
                 Padding="0"
                 ToolTip="{DynamicResource WindowCommandsMaximiseToolTip}"
@@ -36,8 +36,8 @@
     <Button x:Name="btnClose"
                 Click="CloseClick"
                 Margin="2,0,0,0"
-                Width="20"
-                Height="20"
+                Width="25"
+                Height="25"
                 Style="{DynamicResource ChromelessButtonStyle}"
                 ToolTip="{DynamicResource WindowCommandsCloseToolTip}"
                 Opacity="0.8" FontFamily="Marlett"

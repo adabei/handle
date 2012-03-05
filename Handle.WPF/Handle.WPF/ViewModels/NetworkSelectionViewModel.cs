@@ -179,6 +179,28 @@ namespace Handle.WPF
       this.TryClose();
     }
 
+    public void Export()
+    {
+      var nsv = GetView() as NetworkSelectionView;
+      Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+      dlg.DefaultExt = ".json";
+      dlg.Filter = "JSON (.json)|*.json";
+      if (dlg.ShowDialog() == true)
+      {
+        string filename = dlg.FileName;
+
+        FileStream fs = new FileStream(filename, FileMode.Create);
+        try
+        {
+          JsonSerializer.SerializeToStream(nsv.Networks.SelectedItems, fs);
+        }
+        finally
+        {
+          fs.Close();
+        }
+      }   
+    }
+
     private void saveGlobalIdentity()
     {
       FileStream fs = new FileStream(Settings.PATH + "identity.json", FileMode.Create);

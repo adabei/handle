@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org" 
         xmlns:Controls="clr-namespace:Handle.WPF.Controls"
-        Title="Handle" Width="900" Height="520" ShowSettingsInTitleBar="True">
+        Title="Handle" Width="900" Height="520" ShowSettingsInTitleBar="True" TitleText="HANDLE">
 
   <Window.Resources>
     <ResourceDictionary>
@@ -17,7 +17,7 @@
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Window.Resources>
-  <Grid>
+  <Grid Margin="0,-1,0,0">
     <Controls:MetroContentControl x:Name="ActiveItem"/>
   </Grid>
 </Controls:MetroWindow>
