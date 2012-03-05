@@ -149,7 +149,6 @@
       <DependentUpon>RevealImage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Controls\Tile.cs" />
-    <Compile Include="Controls\ToogleSwitch.cs" />
     <Compile Include="Controls\WindowCommands.xaml.cs">
       <DependentUpon>WindowCommands.xaml</DependentUpon>
     </Compile>
