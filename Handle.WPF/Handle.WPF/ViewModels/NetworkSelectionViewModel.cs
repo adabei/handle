@@ -189,10 +189,23 @@ namespace Handle.WPF
       {
         string filename = dlg.FileName;
 
+        List<Network> nets = new List<Network>();
+
+        foreach (Network n in nsv.Networks.SelectedItems) 
+        {
+          for (int i = 0; i < this.networks.Count; i++) 
+          {
+            if (n.Name == this.networks[i].Name) 
+            {
+              nets.Add(n);
+            }
+          }
+        }
+
         FileStream fs = new FileStream(filename, FileMode.Create);
         try
         {
-          JsonSerializer.SerializeToStream(nsv.Networks.SelectedItems, fs);
+          JsonSerializer.SerializeToStream(nets, fs);
         }
         finally
         {
