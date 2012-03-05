@@ -43,6 +43,11 @@ namespace Handle.WPF
 
     /// <summary>
     /// Gets or sets a value indicating whether the indicator is active or not.
+    
+    public ProgressService()
+    {
+      this.counter = 0;
+    }
     /// </summary>
     public bool IsActive
     {
