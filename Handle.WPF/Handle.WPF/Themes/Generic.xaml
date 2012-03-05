@@ -270,13 +270,16 @@
     <Border x:Name="PART_Border" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}">
       <Grid>
         <AdornerDecorator>
-          <Controls:MetroContentControl>
+          <Controls:MetroContentControl>           
             <Grid>
               <Grid.RowDefinitions>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="*"/>
               </Grid.RowDefinitions>
-              <Grid x:Name="PART_TitleBar" Height="30" Visibility="{TemplateBinding ShowTitleBar, Converter={StaticResource BooleanToVisibilityConverter}}">
+              <Grid>
+                <ProgressBar Height="10" Width="350" Visibility="{TemplateBinding ShowProgressBar, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+              </Grid>
+              <Grid x:Name="PART_TitleBar" Height="45" Visibility="{TemplateBinding ShowTitleBar, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.Background>
                   <SolidColorBrush Color="{DynamicResource AccentColor}"/>
                 </Grid.Background>
@@ -290,7 +293,7 @@
                                     Source="{TemplateBinding Icon}"/>
                 <TextBlock
                                     Grid.Column="1"
-                                    Text="{TemplateBinding Title, Converter={conv:ToUpperConverter}}"
+                                    Text="{TemplateBinding TitleText}"
                                     HorizontalAlignment="Left" 
                                     TextTrimming="CharacterEllipsis"
                                     VerticalAlignment="Center" 
@@ -300,7 +303,22 @@
                                     Foreground="White"/>
                 
               </Grid>
-              <Image Source="/Handle.WPF;component/Images/settings.png" Visibility="{TemplateBinding ShowSettingsInTitleBar, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,100,0" ToolTip="Settings" HorizontalAlignment="Right" VerticalAlignment="Center" MaxHeight="30" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action ShowSettings]"/>
+              <Image Source="/Handle.WPF;component/Images/settings.png" Visibility="{TemplateBinding ShowSettingsInTitleBar, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="0,0,100,10" ToolTip="Settings" HorizontalAlignment="Right" VerticalAlignment="Center" MaxHeight="30" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action ShowSettings]">
+                <Image.Style>
+                  <Style TargetType="{x:Type Image}">
+                    <Style.Triggers>
+                      <Trigger Property="IsMouseOver"
+                                 Value="True">
+                        <Setter Property="Opacity" Value="1" />
+                      </Trigger>
+                      <Trigger Property="IsMouseOver"
+                                 Value="False">
+                        <Setter Property="Opacity" Value=".5" />
+                      </Trigger>
+                    </Style.Triggers>
+                  </Style>
+                </Image.Style>
+              </Image>
               <Controls:WindowCommands 
                                 x:Name="PART_WindowCommands"
                                 Panel.ZIndex="1"

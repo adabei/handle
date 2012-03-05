@@ -84,7 +84,7 @@
     <Setter Property="Background"
                 Value="#02FFFFFF" />
     <Setter Property="Foreground"
-                Value="White" />
+                Value="WhiteSmoke" />
     <Setter Property="HorizontalContentAlignment"
                 Value="Center" />
     <Setter Property="VerticalContentAlignment"
@@ -101,14 +101,14 @@
                                           VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                           SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
                                           RecognizesAccessKey="True"
-                                          Opacity="0.75" />
+                                          Opacity="0.5" />
           </Grid>
           <ControlTemplate.Triggers>
             <Trigger Property="IsMouseOver"
                                  Value="True">
               <Setter TargetName="contentPresenter"
                                     Property="Opacity"
-                                    Value="1" />
+                                    Value="0.85" />
             </Trigger>
             <Trigger Property="IsMouseOver"
                                  Value="False">
@@ -123,10 +123,11 @@
             <Trigger Property="IsEnabled"
                                  Value="false">
               <Setter Property="Foreground"
-                                    Value="#ADADAD" />
+                                    Value="White" />
             </Trigger>
             <Trigger Property="IsPressed" Value="True">
-              <Setter Property="Foreground" Value="Black"/>
+              <Setter Property="Foreground" Value="White"/>
+              <Setter Property="FontSize" Value="13"/>
             </Trigger>
           </ControlTemplate.Triggers>
         </ControlTemplate>
