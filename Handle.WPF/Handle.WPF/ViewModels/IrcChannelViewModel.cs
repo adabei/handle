@@ -229,7 +229,9 @@ namespace Handle.WPF
       this.Channel.TopicChanged -= this.channelTopicChanged;
 
       this.Channel.Leave(message);
-      this.logger.Dispose();
+
+      if (this.Settings.CanLog && this.logger != null)
+        this.logger.Dispose();
     }
 
     public void LeaveChannel()

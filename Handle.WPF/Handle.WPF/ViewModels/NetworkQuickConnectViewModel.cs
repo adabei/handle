@@ -75,7 +75,7 @@ namespace Handle.WPF
       Network quick;
       if (nqcv.Network_UseCustomIdentity.IsChecked == true)
       {
-        quick = new Network(nqcv.Network_Name.Text, nqcv.Network_Address.Text, false, "",new Identity(nqcv.Network_Identity_Name.Text,"",nqcv.Network_Identity_Alternative.Text,nqcv.Network_Identity_RealName.Text));
+        quick = new Network(nqcv.Network_Name.Text, nqcv.Network_Address.Text, false, "",new Identity(nqcv.Network_Identity_Name.Text,"",nqcv.Network_Identity_Alternative.Text,nqcv.Network_Identity_RealName.Text),true);
       }
       else 
       {
