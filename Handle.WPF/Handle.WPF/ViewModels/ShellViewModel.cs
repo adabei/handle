@@ -111,6 +111,23 @@ namespace Handle.WPF
       wm.ShowWindow(nsvm);
     }
 
+    public void ShowNetworkQuickConnect() 
+    {
+      IWindowManager wm;
+      var nqcvm = new NetworkQuickConnectViewModel();
+      nqcvm.ConnectButtonPressed += Connect;
+      try
+      {
+        wm = IoC.Get<IWindowManager>();
+      }
+      catch 
+      {
+        wm = new WindowManager();
+      }
+      wm.ShowWindow(nqcvm);
+    }
+
+
     public void ShowSettings()
     {
       var svm = new SettingsViewModel(this.Settings.ShallowCopy());
@@ -130,6 +147,11 @@ namespace Handle.WPF
       {
         GestureModifier = ModifierKeys.Control,
         GestureKey = Key.N
+      };
+      yield return new InputBindingCommand(ShowNetworkQuickConnect)
+      {
+        GestureModifier = ModifierKeys.Control,
+        GestureKey = Key.Q
       };
     }
   }

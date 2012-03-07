@@ -137,6 +137,10 @@
     <Compile Include="Behaviours\TiltBehavior.cs" />
     <Compile Include="IProgressService.cs" />
     <Compile Include="ProgressService.cs" />
+    <Compile Include="ViewModels\NetworkQuickConnectViewModel.cs" />
+    <Compile Include="Views\NetworkQuickConnectView.xaml.cs">
+      <DependentUpon>NetworkQuickConnectView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\StartupView.xaml.cs">
       <DependentUpon>StartupView.xaml</DependentUpon>
     </Compile>
@@ -232,6 +236,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\WindowCommands.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\NetworkQuickConnectView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

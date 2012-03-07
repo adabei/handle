@@ -1,0 +1,78 @@
+﻿<Controls:MetroWindow x:Class="Handle.WPF.NetworkQuickConnectView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:Handle.WPF.Controls"
+        TitleText="quick connect" Height="350" Width="350"
+        xmlns:cal="http://www.caliburnproject.org" MinHeight="350" MinWidth="350">
+
+  <Window.Resources>
+    <ResourceDictionary>
+      <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Handle.WPF;component/Styles/Colours.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Handle.WPF;component/Styles/Fonts.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Handle.WPF;component/Styles/Controls.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Handle.WPF;component/Styles/Accents/Blue.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Handle.WPF;component/Styles/Accents/BaseLight.xaml" />
+      </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+  </Window.Resources>
+  <Grid>
+    <Grid.Resources>
+      <BooleanToVisibilityConverter x:Key="booleanToVisbility"/>
+    </Grid.Resources>
+
+    <Grid.RowDefinitions>
+      <RowDefinition Height="Auto"/>
+      <RowDefinition/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <Grid Grid.Row="1">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition/>
+        <ColumnDefinition Width="180"/>
+      </Grid.ColumnDefinitions>
+
+      <Grid.RowDefinitions>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+        <RowDefinition Height="Auto"/>
+      </Grid.RowDefinitions>
+
+      <Grid.Resources>
+        <BooleanToVisibilityConverter x:Key="booleanToVisbility"/>
+      </Grid.Resources>
+      <!-- Network -->
+      <TextBlock FontSize="18" Grid.Row="0" Text="network" Padding="5"/>
+      <Label Grid.Column="0" Grid.Row="1" Content="Name:"/>
+      <TextBox Grid.Column="1" Grid.Row="1" Height="20" Width="180" x:Name="Network_Name"/>
+
+      <Label Grid.Column="0" Grid.Row="2" Content="Address:"/>
+      <TextBox Grid.Column="1" Grid.Row="2" Height="20" Width="180" x:Name="Network_Address"/>
+
+      <!-- Identity -->
+      <TextBlock FontSize="18" Grid.Row="4" Text="identity" Padding="5"/>
+      <CheckBox Grid.Column="0" Grid.Row="5" Content="use custom identity" x:Name="Network_UseCustomIdentity"/>
+
+      <Label Grid.Column="0" Grid.Row="6" Content="Nick name:" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
+      <TextBox Grid.Column="1" Grid.Row="6" x:Name="Network_Identity_Name" Height="20" Width="180" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
+
+      <Label Grid.Column="0" Grid.Row="7" Content="Alternative:" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
+      <TextBox Grid.Column="1" Grid.Row="7" x:Name="Network_Identity_Alternative" 
+               Height="20" Width="180" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
+
+      <Label Grid.Column="0" Grid.Row="8" Content="Real name:" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
+      <TextBox Grid.Column="1" Grid.Row="8" x:Name="Network_Identity_RealName" Height="20" Width="180" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
+
+    </Grid>
+    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,10">
+      <Button x:Name="Connect"  Content="Connect" ToolTip="Connect" Width="Auto" Height="35" Margin="0,0,5,0"/>
+      <Button x:Name="Cancel" Content="Cancel" ToolTip="Cancel" Width="Auto" Height="35" />
+    </StackPanel>
+  </Grid>
+</Controls:MetroWindow>
