@@ -193,15 +193,14 @@ namespace Handle.WPF
 
         foreach (Network n in nsv.Networks.SelectedItems) 
         {
-          for (int i = 0; i < this.networks.Count; i++) 
+          for (int i = 0; i < this.Networks.Count; i++) 
           {
-            if (n.Name == this.networks[i].Name) 
+            if (n.Name == this.Networks[i].Name && n.Address == this.Networks[i].Address) 
             {
               nets.Add(n);
             }
           }
         }
-
         FileStream fs = new FileStream(filename, FileMode.Create);
         try
         {
@@ -212,6 +211,46 @@ namespace Handle.WPF
           fs.Close();
         }
       }   
+    }
+
+    public void Import()
+    {
+      var nsv = GetView() as NetworkSelectionView;
+      Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+      dlg.DefaultExt = ".json";
+      dlg.Filter = "JSON (.json)|*.json";
+      if (dlg.ShowDialog() == true)
+      {
+        string filename = dlg.FileName;
+        List<Network> nets = new List<Network>();
+
+        FileStream fs = new FileStream(filename, FileMode.Open);
+        try
+        {
+          nets = JsonSerializer.DeserializeFromStream<List<Network>>(fs);
+        }
+        finally
+        {
+          fs.Close();
+        }
+        foreach (Network n in nets) 
+        {
+          Boolean insert = true;
+          foreach (Network x in this.Networks) 
+          {
+            if (n.Name == x.Name && n.Address == x.Address)
+            {
+              insert = false;
+              break;
+            }
+          }
+          if(insert) 
+          {
+            this.Networks.Add(n);
+          }
+        }
+      }
+      this.saveNetworks();
     }
 
     private void saveGlobalIdentity()

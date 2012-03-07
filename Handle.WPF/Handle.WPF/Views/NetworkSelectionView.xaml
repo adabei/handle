@@ -63,7 +63,7 @@
       <Button x:Name="Add" Content="Add" ToolTip="Add a new network" Width="Auto" Height="35" Margin="0,0,5,0"/>
       <Button x:Name="Edit" Content="Edit" ToolTip="Edit network" Width="Auto" Height="35" Margin="0,0,5,0"/>
       <Button x:Name="Remove" Content="Remove" ToolTip="Remove selected network(s)" Width="Auto" Height="35" Margin="0,0,5,0"/>
-      <Button x:Name="Cancel" Content="Cancel" ToolTip="Cancel" Width="Auto" Height="35" Margin="0,0,5,0"/>
+      <Button x:Name="Import" Content="Import" ToolTip="Import networks" Width="Auto" Height="35" Margin="0,0,5,0"/>
       <Button x:Name="Connect" Content="Connect" ToolTip="Connect" Width="Auto" Height="35" Margin="0,0,5,0"/>
       <Button x:Name="Export" Content="Export" ToolTip="Export selcteds network(s)" Width="Auto" Height="35" Margin="0,0,5,0"/>
     </StackPanel>
