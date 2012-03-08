@@ -32,6 +32,7 @@ namespace Handle.WPF
   using System.ComponentModel.Composition.Primitives;
   using System.Linq;
   using Caliburn.Micro;
+  using System.IO;
 
   public class HandleBootstrapper : Bootstrapper<IShell>
   {
@@ -45,6 +46,10 @@ namespace Handle.WPF
       var catalog = new AggregateCatalog(AssemblySource.Instance.Select(x => new AssemblyCatalog(x)).OfType<ComposablePartCatalog>());
       this.container = new CompositionContainer(catalog);
       var batch = new CompositionBatch();
+
+      DirectoryInfo di = new DirectoryInfo(Settings.PATH);
+      if (!di.Exists)
+        di.Create();
 
       batch.AddExportedValue<IWindowManager>(new WindowManager());
       batch.AddExportedValue<IEventAggregator>(new EventAggregator());

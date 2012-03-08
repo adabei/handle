@@ -69,12 +69,9 @@ namespace Handle.WPF
       var svm = new StartupViewModel();
       svm.Parent = this;
 
-      DirectoryInfo di = new DirectoryInfo(Settings.PATH);
-      if (!di.Exists)
-        di.Create();
       if (this.Settings.CanLog)
       {
-        di = new DirectoryInfo(Settings.PATH + @"logs\");
+        DirectoryInfo di = new DirectoryInfo(Settings.PATH + @"logs\");
         if (!di.Exists)
           di.Create();
       }
