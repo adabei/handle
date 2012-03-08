@@ -16,7 +16,7 @@
     </ResourceDictionary>
   </Window.Resources>
   
-  <Grid>
+  <Grid Height="310" Width="280">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition/>
@@ -48,24 +48,31 @@
         <Label Grid.Column="0" Grid.Row="3">Real name:</Label>
         <TextBox Grid.Column="1" Grid.Row="3" x:Name="GlobalIdentity_RealName" Height="20" Width="150"/>
       </Grid>
-
-      <TextBlock Grid.Row="0" FontSize="18" Text="networks" Padding="3"/>
       
-      <ListView x:Name="Networks" Width="250" Height="100">
+      <TextBlock Grid.Row="0" FontSize="18" Text="networks" Padding="3"/>
+      <Grid>
+        <Grid.ColumnDefinitions>
+          <ColumnDefinition Width="Auto"></ColumnDefinition>
+          <ColumnDefinition Width="Auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+      <ListView x:Name="Networks" Width="210" Height="120" Grid.Row="0" Grid.Column="0" Margin="5,0,0,0">
         <ListView.ItemTemplate>
           <DataTemplate>
             <TextBlock Text="{Binding Name}"/>
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical">
+          <Image  Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Import]" ToolTip="Import networks" Source="/Handle.WPF;component/Images/import.png" Margin="5"/>
+          <Image  Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Export]" ToolTip="Export selected network(s)" Source="/Handle.WPF;component/Images/save.png" Margin="5"/>
+        </StackPanel>
+      </Grid>
     </StackPanel>
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5,5,5,5">
-      <Button x:Name="Add" Content="Add" ToolTip="Add a new network" Width="Auto" Height="35" Margin="0,0,5,0"/>
-      <Button x:Name="Edit" Content="Edit" ToolTip="Edit network" Width="Auto" Height="35" Margin="0,0,5,0"/>
-      <Button x:Name="Remove" Content="Remove" ToolTip="Remove selected network(s)" Width="Auto" Height="35" Margin="0,0,5,0"/>
-      <Button x:Name="Import" Content="Import" ToolTip="Import networks" Width="Auto" Height="35" Margin="0,0,5,0"/>
-      <Button x:Name="Connect" Content="Connect" ToolTip="Connect" Width="Auto" Height="35" Margin="0,0,5,0"/>
-      <Button x:Name="Export" Content="Export" ToolTip="Export selcteds network(s)" Width="Auto" Height="35" Margin="0,0,5,0"/>
+      <Image  Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Add]" ToolTip="Add a new network" Source="/Handle.WPF;component/Images/add_small.png" Margin="2"/>
+      <Image  Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Edit]" ToolTip="Edit network" Source="/Handle.WPF;component/Images/edit_small.png" Margin="2"/>
+      <Image  Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Remove]" ToolTip="Remove selected network(s)" Source="/Handle.WPF;component/Images/delete.png" Margin="2"/>
+      <Image  Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Connect]" ToolTip="Connect" Source="/Handle.WPF;component/Images/connect_small.png" Margin="2"/>
     </StackPanel>
   </Grid>
 </Controls:MetroWindow>

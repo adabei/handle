@@ -71,8 +71,8 @@
 
     </Grid>
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,10">
-      <Button x:Name="Connect"  Content="Connect" ToolTip="Connect" Width="Auto" Height="35" Margin="0,0,5,0"/>
-      <Button x:Name="Cancel" Content="Cancel" ToolTip="Cancel" Width="Auto" Height="35" />
+      <Image x:Name="ConnectButton" ToolTip="Connect" Height="40" Source="/Handle.WPF;component/Images/connect_small.png" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Connect]" Margin="5"/>
+      <Image x:Name="CancelButton" ToolTip="Cancel" Height="40" Source="/Handle.WPF;component/Images/cancel.png" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Cancel]" Margin="5"/>
     </StackPanel>
   </Grid>
 </Controls:MetroWindow>

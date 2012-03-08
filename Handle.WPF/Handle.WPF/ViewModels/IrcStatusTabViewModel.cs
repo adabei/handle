@@ -121,5 +121,12 @@ namespace Handle.WPF
         this.JoinChannelClicked();
       }
     }
+
+    public void OpenContextMenu()
+    {
+      var view = GetView() as IrcStatusTabView;
+      view.CoMenu.PlacementTarget = view;
+      view.CoMenu.IsOpen = true;
+    }
   }
 }

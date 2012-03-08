@@ -253,5 +253,12 @@ namespace Handle.WPF
         GestureKey = Key.W
       };
     }
+
+    public void OpenContextMenu() 
+    {
+      var view = GetView() as IrcChannelView;
+      view.CoMenu.PlacementTarget = view;
+      view.CoMenu.IsOpen = true;
+    }
   }
 }

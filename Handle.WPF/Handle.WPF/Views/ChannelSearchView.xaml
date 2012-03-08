@@ -26,8 +26,8 @@
 
     <TextBlock Text="channels" FontSize="22" Grid.Row="0"/>
     <StackPanel Grid.Row="1" Orientation="Horizontal">
-      <TextBox x:Name="Pattern" Height="Auto" Width="400"/>
-      <Button x:Name="Filter" Content="Filter" Width="75" Height="Auto" HorizontalAlignment="Right"/>
+      <TextBox x:Name="Pattern" Height="20" Width="400"/>
+      <Image x:Name="FilterButton" ToolTip="Filter" Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Filter]" Source="/Handle.WPF;component/Images/search.png" />
     </StackPanel>
     <ListView x:Name="Channels" Grid.Row="2" SelectionMode="Single">
       <ListView.View>
@@ -39,8 +39,8 @@
       </ListView.View>
     </ListView>
     <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5,5,10,10">
-      <Button x:Name="Join" Content="Join" Width="Auto" Height="35" Margin="0,0,5,0"/>
-      <Button x:Name="Cancel" Content="Cancel" Width="Auto" Height="35"/>
+      <Image x:Name="JoinButton" ToolTip="Connect" Height="40" Source="/Handle.WPF;component/Images/connect_small.png" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Join]" Margin="5"/>
+      <Image x:Name="CancelButton" ToolTip="Cancel" Height="40" Source="/Handle.WPF;component/Images/cancel.png" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Cancel]" Margin="5"/>
     </StackPanel>
 
   </Grid>
