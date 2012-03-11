@@ -10,6 +10,148 @@
 
   <UserControl.Resources>
     <Converters:StringToMessageConverter x:Key="stringToMessageConverter"/>
+    <Style x:Key="ExpanderUpHeaderStyle" TargetType="{x:Type ToggleButton}">
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type ToggleButton}">
+            <Border Padding="{TemplateBinding Padding}">
+              <Grid Background="Transparent" SnapsToDevicePixels="False">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="19"/>
+                  <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" Margin="4,0,0,0" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center"/>
+              </Grid>
+            </Border>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style x:Key="ExpanderHeaderFocusVisual">
+      <Setter Property="Control.Template">
+        <Setter.Value>
+          <ControlTemplate>
+            <Border>
+              <Rectangle Margin="0" SnapsToDevicePixels="true" Stroke="Black" StrokeThickness="1" StrokeDashArray="1 2"/>
+            </Border>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style x:Key="ExpanderDownHeaderStyle" TargetType="{x:Type ToggleButton}">
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type ToggleButton}">
+            <Border Padding="{TemplateBinding Padding}">
+              <Grid Background="Transparent" SnapsToDevicePixels="False">
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto" MinWidth="0"/>
+                  <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center" Height="Auto" MinHeight="25" Width="800" RenderTransformOrigin="0.5,0.5">
+                  
+                </ContentPresenter>
+              </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property="Cursor" Value="Hand"/>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style x:Key="ExpanderStyleTopic" TargetType="{x:Type Expander}">
+      <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+      <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+      <Setter Property="BorderBrush" Value="Transparent"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type Expander}">
+            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3" SnapsToDevicePixels="true">
+              <DockPanel>
+                <ToggleButton x:Name="HeaderSite" ContentTemplate="{TemplateBinding HeaderTemplate}" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" Content="{TemplateBinding Header}" DockPanel.Dock="Top" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FocusVisualStyle="{StaticResource ExpanderHeaderFocusVisual}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="1" MinWidth="0" MinHeight="0" Padding="{TemplateBinding Padding}" Style="{StaticResource ExpanderDownHeaderStyle}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                <ContentPresenter x:Name="ExpandSite" DockPanel.Dock="Bottom" Focusable="false" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Visibility="Collapsed" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"></ContentPresenter>
+              </DockPanel>
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsExpanded" Value="False">
+                <Setter Property="Header">
+                  <Setter.Value>
+                    <TextBlock Text="{Binding Topic}" TextTrimming="WordEllipsis"/>
+                  </Setter.Value>
+                </Setter>
+              </Trigger>
+              <Trigger Property="IsExpanded" Value="true">
+                <Setter Property="Visibility" TargetName="ExpandSite" Value="Visible"/>
+                <Setter Property="Header">
+                  <Setter.Value>
+                    <TextBlock Text="{Binding Topic}" TextWrapping="Wrap"/>
+                  </Setter.Value>
+                </Setter>
+              </Trigger>
+              <Trigger Property="ExpandDirection" Value="Up">
+                <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Top"/>
+                <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Bottom"/>
+                <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderUpHeaderStyle}"/>
+              </Trigger>
+              <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+    <Style x:Key="ExpanderStyleUsers" TargetType="{x:Type Expander}">
+      <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+      <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+      <Setter Property="BorderBrush" Value="Transparent"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="{x:Type Expander}">
+            <Border BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" CornerRadius="3" SnapsToDevicePixels="true">
+              <DockPanel>
+                <ToggleButton x:Name="HeaderSite" ContentTemplate="{TemplateBinding HeaderTemplate}" ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}" Content="{TemplateBinding Header}" DockPanel.Dock="Top" Foreground="{TemplateBinding Foreground}" FontWeight="{TemplateBinding FontWeight}" FocusVisualStyle="{StaticResource ExpanderHeaderFocusVisual}" FontStyle="{TemplateBinding FontStyle}" FontStretch="{TemplateBinding FontStretch}" FontSize="{TemplateBinding FontSize}" FontFamily="{TemplateBinding FontFamily}" HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" IsChecked="{Binding IsExpanded, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}" Margin="1" MinWidth="0" MinHeight="0" Padding="{TemplateBinding Padding}" Style="{StaticResource ExpanderDownHeaderStyle}" VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                <ContentPresenter x:Name="ExpandSite" DockPanel.Dock="Bottom" Focusable="false" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Visibility="Collapsed" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"></ContentPresenter>
+              </DockPanel>
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsExpanded" Value="False">
+                <Setter Property="Header">
+                  <Setter.Value>
+                    <TextBlock Text="{Binding Users}" TextTrimming="WordEllipsis"/>
+                  </Setter.Value>
+                </Setter>
+              </Trigger>
+              <Trigger Property="IsExpanded" Value="true">
+                <Setter Property="Visibility" TargetName="ExpandSite" Value="Visible"/>
+                <Setter Property="Header">
+                  <Setter.Value>
+                    <TextBlock Text="{Binding Users}" TextWrapping="Wrap"/>
+                  </Setter.Value>
+                </Setter>
+              </Trigger>
+              <Trigger Property="ExpandDirection" Value="Up">
+                <Setter Property="DockPanel.Dock" TargetName="ExpandSite" Value="Top"/>
+                <Setter Property="DockPanel.Dock" TargetName="HeaderSite" Value="Bottom"/>
+                <Setter Property="Style" TargetName="HeaderSite" Value="{StaticResource ExpanderUpHeaderStyle}"/>
+              </Trigger>
+              <Trigger Property="IsEnabled" Value="false">
+                <Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}"/>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
   </UserControl.Resources>
   <Grid>
     <Grid.RowDefinitions>
@@ -19,48 +161,11 @@
     </Grid.RowDefinitions>
 
     <StackPanel Grid.Row="0">
-      <Expander x:Name="TopicExpander" ExpandDirection="Down">
-        <Expander.Style>
-          <Style TargetType="Expander">
-            <Setter Property="IsExpanded" Value="False" />
-            <Setter Property="Header">
-              <Setter.Value>
-                <TextBlock Text="{Binding Topic}" TextTrimming="WordEllipsis"/>
-              </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-              <DataTrigger Binding="{Binding IsExpanded,RelativeSource={RelativeSource Self}}" Value="True">
-                <Setter Property="Header">
-                  <Setter.Value>
-                    <TextBlock Text="{Binding Topic}" TextWrapping="Wrap"/>
-                  </Setter.Value>
-                </Setter>
-              </DataTrigger>
-            </Style.Triggers>
-          </Style>
-        </Expander.Style>
+      <Expander x:Name="TopicExpander" ExpandDirection="Down" Style="{DynamicResource ExpanderStyleTopic}">
       </Expander>
 
-      <Expander x:Name="UsersExpander" ExpandDirection="Down">
-        <Expander.Style>
-          <Style TargetType="Expander">
-            <Setter Property="IsExpanded" Value="False" />
-            <Setter Property="Header">
-              <Setter.Value>
-                <TextBlock Text="{Binding Users}" TextTrimming="WordEllipsis"/>
-              </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-              <DataTrigger Binding="{Binding IsExpanded,RelativeSource={RelativeSource Self}}" Value="True">
-                <Setter Property="Header">
-                  <Setter.Value>
-                    <TextBlock Text="{Binding Users}" TextWrapping="Wrap"/>
-                  </Setter.Value>
-                </Setter>
-              </DataTrigger>
-            </Style.Triggers>
-          </Style>
-        </Expander.Style>
+      <Expander x:Name="UsersExpander" ExpandDirection="Down" Style="{DynamicResource ExpanderStyleUsers}">
+        
       </Expander>
 
     </StackPanel>
@@ -103,5 +208,4 @@
       <Image  Height="50" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Send]" ToolTip="Send Message" Source="/Handle.WPF;component/Images/msg.png" Margin="2"/>
     </StackPanel>
   </Grid>
-
 </UserControl>
