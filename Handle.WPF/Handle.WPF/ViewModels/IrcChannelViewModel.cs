@@ -260,5 +260,36 @@ namespace Handle.WPF
       view.CoMenu.PlacementTarget = view;
       view.CoMenu.IsOpen = true;
     }
+
+    public void ClearMessages() 
+    {
+      this.Messages.Clear();
+    }
+
+    public void SaveMessages() 
+    {
+      var nsv = GetView() as IrcChannelView;
+      Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+      dlg.DefaultExt = ".txt";
+      dlg.Filter = "TXT (.txt)|*.txt";
+      if (dlg.ShowDialog() == true)
+      {
+        string filename = dlg.FileName;
+        FileStream fs = new FileStream(filename, FileMode.Create);
+        StreamWriter sw = new StreamWriter(fs);
+        try
+        {
+          foreach (Message m in this.Messages) 
+          {
+            sw.WriteLine(m.Received + ":" + m.Sender + ":" + m.Text);
+          }
+        }
+        finally
+        {
+          sw.Close();
+          fs.Close();
+        }
+      }   
+    }
   }
 }

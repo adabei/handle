@@ -48,7 +48,7 @@
                   <ColumnDefinition Width="Auto" MinWidth="0"/>
                   <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center" Height="Auto" MinHeight="25" Width="800" RenderTransformOrigin="0.5,0.5">
+                <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center" Height="Auto" MinHeight="25"  RenderTransformOrigin="0.5,0.5">
                   
                 </ContentPresenter>
               </Grid>
@@ -158,6 +158,7 @@
       <RowDefinition Height="Auto"/>
       <RowDefinition/>
       <RowDefinition Height="Auto"/>
+      <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
 
     <StackPanel Grid.Row="0">
@@ -194,8 +195,8 @@
         </ItemsControl.ItemTemplate>
       </ItemsControl>
     </ScrollViewer>
-
-    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
+   
+    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
       <Image  Height="50" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action OpenContextMenu]" ToolTip="Connect to network or channel" Source="/Handle.WPF;component/Images/add_big.png" Margin="2">
         <Image.ContextMenu>
           <ContextMenu x:Name="CoMenu">
@@ -207,5 +208,9 @@
       <TextBox x:Name="Message" Width="150" Height="50"/>
       <Image  Height="50" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Send]" ToolTip="Send Message" Source="/Handle.WPF;component/Images/msg.png" Margin="2"/>
     </StackPanel>
-  </Grid>
+      <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
+        <Image Source="/Handle.WPF;component/Images/save.png" ToolTip="Save Message Text" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action SaveMessages]" Height="25"/>
+        <Image Source="/Handle.WPF;component/Images/cancel.png" ToolTip="Clear Message Text" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action ClearMessages]" Height="25"/>
+      </StackPanel>
+    </Grid>
 </UserControl>
