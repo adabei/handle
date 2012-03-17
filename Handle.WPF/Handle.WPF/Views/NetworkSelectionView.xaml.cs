@@ -39,18 +39,77 @@ namespace Handle.WPF
   using System.Windows.Navigation;
   using System.Windows.Shapes;
   using Handle.WPF.Controls;
+using System.ComponentModel;
 
   /// <summary>
   /// Interaction logic for NetworkSelectionView.xaml
   /// </summary>
   public partial class NetworkSelectionView : MetroWindow
   {
+    private GridViewColumnHeader _CurSortCol = null;
+    private SortAdorner _CurAdorner = null;
+
     /// <summary>
     /// Initializes a new instance of the NetworkSelectionView class.
     /// </summary>
     public NetworkSelectionView()
     {
       InitializeComponent();
+    }
+
+    private void SortClick(object sender, RoutedEventArgs e)
+    {
+      GridViewColumnHeader column = sender as GridViewColumnHeader;
+      String field = column.Tag as String;
+
+      if (_CurSortCol != null)
+      {
+        AdornerLayer.GetAdornerLayer(_CurSortCol).Remove(_CurAdorner);
+        NetworkList.Items.SortDescriptions.Clear();
+      }
+
+      ListSortDirection newDir = ListSortDirection.Ascending;
+      if (_CurSortCol == column && _CurAdorner.Direction == newDir)
+        newDir = ListSortDirection.Descending;
+
+      _CurSortCol = column;
+      _CurAdorner = new SortAdorner(_CurSortCol, newDir);
+      AdornerLayer.GetAdornerLayer(_CurSortCol).Add(_CurAdorner);
+      NetworkList.Items.SortDescriptions.Add(
+          new SortDescription(field, newDir));
+    }
+  }
+
+  public class SortAdorner : Adorner
+  {
+    private readonly static Geometry _AscGeometry =
+        Geometry.Parse("M 0,0 L 10,0 L 5,5 Z");
+    private readonly static Geometry _DescGeometry =
+        Geometry.Parse("M 0,5 L 10,5 L 5,0 Z");
+
+    public ListSortDirection Direction { get; private set; }
+
+    public SortAdorner(UIElement element, ListSortDirection dir)
+      : base(element)
+    { Direction = dir; }
+
+    protected override void OnRender(DrawingContext drawingContext)
+    {
+      base.OnRender(drawingContext);
+
+      if (AdornedElement.RenderSize.Width < 20)
+        return;
+
+      drawingContext.PushTransform(
+          new TranslateTransform(
+            AdornedElement.RenderSize.Width - 15,
+            (AdornedElement.RenderSize.Height - 5) / 2));
+
+      drawingContext.DrawGeometry(Brushes.Black, null,
+          Direction == ListSortDirection.Ascending ?
+            _AscGeometry : _DescGeometry);
+
+      drawingContext.Pop();
     }
   }
 }

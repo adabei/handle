@@ -79,6 +79,12 @@
       <TabItem Header="Notifications" x:Name="NotificationsTabItem">
       </TabItem>
       <TabItem Header="Updates" x:Name="UpdatesTabItem">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+          </Grid.RowDefinitions>
+          <Button x:Name="CheckForUpdate" Grid.Row="0" Content="Check for Update"/>
+        </Grid>
       </TabItem>
     </TabControl>
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Margin="5,5,10,10">

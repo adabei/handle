@@ -137,9 +137,9 @@ namespace Handle.WPF
     public void Connect()
     {
       var nsv = GetView() as NetworkSelectionView;
-      if (nsv.Networks.SelectedIndex != -1)
+      if (nsv.NetworkList.SelectedIndex != -1)
       {
-        this.ConnectButtonPressed(this.Networks[nsv.Networks.SelectedIndex]);
+        this.ConnectButtonPressed(this.Networks[nsv.NetworkList.SelectedIndex]);
       }
       saveGlobalIdentity();
     }
@@ -147,9 +147,9 @@ namespace Handle.WPF
     public void Remove()
     {
       var nsv = GetView() as NetworkSelectionView;
-      while (nsv.Networks.SelectedIndex != -1)
+      while (nsv.NetworkList.SelectedIndex != -1)
       {
-        this.Networks.RemoveAt(nsv.Networks.SelectedIndex);
+        this.Networks.RemoveAt(nsv.NetworkList.SelectedIndex);
       }
       this.saveNetworks();
     }
@@ -157,7 +157,7 @@ namespace Handle.WPF
     public void Edit()
     {
       var nsv = GetView() as NetworkSelectionView;
-      int index = nsv.Networks.SelectedIndex;
+      int index = nsv.NetworkList.SelectedIndex;
       if (index == -1)
       {
         return;
@@ -191,7 +191,7 @@ namespace Handle.WPF
 
         List<Network> nets = new List<Network>();
 
-        foreach (Network n in nsv.Networks.SelectedItems) 
+        foreach (Network n in nsv.NetworkList.SelectedItems) 
         {
           for (int i = 0; i < this.Networks.Count; i++) 
           {
