@@ -32,6 +32,7 @@ namespace Handle.WPF
   using System.Windows.Input;
   using Caliburn.Micro;
   using IrcDotNet;
+  using System.Windows;
 
   /// <summary>
   /// TODO: Update summary.
@@ -186,23 +187,29 @@ namespace Handle.WPF
 
     private void channelUserJoined(object sender, IrcChannelUserEventArgs e)
     {
-      this.Messages.Add(new Message(String.Format("{0} [{1}] has joined {2}",
-                                                  e.ChannelUser.User.NickName,
-                                                  e.ChannelUser.User.HostName,
-                                                  e.ChannelUser.Channel.Name),
-                                    DateTime.Now.ToString(this.Settings.TimestampFormat),
-                                    "=!="));
+      if (this.Settings.ShowWelcomeMessages)
+      {
+        this.Messages.Add(new Message(String.Format("{0} [{1}] has joined {2}",
+                                                    e.ChannelUser.User.NickName,
+                                                    e.ChannelUser.User.HostName,
+                                                    e.ChannelUser.Channel.Name),
+                                      DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                      "=!="));
+      }
     }
 
     private void channelUserLeft(object sender, IrcChannelUserEventArgs e)
     {
-      this.Messages.Add(new Message(String.Format("{0} [{1}] has left {2} [{3}]",
-                                                  e.ChannelUser.User.NickName,
-                                                  e.ChannelUser.User.HostName,
-                                                  e.ChannelUser.Channel.Name,
-                                                  e.Comment),
-                                    DateTime.Now.ToString(this.Settings.TimestampFormat),
-                                    "=!="));
+      if (this.Settings.ShowLeaveMessages)
+      {
+        this.Messages.Add(new Message(String.Format("{0} [{1}] has left {2} [{3}]",
+                                                    e.ChannelUser.User.NickName,
+                                                    e.ChannelUser.User.HostName,
+                                                    e.ChannelUser.Channel.Name,
+                                                    e.Comment),
+                                      DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                      "=!="));
+      }
     }
 
     public void Send()

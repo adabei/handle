@@ -13,6 +13,8 @@
   using System.Windows.Media.Imaging;
   using System.Windows.Navigation;
   using System.Windows.Shapes;
+  using System.Drawing.Text;
+  using Caliburn.Micro;
 
   /// <summary>
   /// Interaction logic for SettingsView.xaml
@@ -22,6 +24,15 @@
     public SettingsView()
     {
       InitializeComponent();
+      LoadedAfter();
+    }
+
+    private void LoadedAfter()
+    {
+      for (double i = 1; i < 50; i++)
+      {
+        lstFontSize.Items.Add(i);
+      }
     }
   }
 }

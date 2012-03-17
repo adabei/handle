@@ -48,6 +48,33 @@
         </Grid>
       </TabItem>
       <TabItem Header="Display" x:Name="DisplayTabItem">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+          </Grid.ColumnDefinitions>
+          <CheckBox x:Name="Settings_ShowWelcomeMessages" Content="Show Welcome Message" Grid.Row="0" Grid.Column="0"/>
+          <CheckBox x:Name="Settings_ShowLeaveMessages" Content="Show Leave Message" Grid.Row="1" Grid.Column="0"/>
+          <Label Content="FontStyle: " Grid.Row="2" Grid.Column="0"/>
+          <ListBox
+         Name="lstFonts"
+         ItemsSource="{x:Static Fonts.SystemFontFamilies}"
+         FontSize="13" Grid.Row="2" Grid.Column="1" Width="200" Height="150" cal:Message.Attach="[Event SelectionChanged] = [OnSelectionChangedFontFamily]">
+            <ListBox.ItemTemplate>
+              <DataTemplate>
+                <TextBlock Text="{Binding}" FontFamily="{Binding}"/>
+              </DataTemplate>
+            </ListBox.ItemTemplate>
+          </ListBox>
+          <Label Content="FontSize: " Grid.Row="3" Grid.Column="0"/>
+          <ComboBox x:Name="lstFontSize" Grid.Row="3" Grid.Column="1"  cal:Message.Attach="[Event SelectionChanged] = [OnSelectionChangedFontSize]"/>
+        </Grid>
       </TabItem>
       <TabItem Header="Notifications" x:Name="NotificationsTabItem">
       </TabItem>

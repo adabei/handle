@@ -170,9 +170,9 @@
       </Expander>
 
     </StackPanel>
-    
+    <!-- das geht  nja auch ned so geil, aber es gibt ein bug bei mir grad probier das mal aus, wenn ich einen channel aufmach kann ich mit strg+t keinen mehr aufmachen-->
     <ScrollViewer Grid.Row="1">
-      <ItemsControl x:Name="Messages">
+      <ItemsControl x:Name="Messages" FontFamily="{Binding Settings.FontFamily}" FontSize="{Binding Settings.FontSize}">
         <ItemsControl.ItemTemplate>
           <DataTemplate>
             <StackPanel Orientation="Vertical">

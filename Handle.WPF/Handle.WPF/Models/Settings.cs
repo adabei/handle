@@ -84,6 +84,10 @@ namespace Handle.WPF
 
     public bool UseFuzzySearch { get; set; }
 
+    public bool ShowWelcomeMessages { get; set; }
+
+    public bool ShowLeaveMessages { get; set; }
+
     /// <summary>
     /// Creates a shallow copy of the instance.
     /// </summary>
