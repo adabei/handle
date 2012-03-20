@@ -137,9 +137,10 @@ namespace Handle.WPF
     public void Connect()
     {
       var nsv = GetView() as NetworkSelectionView;
-      if (nsv.NetworkList.SelectedIndex != -1)
+      List<Network> nets = nsv.NetworkList.SelectedItems.Cast<Network>().ToList<Network>();
+      foreach (Network n in nets)
       {
-        this.ConnectButtonPressed(this.Networks[nsv.NetworkList.SelectedIndex]);
+        this.ConnectButtonPressed(this.Networks[networks.IndexOf(n)]);
       }
       saveGlobalIdentity();
     }
@@ -147,9 +148,10 @@ namespace Handle.WPF
     public void Remove()
     {
       var nsv = GetView() as NetworkSelectionView;
-      while (nsv.NetworkList.SelectedIndex != -1)
+      List<Network> nets = nsv.NetworkList.SelectedItems.Cast<Network>().ToList<Network>();
+      foreach (Network n in nets) 
       {
-        this.Networks.RemoveAt(nsv.NetworkList.SelectedIndex);
+        this.Networks.Remove(n);
       }
       this.saveNetworks();
     }
@@ -162,7 +164,8 @@ namespace Handle.WPF
       {
         return;
       }
-
+      Network n = (Network)nsv.NetworkList.SelectedItem;
+      index = this.networks.IndexOf(n);
       NetworkEditViewModel nevm = new NetworkEditViewModel(this.Networks[index].ShallowCopy());
 
       if (this.windowManager.ShowDialog(nevm) == true)
