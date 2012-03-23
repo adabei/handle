@@ -13,6 +13,7 @@
         <ResourceDictionary Source="pack://application:,,,/Handle.WPF;component/Styles/Accents/Blue.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Handle.WPF;component/Styles/Accents/BaseLight.xaml" />
       </ResourceDictionary.MergedDictionaries>
+      <BooleanToVisibilityConverter x:Key="booltovis"></BooleanToVisibilityConverter>
     </ResourceDictionary>
   </Window.Resources>
   
@@ -60,6 +61,30 @@
             <GridView>
               <GridViewColumn Width="150" DisplayMemberBinding="{Binding Name}">
                 <GridViewColumnHeader Click="SortClick" Content="Network Name" Tag="Name"></GridViewColumnHeader>
+              </GridViewColumn>
+              <GridViewColumn Width="40">
+                <GridViewColumnHeader Click="SortClick" Content="Fav" Tag="Fav"></GridViewColumnHeader>
+                <GridViewColumn.CellTemplate>
+                  <DataTemplate>
+                    <Image Source="/Handle.WPF;component/Images/heart.png" Height="25"  cal:Message.Attach="[Event MouseLeftButtonUp] = [Action ChangeFavF($datacontext)]">
+                      <Image.Style>
+                        <Style TargetType="{x:Type Image}">
+                          <Style.Triggers>
+                            <DataTrigger Binding="{Binding IsFavorite}" Value="True">
+                              <Setter Property="Opacity" Value="1">                           
+                              </Setter>
+                            </DataTrigger>
+
+                            <DataTrigger Binding="{Binding IsFavorite}" Value="False">
+                              <Setter Property="Opacity" Value="0.2">
+                              </Setter>
+                            </DataTrigger>
+                          </Style.Triggers>
+                        </Style>
+                      </Image.Style>
+                    </Image>
+                  </DataTemplate>
+                </GridViewColumn.CellTemplate>
               </GridViewColumn>
             </GridView>
           </ListView.View>

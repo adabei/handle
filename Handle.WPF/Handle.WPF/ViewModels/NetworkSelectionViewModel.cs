@@ -268,5 +268,27 @@ namespace Handle.WPF
         fs.Close();
       }
     }
+
+    public void ChangeFavF(Network net) 
+    {
+      var nsv = GetView() as NetworkSelectionView;
+      if (net.IsFavorite)
+      {
+        net.IsFavorite = false;
+      }
+      else 
+      {
+        net.IsFavorite = true;
+      }
+      
+      nsv.NetworkList.Items.Refresh();
+    }
+
+    public void ChangeFavT(Network net)
+    {
+      var nsv = GetView() as NetworkSelectionView;
+      net.IsFavorite = true;
+      nsv.NetworkList.Items.Refresh();
+    }
   }
 }
