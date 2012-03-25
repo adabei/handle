@@ -88,6 +88,14 @@ namespace Handle.WPF
 
     public bool ShowLeaveMessages { get; set; }
 
+    public bool NotificationToast { get; set; }
+
+    public bool TaskbarBlinking { get; set; }
+
+    public bool MakeSound { get; set; }
+
+    public string SoundPath { get; set; }
+
     /// <summary>
     /// Creates a shallow copy of the instance.
     /// </summary>

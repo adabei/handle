@@ -72,6 +72,17 @@
       this.Settings.FontSize = (double)sv.lstFontSize.SelectedValue;
     }
 
+    public void SelectSound() 
+    { 
+      Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
+      dlg.DefaultExt = ".wav";
+      dlg.Filter = "WAV (.wav)|*.wav";
+      if (dlg.ShowDialog() == true) 
+      {
+        this.Settings.SoundPath = dlg.FileName;
+      }
+    }
+
     public void CheckForUpdate() 
     {
       UpdateCheckInfo info = null;

@@ -77,6 +77,28 @@
         </Grid>
       </TabItem>
       <TabItem Header="Notifications" x:Name="NotificationsTabItem">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+          </Grid.RowDefinitions>
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="100"/>
+          </Grid.ColumnDefinitions>
+
+          <CheckBox Content="Enables Notification Toast" x:Name="Settings_NotificationToast" Grid.Row="0" Grid.Column="0"/>
+
+          <CheckBox Content="Enables Taskbar blinking" x:Name="Settings_TaskbarBlinking" Grid.Row="1" Grid.Column="0"/>
+
+          <CheckBox Content="Enables Sound" x:Name="Settings_MakeSound" Grid.Row="2" Grid.Column="0"/>
+          <Label Content="Select SoundFile: only .wav" Grid.Column="0" Grid.Row="3"/>
+          <TextBox Grid.Column="1" Grid.Row="3" x:Name="Settings_SoundPath" IsReadOnly="True" />
+          <Button x:Name="SelectSound" Grid.Column="2" Grid.Row="3" Content="Select..."/>
+        </Grid>
       </TabItem>
       <TabItem Header="Updates" x:Name="UpdatesTabItem">
         <Grid>
