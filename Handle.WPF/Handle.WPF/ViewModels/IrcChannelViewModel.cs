@@ -33,6 +33,10 @@ namespace Handle.WPF
   using Caliburn.Micro;
   using IrcDotNet;
   using System.Windows;
+  using System.Windows.Interop;
+  using System.Windows.Threading;
+  using System.Threading;
+  using System.Media;
 
   /// <summary>
   /// TODO: Update summary.
@@ -178,6 +182,18 @@ namespace Handle.WPF
                                     m.Received,
                                     m.Sender,
                                     m.Text));
+      //if (this.Settings.TaskbarBlinking) 
+      //{
+      //  Flashing();
+      //}
+      if (this.Settings.MakeSound) 
+      {
+        if (this.Settings.SoundPath != "")
+        {
+          ExtendedSoundPlayer sp = new ExtendedSoundPlayer(this.Settings.SoundPath);
+          sp.PlaySound();
+        }
+      }
     }
 
     private void channelNoticeReceived(object sender, IrcMessageEventArgs e)
@@ -239,6 +255,17 @@ namespace Handle.WPF
 
       if (this.Settings.CanLog && this.logger != null)
         this.logger.Dispose();
+    }
+
+    public void Flashing() 
+    {
+      Screen y = this.GetWindowViewModel(this);
+      Window x = y.GetView() as Window;
+      x.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate {
+        IntPtr h = new WindowInteropHelper(x).Handle;
+        TaskBarBlinking.Flash(h);
+      }));
+      
     }
 
     public void LeaveChannel()
