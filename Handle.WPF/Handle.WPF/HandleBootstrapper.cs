@@ -51,12 +51,18 @@ namespace Handle.WPF
       if (!di.Exists)
         di.Create();
 
-      batch.AddExportedValue<IWindowManager>(new WindowManager());
-      batch.AddExportedValue<IEventAggregator>(new EventAggregator());
-      batch.AddExportedValue<Settings>(Settings.Load());
-      batch.AddExportedValue(this.container);
-      batch.AddExportedValue(catalog); 
+      EventAggregator eventAggregator = new EventAggregator();
+      FilterService fs = new FilterService();
+      eventAggregator.Subscribe(fs);
 
+      batch.AddExportedValue<IWindowManager>(new WindowManager());
+      batch.AddExportedValue<IEventAggregator>(eventAggregator);
+      batch.AddExportedValue<Settings>(Settings.Load());
+      batch.AddExportedValue<FilterService>(fs);
+
+      batch.AddExportedValue(this.container);
+      batch.AddExportedValue(catalog);
+      
       this.container.Compose(batch);
     }
 

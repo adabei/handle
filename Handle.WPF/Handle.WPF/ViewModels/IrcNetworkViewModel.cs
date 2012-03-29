@@ -136,8 +136,8 @@ namespace Handle.WPF
       string message = null;
       try
       {
-        if (IoC.Get<Settings>().CanSendLeaveMessage)
-          message = IoC.Get<Settings>().LeaveMessage;
+        if (this.Settings.CanSendLeaveMessage)
+          message = this.Settings.LeaveMessage;
       }
       catch
       {

@@ -27,16 +27,17 @@ namespace Handle.WPF
 {
   using System;
   using System.Collections.Generic;
+  using System.ComponentModel.Composition;
   using System.IO;
+  using System.Media;
   using System.Text;
-  using System.Windows.Input;
-  using Caliburn.Micro;
-  using IrcDotNet;
+  using System.Threading;
   using System.Windows;
+  using System.Windows.Input;
   using System.Windows.Interop;
   using System.Windows.Threading;
-  using System.Threading;
-  using System.Media;
+  using Caliburn.Micro;
+  using IrcDotNet;
 
   /// <summary>
   /// TODO: Update summary.
@@ -45,6 +46,8 @@ namespace Handle.WPF
   {
     public delegate void JoinChannelClickedEventHandler();
     public event JoinChannelClickedEventHandler JoinChannelClicked;
+
+    private IEventAggregator events;
 
     public IrcChannel Channel { get; set; }
 
@@ -99,6 +102,8 @@ namespace Handle.WPF
       this.Messages = new BindableCollection<Message>();
       this.Closable = true;
       this.DisplayName = channel.Name;
+      this.networkName = networkName;
+      this.events = IoC.Get<IEventAggregator>();
       this.Channel = channel;
       this.Channel.ModesChanged += this.channelModesChanged;
       this.Channel.UsersListReceived += this.channelUsersListReceived;
@@ -107,13 +112,14 @@ namespace Handle.WPF
       this.Channel.UserLeft += this.channelUserLeft;
       this.Channel.NoticeReceived += this.channelNoticeReceived;
       this.Channel.TopicChanged += this.channelTopicChanged;
+
       DirectoryInfo di = new DirectoryInfo(Settings.PATH + "\\logs\\");
       if (!di.Exists)
         di.Create();
       if (this.Settings.CanLog)
-        this.logger = new Logger(String.Format("{0}\\logs\\{1}.{2}.txt", 
-                                 Settings.PATH, 
-                                 channel.Name, 
+        this.logger = new Logger(String.Format("{0}\\logs\\{1}.{2}.txt",
+                                 Settings.PATH,
+                                 channel.Name,
                                  networkName));
 
       this.Channel.GetTopic();
@@ -127,7 +133,7 @@ namespace Handle.WPF
         sb.Append(user.User.NickName + " | ");
       }
 
-      if (sb[sb.Length - 2] == '|') 
+      if (sb[sb.Length - 2] == '|')
         sb.Length -= 3;
       this.Users = sb.ToString();
     }
@@ -152,6 +158,7 @@ namespace Handle.WPF
     }
 
     private string displayName;
+    private string networkName;
 
     public override string DisplayName
     {
@@ -182,11 +189,14 @@ namespace Handle.WPF
                                     m.Received,
                                     m.Sender,
                                     m.Text));
+      this.events.Publish(new MessageFilterEventArgs(this.Channel.Name, this.networkName,
+                                                     DateTime.Now.ToString("HH:mm"), m.Sender, m.Text));
+
       //if (this.Settings.TaskbarBlinking) 
       //{
       //  Flashing();
       //}
-      if (this.Settings.MakeSound) 
+      if (this.Settings.MakeSound)
       {
         if (this.Settings.SoundPath != "")
         {
@@ -257,15 +267,16 @@ namespace Handle.WPF
         this.logger.Dispose();
     }
 
-    public void Flashing() 
+    public void Flashing()
     {
       Screen y = this.GetWindowViewModel(this);
       Window x = y.GetView() as Window;
-      x.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate {
+      x.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate
+      {
         IntPtr h = new WindowInteropHelper(x).Handle;
         TaskBarBlinking.Flash(h);
       }));
-      
+
     }
 
     public void LeaveChannel()
@@ -279,7 +290,7 @@ namespace Handle.WPF
         this.JoinChannelClicked();
     }
 
-    public override System.Collections.Generic.IEnumerable<InputBindingCommand> GetInputBindingCommands()
+    public override IEnumerable<InputBindingCommand> GetInputBindingCommands()
     {
       yield return new InputBindingCommand(LeaveChannel)
       {
@@ -288,19 +299,19 @@ namespace Handle.WPF
       };
     }
 
-    public void OpenContextMenu() 
+    public void OpenContextMenu()
     {
       var view = GetView() as IrcChannelView;
       view.CoMenu.PlacementTarget = view;
       view.CoMenu.IsOpen = true;
     }
 
-    public void ClearMessages() 
+    public void ClearMessages()
     {
       this.Messages.Clear();
     }
 
-    public void SaveMessages() 
+    public void SaveMessages()
     {
       var nsv = GetView() as IrcChannelView;
       Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
@@ -313,7 +324,7 @@ namespace Handle.WPF
         StreamWriter sw = new StreamWriter(fs);
         try
         {
-          foreach (Message m in this.Messages) 
+          foreach (Message m in this.Messages)
           {
             sw.WriteLine(m.Received + ":" + m.Sender + ":" + m.Text);
           }
@@ -323,7 +334,7 @@ namespace Handle.WPF
           sw.Close();
           fs.Close();
         }
-      }   
+      }
     }
   }
 }

@@ -40,12 +40,12 @@ namespace Handle.WPF
   {
     public List<Regex> Patterns { get; set; }
 
-    [ImportMany]
+    [ImportMany(AllowRecomposition = true)]
     public List<INotificationProvider> NotificationProviders { get; set; }
 
-    public FilterService(List<Regex> patterns)
+    public FilterService()
     {
-      this.Patterns = patterns;
+      this.Patterns = new List<Regex>();
     }
 
     public bool IsImportant(string message)
