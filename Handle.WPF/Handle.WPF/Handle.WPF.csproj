@@ -136,7 +136,10 @@
     <Compile Include="Behaviours\StylizedBehaviorCollection.cs" />
     <Compile Include="Behaviours\StylizedBehaviors.cs" />
     <Compile Include="Behaviours\TiltBehavior.cs" />
+    <Compile Include="FilterService.cs" />
+    <Compile Include="INotificationProvider.cs" />
     <Compile Include="IProgressService.cs" />
+    <Compile Include="MessageFilterEventArgs.cs" />
     <Compile Include="Models\ExtendedSoundPlayer.cs">
       <SubType>Component</SubType>
     </Compile>
