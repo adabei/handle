@@ -35,6 +35,6 @@ namespace Handle.WPF
   /// </summary>
   public interface INotificationProvider
   {
-    public void Notify(MessageFilterEventArgs message);
+    void Notify(MessageFilterEventArgs message);
   }
 }

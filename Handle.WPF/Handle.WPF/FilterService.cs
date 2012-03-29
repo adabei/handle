@@ -50,11 +50,7 @@ namespace Handle.WPF
 
     public bool IsImportant(string message)
     {
-      if (this.Patterns.Exists(regex => regex.IsMatch(message)))
-      {
-        return true;
-      }
-      return false;
+      return this.Patterns.Exists(regex => regex.IsMatch(message));
     }
 
     public void Handle(MessageFilterEventArgs message)

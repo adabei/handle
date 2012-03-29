@@ -149,7 +149,7 @@ namespace Handle.WPF
     {
       var nsv = GetView() as NetworkSelectionView;
       List<Network> nets = nsv.NetworkList.SelectedItems.Cast<Network>().ToList<Network>();
-      foreach (Network n in nets) 
+      foreach (Network n in nets)
       {
         this.Networks.Remove(n);
       }
@@ -194,11 +194,11 @@ namespace Handle.WPF
 
         List<Network> nets = new List<Network>();
 
-        foreach (Network n in nsv.NetworkList.SelectedItems) 
+        foreach (Network n in nsv.NetworkList.SelectedItems)
         {
-          for (int i = 0; i < this.Networks.Count; i++) 
+          for (int i = 0; i < this.Networks.Count; i++)
           {
-            if (n.Name == this.Networks[i].Name && n.Address == this.Networks[i].Address) 
+            if (n.Name == this.Networks[i].Name && n.Address == this.Networks[i].Address)
             {
               nets.Add(n);
             }
@@ -213,7 +213,7 @@ namespace Handle.WPF
         {
           fs.Close();
         }
-      }   
+      }
     }
 
     public void Import()
@@ -236,10 +236,11 @@ namespace Handle.WPF
         {
           fs.Close();
         }
-        foreach (Network n in nets) 
+
+        foreach (Network n in nets)
         {
           Boolean insert = true;
-          foreach (Network x in this.Networks) 
+          foreach (Network x in this.Networks)
           {
             if (n.Name == x.Name && n.Address == x.Address)
             {
@@ -247,7 +248,7 @@ namespace Handle.WPF
               break;
             }
           }
-          if(insert) 
+          if (insert)
           {
             this.Networks.Add(n);
           }
@@ -269,18 +270,18 @@ namespace Handle.WPF
       }
     }
 
-    public void ChangeFavF(Network net) 
+    public void ChangeFavF(Network net)
     {
       var nsv = GetView() as NetworkSelectionView;
       if (net.IsFavorite)
       {
         net.IsFavorite = false;
       }
-      else 
+      else
       {
         net.IsFavorite = true;
       }
-      
+
       nsv.NetworkList.Items.Refresh();
     }
 
