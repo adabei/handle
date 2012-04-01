@@ -27,7 +27,7 @@
     <TextBlock Text="channels" FontSize="22" Grid.Row="0"/>
     <StackPanel Grid.Row="1" Orientation="Horizontal">
       <TextBox x:Name="Pattern" Height="20" Width="400"/>
-      <Image x:Name="FilterButton" ToolTip="Filter" Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Filter]" Source="/Handle.WPF;component/Images/search.png" />
+      <Button x:Name="Filter" ToolTip="Filter" Height="20" Width="60" Content="Search" Margin="10,0,0,0"></Button>
     </StackPanel>
     <ListView x:Name="Channels" Grid.Row="2" SelectionMode="Single">
       <ListView.View>

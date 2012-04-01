@@ -144,8 +144,11 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Models\TaskBarBlinking.cs" />
+    <Compile Include="Models\SoundNotificationProvider.cs" />
+    <Compile Include="Models\TaskBarBlinkingNotificationProvider.cs" />
     <Compile Include="ProgressService.cs" />
     <Compile Include="ViewModels\NetworkQuickConnectViewModel.cs" />
+    <Compile Include="ViewModels\NotificationToastViewModel.cs" />
     <Compile Include="Views\NetworkQuickConnectView.xaml.cs">
       <DependentUpon>NetworkQuickConnectView.xaml</DependentUpon>
     </Compile>

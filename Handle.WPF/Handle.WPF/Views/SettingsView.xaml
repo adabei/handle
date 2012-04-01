@@ -108,6 +108,8 @@
           <Button x:Name="CheckForUpdate" Grid.Row="0" Content="Check for Update"/>
         </Grid>
       </TabItem>
+      <TabItem Header="Filter" x:Name="FilterTabItem">
+      </TabItem>
     </TabControl>
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Margin="5,5,10,10">
       <Image x:Name="SaveButton" ToolTip="Save" Height="40" Source="/Handle.WPF;component/Images/ok.png" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Save]" Margin="5"/>
