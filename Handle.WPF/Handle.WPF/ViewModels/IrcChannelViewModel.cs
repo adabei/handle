@@ -204,14 +204,16 @@ namespace Handle.WPF
       //    sp.PlaySound();
       //  }
       //}
-      //SoundNotificationProvider y = new SoundNotificationProvider(this.Settings);
-      //TaskBarBlinkingNotificationProvider yy = new TaskBarBlinkingNotificationProvider(this.GetWindowViewModel(this));
-      //FilterService fs = new FilterService();
-      //fs.NotificationProviders = new List<INotificationProvider>();
-      //fs.NotificationProviders.Add(y);
-      //fs.NotificationProviders.Add(yy);
-      //fs.Patterns.Add(new System.Text.RegularExpressions.Regex(".*"));
-      //fs.Handle(new MessageFilterEventArgs(this.Channel.Name, this.networkName, m.Received, m.Sender, m.Text));
+      SoundNotificationProvider y = new SoundNotificationProvider(this.Settings);
+      TaskBarBlinkingNotificationProvider yy = new TaskBarBlinkingNotificationProvider(this.GetWindowViewModel(this));
+      ToastNotificationProvider yyy = new ToastNotificationProvider(this.GetWindowViewModel(this));
+      FilterService fs = new FilterService();
+      fs.NotificationProviders = new List<INotificationProvider>();
+      fs.NotificationProviders.Add(y);
+      fs.NotificationProviders.Add(yy);
+      fs.NotificationProviders.Add(yyy);
+      fs.Patterns.Add(new System.Text.RegularExpressions.Regex(".*"));
+      fs.Handle(new MessageFilterEventArgs(this.Channel.Name, this.networkName, m.Received, m.Sender, m.Text));
     }
 
     private void channelNoticeReceived(object sender, IrcMessageEventArgs e)

@@ -2,19 +2,21 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel.Composition;
 
 namespace Handle.WPF
 {
   class SoundNotificationProvider : INotificationProvider
   {
-    Settings Settings;
-    public SoundNotificationProvider(Settings settings) 
+    private Settings settings;
+    [ImportingConstructor]
+    public SoundNotificationProvider(Settings settings)
     {
-      this.Settings = settings;
+      this.settings = settings;
     }
-    public void Notify(MessageFilterEventArgs args) 
+    public void Notify(MessageFilterEventArgs args)
     {
-      ExtendedSoundPlayer sp = new ExtendedSoundPlayer(this.Settings.SoundPath);
+      ExtendedSoundPlayer sp = new ExtendedSoundPlayer(this.settings.SoundPath);
       sp.PlaySound();
     }
   }
