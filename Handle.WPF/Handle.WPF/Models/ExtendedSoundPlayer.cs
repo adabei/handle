@@ -30,7 +30,13 @@ namespace Handle.WPF
     {
       myBoolIsplaying = true;
       //PlaySync plays the sound in the same thread and doesn't return till it is finished.
-      PlaySync();
+      try
+      {
+        PlaySync();
+      }catch (Exception ex)
+      {
+        Console.WriteLine(ex.ToString());
+      }
       myBoolIsplaying = false;
     }
   }
