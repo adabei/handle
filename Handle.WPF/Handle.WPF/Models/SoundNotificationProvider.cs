@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel.Composition;
+using System.IO;
 
 namespace Handle.WPF
 {
@@ -16,8 +17,22 @@ namespace Handle.WPF
     }
     public void Notify(MessageFilterEventArgs args)
     {
-      ExtendedSoundPlayer sp = new ExtendedSoundPlayer(this.settings.SoundPath);
-      sp.PlaySound();
+      if (this.settings.SoundPath != "")
+      {
+        try
+        {
+          ExtendedSoundPlayer sp = new ExtendedSoundPlayer(this.settings.SoundPath);
+          sp.PlaySound();
+        }
+        catch (FileNotFoundException ex) 
+        {
+          Console.WriteLine(ex.ToString());
+        }
+      }
+      else 
+      {
+        Console.WriteLine("Keine Sounddatei ausgewählt");
+      }
     }
   }
 }

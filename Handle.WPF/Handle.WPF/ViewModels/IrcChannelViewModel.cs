@@ -192,18 +192,6 @@ namespace Handle.WPF
       this.events.Publish(new MessageFilterEventArgs(this.Channel.Name, this.networkName,
                                                      DateTime.Now.ToString("HH:mm"), m.Sender, m.Text));
 
-      //if (this.Settings.TaskbarBlinking) 
-      //{
-      //  Flashing();
-      //}
-      //if (this.Settings.MakeSound)
-      //{
-      //  if (this.Settings.SoundPath != "")
-      //  {
-      //    ExtendedSoundPlayer sp = new ExtendedSoundPlayer(this.Settings.SoundPath);
-      //    sp.PlaySound();
-      //  }
-      //}
       SoundNotificationProvider y = new SoundNotificationProvider(this.Settings);
       TaskBarBlinkingNotificationProvider yy = new TaskBarBlinkingNotificationProvider(this.GetWindowViewModel(this));
       ToastNotificationProvider yyy = new ToastNotificationProvider(this.GetWindowViewModel(this));

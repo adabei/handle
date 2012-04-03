@@ -96,6 +96,8 @@ namespace Handle.WPF
 
     public string SoundPath { get; set; }
 
+    public List<String> FilterPatterns { get; set; }
+
     /// <summary>
     /// Creates a shallow copy of the instance.
     /// </summary>
@@ -159,7 +161,8 @@ namespace Handle.WPF
         FontSize = 11,
         LeaveMessage = "Leaving - Using the Handle client",
         TimestampFormat = "<HH:mm>",
-        UseFuzzySearch = false
+        UseFuzzySearch = false,
+        FilterPatterns = new List<string>()
       };
     }
   }

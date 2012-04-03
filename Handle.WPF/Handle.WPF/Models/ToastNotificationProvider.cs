@@ -19,10 +19,9 @@ namespace Handle.WPF
       this.screen = s;
     }
 
-    public void Notify(MessageFilterEventArgs args)
+    public void Notify(MessageFilterEventArgs e)
     {
       IWindowManager wm;
-      var csvm = new NotificationToastViewModel();
       try
       {
         wm = IoC.Get<IWindowManager>();
@@ -31,16 +30,11 @@ namespace Handle.WPF
       {
         wm = new WindowManager();
       }
+      var ntvm = new NotificationToastViewModel(e);
       Window x = screen.GetView() as Window;
       x.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate
       {
-        wm.ShowWindow(csvm);
-        var view = csvm.GetView() as NotificationToastView;
-        view.network.Text = args.Network;
-        view.channel.Text = args.Channel;
-        view.user.Text = args.Name;
-        view.message.Text = args.Message;
-        view.timestamp.Text = args.Timestamp;
+        wm.ShowWindow(ntvm);
       }));
     }
   }

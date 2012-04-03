@@ -18,11 +18,11 @@
       <RowDefinition Height="20"></RowDefinition>
       <RowDefinition Height="50"></RowDefinition>
     </Grid.RowDefinitions>
-      <TextBlock x:Name="network" Grid.Row="1" FontSize="20" FontWeight="Bold" />
-    <TextBlock x:Name="channel" Grid.Row="2" FontSize="18"  FontWeight="Bold"/>
-    <TextBlock x:Name="user" Grid.Row="3" FontSize="16"/>
-    <TextBlock x:Name="timestamp" Grid.Row="4" FontSize="16"/>
-    <TextBlock x:Name="message" Grid.Row="5" TextWrapping="Wrap" FontSize="16"/>
+      <TextBlock x:Name="Network" Grid.Row="1" FontSize="20" FontWeight="Bold" />
+    <TextBlock x:Name="Channel" Grid.Row="2" FontSize="18"  FontWeight="Bold"/>
+    <TextBlock x:Name="User" Grid.Row="3" FontSize="16"/>
+    <TextBlock x:Name="TimeStamp" Grid.Row="4" FontSize="16"/>
+    <TextBlock x:Name="Message" Grid.Row="5" TextWrapping="Wrap" FontSize="16"/>
     <Button x:Name="btnclose" Grid.Row="0" HorizontalAlignment="Right"
                 Margin="2,0,0,0"
                 Width="25"

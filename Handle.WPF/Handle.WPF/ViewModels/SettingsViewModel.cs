@@ -13,17 +13,28 @@
 
   public class SettingsViewModel : ViewModelBase
   {
+    private BindableCollection<String> filterPatterns;
     public delegate void SaveEventHandler(Settings settings);
     public event SaveEventHandler SaveButtonPressed;
+    public String OldText;
 
     public SettingsViewModel(Settings settings)
     {
       this.Settings = settings;
       this.DisplayName = "Settings";
+      if (this.Settings.FilterPatterns == null)
+      {
+        this.FilterPatterns = new BindableCollection<string>();
+      }
+      else 
+      {
+        this.FilterPatterns = new BindableCollection<string>(this.Settings.FilterPatterns);
+      }
     }
 
     public void Save()
     {
+      this.Settings.FilterPatterns = new List<string>(this.FilterPatterns);
       this.SaveButtonPressed(this.Settings);
       this.TryClose();
     }
@@ -31,6 +42,20 @@
     public void Cancel()
     {
       this.TryClose();
+    }
+
+    public BindableCollection<String> FilterPatterns
+    {
+      get
+      {
+        return this.filterPatterns;
+      }
+
+      set
+      {
+        this.filterPatterns = value;
+        NotifyOfPropertyChange(() => this.FilterPatterns);
+      }
     }
 
     public override IEnumerable<InputBindingCommand> GetInputBindingCommands()
@@ -81,6 +106,42 @@
       {
         this.Settings.SoundPath = dlg.FileName;
       }
+    }
+
+    public void AddFilter() 
+    {
+      this.FilterPatterns.Add("New Entry");
+    }
+
+    public void RemoveFilter() 
+    {
+      var sv = GetView() as SettingsView;
+      List<String> filters = sv.FilterPatterns.SelectedItems.Cast<String>().ToList<String>();
+      
+      foreach (String n in filters)
+      {
+        this.FilterPatterns.Remove(n);
+      }
+    }
+
+    public void EditFilter() 
+    {
+      var sv = GetView() as SettingsView;
+      sv.Filter.Text = sv.FilterPatterns.SelectedItem.ToString();
+      OldText = sv.Filter.Text;
+    }
+
+    public void CancelFilter() 
+    {
+      var sv = GetView() as SettingsView;
+      sv.Filter.Text = OldText;
+    }
+
+    public void SaveFilter() 
+    {
+      var sv = GetView() as SettingsView;
+      this.FilterPatterns.Remove(OldText);
+      this.FilterPatterns.Add(sv.Filter.Text);
     }
 
     public void CheckForUpdate() 
