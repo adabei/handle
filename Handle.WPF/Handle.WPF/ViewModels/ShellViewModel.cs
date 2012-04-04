@@ -28,6 +28,7 @@ namespace Handle.WPF
   using System;
   using System.Collections.Generic;
   using System.ComponentModel.Composition;
+  using System.ComponentModel.Composition.Hosting;
   using System.IO;
   using System.Reflection;
   using System.Windows;
@@ -66,6 +67,8 @@ namespace Handle.WPF
       this.IrcMainViewModel = new IrcMainViewModel();
       this.IrcMainViewModel.Parent = this;
 
+      this.initializeNotificationProviders();
+
       var svm = new StartupViewModel();
       svm.Parent = this;
 
@@ -78,6 +81,14 @@ namespace Handle.WPF
 
       this.DisplayName = "Handle";
       ActivateItem(svm);
+    }
+
+    private void initializeNotificationProviders()
+    {
+      var fs = IoC.Get<FilterService>();
+      fs.NotificationProviders.Add(new SoundNotificationProvider(this.Settings));
+      fs.NotificationProviders.Add(new TaskBarBlinkingNotificationProvider(this));
+      fs.NotificationProviders.Add(new ToastNotificationProvider(this));
     }
 
     private void Connect(Network network)

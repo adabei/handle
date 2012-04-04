@@ -54,13 +54,16 @@ namespace Handle.WPF
       EventAggregator eventAggregator = new EventAggregator();
       FilterService fs = new FilterService();
       eventAggregator.Subscribe(fs);
+      Settings settings = Settings.Load();
+      fs.Settings = settings;
+      fs.PopulatePatterns();
 
       batch.AddExportedValue<IWindowManager>(new WindowManager());
       batch.AddExportedValue<IEventAggregator>(eventAggregator);
-      batch.AddExportedValue<Settings>(Settings.Load());
+      batch.AddExportedValue<Settings>(settings);
       batch.AddExportedValue<FilterService>(fs);
 
-      batch.AddExportedValue(this.container);
+      batch.AddExportedValue("container", this.container);
       batch.AddExportedValue(catalog);
       
       this.container.Compose(batch);
