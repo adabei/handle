@@ -30,6 +30,7 @@ namespace Handle.WPF
   using System.Linq;
   using System.Text;
   using System.Windows.Controls;
+  using System.ComponentModel.Composition;
 
   class NotificationToastViewModel : ViewModelBase
   {
@@ -50,12 +51,12 @@ namespace Handle.WPF
 
     public void ShowTab() 
     {
-      var invm = GetView() as IrcNetworkView;
-      var imvm = GetView() as IrcMainView;
-      TabItem ti = (TabItem)imvm.Items.Items[imvm.Items.Items.IndexOf(this.Network)];
-      ti.IsSelected = true;
-      TabItem tii = (TabItem)invm.Items.Items[invm.Items.Items.IndexOf(this.Channel)];
-      tii.IsSelected = true;
+      //var invm = GetView() as IrcNetworkView;
+      //var imvm = GetView() as IrcMainView;
+      //TabItem ti = (TabItem)imvm.Items.Items[imvm.Items.Items.IndexOf(this.Network)];
+      //ti.IsSelected = true;
+      //TabItem tii = (TabItem)invm.Items.Items[invm.Items.Items.IndexOf(this.Channel)];
+      //tii.IsSelected = true;
     }
   }
 }

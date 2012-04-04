@@ -17,6 +17,7 @@
     public delegate void SaveEventHandler(Settings settings);
     public event SaveEventHandler SaveButtonPressed;
     public String OldText;
+    public Boolean IsEdit = false;
 
     public SettingsViewModel(Settings settings)
     {
@@ -122,13 +123,18 @@
       {
         this.FilterPatterns.Remove(n);
       }
+      sv.Filter.Text = "";
     }
 
     public void EditFilter() 
     {
       var sv = GetView() as SettingsView;
-      sv.Filter.Text = sv.FilterPatterns.SelectedItem.ToString();
-      OldText = sv.Filter.Text;
+      if (sv.FilterPatterns.SelectedItem != null)
+      {
+        sv.Filter.Text = sv.FilterPatterns.SelectedItem.ToString();
+        OldText = sv.Filter.Text;
+        IsEdit = true;
+      }
     }
 
     public void CancelFilter() 
@@ -139,9 +145,14 @@
 
     public void SaveFilter() 
     {
-      var sv = GetView() as SettingsView;
-      this.FilterPatterns.Remove(OldText);
-      this.FilterPatterns.Add(sv.Filter.Text);
+      if (IsEdit)
+      {
+        var sv = GetView() as SettingsView;
+        this.FilterPatterns[this.filterPatterns.IndexOf(OldText)] = sv.Filter.Text;
+        sv.Filter.Text = "";
+        IsEdit = false;
+        OldText = "";
+      }
     }
 
     public void CheckForUpdate() 

@@ -73,7 +73,7 @@ namespace Handle.WPF
 
       var svm = new StartupViewModel();
       svm.Parent = this;
-
+ 
       if (this.Settings.CanLog)
       {
         DirectoryInfo di = new DirectoryInfo(Settings.PATH + @"logs\");
