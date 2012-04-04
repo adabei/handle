@@ -76,14 +76,7 @@ namespace Handle.WPF
 
     private bool shouldDoPeriodicFlush()
     {
-      if ((DateTime.Now - lastFlushed).TotalSeconds >= MaxLogAge)
-      {
-        return true;
-      }
-      else
-      {
-        return false;
-      }
+      return (DateTime.Now - lastFlushed).TotalSeconds >= MaxLogAge;
     }
 
     public void flushLog()

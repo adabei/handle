@@ -276,9 +276,9 @@ namespace Handle.WPF
 
     public void OpenContextMenu()
     {
-      var view = GetView() as IrcChannelView;
-      view.CoMenu.PlacementTarget = view;
-      view.CoMenu.IsOpen = true;
+      var icv = GetView() as IrcChannelView;
+      icv.CoMenu.PlacementTarget = icv;
+      icv.CoMenu.IsOpen = true;
     }
 
     public void ClearMessages()
@@ -288,10 +288,10 @@ namespace Handle.WPF
 
     public void SaveMessages()
     {
-      var nsv = GetView() as IrcChannelView;
-      Microsoft.Win32.SaveFileDialog dlg = new Microsoft.Win32.SaveFileDialog();
+      var icv = GetView() as IrcChannelView;
+      var dlg = new Microsoft.Win32.SaveFileDialog();
       dlg.DefaultExt = ".txt";
-      dlg.Filter = "TXT (.txt)|*.txt";
+      dlg.Filter = "Text Documents (*.txt)|*.txt";
       if (dlg.ShowDialog() == true)
       {
         string filename = dlg.FileName;

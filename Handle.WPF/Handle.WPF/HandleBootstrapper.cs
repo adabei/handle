@@ -39,7 +39,7 @@ namespace Handle.WPF
     private CompositionContainer container;
 
     /// <summary>
-    /// By default, we are configured to use MEF
+    /// Use MEF
     /// </summary>
     protected override void Configure()
     {
@@ -63,7 +63,7 @@ namespace Handle.WPF
       batch.AddExportedValue<Settings>(settings);
       batch.AddExportedValue<FilterService>(fs);
 
-      batch.AddExportedValue("container", this.container);
+      batch.AddExportedValue(this.container);
       batch.AddExportedValue(catalog);
       
       this.container.Compose(batch);

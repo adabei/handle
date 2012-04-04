@@ -143,10 +143,10 @@
     <Compile Include="Models\ExtendedSoundPlayer.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Models\TaskBarBlinking.cs" />
-    <Compile Include="Models\SoundNotificationProvider.cs" />
-    <Compile Include="Models\TaskBarBlinkingNotificationProvider.cs" />
-    <Compile Include="Models\ToastNotificationProvider.cs" />
+    <Compile Include="Models\TaskbarBlink.cs" />
+    <Compile Include="Models\SoundProvider.cs" />
+    <Compile Include="Models\TaskbarBlinkProvider.cs" />
+    <Compile Include="Models\ToastProvider.cs" />
     <Compile Include="ProgressService.cs" />
     <Compile Include="ViewModels\NetworkQuickConnectViewModel.cs" />
     <Compile Include="ViewModels\NotificationToastViewModel.cs" />
