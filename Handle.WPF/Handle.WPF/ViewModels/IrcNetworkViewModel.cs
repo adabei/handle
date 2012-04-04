@@ -31,6 +31,7 @@ namespace Handle.WPF
   using System.Windows.Input;
   using Caliburn.Micro;
   using IrcDotNet;
+  using System.ComponentModel.Composition.Hosting;
 
   /// <summary>
   /// TODO: Update summary.

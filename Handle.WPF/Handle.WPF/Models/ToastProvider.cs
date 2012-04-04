@@ -1,5 +1,5 @@
-// -----------------------------------------------------------------------
-// <copyright file="NotificationToastViewModel.cs" company="">
+﻿// -----------------------------------------------------------------------
+// <copyright file="ToastProvider.cs" company="">
 // Copyright (c) 2011-2012 Bernhard Schwarz, Florian Lembeck
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -29,33 +29,38 @@ namespace Handle.WPF
   using System.Collections.Generic;
   using System.Linq;
   using System.Text;
-  using System.Windows.Controls;
+  using System.Threading;
+  using System.Windows;
+  using System.Windows.Threading;
+  using Caliburn.Micro;
 
-  class NotificationToastViewModel : ViewModelBase
+  class ToastProvider : INotificationProvider
   {
-    public string Network { get; set; }
-    public string Channel { get; set; }
-    public string TimeStamp { get; set; }
-    public string User { get; set; }
-    public string Message { get; set; }
 
-    public NotificationToastViewModel(MessageFilterEventArgs e) 
+    Screen screen;
+
+    public ToastProvider(Screen s) 
     {
-      this.Network = e.Network;
-      this.Channel = e.Channel;
-      this.TimeStamp = e.Timestamp;
-      this.User = e.Name;
-      this.Message = e.Message;
+      this.screen = s;
     }
 
-    public void ShowTab() 
+    public void Notify(MessageFilterEventArgs e)
     {
-      var invm = GetView() as IrcNetworkView;
-      var imvm = GetView() as IrcMainView;
-      TabItem ti = (TabItem)imvm.Items.Items[imvm.Items.Items.IndexOf(this.Network)];
-      ti.IsSelected = true;
-      TabItem tii = (TabItem)invm.Items.Items[invm.Items.Items.IndexOf(this.Channel)];
-      tii.IsSelected = true;
+      IWindowManager wm;
+      try
+      {
+        wm = IoC.Get<IWindowManager>();
+      }
+      catch
+      {
+        wm = new WindowManager();
+      }
+      var ntvm = new NotificationToastViewModel(e);
+      Window x = screen.GetView() as Window;
+      x.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate
+      {
+        wm.ShowWindow(ntvm);
+      }));
     }
   }
 }

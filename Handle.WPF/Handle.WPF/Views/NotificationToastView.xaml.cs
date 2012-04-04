@@ -31,7 +31,7 @@ namespace Handle.WPF
       dt.Tick += delegate(object sender, EventArgs e) { this.Close(); };
     }
 
-    private void btnclose_Click(object sender, RoutedEventArgs e)
+    protected void CloseButtonClick(object sender, RoutedEventArgs e)
     {
       this.Close();
     }

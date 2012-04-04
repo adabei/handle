@@ -1,5 +1,5 @@
-// -----------------------------------------------------------------------
-// <copyright file="NotificationToastViewModel.cs" company="">
+﻿// -----------------------------------------------------------------------
+// <copyright file="TaskbarBlinkProvider.cs" company="">
 // Copyright (c) 2011-2012 Bernhard Schwarz, Florian Lembeck
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -29,33 +29,28 @@ namespace Handle.WPF
   using System.Collections.Generic;
   using System.Linq;
   using System.Text;
-  using System.Windows.Controls;
+  using System.Threading;
+  using System.Windows;
+  using System.Windows.Interop;
+  using System.Windows.Threading;
+  using Caliburn.Micro;
 
-  class NotificationToastViewModel : ViewModelBase
+  class TaskbarBlinkProvider : INotificationProvider
   {
-    public string Network { get; set; }
-    public string Channel { get; set; }
-    public string TimeStamp { get; set; }
-    public string User { get; set; }
-    public string Message { get; set; }
-
-    public NotificationToastViewModel(MessageFilterEventArgs e) 
+    Screen screen;
+    public TaskbarBlinkProvider(Screen s) 
     {
-      this.Network = e.Network;
-      this.Channel = e.Channel;
-      this.TimeStamp = e.Timestamp;
-      this.User = e.Name;
-      this.Message = e.Message;
+      this.screen = s;
     }
 
-    public void ShowTab() 
+    public void Notify(MessageFilterEventArgs args) 
     {
-      var invm = GetView() as IrcNetworkView;
-      var imvm = GetView() as IrcMainView;
-      TabItem ti = (TabItem)imvm.Items.Items[imvm.Items.Items.IndexOf(this.Network)];
-      ti.IsSelected = true;
-      TabItem tii = (TabItem)invm.Items.Items[invm.Items.Items.IndexOf(this.Channel)];
-      tii.IsSelected = true;
+      Window x = screen.GetView() as Window;
+      x.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate
+      {
+        IntPtr h = new WindowInteropHelper(x).Handle;
+        TaskbarBlink.Flash(h);
+      }));
     }
   }
 }

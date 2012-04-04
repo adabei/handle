@@ -40,12 +40,14 @@ namespace Handle.WPF
   {
     public List<Regex> Patterns { get; set; }
 
-    [ImportMany(AllowRecomposition = true)]
     public List<INotificationProvider> NotificationProviders { get; set; }
+
+    public Settings Settings { get; set; }
 
     public FilterService()
     {
       this.Patterns = new List<Regex>();
+      this.NotificationProviders = new List<INotificationProvider>();
     }
 
     public bool IsImportant(string message)
@@ -60,6 +62,25 @@ namespace Handle.WPF
         foreach (var provider in this.NotificationProviders)
         {
           provider.Notify(message);
+        }
+      }
+    }
+
+    public void PopulatePatterns()
+    {
+      lock (this.Patterns)
+      {
+        this.Patterns.Clear();
+        foreach (var p in this.Settings.FilterPatterns)
+        {
+          try
+          {
+            this.Patterns.Add(new Regex(p, RegexOptions.Compiled));
+          }
+          catch (InvalidCastException e)
+          {
+            Console.WriteLine(e.Message);
+          }
         }
       }
     }

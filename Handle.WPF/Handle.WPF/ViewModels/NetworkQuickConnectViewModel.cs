@@ -25,7 +25,6 @@
 
 namespace Handle.WPF
 {
-
   using System;
   using System.Collections.Generic;
   using System.Linq;
@@ -33,23 +32,12 @@ namespace Handle.WPF
   using System.Windows.Input;
   using Caliburn.Micro;
 
-
   public class NetworkQuickConnectViewModel : ViewModelBase
   {
     public NetworkQuickConnectViewModel()
     {
-      try
-      {
-        this.windowManager = IoC.Get<IWindowManager>();
-      }
-      catch
-      {
-        this.windowManager = new WindowManager();
-      }
       this.GlobalIdentity = Identity.GlobalIdentity();
     }
-
-    private IWindowManager windowManager;
 
     public delegate void ConnectEventHandler(Network network);
     public event ConnectEventHandler ConnectButtonPressed;
@@ -71,7 +59,7 @@ namespace Handle.WPF
 
     public void Connect()
     {
-      var nqcv = GetView() as NetworkQuickConnectView;
+      var nqcv = this.GetView() as NetworkQuickConnectView;
       Network quick;
       if (nqcv.Network_UseCustomIdentity.IsChecked == true)
       {

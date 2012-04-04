@@ -1,5 +1,5 @@
-// -----------------------------------------------------------------------
-// <copyright file="NotificationToastViewModel.cs" company="">
+﻿// -----------------------------------------------------------------------
+// <copyright file="SoundProvider.cs" company="">
 // Copyright (c) 2011-2012 Bernhard Schwarz, Florian Lembeck
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -27,35 +27,37 @@ namespace Handle.WPF
 {
   using System;
   using System.Collections.Generic;
+  using System.ComponentModel.Composition;
+  using System.IO;
   using System.Linq;
   using System.Text;
-  using System.Windows.Controls;
 
-  class NotificationToastViewModel : ViewModelBase
+  class SoundProvider : INotificationProvider
   {
-    public string Network { get; set; }
-    public string Channel { get; set; }
-    public string TimeStamp { get; set; }
-    public string User { get; set; }
-    public string Message { get; set; }
-
-    public NotificationToastViewModel(MessageFilterEventArgs e) 
+    private Settings settings;
+    [ImportingConstructor]
+    public SoundProvider(Settings settings)
     {
-      this.Network = e.Network;
-      this.Channel = e.Channel;
-      this.TimeStamp = e.Timestamp;
-      this.User = e.Name;
-      this.Message = e.Message;
+      this.settings = settings;
     }
-
-    public void ShowTab() 
+    public void Notify(MessageFilterEventArgs args)
     {
-      var invm = GetView() as IrcNetworkView;
-      var imvm = GetView() as IrcMainView;
-      TabItem ti = (TabItem)imvm.Items.Items[imvm.Items.Items.IndexOf(this.Network)];
-      ti.IsSelected = true;
-      TabItem tii = (TabItem)invm.Items.Items[invm.Items.Items.IndexOf(this.Channel)];
-      tii.IsSelected = true;
+      if (this.settings.SoundPath != "")
+      {
+        try
+        {
+          ExtendedSoundPlayer sp = new ExtendedSoundPlayer(this.settings.SoundPath);
+          sp.PlaySound();
+        }
+        catch (FileNotFoundException ex) 
+        {
+          Console.WriteLine(ex.ToString());
+        }
+      }
+      else 
+      {
+        Console.WriteLine("Keine Sounddatei ausgewählt");
+      }
     }
   }
 }

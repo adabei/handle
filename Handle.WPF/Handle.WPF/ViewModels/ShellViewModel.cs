@@ -28,6 +28,7 @@ namespace Handle.WPF
   using System;
   using System.Collections.Generic;
   using System.ComponentModel.Composition;
+  using System.ComponentModel.Composition.Hosting;
   using System.IO;
   using System.Reflection;
   using System.Windows;
@@ -51,6 +52,9 @@ namespace Handle.WPF
       get { return this.ircMainViewModel; }
       set { this.ircMainViewModel = value; }
     }
+
+    [Import]
+    public FilterService FilterService { get; set; }
 
     [Import(RequiredCreationPolicy = CreationPolicy.Shared)]
     public IProgressService ProgressService { get; set; }
@@ -81,6 +85,20 @@ namespace Handle.WPF
       ActivateItem(svm);
     }
 
+    private void initializeNotificationProviders()
+    {
+      lock (this.FilterService.NotificationProviders)
+      {
+        this.FilterService.NotificationProviders.Clear();
+        if (this.Settings.MakeSound)
+          this.FilterService.NotificationProviders.Add(new SoundProvider(this.Settings));
+        if (this.Settings.TaskbarBlinking)
+          this.FilterService.NotificationProviders.Add(new TaskbarBlinkProvider(this));
+        if (this.Settings.NotificationToast)
+          this.FilterService.NotificationProviders.Add(new ToastProvider(this));
+      }
+    }
+
     private void Connect(Network network)
     {
       var invm = new IrcNetworkViewModel(network, this.Settings);
@@ -90,6 +108,7 @@ namespace Handle.WPF
       {
         ActivateItem(this.IrcMainViewModel);
       }
+      this.initializeNotificationProviders();
     }
 
     private void ShowNetworkSelection()
@@ -109,7 +128,7 @@ namespace Handle.WPF
       wm.ShowWindow(nsvm);
     }
 
-    public void ShowNetworkQuickConnect() 
+    public void ShowNetworkQuickConnect()
     {
       IWindowManager wm;
       var nqcvm = new NetworkQuickConnectViewModel();
@@ -118,7 +137,7 @@ namespace Handle.WPF
       {
         wm = IoC.Get<IWindowManager>();
       }
-      catch 
+      catch
       {
         wm = new WindowManager();
       }
@@ -137,6 +156,8 @@ namespace Handle.WPF
     {
       PropertyUpdater.Update(this.Settings).With(settings);
       this.Settings.Save();
+      this.FilterService.PopulatePatterns();
+      initializeNotificationProviders();
     }
 
     public override IEnumerable<InputBindingCommand> GetInputBindingCommands()

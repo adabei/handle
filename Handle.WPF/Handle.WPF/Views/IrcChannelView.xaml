@@ -200,8 +200,8 @@
       <Image  Height="50" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action OpenContextMenu]" ToolTip="Connect to network or channel" Source="/Handle.WPF;component/Images/add_big.png" Margin="2">
         <Image.ContextMenu>
           <ContextMenu x:Name="CoMenu">
-            <MenuItem x:Name="JoinNetwork" Header="Network" cal:Message.Attach="[Event Click] = [Action JoinChannel]"/>
             <MenuItem x:Name="JoinChannel" Header="Channel" cal:Message.Attach="[Event Click] = [Action JoinChannel]"/>
+            <MenuItem x:Name="JoinNetwork" Header="Network" cal:Message.Attach="[Event Click] = [Action JoinChannel]"/>
           </ContextMenu>
         </Image.ContextMenu>
       </Image>

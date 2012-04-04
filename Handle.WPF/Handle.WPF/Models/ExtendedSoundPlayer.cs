@@ -1,25 +1,55 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Media;
-using System.Threading;
-using System.Windows.Threading;
+﻿// -----------------------------------------------------------------------
+// <copyright file="ExtendedSoundPlayer.cs" company="">
+// Copyright (c) 2011-2012 Bernhard Schwarz, Florian Lembeck
+//
+// Permission is hereby granted, free of charge, to any person obtaining
+// a copy of this software and associated documentation files (the
+// "Software"), to deal in the Software without restriction, including
+// without limitation the rights to use, copy, modify, merge, publish,
+// distribute, sublicense, and/or sell copies of the Software, and to
+// permit persons to whom the Software is furnished to do so, subject to
+// the following conditions:
+//
+// The above copyright notice and this permission notice shall be
+// included in all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+// EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+// MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+// NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+// LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+// OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+// WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+// </copyright>
+// -----------------------------------------------------------------------
+
 namespace Handle.WPF
 {
+  using System;
+  using System.Collections.Generic;
+  using System.Media;
+  using System.Text;
+  using System.Threading;
+  using System.Windows.Threading;
+
   class ExtendedSoundPlayer : SoundPlayer
   {
-    private bool myBoolIsplaying = false;
+    private bool isPlaying = false;
 
-    public bool bIsPlaying
+    public bool IsPlaying
     {
-      get { return myBoolIsplaying; }
+      get { return this.isPlaying; }
     }
 
-    public ExtendedSoundPlayer(String strFilename) : base(strFilename) { }
+    public ExtendedSoundPlayer(String strFilename)
+      : base(strFilename)
+    {
+      this.isPlaying = false;
+    }
 
     public void PlaySound()
     {
-      if (!bIsPlaying)
+      if (!this.IsPlaying)
       {
         Thread threadSound = new Thread(new ThreadStart(PlaySoundThread));
         threadSound.Start();
@@ -28,16 +58,17 @@ namespace Handle.WPF
 
     protected virtual void PlaySoundThread()
     {
-      myBoolIsplaying = true;
+      this.isPlaying = true;
       //PlaySync plays the sound in the same thread and doesn't return till it is finished.
       try
       {
         PlaySync();
-      }catch (Exception ex)
+      }
+      catch (Exception ex)
       {
         Console.WriteLine(ex.ToString());
       }
-      myBoolIsplaying = false;
+      this.isPlaying = false;
     }
   }
 }
