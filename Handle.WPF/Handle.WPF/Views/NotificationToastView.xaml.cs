@@ -26,7 +26,7 @@ namespace Handle.WPF
       this.Left = SystemParameters.PrimaryScreenWidth - this.Width;
       this.ShowInTaskbar = false;
       DispatcherTimer dt = new DispatcherTimer();
-      dt.Interval = new TimeSpan(0, 0, 10);
+      dt.Interval = new TimeSpan(0, 0,10);
       dt.IsEnabled = true;
       dt.Tick += delegate(object sender, EventArgs e) { this.Close(); };
     }

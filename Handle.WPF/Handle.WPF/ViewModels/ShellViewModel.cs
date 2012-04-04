@@ -33,6 +33,7 @@ namespace Handle.WPF
   using System.Windows;
   using System.Windows.Input;
   using Caliburn.Micro;
+  using System.Windows.Controls;
 
   /// <summary>
   /// Represents a ViewModel for View of our main Window.

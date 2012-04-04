@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Windows.Controls;
 
 namespace Handle.WPF
 {
@@ -20,6 +21,16 @@ namespace Handle.WPF
       this.TimeStamp = e.Timestamp;
       this.User = e.Name;
       this.Message = e.Message;
+    }
+
+    public void ShowTab() 
+    {
+      var invm = GetView() as IrcNetworkView;
+      var imvm = GetView() as IrcMainView;
+      TabItem ti = (TabItem)imvm.Items.Items[imvm.Items.Items.IndexOf(this.Network)];
+      ti.IsSelected = true;
+      TabItem tii = (TabItem)invm.Items.Items[invm.Items.Items.IndexOf(this.Channel)];
+      tii.IsSelected = true;
     }
   }
 }
