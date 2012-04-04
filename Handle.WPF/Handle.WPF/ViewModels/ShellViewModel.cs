@@ -52,6 +52,9 @@ namespace Handle.WPF
       set { this.ircMainViewModel = value; }
     }
 
+    [Import]
+    public FilterService FilterService { get; set; }
+
     [Import(RequiredCreationPolicy = CreationPolicy.Shared)]
     public IProgressService ProgressService { get; set; }
 
@@ -66,8 +69,6 @@ namespace Handle.WPF
 
       this.IrcMainViewModel = new IrcMainViewModel();
       this.IrcMainViewModel.Parent = this;
-
-      this.initializeNotificationProviders();
 
       var svm = new StartupViewModel();
       svm.Parent = this;
@@ -85,10 +86,16 @@ namespace Handle.WPF
 
     private void initializeNotificationProviders()
     {
-      var fs = IoC.Get<FilterService>();
-      fs.NotificationProviders.Add(new SoundNotificationProvider(this.Settings));
-      fs.NotificationProviders.Add(new TaskBarBlinkingNotificationProvider(this));
-      fs.NotificationProviders.Add(new ToastNotificationProvider(this));
+      lock (this.FilterService.NotificationProviders)
+      {
+        this.FilterService.NotificationProviders.Clear();
+        if (this.Settings.MakeSound)
+          this.FilterService.NotificationProviders.Add(new SoundProvider(this.Settings));
+        if (this.Settings.TaskbarBlinking)
+          this.FilterService.NotificationProviders.Add(new TaskbarBlinkProvider(this));
+        if (this.Settings.NotificationToast)
+          this.FilterService.NotificationProviders.Add(new ToastProvider(this));
+      }
     }
 
     private void Connect(Network network)
@@ -100,6 +107,7 @@ namespace Handle.WPF
       {
         ActivateItem(this.IrcMainViewModel);
       }
+      this.initializeNotificationProviders();
     }
 
     private void ShowNetworkSelection()
@@ -119,7 +127,7 @@ namespace Handle.WPF
       wm.ShowWindow(nsvm);
     }
 
-    public void ShowNetworkQuickConnect() 
+    public void ShowNetworkQuickConnect()
     {
       IWindowManager wm;
       var nqcvm = new NetworkQuickConnectViewModel();
@@ -128,7 +136,7 @@ namespace Handle.WPF
       {
         wm = IoC.Get<IWindowManager>();
       }
-      catch 
+      catch
       {
         wm = new WindowManager();
       }
@@ -147,6 +155,8 @@ namespace Handle.WPF
     {
       PropertyUpdater.Update(this.Settings).With(settings);
       this.Settings.Save();
+      this.FilterService.PopulatePatterns();
+      initializeNotificationProviders();
     }
 
     public override IEnumerable<InputBindingCommand> GetInputBindingCommands()

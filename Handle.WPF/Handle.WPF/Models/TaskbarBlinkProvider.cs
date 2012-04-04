@@ -10,10 +10,10 @@ using System.Windows.Interop;
 
 namespace Handle.WPF
 {
-  class TaskBarBlinkingNotificationProvider : INotificationProvider
+  class TaskbarBlinkProvider : INotificationProvider
   {
     Screen screen;
-    public TaskBarBlinkingNotificationProvider(Screen s) 
+    public TaskbarBlinkProvider(Screen s) 
     {
       this.screen = s;
     }

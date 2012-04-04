@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Caliburn.Micro;
-using System.Windows;
-using System.Windows.Threading;
-using System.Threading;
-
-namespace Handle.WPF
+﻿namespace Handle.WPF
 {
-  class ToastNotificationProvider : INotificationProvider
+  using System;
+  using System.Collections.Generic;
+  using System.Linq;
+  using System.Text;
+  using System.Threading;
+  using System.Windows;
+  using System.Windows.Threading;
+  using Caliburn.Micro;
+
+  class ToastProvider : INotificationProvider
   {
 
     Screen screen;
 
-    public ToastNotificationProvider(Screen s) 
+    public ToastProvider(Screen s) 
     {
       this.screen = s;
     }

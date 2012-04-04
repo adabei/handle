@@ -7,11 +7,11 @@ using System.IO;
 
 namespace Handle.WPF
 {
-  class SoundNotificationProvider : INotificationProvider
+  class SoundProvider : INotificationProvider
   {
     private Settings settings;
     [ImportingConstructor]
-    public SoundNotificationProvider(Settings settings)
+    public SoundProvider(Settings settings)
     {
       this.settings = settings;
     }
