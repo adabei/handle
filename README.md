@@ -2,4 +2,4 @@
 
 ## License
 
-Handle is licensed under the MIT license. See LICENSE.md for details.
+Handle is licensed under the MIT license. See LICENSE for details.
