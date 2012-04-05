@@ -252,7 +252,6 @@ namespace Handle.WPF
         return;
       }
 
-      // Command
       string command;
       string[] arguments;
 
@@ -276,6 +275,22 @@ namespace Handle.WPF
           // TODO "/help command"
           this.Messages.Add(new Message("Helptext.",
                                         DateTime.Now.ToString(this.Settings.TimestampFormat), "=!="));
+          break;
+        case "join":
+        case "j":
+          if (arguments.Length == 1)
+          {
+            this.Channel.Client.Channels.Join(arguments[0]);
+          }
+          else if (arguments.Length == 2)
+          {
+            this.Channel.Client.Channels.Join(arguments[0], arguments[1]);
+          }
+          else
+          {
+            this.Messages.Add(new Message(string.Format("Invalid number of arguments for the command \"{0}\"!", command),
+                                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!="));
+          }
           break;
         case "whois":
           this.Channel.Client.QueryWhoIs(arguments[0]);
