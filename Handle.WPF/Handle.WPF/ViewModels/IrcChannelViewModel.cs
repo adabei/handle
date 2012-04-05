@@ -394,6 +394,7 @@ namespace Handle.WPF
 
       if (e.Key == Key.Tab)
       {
+        // TODO Add autocomplete for /commands
         var words = this.Message.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
 
         if (this.tabCompletionQueue == null)
