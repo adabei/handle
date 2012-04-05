@@ -38,6 +38,8 @@ namespace Handle.WPF
   using System.Windows.Threading;
   using Caliburn.Micro;
   using IrcDotNet;
+  using System.Windows.Controls;
+  using System.Text.RegularExpressions;
 
   /// <summary>
   /// TODO: Update summary.
@@ -48,6 +50,8 @@ namespace Handle.WPF
     public event JoinChannelClickedEventHandler JoinChannelClicked;
 
     private IEventAggregator events;
+    private Queue<string> tabCompletionQueue;
+    private string tabCompletionName;
 
     public IrcChannel Channel { get; set; }
 
@@ -143,12 +147,12 @@ namespace Handle.WPF
     {
     }
 
-    private void whoIsReplyReceived(object sender, IrcUserEventArgs e) 
+    private void whoIsReplyReceived(object sender, IrcUserEventArgs e)
     {
       bool isUser = false;
-      foreach(IrcChannelUser icu in this.Channel.Users)
+      foreach (IrcChannelUser icu in this.Channel.Users)
       {
-        if (icu.User.NickName == e.User.NickName) 
+        if (icu.User.NickName == e.User.NickName)
         {
           isUser = true;
         }
@@ -181,7 +185,7 @@ namespace Handle.WPF
                                 "");
         this.Messages.Add(m);
       }
-      else 
+      else
       {
         Message m = new Message("No such nick: flohsrfdrr",
                                 DateTime.Now.ToString(this.Settings.TimestampFormat),
@@ -291,25 +295,25 @@ namespace Handle.WPF
       {
         command = this.Message.Substring(0, this.Message.IndexOf(' '));
       }
-      else 
+      else
       {
         command = "Message";
       }
-      switch (command) 
-      { 
+      switch (command)
+      {
         case "/Whois":
           string[] x = this.Message.Split(' ');
           this.Channel.Client.QueryWhoIs(x[1]);
           break;
-        default :
-      this.Channel.Client.LocalUser.SendMessage(this.Channel, this.Message);
-      Message m = new Message(this.Message.Trim(),
-                              DateTime.Now.ToString(this.Settings.TimestampFormat),
-                              this.Channel.Client.LocalUser.NickName);
-      this.Messages.Add(m);
-      if (this.Settings.CanLog && this.logger != null)
-        logger.Append(String.Format("{0} {1}: {2}", m.Received, m.Sender, m.Text));
-      this.Message = String.Empty;
+        default:
+          this.Channel.Client.LocalUser.SendMessage(this.Channel, this.Message);
+          Message m = new Message(this.Message.Trim(),
+                                  DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                  this.Channel.Client.LocalUser.NickName);
+          this.Messages.Add(m);
+          if (this.Settings.CanLog && this.logger != null)
+            logger.Append(String.Format("{0} {1}: {2}", m.Received, m.Sender, m.Text));
+          this.Message = String.Empty;
           break;
       }
     }
@@ -387,6 +391,51 @@ namespace Handle.WPF
           fs.Close();
         }
       }
+    }
+
+    public void MessagePreviewKeyUp(object sender, KeyEventArgs e)
+    {
+      if (e.Key != Key.Tab)
+      {
+        this.tabCompletionName = string.Empty;
+        this.tabCompletionQueue = null;
+        return;
+      }
+
+      var messageTextBox = sender as TextBox;
+      var words = this.Message.Split(new char[]{' ', '\t'}, StringSplitOptions.RemoveEmptyEntries);
+
+      if (this.tabCompletionQueue == null)
+      {
+        this.tabCompletionName = words.Length == 1 ? words[0] : words[words.Length - 1];
+        var userList = new List<string>();
+        foreach (var user in this.Channel.Users)
+        {
+          if (user.User.NickName.StartsWith(this.tabCompletionName, StringComparison.CurrentCultureIgnoreCase))
+            userList.Add(user.User.NickName);
+        }
+
+        userList.Sort();
+        this.tabCompletionQueue = new Queue<string>(userList);
+      }
+
+      this.Message = this.Message.TrimEnd(' ', '\t');
+      try
+      {
+        this.Message = this.Message.Substring(0, this.message.LastIndexOf(' ') + 1) + this.tabCompletionQueue.Dequeue();
+      }
+      catch
+      {
+        this.Message = this.Message.Substring(0, this.message.LastIndexOf(' ') + 1) + this.tabCompletionName;
+        this.tabCompletionName = String.Empty;
+        this.tabCompletionQueue = null;
+      }
+
+      if (words.Length == 1 && this.tabCompletionName != string.Empty)
+        this.Message += ":";
+
+      messageTextBox.CaretIndex = this.Message.Length;
+      e.Handled = true;
     }
   }
 }

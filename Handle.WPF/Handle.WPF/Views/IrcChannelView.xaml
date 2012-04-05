@@ -205,7 +205,7 @@
           </ContextMenu>
         </Image.ContextMenu>
       </Image>
-      <TextBox x:Name="Message" Width="150" Height="50"/>
+      <TextBox x:Name="Message" Width="150" Height="50" cal:Message.Attach="[Event PreviewKeyUp] = [Action MessagePreviewKeyUp($source, $eventArgs)]" AcceptsTab="True"/>
       <Image  Height="50" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Send]" ToolTip="Send Message" Source="/Handle.WPF;component/Images/msg.png" Margin="2"/>
     </StackPanel>
       <StackPanel Grid.Row="2" HorizontalAlignment="Right" Orientation="Horizontal">
