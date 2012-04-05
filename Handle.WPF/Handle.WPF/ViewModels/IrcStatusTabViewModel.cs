@@ -26,10 +26,11 @@
 namespace Handle.WPF
 {
   using System;
+  using System.Collections.Generic;
+  using System.Text;
+  using System.Windows.Input;
   using Caliburn.Micro;
   using IrcDotNet;
-  using System.Windows.Input;
-  using System.Collections.Generic;
 
   /// <summary>
   /// TODO: Update summary.
@@ -80,6 +81,30 @@ namespace Handle.WPF
 
       this.Client.LocalUser.MessageReceived += this.localUserMessageReceived;
       this.Client.MotdReceived += this.clientMessageOfTheDayReceived;
+      this.Client.WhoIsReplyReceived += this.clientWhoIsReplyReceived;
+    }
+
+    private void clientWhoIsReplyReceived(object sender, IrcUserEventArgs e)
+    {
+      var sb = new StringBuilder();
+      foreach (var channel in e.User.Client.Channels)
+      {
+        sb.Append(channel.Name + ' ');
+      }
+      var channels = sb.ToString();
+
+      this.Messages.Add(new Message(e.User.NickName + " " + string.Format("[{0}@{1}]", e.User.UserName, e.User.HostName),
+                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!="));
+      this.Messages.Add(new Message("ircname: " + e.User.RealName,
+                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!="));
+      this.Messages.Add(new Message("channels: " + channels,
+                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!="));
+      this.Messages.Add(new Message("server: " + e.User.ServerName + string.Format("[{0}]", e.User.ServerInfo),
+                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!="));
+      this.Messages.Add(new Message("idle: " + e.User.IdleDuration,
+                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!="));
+      this.Messages.Add(new Message("End of WHOIS", 
+                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!="));
     }
 
     private void localUserMessageReceived(object sender, IrcMessageEventArgs e)

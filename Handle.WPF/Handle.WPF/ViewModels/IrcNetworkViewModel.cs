@@ -95,11 +95,11 @@ namespace Handle.WPF
 
     private void clientRegistered(object sender, EventArgs e)
     {
-      this.Client.LocalUser.JoinedChannel += this.localUserJoinedChannel;
+      this.Client.LocalUser.JoinedChannel += this.localUserJoinedChannel; 
       this.Client.LocalUser.InviteReceived += this.localUserInviteReceived;
       var istvm = new IrcStatusTabViewModel(this.Client);
       istvm.Parent = this;
-      // istvm.Settings = this.Settings;
+      istvm.Settings = this.Settings;
       istvm.JoinChannelClicked += this.JoinChannel;
       this.Items.Add(istvm);
     }
