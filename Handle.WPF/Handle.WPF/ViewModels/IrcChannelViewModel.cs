@@ -112,6 +112,7 @@ namespace Handle.WPF
       this.Channel.UserLeft += this.channelUserLeft;
       this.Channel.NoticeReceived += this.channelNoticeReceived;
       this.Channel.TopicChanged += this.channelTopicChanged;
+      this.Channel.Client.WhoIsReplyReceived += this.whoIsReplyReceived;
 
       DirectoryInfo di = new DirectoryInfo(Settings.PATH + "\\logs\\");
       if (!di.Exists)
@@ -140,6 +141,64 @@ namespace Handle.WPF
 
     private void channelModesChanged(object sender, EventArgs e)
     {
+    }
+
+    private void whoIsReplyReceived(object sender, IrcUserEventArgs e) 
+    {
+      bool isUser = false;
+      foreach(IrcChannelUser icu in this.Channel.Users)
+      {
+        if (icu.User.NickName == e.User.NickName) 
+        {
+          isUser = true;
+        }
+      }
+      if (isUser)
+      {
+        string channels = "";
+        foreach (IrcChannel ic in e.User.Client.Channels)
+        {
+          channels += ic.Name + " ";
+        }
+        Message m = new Message("[" + e.User.HostName + "]",
+                                DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                e.User.NickName);
+        this.Messages.Add(m);
+        m = new Message(e.User.RealName,
+                                DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                "realname : ");
+        this.Messages.Add(m);
+        m = new Message(channels,
+                                DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                "channels : ");
+        this.Messages.Add(m);
+        m = new Message(e.User.Client.ServerName,
+                                DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                "server : ");
+        this.Messages.Add(m);
+        m = new Message("End of WhoIs",
+                                DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                "");
+        this.Messages.Add(m);
+      }
+      else 
+      {
+        Message m = new Message("No such nick: flohsrfdrr",
+                                DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                e.User.NickName);
+        this.Messages.Add(m);
+        m = new Message("End of WhoIs",
+                                DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                "");
+        this.Messages.Add(m);
+      }
+      //if (this.Settings.CanLog && this.logger != null)
+      //  logger.Append(String.Format("{0} {1}: {2}",
+      //                              m.Received,
+      //                              m.Sender,
+      //                              m.Text));
+      //this.events.Publish(new MessageFilterEventArgs(this.Channel.Name, this.networkName,
+      //                                               DateTime.Now.ToString("HH:mm"), m.Sender, m.Text));
     }
 
     private string users;
@@ -227,6 +286,22 @@ namespace Handle.WPF
 
     public void Send()
     {
+      string command = "";
+      if (this.Message.IndexOf(' ') > -1)
+      {
+        command = this.Message.Substring(0, this.Message.IndexOf(' '));
+      }
+      else 
+      {
+        command = "Message";
+      }
+      switch (command) 
+      { 
+        case "/Whois":
+          string[] x = this.Message.Split(' ');
+          this.Channel.Client.QueryWhoIs(x[1]);
+          break;
+        default :
       this.Channel.Client.LocalUser.SendMessage(this.Channel, this.Message);
       Message m = new Message(this.Message.Trim(),
                               DateTime.Now.ToString(this.Settings.TimestampFormat),
@@ -235,6 +310,8 @@ namespace Handle.WPF
       if (this.Settings.CanLog && this.logger != null)
         logger.Append(String.Format("{0} {1}: {2}", m.Received, m.Sender, m.Text));
       this.Message = String.Empty;
+          break;
+      }
     }
 
     public void LeaveChannel(string message)

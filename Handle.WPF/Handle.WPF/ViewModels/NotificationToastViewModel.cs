@@ -31,6 +31,7 @@ namespace Handle.WPF
   using System.Text;
   using System.Windows.Controls;
   using System.ComponentModel.Composition;
+  using Caliburn.Micro;
 
   class NotificationToastViewModel : ViewModelBase
   {
