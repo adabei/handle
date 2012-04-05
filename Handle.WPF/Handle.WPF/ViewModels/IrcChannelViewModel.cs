@@ -50,6 +50,8 @@ namespace Handle.WPF
     public event JoinChannelClickedEventHandler JoinChannelClicked;
 
     private IEventAggregator events;
+    private List<string> personalHistory;
+    private int historyIndex = -1;
     private Queue<string> tabCompletionQueue;
     private string tabCompletionName;
 
@@ -107,6 +109,7 @@ namespace Handle.WPF
       this.Closable = true;
       this.DisplayName = channel.Name;
       this.networkName = networkName;
+      this.personalHistory = new List<string>();
       this.events = IoC.Get<IEventAggregator>();
       this.Channel = channel;
       this.Channel.ModesChanged += this.channelModesChanged;
@@ -290,6 +293,10 @@ namespace Handle.WPF
 
     public void Send()
     {
+      // TODO Ignore adjacent duplicates
+      this.personalHistory.Add(this.Message);
+      this.historyIndex = -1;
+
       string command = "";
       if (this.Message.IndexOf(' ') > -1)
       {
@@ -393,49 +400,77 @@ namespace Handle.WPF
       }
     }
 
+    private void setMessageCaretPosition(int index, TextBox messageTextBox)
+    {
+
+
+    }
+
     public void MessagePreviewKeyUp(object sender, KeyEventArgs e)
     {
-      if (e.Key != Key.Tab)
+
+      if (e.Key == Key.Up)
+      {
+        if (this.historyIndex < this.personalHistory.Count - 1)
+        {
+          ++this.historyIndex;
+          this.Message = this.personalHistory[this.personalHistory.Count - this.historyIndex - 1];
+          (sender as TextBox).CaretIndex = this.Message.Length;
+          return;
+        }
+      }
+      else if (e.Key == Key.Down)
+      {
+        if (this.historyIndex > 0)
+        {
+          --this.historyIndex;
+          this.Message = this.personalHistory[this.personalHistory.Count - this.historyIndex - 1];
+          (sender as TextBox).CaretIndex = this.Message.Length;
+          return;
+        }
+      }
+
+      if (e.Key == Key.Tab)
+      {
+        var words = this.Message.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+
+        if (this.tabCompletionQueue == null)
+        {
+          this.tabCompletionName = words.Length == 1 ? words[0] : words[words.Length - 1];
+          var userList = new List<string>();
+          foreach (var user in this.Channel.Users)
+          {
+            if (user.User.NickName.StartsWith(this.tabCompletionName, StringComparison.CurrentCultureIgnoreCase))
+              userList.Add(user.User.NickName);
+          }
+
+          userList.Sort();
+          this.tabCompletionQueue = new Queue<string>(userList);
+        }
+
+        this.Message = this.Message.TrimEnd(' ', '\t');
+        try
+        {
+          this.Message = this.Message.Substring(0, this.message.LastIndexOf(' ') + 1) + this.tabCompletionQueue.Dequeue();
+        }
+        catch
+        {
+          this.Message = this.Message.Substring(0, this.message.LastIndexOf(' ') + 1) + this.tabCompletionName;
+          this.tabCompletionName = String.Empty;
+          this.tabCompletionQueue = null;
+        }
+
+        if (words.Length == 1 && this.tabCompletionName != string.Empty)
+          this.Message += ":";
+
+        (sender as TextBox).CaretIndex = this.Message.Length;
+        e.Handled = true;
+      }
+      else
       {
         this.tabCompletionName = string.Empty;
         this.tabCompletionQueue = null;
-        return;
       }
-
-      var messageTextBox = sender as TextBox;
-      var words = this.Message.Split(new char[]{' ', '\t'}, StringSplitOptions.RemoveEmptyEntries);
-
-      if (this.tabCompletionQueue == null)
-      {
-        this.tabCompletionName = words.Length == 1 ? words[0] : words[words.Length - 1];
-        var userList = new List<string>();
-        foreach (var user in this.Channel.Users)
-        {
-          if (user.User.NickName.StartsWith(this.tabCompletionName, StringComparison.CurrentCultureIgnoreCase))
-            userList.Add(user.User.NickName);
-        }
-
-        userList.Sort();
-        this.tabCompletionQueue = new Queue<string>(userList);
-      }
-
-      this.Message = this.Message.TrimEnd(' ', '\t');
-      try
-      {
-        this.Message = this.Message.Substring(0, this.message.LastIndexOf(' ') + 1) + this.tabCompletionQueue.Dequeue();
-      }
-      catch
-      {
-        this.Message = this.Message.Substring(0, this.message.LastIndexOf(' ') + 1) + this.tabCompletionName;
-        this.tabCompletionName = String.Empty;
-        this.tabCompletionQueue = null;
-      }
-
-      if (words.Length == 1 && this.tabCompletionName != string.Empty)
-        this.Message += ":";
-
-      messageTextBox.CaretIndex = this.Message.Length;
-      e.Handled = true;
     }
   }
 }
