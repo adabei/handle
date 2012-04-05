@@ -238,31 +238,51 @@ namespace Handle.WPF
       this.personalHistory.Add(this.Message);
       this.historyIndex = -1;
 
-      string command = "";
-      if (this.Message.IndexOf(' ') > -1)
+      if (this.Message[0] != '/')
       {
-        command = this.Message.Substring(0, this.Message.IndexOf(' '));
+        // Regular message
+        this.Channel.Client.LocalUser.SendMessage(this.Channel, this.Message);
+        Message m = new Message(this.Message.Trim(),
+                                DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                this.Channel.Client.LocalUser.NickName);
+        this.Messages.Add(m);
+        if (this.Settings.CanLog && this.logger != null)
+          logger.Append(string.Format("{0} {1}: {2}", m.Received, m.Sender, m.Text));
+        this.Message = string.Empty;
+        return;
+      }
+
+      // Command
+      string command;
+      string[] arguments;
+
+      this.Message = this.Message.TrimEnd(' ');
+      if (this.Message.Contains(" "))
+      {
+        command = this.Message.Substring(1, this.Message.IndexOf(' ') - 1).ToLower();
+        arguments = this.Message.Substring(this.Message.IndexOf(' '), this.Message.Length - command.Length - 1)
+                                  .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
       }
       else
       {
-        command = "Message";
+        command = this.Message.Substring(1, this.Message.Length - 1);
+        arguments = new string[] { this.Message };
       }
+
       switch (command)
       {
-          // TODO No such nick
-        case "/Whois":
-          string[] x = this.Message.Split(' ');
-          this.Channel.Client.QueryWhoIs(x[1]);
+        // TODO No such nick
+        case "help":
+          // TODO "/help command"
+          this.Messages.Add(new Message("Helptext.",
+                                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!="));
+          break;
+        case "whois":
+          this.Channel.Client.QueryWhoIs(arguments[0]);
           break;
         default:
-          this.Channel.Client.LocalUser.SendMessage(this.Channel, this.Message);
-          Message m = new Message(this.Message.Trim(),
-                                  DateTime.Now.ToString(this.Settings.TimestampFormat),
-                                  this.Channel.Client.LocalUser.NickName);
-          this.Messages.Add(m);
-          if (this.Settings.CanLog && this.logger != null)
-            logger.Append(String.Format("{0} {1}: {2}", m.Received, m.Sender, m.Text));
-          this.Message = String.Empty;
+          this.Messages.Add(new Message(string.Format("Unknown command \"{0}\".", command),
+                                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!="));
           break;
       }
     }
