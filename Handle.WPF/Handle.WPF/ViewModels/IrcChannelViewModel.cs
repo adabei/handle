@@ -31,15 +31,15 @@ namespace Handle.WPF
   using System.IO;
   using System.Media;
   using System.Text;
+  using System.Text.RegularExpressions;
   using System.Threading;
   using System.Windows;
+  using System.Windows.Controls;
   using System.Windows.Input;
   using System.Windows.Interop;
   using System.Windows.Threading;
   using Caliburn.Micro;
   using IrcDotNet;
-  using System.Windows.Controls;
-  using System.Text.RegularExpressions;
 
   /// <summary>
   /// TODO: Update summary.
