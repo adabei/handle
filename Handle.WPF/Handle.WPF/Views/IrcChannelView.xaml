@@ -10,6 +10,7 @@
 
   <UserControl.Resources>
     <Converters:StringToMessageConverter x:Key="stringToMessageConverter"/>
+    <Converters:NickConverter x:Key="nickConverter"/>
     <Style x:Key="ExpanderUpHeaderStyle" TargetType="{x:Type ToggleButton}">
       <Setter Property="Template">
         <Setter.Value>
@@ -48,9 +49,9 @@
                   <ColumnDefinition Width="Auto" MinWidth="0"/>
                   <ColumnDefinition/>
                 </Grid.ColumnDefinitions>
-                <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" RecognizesAccessKey="True" SnapsToDevicePixels="True" VerticalAlignment="Center" Height="Auto" MinHeight="25"  RenderTransformOrigin="0.5,0.5">
-
-                </ContentPresenter>
+                <ContentPresenter Grid.Column="1" HorizontalAlignment="Left" RecognizesAccessKey="True" 
+                                  SnapsToDevicePixels="True" VerticalAlignment="Center" Height="Auto" 
+                                  MinHeight="25"  RenderTransformOrigin="0.5,0.5"/>
               </Grid>
             </Border>
             <ControlTemplate.Triggers>
@@ -124,31 +125,26 @@
 
     <Expander x:Name="TopicExpander"  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" ExpandDirection="Down" Style="{DynamicResource ExpanderStyleTopic}"/>
 
-    <ScrollViewer Grid.Row="1" Grid.Column="0">
-      <ItemsControl x:Name="Messages" FontFamily="{Binding Settings.FontFamily}" FontSize="{Binding Settings.FontSize}">
-        <ItemsControl.ItemTemplate>
-          <DataTemplate>
-            <StackPanel Orientation="Vertical">
-              <Grid>
-                <Grid.ColumnDefinitions>
-                  <ColumnDefinition Width="50"/>
-                  <ColumnDefinition Width="Auto" MaxWidth="250"/>
-                  <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-
-                <Grid.RowDefinitions>
-                  <RowDefinition Height="Auto"/>
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Column="0" Grid.Row="0" Text="{Binding Received}"/>
-                <TextBlock Grid.Column="1" Grid.Row="0" Text="{Binding Sender}"/>
-                <ContentControl Grid.Column="2" Grid.Row="0" Content="{Binding Text, Converter={StaticResource stringToMessageConverter}}"/>
-              </Grid>
-            </StackPanel>
-          </DataTemplate>
-        </ItemsControl.ItemTemplate>
-      </ItemsControl>
+    <!-- Messages -->
+    <ScrollViewer Grid.Row="1" Grid.Column="0" x:Name="MessagesScrollViewer">
+      <StackPanel>
+        <ItemsControl x:Name="Messages" FontFamily="{Binding Settings.FontFamily}" FontSize="{Binding Settings.FontSize}">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Received}"/>
+                <TextBlock Text=" "/>
+                <TextBlock Text="{Binding Sender}"/>
+                <TextBlock Text=" "/>
+                <ContentControl Content="{Binding Text, Converter={StaticResource stringToMessageConverter}}"/>
+              </StackPanel>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </StackPanel>
     </ScrollViewer>
 
+    <!-- Userlist -->
     <ScrollViewer Grid.Row="1" Grid.Column="1">
       <StackPanel x:Name="UserList">
         <ItemsControl x:Name="Users">
@@ -157,7 +153,8 @@
               <TextBlock Tag="{Binding DataContext, ElementName=Users}" Text="{Binding User.NickName}">
                 <TextBlock.ContextMenu>
                   <ContextMenu cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
-                    <MenuItem Header="WhoIs" cal:Message.Attach="[Event Click] = [Action WhoIs($dataContext)]"/>
+                    <MenuItem Header="WhoIs" 
+                              cal:Message.Attach="[Event Click] = [Action WhoIs($dataContext)]"/>
                   </ContextMenu>
                 </TextBlock.ContextMenu>
               </TextBlock>
@@ -168,7 +165,8 @@
     </ScrollViewer>
 
     <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
-      <Image  Height="50" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action OpenContextMenu]" ToolTip="Connect to network or channel" Source="/Handle.WPF;component/Images/add_big.png" Margin="2">
+      <Image  Height="50" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action OpenContextMenu]" ToolTip="Connect to network or channel"
+              Source="/Handle.WPF;component/Images/add_big.png" Margin="2">
         <Image.ContextMenu>
           <ContextMenu x:Name="CoMenu">
             <MenuItem x:Name="JoinChannel" Header="Channel" cal:Message.Attach="[Event Click] = [Action JoinChannel]"/>
@@ -180,14 +178,14 @@
       <Image Height="50" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Send]" ToolTip="Send Message" Source="/Handle.WPF;component/Images/msg.png" Margin="2"/>
     </StackPanel>
 
-    <StackPanel Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Orientation="Horizontal">
+    <StackPanel Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" Orientation="Horizontal">
       <Image Source="/Handle.WPF;component/Images/save.png" ToolTip="Save Message Text" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action SaveMessages]" Height="25">
         <Image.Style>
           <Style TargetType="{x:Type Image}">
-            <Setter Property="Visibility" Value="Hidden"/>
+            <Setter Property="Visibility" Value="Collapsed"/>
             <Style.Triggers>
               <DataTrigger
-                Binding="{Binding ElementName=MainGrid, Path=IsMouseOver}"
+                Binding="{Binding ElementName=MessagesScrollViewer, Path=IsMouseOver}"
                 Value="True">
                 <Setter Property="Visibility" Value="Visible"/>
               </DataTrigger>
@@ -198,10 +196,10 @@
       <Image Source="/Handle.WPF;component/Images/cancel.png" ToolTip="Clear Message Text" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action ClearMessages]" Height="25">
         <Image.Style>
           <Style TargetType="{x:Type Image}">
-            <Setter Property="Visibility" Value="Hidden"/>
+            <Setter Property="Visibility" Value="Collapsed"/>
             <Style.Triggers>
               <DataTrigger
-                Binding="{Binding ElementName=MainGrid, Path=IsMouseOver}"
+                Binding="{Binding ElementName=MessagesScrollViewer, Path=IsMouseOver}"
                 Value="True">
                 <Setter Property="Visibility" Value="Visible"/>
               </DataTrigger>

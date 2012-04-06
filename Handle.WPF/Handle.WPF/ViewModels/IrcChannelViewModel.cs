@@ -381,12 +381,6 @@ namespace Handle.WPF
       }
     }
 
-    private void setMessageCaretPosition(int index, TextBox messageTextBox)
-    {
-
-
-    }
-
     public void MessagePreviewKeyUp(object sender, KeyEventArgs e)
     {
 
@@ -415,6 +409,10 @@ namespace Handle.WPF
       {
         // TODO Add autocomplete for /commands
         var words = this.Message.Split(new char[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+        if (words.Length == 0)
+        {
+          return;
+        }
 
         if (this.tabCompletionQueue == null)
         {

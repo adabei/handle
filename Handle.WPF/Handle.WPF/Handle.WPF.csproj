@@ -140,6 +140,7 @@
     <Compile Include="Behaviours\StylizedBehaviorCollection.cs" />
     <Compile Include="Behaviours\StylizedBehaviors.cs" />
     <Compile Include="Behaviours\TiltBehavior.cs" />
+    <Compile Include="Converters\NickConverter.cs" />
     <Compile Include="FilterService.cs" />
     <Compile Include="INotificationProvider.cs" />
     <Compile Include="IProgressService.cs" />
@@ -451,11 +452,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\heart.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\handle.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
