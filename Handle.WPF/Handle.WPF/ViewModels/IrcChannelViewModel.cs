@@ -130,28 +130,26 @@ namespace Handle.WPF
                                  networkName));
 
       this.Channel.GetTopic();
+      this.Users = new List<IrcChannelUser>();
     }
 
     private void channelUsersListReceived(object sender, EventArgs e)
     {
-      StringBuilder sb = new StringBuilder();
+      this.Users.Clear();
       foreach (var user in this.Channel.Users)
       {
-        sb.Append(user.User.NickName + " | ");
+        this.Users.Add(user);
       }
-
-      if (sb[sb.Length - 2] == '|')
-        sb.Length -= 3;
-      this.Users = sb.ToString();
+      this.Users.Sort(IrcChannelUserComparison.Compare);
     }
 
     private void channelModesChanged(object sender, EventArgs e)
     {
     }
 
-    private string users;
+    private List<IrcChannelUser> users;
 
-    public string Users
+    public List<IrcChannelUser> Users
     {
       get
       {
@@ -216,6 +214,9 @@ namespace Handle.WPF
                                       DateTime.Now.ToString(this.Settings.TimestampFormat),
                                       "=!="));
       }
+      this.Users.Add(e.ChannelUser);
+      this.Users.Sort(IrcChannelUserComparison.Compare);
+
     }
 
     private void channelUserLeft(object sender, IrcChannelUserEventArgs e)
@@ -230,6 +231,8 @@ namespace Handle.WPF
                                       DateTime.Now.ToString(this.Settings.TimestampFormat),
                                       "=!="));
       }
+
+      this.Users.Remove(e.ChannelUser);
     }
 
     public void Send()

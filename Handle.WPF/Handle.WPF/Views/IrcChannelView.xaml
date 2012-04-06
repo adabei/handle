@@ -109,7 +109,7 @@
     </Style>
   </UserControl.Resources>
 
-  <Grid>
+  <Grid x:Name="MainGrid">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition/>
@@ -149,31 +149,12 @@
       </ItemsControl>
     </ScrollViewer>
 
-    <!-- <ScrollViewer Grid.Row="1" Grid.Column="1">
-      <ItemsControl x:Name="Channel_Users">
-        <ItemsControl.ItemTemplate>
-          <DataTemplate>
-            <StackPanel>
-              <TextBlock Text="{Binding User.NickName}">
-                <TextBlock.ContextMenu>
-                  <ContextMenu cal:Action.TargetWithoutContext="{Binding ElementName=Channel_Users, Path=DataContext}">
-                    <MenuItem Header="WhoIs" cal:Message.Attach="[Event Click] = [Action WhoIs($dataContext)]"/>
-                  </ContextMenu>
-                </TextBlock.ContextMenu>
-              </TextBlock>
-            </StackPanel>
-          </DataTemplate>
-        </ItemsControl.ItemTemplate>
-      </ItemsControl>
-
-    </ScrollViewer>-->
-
     <ScrollViewer Grid.Row="1" Grid.Column="1">
       <StackPanel x:Name="UserList">
-        <ItemsControl x:Name="Channel_Users">
+        <ItemsControl x:Name="Users">
           <ItemsControl.ItemTemplate>
             <DataTemplate>
-              <TextBlock Tag="{Binding DataContext, ElementName=Channel_Users}" Text="{Binding User.NickName}">
+              <TextBlock Tag="{Binding DataContext, ElementName=Users}" Text="{Binding User.NickName}">
                 <TextBlock.ContextMenu>
                   <ContextMenu cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
                     <MenuItem Header="WhoIs" cal:Message.Attach="[Event Click] = [Action WhoIs($dataContext)]"/>
@@ -195,12 +176,39 @@
           </ContextMenu>
         </Image.ContextMenu>
       </Image>
-      <TextBox x:Name="Message" Width="150" Height="50" cal:Message.Attach="[Event PreviewKeyUp] = [Action MessagePreviewKeyUp($source, $eventArgs)]" AcceptsTab="True"/>
-      <Image  Height="50" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Send]" ToolTip="Send Message" Source="/Handle.WPF;component/Images/msg.png" Margin="2"/>
+      <TextBox x:Name="Message" Width="300" Height="25" cal:Message.Attach="[Event PreviewKeyUp] = [Action MessagePreviewKeyUp($source, $eventArgs)]" AcceptsTab="True"/>
+      <Image Height="50" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Send]" ToolTip="Send Message" Source="/Handle.WPF;component/Images/msg.png" Margin="2"/>
     </StackPanel>
+
     <StackPanel Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" Orientation="Horizontal">
-      <Image Source="/Handle.WPF;component/Images/save.png" ToolTip="Save Message Text" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action SaveMessages]" Height="25"/>
-      <Image Source="/Handle.WPF;component/Images/cancel.png" ToolTip="Clear Message Text" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action ClearMessages]" Height="25"/>
+      <Image Source="/Handle.WPF;component/Images/save.png" ToolTip="Save Message Text" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action SaveMessages]" Height="25">
+        <Image.Style>
+          <Style TargetType="{x:Type Image}">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Style.Triggers>
+              <DataTrigger
+                Binding="{Binding ElementName=MainGrid, Path=IsMouseOver}"
+                Value="True">
+                <Setter Property="Visibility" Value="Visible"/>
+              </DataTrigger>
+            </Style.Triggers>
+          </Style>
+        </Image.Style>
+      </Image>
+      <Image Source="/Handle.WPF;component/Images/cancel.png" ToolTip="Clear Message Text" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action ClearMessages]" Height="25">
+        <Image.Style>
+          <Style TargetType="{x:Type Image}">
+            <Setter Property="Visibility" Value="Hidden"/>
+            <Style.Triggers>
+              <DataTrigger
+                Binding="{Binding ElementName=MainGrid, Path=IsMouseOver}"
+                Value="True">
+                <Setter Property="Visibility" Value="Visible"/>
+              </DataTrigger>
+            </Style.Triggers>
+          </Style>
+        </Image.Style>
+      </Image>
     </StackPanel>
   </Grid>
 </UserControl>
