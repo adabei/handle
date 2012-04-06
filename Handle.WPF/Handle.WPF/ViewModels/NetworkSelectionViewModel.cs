@@ -145,6 +145,14 @@ namespace Handle.WPF
       saveGlobalIdentity();
     }
 
+    public void Join(Network n, MouseButtonEventArgs e) 
+    {
+      if (e.ClickCount == 2)
+      {
+        this.ConnectButtonPressed(n);
+      }
+    }
+
     public void Remove()
     {
       var nsv = GetView() as NetworkSelectionView;
