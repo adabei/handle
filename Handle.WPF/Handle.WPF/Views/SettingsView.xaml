@@ -124,7 +124,6 @@
             </ListView>
             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
               <Button x:Name="AddFilter" Content="Add" Margin="0,0,5,0" Width="50"></Button>
-              <Button x:Name="EditFilter" Content="Edit" Margin="0,0,5,0" Width="50"></Button>
               <Button x:Name="RemoveFilter" Content="Remove" Width="50"></Button>
             </StackPanel>
           </Grid>
@@ -135,9 +134,8 @@
               <RowDefinition Height="30"></RowDefinition>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Text="#Channel.Network&lt;Time&gt;UserName:Message"/>
-            <TextBox Grid.Row="1" x:Name="Filter"/>
+            <TextBox Grid.Row="1" x:Name="Filter" Text="{Binding ElementName=FilterPatterns, Path=SelectedItem, Mode=OneWay}"/>
             <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" >
-              <Button x:Name="CancelFilter" Content="Cancel"  Margin="0,0,5,0" Width="50"/>
               <Button x:Name="SaveFilter" Content="Save" Width="50"/> 
             </StackPanel>
           </Grid>
