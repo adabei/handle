@@ -108,7 +108,7 @@
       </Setter>
     </Style>
   </UserControl.Resources>
-  
+
   <Grid>
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
@@ -149,17 +149,41 @@
       </ItemsControl>
     </ScrollViewer>
 
-    <ScrollViewer Grid.Row="1" Grid.Column="1">
+    <!-- <ScrollViewer Grid.Row="1" Grid.Column="1">
       <ItemsControl x:Name="Channel_Users">
         <ItemsControl.ItemTemplate>
           <DataTemplate>
             <StackPanel>
-              <TextBlock Text="{Binding User.NickName}"/>
+              <TextBlock Text="{Binding User.NickName}">
+                <TextBlock.ContextMenu>
+                  <ContextMenu cal:Action.TargetWithoutContext="{Binding ElementName=Channel_Users, Path=DataContext}">
+                    <MenuItem Header="WhoIs" cal:Message.Attach="[Event Click] = [Action WhoIs($dataContext)]"/>
+                  </ContextMenu>
+                </TextBlock.ContextMenu>
+              </TextBlock>
             </StackPanel>
           </DataTemplate>
         </ItemsControl.ItemTemplate>
       </ItemsControl>
 
+    </ScrollViewer>-->
+
+    <ScrollViewer Grid.Row="1" Grid.Column="1">
+      <StackPanel x:Name="UserList">
+        <ItemsControl x:Name="Channel_Users">
+          <ItemsControl.ItemTemplate>
+            <DataTemplate>
+              <TextBlock Tag="{Binding DataContext, ElementName=Channel_Users}" Text="{Binding User.NickName}">
+                <TextBlock.ContextMenu>
+                  <ContextMenu cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
+                    <MenuItem Header="WhoIs" cal:Message.Attach="[Event Click] = [Action WhoIs($dataContext)]"/>
+                  </ContextMenu>
+                </TextBlock.ContextMenu>
+              </TextBlock>
+            </DataTemplate>
+          </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </StackPanel>
     </ScrollViewer>
 
     <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">

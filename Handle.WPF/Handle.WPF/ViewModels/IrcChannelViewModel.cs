@@ -253,19 +253,19 @@ namespace Handle.WPF
       }
 
       string command;
-      string[] arguments;
+      string[] args;
 
       this.Message = this.Message.TrimEnd(' ');
       if (this.Message.Contains(" "))
       {
         command = this.Message.Substring(1, this.Message.IndexOf(' ') - 1).ToLower();
-        arguments = this.Message.Substring(this.Message.IndexOf(' '), this.Message.Length - command.Length - 1)
+        args = this.Message.Substring(this.Message.IndexOf(' '), this.Message.Length - command.Length - 1)
                                   .Split(new char[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
       }
       else
       {
         command = this.Message.Substring(1, this.Message.Length - 1);
-        arguments = new string[] { this.Message };
+        args = new string[] { this.Message };
       }
 
       switch (command)
@@ -278,13 +278,13 @@ namespace Handle.WPF
           break;
         case "join":
         case "j":
-          if (arguments.Length == 1)
+          if (args.Length == 1)
           {
-            this.Channel.Client.Channels.Join(arguments[0]);
+            this.Channel.Client.Channels.Join(args[0]);
           }
-          else if (arguments.Length == 2)
+          else if (args.Length == 2)
           {
-            this.Channel.Client.Channels.Join(arguments[0], arguments[1]);
+            this.Channel.Client.Channels.Join(args[0], args[1]);
           }
           else
           {
@@ -293,13 +293,14 @@ namespace Handle.WPF
           }
           break;
         case "whois":
-          this.Channel.Client.QueryWhoIs(arguments[0]);
+          this.WhoIs(args[0]);
           break;
         default:
           this.Messages.Add(new Message(string.Format("Unknown command \"{0}\".", command),
                                         DateTime.Now.ToString(this.Settings.TimestampFormat), "=!="));
           break;
       }
+      this.Message = string.Empty;
     }
 
     public void LeaveChannel(string message)
@@ -449,6 +450,16 @@ namespace Handle.WPF
         this.tabCompletionName = string.Empty;
         this.tabCompletionQueue = null;
       }
+    }
+
+    public void WhoIs(IrcChannelUser user)
+    {
+      this.WhoIs(user.User.NickName);
+    }
+
+    public void WhoIs(string nickName)
+    {
+      this.Channel.Client.QueryWhoIs(nickName);
     }
   }
 }

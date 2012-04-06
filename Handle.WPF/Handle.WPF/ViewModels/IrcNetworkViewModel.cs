@@ -161,7 +161,7 @@ namespace Handle.WPF
     {
       IWindowManager wm;
       var csvm = new ChannelSearchViewModel(this.Client);
-      // csvm.Settings = this.Settings;
+      csvm.Settings = this.Settings;
       try
       {
         wm = IoC.Get<IWindowManager>();
