@@ -68,12 +68,16 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
-  <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-  </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
   </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationIcon>
+    </ApplicationIcon>
+  </PropertyGroup>
+  <PropertyGroup />
   <ItemGroup>
     <Reference Include="Caliburn.Micro, Version=1.2.0.0, Culture=neutral, PublicKeyToken=8e5891231f2ed21f, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -136,9 +140,11 @@
     <Compile Include="Behaviours\StylizedBehaviorCollection.cs" />
     <Compile Include="Behaviours\StylizedBehaviors.cs" />
     <Compile Include="Behaviours\TiltBehavior.cs" />
+    <Compile Include="Converters\NickConverter.cs" />
     <Compile Include="FilterService.cs" />
     <Compile Include="INotificationProvider.cs" />
     <Compile Include="IProgressService.cs" />
+    <Compile Include="IrcChannelUserComparer.cs" />
     <Compile Include="MessageFilterEventArgs.cs" />
     <Compile Include="Models\ExtendedSoundPlayer.cs">
       <SubType>Component</SubType>
@@ -447,7 +453,6 @@
   <ItemGroup>
     <Resource Include="Images\heart.png" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
