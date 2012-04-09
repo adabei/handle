@@ -271,6 +271,8 @@ namespace Handle.WPF
         args = new string[] { this.Message };
       }
 
+      IrcNetworkViewModel invm = (IrcNetworkViewModel)this.Parent;
+      IrcMainViewModel imvm = (IrcMainViewModel)invm.Parent;
       switch (command)
       {
         // TODO No such nick
@@ -297,6 +299,52 @@ namespace Handle.WPF
           break;
         case "whois":
           this.WhoIs(args[0]);
+          break;
+        case "clear":
+          this.ClearMessages();
+          break;
+        case "disconnect":
+          imvm.CloseItem(invm);
+          break;
+        case "part":
+          if (args.Length < 2)
+          {
+            invm.CloseItem(this);
+          }
+          else 
+          {
+            for (int i = 0; i < args.Length; i++)
+            {
+              for (int y = 1; y < invm.Items.Count; y++)
+			        {
+                IrcChannelViewModel icvm = invm.Items[y];
+                if (icvm.DisplayName == args[i].ToString())
+                 invm.CloseItem(icvm);
+			        }
+            }
+          }
+          break;
+        case "quit":
+          for (int i = 0; i < invm.Items.Count; i++)
+          {
+            IrcNetworkViewModel net = invm.Items[i];
+            imvm.CloseItem(net);
+          }
+          break;
+        case "motd":
+          //TODO Fehler beim URI Handling
+          this.Messages.Add(new Message(this.Channel.Client.MessageOfTheDay,
+                                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!="));
+          break;
+        case "names":
+          //TODO Nachrichten haben keinen Zeilenumbruch, wenn zu lange
+          string users = "";
+          foreach (IrcChannelUser iu in this.Users) 
+          {
+            users += iu.User.NickName + ",";
+          }
+          this.Messages.Add(new Message(users,
+                                                  DateTime.Now.ToString(this.Settings.TimestampFormat), "=!="));
           break;
         default:
           this.Messages.Add(new Message(string.Format("Unknown command \"{0}\".", command),
