@@ -113,10 +113,11 @@ namespace Handle.WPF
     /// <returns>Saved settings</returns>
     public static Settings Load()
     {
-      FileStream fs = new FileStream(Settings.PATH + "settings.json", FileMode.OpenOrCreate);
+      FileStream fs = null;
       Settings settings;
       try
       {
+        fs = new FileStream(Settings.PATH + "settings.json", FileMode.Open);
         settings = JsonSerializer.DeserializeFromStream<Settings>(fs) ?? new Settings();
       }
       catch
@@ -125,7 +126,8 @@ namespace Handle.WPF
       }
       finally
       {
-        fs.Close();
+        if(fs != null)
+          fs.Close();
       }
       return settings;
     }

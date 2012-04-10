@@ -143,8 +143,8 @@
       </TabItem>
     </TabControl>
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Row="2" Margin="5,5,10,10">
-      <Image x:Name="SaveButton" ToolTip="Save" Height="40" Source="/Handle.WPF;component/Images/ok.png" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Save]" Margin="5"/>
-      <Image x:Name="CancelButton" ToolTip="Cancel" Height="40" Source="/Handle.WPF;component/Images/cancel.png" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Cancel]" Margin="5"/>
+      <Button x:Name="Cancel" Height="35" ToolTip="Cancel" Content="Cancel" Width="50"></Button>
+      <Button x:Name="Save" Height="35" ToolTip="Save" Content="Save" Width="50" Margin="5,0,0,0"></Button>
     </StackPanel>
   </Grid>
 </UserControl>
