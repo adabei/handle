@@ -389,13 +389,25 @@ namespace Handle.WPF
         GestureModifier = ModifierKeys.Control,
         GestureKey = Key.W
       };
+      yield return new InputBindingCommand(this.focusMessageTextBox)
+      {
+        GestureModifier = ModifierKeys.Control,
+        GestureKey = Key.L
+      };
     }
 
     public void OpenContextMenu()
     {
+      (this.GetView() as IrcChannelView).Message.Focus();
       var icv = GetView() as IrcChannelView;
       icv.CoMenu.PlacementTarget = icv;
       icv.CoMenu.IsOpen = true;
+    }
+
+    private void focusMessageTextBox()
+    {
+      var view = this.GetView() as IrcChannelView;
+      view.Message.Focus();
     }
 
     public void ClearMessages()
