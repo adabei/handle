@@ -131,13 +131,17 @@
         <ItemsControl x:Name="Messages" FontFamily="{Binding Settings.FontFamily}" FontSize="{Binding Settings.FontSize}">
           <ItemsControl.ItemTemplate>
             <DataTemplate>
-              <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding Received}"/>
-                <TextBlock Text=" "/>
-                <TextBlock Text="{Binding Sender}"/>
-                <TextBlock Text=" "/>
-                <ContentControl Content="{Binding Text, Converter={StaticResource stringToMessageConverter}}"/>
-              </StackPanel>
+              <Grid>
+                <Grid.ColumnDefinitions>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="Auto"/>
+                  <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                
+                <TextBlock Grid.Column="0"  Text="{Binding Received}"/>
+                <TextBlock Grid.Column="1" Margin="5,0,0,0" Text="{Binding Sender}"/>
+                <ContentControl Grid.Column="2" Margin="5,0,0,0" Content="{Binding Text, Converter={StaticResource stringToMessageConverter}}"/>
+              </Grid>
             </DataTemplate>
           </ItemsControl.ItemTemplate>
         </ItemsControl>
