@@ -98,6 +98,8 @@ namespace Handle.WPF
 
     public List<String> FilterPatterns { get; set; }
 
+    public Dictionary<string, string> Completions { get; set; }
+
     /// <summary>
     /// Creates a shallow copy of the instance.
     /// </summary>
@@ -164,7 +166,8 @@ namespace Handle.WPF
         LeaveMessage = "Leaving - Using the Handle client",
         TimestampFormat = "<HH:mm>",
         UseFuzzySearch = false,
-        FilterPatterns = new List<string>()
+        FilterPatterns = new List<string>(),
+        Completions = new Dictionary<string,string>()
       };
     }
   }
