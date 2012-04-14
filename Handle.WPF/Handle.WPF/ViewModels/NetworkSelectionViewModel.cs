@@ -291,6 +291,7 @@ namespace Handle.WPF
       }
 
       nsv.NetworkList.Items.Refresh();
+      this.saveNetworks();
     }
 
     public void ChangeFavT(Network net)
@@ -298,6 +299,7 @@ namespace Handle.WPF
       var nsv = GetView() as NetworkSelectionView;
       net.IsFavorite = true;
       nsv.NetworkList.Items.Refresh();
+      this.saveNetworks();
     }
   }
 }
