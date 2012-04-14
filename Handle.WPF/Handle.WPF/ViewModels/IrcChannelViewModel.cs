@@ -187,7 +187,7 @@ namespace Handle.WPF
     {
       Message m = new Message(e.Text,
                               DateTime.Now.ToString(this.Settings.TimestampFormat),
-                              e.Source.Name);
+                              e.Source.Name, MessageLevels.Public);
       this.Messages.Add(m);
       if (this.Settings.CanLog && this.logger != null)
         logger.Append(String.Format("{0} {1}: {2}",
@@ -200,7 +200,7 @@ namespace Handle.WPF
 
     private void channelNoticeReceived(object sender, IrcMessageEventArgs e)
     {
-      this.Messages.Add(new Message(e.Text, DateTime.Now.ToString(this.Settings.TimestampFormat), "=!="));
+      this.Messages.Add(new Message(e.Text, DateTime.Now.ToString(this.Settings.TimestampFormat), "=!=", MessageLevels.Notice));
     }
 
     private void channelUserJoined(object sender, IrcChannelUserEventArgs e)
@@ -212,7 +212,8 @@ namespace Handle.WPF
                                                     e.ChannelUser.User.HostName,
                                                     e.ChannelUser.Channel.Name),
                                       DateTime.Now.ToString(this.Settings.TimestampFormat),
-                                      "=!="));
+                                      "=!=",
+                                      MessageLevels.Join));
       }
       this.Users.Add(e.ChannelUser);
       this.Users.Sort(IrcChannelUserComparison.Compare);
@@ -229,7 +230,8 @@ namespace Handle.WPF
                                                     e.ChannelUser.Channel.Name,
                                                     e.Comment),
                                       DateTime.Now.ToString(this.Settings.TimestampFormat),
-                                      "=!="));
+                                      "=!=",
+                                      MessageLevels.Part));
       }
 
       this.Users.Remove(e.ChannelUser);
@@ -247,7 +249,8 @@ namespace Handle.WPF
         this.Channel.Client.LocalUser.SendMessage(this.Channel, this.Message);
         Message m = new Message(this.Message.Trim(),
                                 DateTime.Now.ToString(this.Settings.TimestampFormat),
-                                this.Channel.Client.LocalUser.NickName);
+                                this.Channel.Client.LocalUser.NickName,
+                                MessageLevels.Public);
         this.Messages.Add(m);
         if (this.Settings.CanLog && this.logger != null)
           logger.Append(string.Format("{0} {1}: {2}", m.Received, m.Sender, m.Text));
@@ -279,7 +282,8 @@ namespace Handle.WPF
         case "help":
           // TODO "/help command"
           this.Messages.Add(new Message("Helptext.",
-                                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!="));
+                                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!=",
+                                        MessageLevels.Clientside));
           break;
         case "join":
         case "j":
@@ -294,7 +298,8 @@ namespace Handle.WPF
           else
           {
             this.Messages.Add(new Message(string.Format("Invalid number of arguments for the command \"{0}\"!", command),
-                                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!="));
+                                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!=",
+                                        MessageLevels.Clientside));
           }
           break;
         case "whois":
@@ -327,16 +332,16 @@ namespace Handle.WPF
           {
             invm.CloseItem(this);
           }
-          else 
+          else
           {
             for (int i = 0; i < args.Length; i++)
             {
               for (int y = 1; y < invm.Items.Count; y++)
-			        {
+              {
                 IrcChannelViewModel icvm = invm.Items[y];
                 if (icvm.DisplayName == args[i].ToString())
-                 invm.CloseItem(icvm);
-			        }
+                  invm.CloseItem(icvm);
+              }
             }
           }
           break;
@@ -348,23 +353,24 @@ namespace Handle.WPF
           }
           break;
         case "motd":
-          //TODO Fehler beim URI Handling
           this.Messages.Add(new Message(this.Channel.Client.MessageOfTheDay,
-                                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!="));
+                                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!=",
+                                        MessageLevels.Clientside));
           break;
         case "names":
           //TODO Nachrichten haben keinen Zeilenumbruch, wenn zu lange
           string users = "";
-          foreach (IrcChannelUser iu in this.Users) 
+          foreach (IrcChannelUser iu in this.Users)
           {
             users += iu.User.NickName + ",";
           }
           this.Messages.Add(new Message(users,
-                                                  DateTime.Now.ToString(this.Settings.TimestampFormat), "=!="));
+                                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!=",
+                                        MessageLevels.Clientside));
           break;
         default:
           this.Messages.Add(new Message(string.Format("Unknown command \"{0}\".", command),
-                                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!="));
+                                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!=", MessageLevels.Clientside));
           break;
       }
       this.Message = string.Empty;

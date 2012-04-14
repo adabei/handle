@@ -41,7 +41,8 @@ namespace Handle.WPF.Converters
   public class StringToMessageConverter : IValueConverter
   {
     private readonly bool displayLinks;
-    private const string uriPattern = @"(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))";
+    private readonly FilterService filterService;
+    private const string uriPattern = @"^(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))$";
 
     public StringToMessageConverter()
       : base()
@@ -49,10 +50,12 @@ namespace Handle.WPF.Converters
       try
       {
         this.displayLinks = IoC.Get<Settings>().DisplayURLAsLink;
+        this.filterService = IoC.Get<FilterService>();
       }
       catch
       {
         this.displayLinks = true;
+        this.filterService = new FilterService();
       }
     }
 
@@ -60,7 +63,7 @@ namespace Handle.WPF.Converters
     {
       List<Inline> inlines = new List<Inline>();
       Hyperlink hl;
-      foreach (string word in (value as string).Trim().Split(' '))
+      foreach (string word in Regex.Split((string)value, @"(?=(?<=[^\s])\s+)"))
       {
         if (!Regex.IsMatch(word, uriPattern, RegexOptions.Compiled) || !displayLinks)
         {
