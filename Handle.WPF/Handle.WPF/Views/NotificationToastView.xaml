@@ -10,7 +10,7 @@
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Window.Resources>
-    <Grid>   
+    <Grid cal:Message.Attach="[Event MouseDown] = [Action ShowTab]">   
     <Grid.RowDefinitions>
       <RowDefinition Height="30"></RowDefinition>
       <RowDefinition Height="40"></RowDefinition>
@@ -33,6 +33,6 @@
                 ToolTip="Close"
                 Opacity="1" FontFamily="Marlett" Foreground="Black"
                 Content="r" Click="CloseButtonClick" />
-    <Button Grid.Row="6" x:Name="ShowTab" Content="Show"></Button>
+    <!--<Button Grid.Row="6" x:Name="ShowTab" Content="Show"></Button>-->
   </Grid>
 </Window>

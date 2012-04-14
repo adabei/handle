@@ -22,7 +22,7 @@ namespace Handle.WPF
     public NotificationToastView()
     {
       InitializeComponent();
-      this.Top = SystemParameters.PrimaryScreenHeight - this.Height;
+      this.Top = SystemParameters.PrimaryScreenHeight - this.Height - 35;
       this.Left = SystemParameters.PrimaryScreenWidth - this.Width;
       this.ShowInTaskbar = false;
       DispatcherTimer dt = new DispatcherTimer();
