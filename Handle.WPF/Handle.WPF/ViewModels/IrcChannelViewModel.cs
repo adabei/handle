@@ -398,6 +398,13 @@ namespace Handle.WPF
         this.JoinChannelClicked();
     }
 
+    public void JoinNetwork()
+    {
+      //TODO Network
+      if (this.JoinChannelClicked != null)
+        this.JoinChannelClicked();
+    }
+
     public override IEnumerable<InputBindingCommand> GetInputBindingCommands()
     {
       yield return new InputBindingCommand(LeaveChannel)

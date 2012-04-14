@@ -55,8 +55,8 @@ namespace Handle.WPF
       {
         wm = new WindowManager();
       }
-      var ntvm = new NotificationToastViewModel(e);
       Window x = screen.GetView() as Window;
+      var ntvm = new NotificationToastViewModel(e,x);
       x.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate
       {
         wm.ShowWindow(ntvm);

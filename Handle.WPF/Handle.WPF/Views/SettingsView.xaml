@@ -119,7 +119,7 @@
               <RowDefinition Height="200"></RowDefinition>
               <RowDefinition Height="30"></RowDefinition>
             </Grid.RowDefinitions>
-            <ListView Grid.Row="0" x:Name="FilterPatterns">
+            <ListView Grid.Row="0" x:Name="FilterPatterns" BorderThickness="1">
               
             </ListView>
             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">

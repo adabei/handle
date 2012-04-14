@@ -2,8 +2,8 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:Handle.WPF.Controls"
-        TitleText="network list" Height="350" Width="350"
-        xmlns:cal="http://www.caliburnproject.org" MinHeight="350" MinWidth="350">
+        TitleText="network list" Height="350" Width="320"
+        xmlns:cal="http://www.caliburnproject.org" MinHeight="350" MinWidth="320">
 <Window.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
@@ -17,13 +17,13 @@
     </ResourceDictionary>
   </Window.Resources>
   
-  <Grid Height="310" Width="280">
+  <Grid Height="310" Width="300">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
       <RowDefinition/>
       <RowDefinition Height="Auto"/>
     </Grid.RowDefinitions>
-    <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Left" Width="270">
+    <StackPanel Orientation="Vertical" Grid.Row="1" HorizontalAlignment="Left" Width="300">
       <Grid>
         <Grid.ColumnDefinitions>
           <ColumnDefinition Width="Auto"/>
@@ -56,10 +56,10 @@
           <ColumnDefinition Width="Auto"></ColumnDefinition>
           <ColumnDefinition Width="Auto"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <ListView x:Name="NetworkList" ItemsSource="{Binding Path=Networks, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Width="210" Height="120" Grid.Row="0" Grid.Column="0" Margin="5,0,0,0">
+        <ListView x:Name="NetworkList" ItemsSource="{Binding Path=Networks, Mode=OneWay,UpdateSourceTrigger=PropertyChanged}" Width="260" Height="120" Grid.Row="0" Grid.Column="0" Margin="5,0,0,0" BorderThickness="1">
           <ListView.View>
             <GridView>
-              <GridViewColumn Width="150">
+              <GridViewColumn Width="200">
                 <GridViewColumnHeader Click="SortClick" Content="Network Name" Tag="Name"></GridViewColumnHeader>
                 <GridViewColumn.CellTemplate>
                   <DataTemplate>
@@ -94,17 +94,17 @@
             </GridView>
           </ListView.View>
         </ListView>
-        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical">
-          <Image  Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Import]" ToolTip="Import networks" Source="/Handle.WPF;component/Images/import.png" Margin="5"/>
-          <Image  Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Export]" ToolTip="Export selected network(s)" Source="/Handle.WPF;component/Images/save.png" Margin="5"/>
+        <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
+          <Image  Height="25" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Import]" ToolTip="Import networks" Source="/Handle.WPF;component/Images/import.png" Margin="5" Opacity="0.6"/>
+          <Image  Height="25" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Export]" ToolTip="Export selected network(s)" Source="/Handle.WPF;component/Images/save.png" Margin="5" Opacity="0.6"/>
         </StackPanel>
       </Grid>
     </StackPanel>
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5,5,5,5">
-      <Image  Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Add]" ToolTip="Add a new network" Source="/Handle.WPF;component/Images/add_small.png" Margin="2"/>
-      <Image  Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Edit]" ToolTip="Edit network" Source="/Handle.WPF;component/Images/edit_small.png" Margin="2"/>
-      <Image  Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Remove]" ToolTip="Remove selected network(s)" Source="/Handle.WPF;component/Images/delete.png" Margin="2"/>
-      <Image  Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Connect]" ToolTip="Connect" Source="/Handle.WPF;component/Images/connect_small.png" Margin="2"/>
+      <Image  Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Add]" ToolTip="Add a new network" Source="/Handle.WPF;component/Images/add_small.png" Margin="0,0,20,0" Opacity="0.6"/>
+      <Image  Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Edit]" ToolTip="Edit network" Source="/Handle.WPF;component/Images/edit_small.png" Margin="0,0,20,0" Opacity="0.6"/>
+      <Image  Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Remove]" ToolTip="Remove selected network(s)" Source="/Handle.WPF;component/Images/delete.png" Margin="0,0,20,0" Opacity="0.6"/>
+      <Image  Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Connect]" ToolTip="Connect" Source="/Handle.WPF;component/Images/connect_small.png" Opacity="0.6"/>
     </StackPanel>
   </Grid>
 </Controls:MetroWindow>

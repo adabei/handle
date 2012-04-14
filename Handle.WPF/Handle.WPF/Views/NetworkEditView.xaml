@@ -76,8 +76,8 @@
 
     </Grid>
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,10">
-      <Image x:Name="OkButton" ToolTip="OK" Height="40" Source="/Handle.WPF;component/Images/ok.png" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Ok]" Margin="5"/>
-      <Image x:Name="CancelButton" ToolTip="Cancel" Height="40" Source="/Handle.WPF;component/Images/cancel.png" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Cancel]" Margin="5"/>
+      <Image x:Name="OkButton" ToolTip="OK" Height="40" Source="/Handle.WPF;component/Images/ok.png" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Ok]" Margin="5" Opacity="0.6"/>
+      <Image x:Name="CancelButton" ToolTip="Cancel" Height="40" Source="/Handle.WPF;component/Images/cancel.png" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Cancel]" Margin="5" Opacity="0.6"/>
     </StackPanel>
   </Grid>
 </Controls:MetroWindow>
