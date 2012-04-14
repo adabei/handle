@@ -41,6 +41,7 @@ namespace Handle.WPF.Converters
   public class StringToMessageConverter : IValueConverter
   {
     private readonly bool displayLinks;
+    private readonly FilterService filterService;
     private const string uriPattern = @"^(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))$";
 
     public StringToMessageConverter()
@@ -49,10 +50,12 @@ namespace Handle.WPF.Converters
       try
       {
         this.displayLinks = IoC.Get<Settings>().DisplayURLAsLink;
+        this.filterService = IoC.Get<FilterService>();
       }
       catch
       {
         this.displayLinks = true;
+        this.filterService = new FilterService();
       }
     }
 

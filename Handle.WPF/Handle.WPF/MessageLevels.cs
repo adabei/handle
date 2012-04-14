@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="ShellViewModel.cs" company="">
+// <copyright file="MessageLevels.cs" company="">
 // Copyright (c) 2011 Bernhard Schwarz, Florian Lembeck
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -25,25 +25,22 @@
 
 namespace Handle.WPF
 {
-  using System;
-using System.Collections.Generic;
-
   /// <summary>
   /// TODO: Update summary.
   /// </summary>
-  public class Message
+  public enum MessageLevels
   {
-    public string Text { get; set; }
-    public string Received { get; set; }
-    public string Sender { get; set; }
-    public HashSet<MessageLevels> Levels { get; set; }
-
-    public Message(string text, string received, string sender, params MessageLevels[] levels)
-    {
-      Text = text;
-      Received = received;
-      Sender = sender;
-      this.Levels = new HashSet<MessageLevels>(levels) ?? new HashSet<MessageLevels>();
-    }
+    Public,
+    Message,
+    Join,
+    Part,
+    Highlight,
+    Image,
+    Nick,
+    Quit,
+    Modes,
+    Topic,
+    Clientside,
+    Notice
   }
 }

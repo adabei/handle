@@ -146,6 +146,7 @@
     <Compile Include="IProgressService.cs" />
     <Compile Include="IrcChannelUserComparer.cs" />
     <Compile Include="MessageFilterEventArgs.cs" />
+    <Compile Include="MessageLevels.cs" />
     <Compile Include="Models\ExtendedSoundPlayer.cs">
       <SubType>Component</SubType>
     </Compile>
