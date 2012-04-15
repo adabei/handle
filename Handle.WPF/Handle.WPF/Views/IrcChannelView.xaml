@@ -9,7 +9,7 @@
              d:DesignHeight="300" d:DesignWidth="300">
 
   <UserControl.Resources>
-    <Converters:StringToMessageConverter x:Key="stringToMessageConverter"/>
+    <Converters:MessageConverter x:Key="messageConverter"/>
     <Converters:NickConverter x:Key="nickConverter"/>
     <Style x:Key="ExpanderUpHeaderStyle" TargetType="{x:Type ToggleButton}">
       <Setter Property="Template">
@@ -140,7 +140,7 @@
 
                 <TextBlock Grid.Column="0"  Text="{Binding Received}"/>
                 <TextBlock Grid.Column="1" Margin="5,0,0,0" Text="{Binding Sender}"/>
-                <ContentControl Grid.Column="2" Margin="5,0,0,0" Content="{Binding Text, Converter={StaticResource stringToMessageConverter}}"/>
+                <ContentControl Grid.Column="2" Margin="5,0,0,0" Content="{Binding Converter={StaticResource messageConverter}}"/>
               </Grid>
             </DataTemplate>
           </ItemsControl.ItemTemplate>

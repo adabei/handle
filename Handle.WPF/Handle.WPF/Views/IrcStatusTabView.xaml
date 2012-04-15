@@ -8,7 +8,7 @@
              xmlns:Converters="clr-namespace:Handle.WPF.Converters"
              d:DesignHeight="300" d:DesignWidth="300">
   <UserControl.Resources>
-    <Converters:StringToMessageConverter x:Key="stringToMessageConverter"/>
+    <Converters:MessageConverter x:Key="messageConverter"/>
   </UserControl.Resources>
   <Grid>
     <Grid.RowDefinitions>

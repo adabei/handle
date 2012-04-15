@@ -197,7 +197,7 @@
     <Compile Include="Native\POINT.cs" />
     <Compile Include="Native\RECT.cs" />
     <Compile Include="Models\PropertyUpdater.cs" />
-    <Compile Include="Converters\StringToMessageConverter.cs" />
+    <Compile Include="Converters\MessageConverter.cs" />
     <Compile Include="ViewModels\ChannelSearchViewModel.cs" />
     <Compile Include="ViewModels\IrcStatusTabViewModel.cs" />
     <Compile Include="Views\ChannelSearchView.xaml.cs">

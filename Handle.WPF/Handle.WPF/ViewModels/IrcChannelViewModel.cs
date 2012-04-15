@@ -54,6 +54,7 @@ namespace Handle.WPF
     private int historyIndex = -1;
     private Queue<string> tabCompletionQueue;
     private string tabCompletionName;
+    private FilterService filterService;
 
     public IrcChannel Channel { get; set; }
 
@@ -111,6 +112,7 @@ namespace Handle.WPF
       this.networkName = networkName;
       this.personalHistory = new List<string>();
       this.events = IoC.Get<IEventAggregator>();
+      this.filterService = IoC.Get<FilterService>();
       this.Channel = channel;
       this.Channel.ModesChanged += this.channelModesChanged;
       this.Channel.UsersListReceived += this.channelUsersListReceived;
@@ -188,6 +190,9 @@ namespace Handle.WPF
       Message m = new Message(e.Text,
                               DateTime.Now.ToString(this.Settings.TimestampFormat),
                               e.Source.Name, MessageLevels.Public);
+      if (this.filterService.IsImportant(m.Text))
+        m.Levels.Add(MessageLevels.Highlight);
+
       this.Messages.Add(m);
       if (this.Settings.CanLog && this.logger != null)
         logger.Append(String.Format("{0} {1}: {2}",

@@ -34,17 +34,18 @@ namespace Handle.WPF.Converters
   using System.Windows.Data;
   using System.Windows.Documents;
   using Caliburn.Micro;
+  using System.Windows.Media;
 
   /// <summary>
   /// Represents a concrete ValueConverter to convert strings, possibly containing links, to TextBlocks
   /// </summary>
-  public class StringToMessageConverter : IValueConverter
+  public class MessageConverter : IValueConverter
   {
     private readonly bool displayLinks;
     private readonly FilterService filterService;
     private const string uriPattern = @"^(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:'"".,<>?«»“”‘’]))$";
 
-    public StringToMessageConverter()
+    public MessageConverter()
       : base()
     {
       try
@@ -61,9 +62,10 @@ namespace Handle.WPF.Converters
 
     public object Convert(object value, Type targetType, object parameter, System.Globalization.CultureInfo culture)
     {
+      string text = (value as Handle.WPF.Message).Text;
       List<Inline> inlines = new List<Inline>();
       Hyperlink hl;
-      foreach (string word in Regex.Split((string)value, @"(?=(?<=[^\s])\s+)"))
+      foreach (string word in Regex.Split(text, @"(?=(?<=[^\s])\s+)"))
       {
         if (!Regex.IsMatch(word, uriPattern, RegexOptions.Compiled) || !displayLinks)
         {
@@ -94,6 +96,14 @@ namespace Handle.WPF.Converters
       TextBlock tb = new TextBlock();
       foreach (var inline in inlines)
       {
+        if ((value as Handle.WPF.Message).Levels.Contains(MessageLevels.Highlight))
+        {
+          if (inline is Run)
+          {
+            inline.Foreground = Brushes.Red;
+          }
+        }
+
         tb.Inlines.Add(inline);
         tb.Inlines.Add(" ");
       }
