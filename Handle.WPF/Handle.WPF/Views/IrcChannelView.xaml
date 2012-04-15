@@ -160,6 +160,8 @@
                   <ContextMenu cal:Action.TargetWithoutContext="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
                     <MenuItem Header="WhoIs" 
                               cal:Message.Attach="[Event Click] = [Action WhoIs($dataContext)]"/>
+                    <MenuItem Header="Query" 
+                              cal:Message.Attach="[Event Click] = [Action Query($dataContext)]"/>
                   </ContextMenu>
                 </TextBlock.ContextMenu>
               </TextBlock>

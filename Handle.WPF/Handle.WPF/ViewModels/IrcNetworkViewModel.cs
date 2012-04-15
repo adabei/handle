@@ -166,8 +166,13 @@ namespace Handle.WPF
       {
         message = string.Empty;
       }
-      (sender as IrcChannelViewModel).LeaveChannel(message);
-      this.Items.Remove(sender as IrcChannelViewModel);
+
+      if (sender is IrcChannelViewModel)
+      {
+        (sender as IrcChannelViewModel).LeaveChannel(message);
+      }
+
+      this.Items.Remove(sender);
     }
 
     public override IEnumerable<InputBindingCommand> GetInputBindingCommands()

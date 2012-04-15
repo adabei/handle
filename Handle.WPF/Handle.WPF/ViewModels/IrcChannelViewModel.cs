@@ -556,5 +556,25 @@ namespace Handle.WPF
     {
       this.Channel.Client.QueryWhoIs(nickName);
     }
+
+    public void Query(IrcChannelUser user)
+    {
+      IrcPrivateConversationViewModel ipcvm = null;
+      foreach (var item in (this.Parent as IrcNetworkViewModel).Items)
+      {
+        if (item.DisplayName == user.User.NickName)
+        {
+          ipcvm = item;
+        }
+      }
+
+      if (ipcvm == null)
+      {
+        ipcvm = new IrcPrivateConversationViewModel(user.User, this.Channel.Client, this.Settings);
+        (this.Parent as IrcNetworkViewModel).Items.Add(ipcvm);
+      }
+
+      (this.Parent as IrcNetworkViewModel).ActivateItem(ipcvm);
+    }
   }
 }
