@@ -70,7 +70,7 @@
       <TextBox Grid.Column="1" Grid.Row="8" x:Name="Network_Identity_RealName" Height="20" Width="180" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
 
     </Grid>
-    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,10,10">
+    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,10,10">
       <Image x:Name="ConnectButton" ToolTip="Connect" Height="40" Source="/Handle.WPF;component/Images/connect_small.png" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Connect]" Margin="5" Opacity="0.6"/>
       <Image x:Name="CancelButton" ToolTip="Cancel" Height="40" Source="/Handle.WPF;component/Images/cancel.png" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Cancel]" Margin="5" Opacity="0.6"/>
     </StackPanel>
