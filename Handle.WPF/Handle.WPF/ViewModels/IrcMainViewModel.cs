@@ -47,8 +47,7 @@ namespace Handle.WPF
       string message = null;
       try
       {
-        if (IoC.Get<Settings>().CanSendLeaveMessage)
-          message = IoC.Get<Settings>().LeaveMessage;
+        message = IoC.Get<Settings>().PartMessage;
       }
       catch
       {

@@ -58,14 +58,9 @@ namespace Handle.WPF
     public bool DisplayURLAsLink { get; set; }
 
     /// <summary>
-    /// Gets or sets a value indicating whether a customized leave message will be sent
-    /// </summary>
-    public bool CanSendLeaveMessage { get; set; }
-
-    /// <summary>
     /// Gets or sets the Leave Message
     /// </summary>
-    public string LeaveMessage { get; set; }
+    public string PartMessage { get; set; }
 
     /// <summary>
     /// Gets or sets the FontFamily
@@ -84,9 +79,9 @@ namespace Handle.WPF
 
     public bool UseFuzzySearch { get; set; }
 
-    public bool ShowWelcomeMessages { get; set; }
+    public bool AdvertiseJoins { get; set; }
 
-    public bool ShowLeaveMessages { get; set; }
+    public bool AdvertiseParts { get; set; }
 
     public bool NotificationToast { get; set; }
 
@@ -159,11 +154,10 @@ namespace Handle.WPF
       return new Settings()
       {
         CanLog = false,
-        CanSendLeaveMessage = true,
         DisplayURLAsLink = true,
         FontFamily = "Segoe UI",
         FontSize = 11,
-        LeaveMessage = "Leaving - Using the Handle client",
+        PartMessage = "Leaving - Using the Handle client",
         TimestampFormat = "<HH:mm>",
         UseFuzzySearch = false,
         FilterPatterns = new List<string>(),

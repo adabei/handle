@@ -25,7 +25,6 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
           </Grid.RowDefinitions>
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -36,15 +35,13 @@
 
           <CheckBox Content="Use easy search" x:Name="Settings_UseDumbSearch" Grid.Row="1" Grid.Column="0"/>
 
-          <CheckBox Content="Send leave messages" x:Name="Settings_CanSendLeaveMessage" Grid.Row="2" Grid.Column="0"/>
+          <Label Content="Leave message:" Grid.Row="2" Grid.Column="0"/>
+          <TextBox x:Name="Settings_LeaveMessage" Grid.Row="2" Grid.Column="1"/>
 
-          <Label Content="Leave message:" Grid.Row="3" Grid.Column="0" IsEnabled="{Binding ElementName=Settings_CanSendLeaveMessage, Path=IsChecked}"/>
-          <TextBox x:Name="Settings_LeaveMessage" Grid.Row="3" Grid.Column="1" IsEnabled="{Binding ElementName=Settings_CanSendLeaveMessage, Path=IsChecked}"/>
+          <Label Content="Timestamp format:" Grid.Row="3" Grid.Column="0"/>
+          <TextBox x:Name="Settings_TimestampFormat" Grid.Row="3" Grid.Column="1"/>
 
-          <Label Content="Timestamp format:" Grid.Row="4" Grid.Column="0"/>
-          <TextBox x:Name="Settings_TimestampFormat" Grid.Row="4" Grid.Column="1"/>
-
-          <CheckBox Content="Make URLs clickable" x:Name="Settings_DisplayURLAsLink" Grid.Row="5" Grid.Column="0"/>
+          <CheckBox Content="Make URLs clickable" x:Name="Settings_DisplayURLAsLink" Grid.Row="4" Grid.Column="0"/>
         </Grid>
       </TabItem>
       <TabItem Header="Display" x:Name="DisplayTabItem">
@@ -59,8 +56,8 @@
             <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
           </Grid.ColumnDefinitions>
-          <CheckBox x:Name="Settings_ShowWelcomeMessages" Content="Show Welcome Message" Grid.Row="0" Grid.Column="0"/>
-          <CheckBox x:Name="Settings_ShowLeaveMessages" Content="Show Leave Message" Grid.Row="1" Grid.Column="0"/>
+          <CheckBox x:Name="Settings_AdvertiseJoins" Content="Show Welcome Message" Grid.Row="0" Grid.Column="0"/>
+          <CheckBox x:Name="Settings_AdvertiseParts" Content="Show Leave Message" Grid.Row="1" Grid.Column="0"/>
           <Label Content="FontStyle: " Grid.Row="2" Grid.Column="0"/>
           <ListBox
          Name="lstFonts"

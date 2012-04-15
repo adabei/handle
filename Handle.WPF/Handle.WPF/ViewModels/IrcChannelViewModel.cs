@@ -210,7 +210,7 @@ namespace Handle.WPF
 
     private void channelUserJoined(object sender, IrcChannelUserEventArgs e)
     {
-      if (this.Settings.ShowWelcomeMessages)
+      if (this.Settings.AdvertiseJoins)
       {
         this.Messages.Add(new Message(String.Format("{0} [{1}] has joined {2}",
                                                     e.ChannelUser.User.NickName,
@@ -227,7 +227,7 @@ namespace Handle.WPF
 
     private void channelUserLeft(object sender, IrcChannelUserEventArgs e)
     {
-      if (this.Settings.ShowLeaveMessages)
+      if (this.Settings.AdvertiseParts)
       {
         this.Messages.Add(new Message(String.Format("{0} [{1}] has left {2} [{3}]",
                                                     e.ChannelUser.User.NickName,

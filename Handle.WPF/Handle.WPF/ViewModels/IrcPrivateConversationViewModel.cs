@@ -37,7 +37,7 @@ namespace Handle.WPF
   /// </summary>
   public class IrcPrivateConversationViewModel : ViewModelBase
   {
-    public dynamic User { get; set; }
+    public IrcUser User { get; set; }
     private IrcClient client;
     public BindableCollection<Message> Messages { get; set; }
     public bool Closable { get; set; }
@@ -58,7 +58,7 @@ namespace Handle.WPF
       }
     }
 
-    public IrcPrivateConversationViewModel(dynamic user, IrcClient client, Settings settings)
+    public IrcPrivateConversationViewModel(IrcUser user, IrcClient client, Settings settings)
     {
       this.Settings = settings;
       this.User = user;

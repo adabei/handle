@@ -75,7 +75,7 @@ namespace Handle.WPF
 
       this.Client = new IrcClient();
       this.Client.Registered += this.clientRegistered;
-      
+
       // TODO Display Popup
       this.Client.ConnectFailed += delegate(object sender, IrcErrorEventArgs e)
       {
@@ -108,7 +108,7 @@ namespace Handle.WPF
 
       if (ipcvm == null)
       {
-        ipcvm = new IrcPrivateConversationViewModel(e.Source, this.Client, this.Settings);
+        ipcvm = new IrcPrivateConversationViewModel(e.Source as IrcUser, this.Client, this.Settings);
         this.Items.Add(ipcvm);
         ipcvm.Messages.Add(new Message(e.Text,
                               DateTime.Now.ToString(this.Settings.TimestampFormat),
@@ -118,7 +118,7 @@ namespace Handle.WPF
 
     private void clientRegistered(object sender, EventArgs e)
     {
-      this.Client.LocalUser.JoinedChannel += this.localUserJoinedChannel; 
+      this.Client.LocalUser.JoinedChannel += this.localUserJoinedChannel;
       this.Client.LocalUser.InviteReceived += this.localUserInviteReceived;
       var istvm = new IrcStatusTabViewModel(this.Client);
       istvm.Parent = this;
@@ -160,8 +160,7 @@ namespace Handle.WPF
       string message = null;
       try
       {
-        if (this.Settings.CanSendLeaveMessage)
-          message = this.Settings.LeaveMessage;
+        message = this.Settings.PartMessage;
       }
       catch
       {
