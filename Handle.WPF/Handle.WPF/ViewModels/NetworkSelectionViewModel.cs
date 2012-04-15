@@ -127,6 +127,7 @@ namespace Handle.WPF
     public void Add()
     {
       var nnvm = new NetworkNewViewModel();
+      nnvm.Parent = this;
       if (this.windowManager.ShowDialog(nnvm) == true)
       {
         this.Networks.Add(nnvm.Network);

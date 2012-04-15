@@ -115,6 +115,7 @@ namespace Handle.WPF
     {
       IWindowManager wm;
       var nsvm = new NetworkSelectionViewModel();
+      nsvm.Parent = this;
       nsvm.ConnectButtonPressed += Connect;
       try
       {

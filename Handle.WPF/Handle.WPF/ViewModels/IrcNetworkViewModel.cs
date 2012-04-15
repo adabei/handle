@@ -113,9 +113,8 @@ namespace Handle.WPF
     private void localUserJoinedChannel(object sender, IrcChannelEventArgs e)
     {
       var icvm = new IrcChannelViewModel(e.Channel, this.DisplayName, this.Settings);
-      icvm.Parent = this.Parent;
+      icvm.Parent = this;
       icvm.JoinChannelClicked += this.JoinChannel;
-      // icvm.Settings = this.Settings;
       this.Items.Add(icvm);
     }
 
@@ -161,6 +160,7 @@ namespace Handle.WPF
     {
       IWindowManager wm;
       var csvm = new ChannelSearchViewModel(this.Client);
+      csvm.Parent = this;
       csvm.Settings = this.Settings;
       try
       {
