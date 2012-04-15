@@ -26,6 +26,7 @@
 namespace Handle.WPF
 {
   using System;
+  using System.Collections.Generic;
   using System.ComponentModel.Composition;
   using System.ComponentModel.Composition.Hosting;
   using System.Threading;
@@ -147,7 +148,7 @@ namespace Handle.WPF
       this.Items.Remove(sender as IrcChannelViewModel);
     }
 
-    public override System.Collections.Generic.IEnumerable<InputBindingCommand> GetInputBindingCommands()
+    public override IEnumerable<InputBindingCommand> GetInputBindingCommands()
     {
       yield return new InputBindingCommand(JoinChannel)
       {
