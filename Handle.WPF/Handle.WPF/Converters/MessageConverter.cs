@@ -33,8 +33,8 @@ namespace Handle.WPF.Converters
   using System.Windows.Controls;
   using System.Windows.Data;
   using System.Windows.Documents;
-  using Caliburn.Micro;
   using System.Windows.Media;
+  using Caliburn.Micro;
 
   /// <summary>
   /// Represents a concrete ValueConverter to convert strings, possibly containing links, to TextBlocks

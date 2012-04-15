@@ -31,7 +31,7 @@ namespace Handle.WPF
   public enum MessageLevels
   {
     Public,
-    Message,
+    Private,
     Join,
     Part,
     Highlight,

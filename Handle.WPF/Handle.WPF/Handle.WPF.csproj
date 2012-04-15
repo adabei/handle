@@ -145,6 +145,9 @@
     <Compile Include="INotificationProvider.cs" />
     <Compile Include="IProgressService.cs" />
     <Compile Include="IrcChannelUserComparer.cs" />
+    <Compile Include="Views\IrcPrivateConversationView.xaml.cs">
+      <DependentUpon>IrcPrivateConversationView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MessageFilterEventArgs.cs" />
     <Compile Include="MessageLevels.cs" />
     <Compile Include="Models\ExtendedSoundPlayer.cs">
@@ -155,6 +158,7 @@
     <Compile Include="Models\TaskbarBlinkProvider.cs" />
     <Compile Include="Models\ToastProvider.cs" />
     <Compile Include="ProgressService.cs" />
+    <Compile Include="ViewModels\IrcPrivateConversationViewModel.cs" />
     <Compile Include="ViewModels\NetworkQuickConnectViewModel.cs" />
     <Compile Include="ViewModels\NotificationToastViewModel.cs" />
     <Compile Include="Views\NetworkQuickConnectView.xaml.cs">
@@ -258,6 +262,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Controls\WindowCommands.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\IrcPrivateConversationView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
