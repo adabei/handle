@@ -73,7 +73,7 @@ namespace Handle.WPF
 
       var svm = new StartupViewModel();
       svm.Parent = this;
- 
+
       if (this.Settings.CanLog)
       {
         DirectoryInfo di = new DirectoryInfo(Settings.PATH + @"logs\");
@@ -85,18 +85,15 @@ namespace Handle.WPF
       ActivateItem(svm);
     }
 
-    private void initializeNotificationProviders()
+    private void setNotificationProviders()
     {
-      lock (this.FilterService.NotificationProviders)
-      {
-        this.FilterService.NotificationProviders.Clear();
-        if (this.Settings.MakeSound)
-          this.FilterService.NotificationProviders.Add(new SoundProvider(this.Settings));
-        if (this.Settings.TaskbarBlinking)
-          this.FilterService.NotificationProviders.Add(new TaskbarBlinkProvider(this));
-        if (this.Settings.NotificationToast)
-          this.FilterService.NotificationProviders.Add(new ToastProvider(this));
-      }
+      this.FilterService.NotificationProviders.Clear();
+      if (this.Settings.MakeSound)
+        this.FilterService.NotificationProviders.Add(new SoundProvider(this.Settings));
+      if (this.Settings.TaskbarBlinking)
+        this.FilterService.NotificationProviders.Add(new TaskbarBlinkProvider(this));
+      if (this.Settings.NotificationToast)
+        this.FilterService.NotificationProviders.Add(new ToastProvider(this));
     }
 
     private void Connect(Network network)
@@ -108,7 +105,7 @@ namespace Handle.WPF
       {
         ActivateItem(this.IrcMainViewModel);
       }
-      this.initializeNotificationProviders();
+      this.setNotificationProviders();
     }
 
     private void ShowNetworkSelection()
@@ -158,7 +155,7 @@ namespace Handle.WPF
       PropertyUpdater.Update(this.Settings).With(settings);
       this.Settings.Save();
       this.FilterService.PopulatePatterns();
-      initializeNotificationProviders();
+      this.setNotificationProviders();
     }
 
     public override IEnumerable<InputBindingCommand> GetInputBindingCommands()
