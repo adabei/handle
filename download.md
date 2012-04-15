@@ -6,4 +6,4 @@ title: Download
 Download Handle for Desktop
 ---------------------------
 
-<a href="setup/Handle.WPF.application">Download now</a>
+<a href="setup/setup.exe">Download now</a>
