@@ -350,6 +350,54 @@ namespace Handle.WPF
             }
           }
           break;
+        case "msg":
+          IrcPrivateConversationViewModel ipcvm = null;
+          IrcUser target = null;
+          var longStr = new List<string>();
+            for (int i = 1; i < args.Length; i++)
+            {
+              longStr.Add(args[i]);
+            }
+          var message = string.Join(" ", longStr.ToArray());
+
+          foreach (var u in this.Channel.Users)
+          {
+            if (u.User.NickName == args[0])
+            {
+              target = u.User;
+              break;
+            }
+          }
+
+          if (target == null)
+          {
+            Console.WriteLine("Error, user does not exist!");
+            return;
+          }
+
+          foreach (var item in (this.Parent as IrcNetworkViewModel).Items)
+          {
+            if (item.DisplayName == args[0])
+            {
+              ipcvm = item;
+            }
+          }
+
+          if (ipcvm == null)
+          {
+            ipcvm = new IrcPrivateConversationViewModel(target, this.Channel.Client, this.Settings);
+            (this.Parent as IrcNetworkViewModel).Items.Add(ipcvm);
+          }
+
+          (this.Parent as IrcNetworkViewModel).ActivateItem(ipcvm);
+
+          this.Channel.Client.LocalUser.SendMessage(args[0], message);
+
+          ipcvm.Messages.Add(new Message(message,
+                              DateTime.Now.ToString(this.Settings.TimestampFormat),
+                              target.NickName, MessageLevels.Private));
+
+          break;
         case "quit":
           for (int i = 0; i < invm.Items.Count; i++)
           {
