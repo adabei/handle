@@ -44,7 +44,7 @@
     </ScrollViewer>
     
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-      <Image  Height="50" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action OpenContextMenu]" ToolTip="Connect to network or channel" Source="/Handle.WPF;component/Images/add_big.png" Margin="2">
+      <Image  Height="35" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action OpenContextMenu]" ToolTip="Connect to network or channel" Source="/Handle.WPF;component/Images/add_big.png" Margin="2">
         <Image.ContextMenu>
           <ContextMenu x:Name="CoMenu">
             <MenuItem x:Name="JoinChannel" Header="Channel" cal:Message.Attach="[Event Click] = [Action JoinChannel]"/>
@@ -53,7 +53,7 @@
         </Image.ContextMenu>
       </Image>
       <TextBox x:Name="Message" Width="300" Height="30"/>
-      <Image  Height="50" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Send]" ToolTip="Send Message" Source="/Handle.WPF;component/Images/msg.png" Margin="2"/>
+      <Image  Height="35" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Send]" ToolTip="Send Message" Source="/Handle.WPF;component/Images/msg.png" Margin="2"/>
     </StackPanel>
   </Grid>
 
