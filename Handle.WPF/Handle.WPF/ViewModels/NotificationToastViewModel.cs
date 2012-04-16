@@ -87,7 +87,6 @@ using System.Windows;
         }
       }
       this.TryClose();
-
     }
   }
 }

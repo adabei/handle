@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:cal="http://www.caliburnproject.org"
-        Title="NotificationToastView" Height="300" Width="300" AllowsTransparency="True" WindowStyle="None" >
+        Title="NotificationToastView" Height="215" Width="300" AllowsTransparency="True" WindowStyle="None" >
   <Window.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
@@ -12,27 +12,27 @@
   </Window.Resources>
     <Grid cal:Message.Attach="[Event MouseDown] = [Action ShowTab]">   
     <Grid.RowDefinitions>
-      <RowDefinition Height="30"></RowDefinition>
+      <RowDefinition Height="20"></RowDefinition>
       <RowDefinition Height="40"></RowDefinition>
       <RowDefinition Height="30"></RowDefinition>
       <RowDefinition Height="20"></RowDefinition>
       <RowDefinition Height="20"></RowDefinition>
       <RowDefinition Height="50"></RowDefinition>
-      <RowDefinition Height="25"></RowDefinition>
     </Grid.RowDefinitions>
       <TextBlock x:Name="Network" Grid.Row="1" FontSize="20" FontWeight="Bold" />
     <TextBlock x:Name="Channel" Grid.Row="2" FontSize="18"  FontWeight="Bold"/>
     <TextBlock x:Name="User" Grid.Row="3" FontSize="16"/>
     <TextBlock x:Name="TimeStamp" Grid.Row="4" FontSize="16"/>
     <TextBlock x:Name="Message" Grid.Row="5" TextWrapping="Wrap" FontSize="16"/>
-    <Button x:Name="CloseButton" Grid.Row="0" HorizontalAlignment="Right"
+    <StackPanel Grid.Row="0" Background="#CC119EDA">
+      <Button x:Name="CloseButton" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center"
                 Margin="2,0,0,0"
                 Width="25"
-                Height="25"
+                Height="20"
                 Style="{DynamicResource ChromelessButtonStyle}"
                 ToolTip="Close"
                 Opacity="1" FontFamily="Marlett" Foreground="Black"
                 Content="r" Click="CloseButtonClick" />
-    <!--<Button Grid.Row="6" x:Name="ShowTab" Content="Show"></Button>-->
+    </StackPanel>
   </Grid>
 </Window>
