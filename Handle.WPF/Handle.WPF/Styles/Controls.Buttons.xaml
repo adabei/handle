@@ -151,8 +151,8 @@
                 </VisualState>
                 <VisualState Name="Pressed">
                   <Storyboard>
-                    <ColorAnimation Storyboard.TargetName="BorderBrush"  Storyboard.TargetProperty="Color" To="Black"/>
-                    <ColorAnimation Storyboard.TargetName="FontColor"  Storyboard.TargetProperty="Color" To="White" />
+                    <ColorAnimation Storyboard.TargetName="BorderBrush"  Storyboard.TargetProperty="Color" To="Black" Duration="0"/>
+                    <ColorAnimation Storyboard.TargetName="FontColor"  Storyboard.TargetProperty="Color" To="White" Duration="0"/>
                   </Storyboard>
                 </VisualState>
               </VisualStateGroup>
