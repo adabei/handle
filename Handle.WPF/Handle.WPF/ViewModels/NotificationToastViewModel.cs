@@ -86,10 +86,8 @@ using System.Windows;
           y.ActivateItem(ic);
         }
       }
-      //TabItem ti = (TabItem)imv.Items.Items[imv.Items.Items.IndexOf(this.Network)];
-      //ti.IsSelected = true;
-      //TabItem tii = (TabItem)invm.Items.Items[invm.Items.Items.IndexOf(this.Channel)];
-      //tii.IsSelected = true;
+      this.TryClose();
+
     }
   }
 }
