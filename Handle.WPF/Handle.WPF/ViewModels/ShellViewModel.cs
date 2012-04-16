@@ -56,7 +56,7 @@ namespace Handle.WPF
     [Import]
     public FilterService FilterService { get; set; }
 
-    [Import(RequiredCreationPolicy = CreationPolicy.Shared)]
+    [Import]
     public IProgressService ProgressService { get; set; }
 
     /// <summary>
@@ -64,10 +64,9 @@ namespace Handle.WPF
     /// </summary>
     /// <param name="settings">The Settings singleton, filled in by MEF</param>
     [ImportingConstructor]
-    public ShellViewModel(Settings settings, IProgressService progressService)
+    public ShellViewModel(Settings settings)
     {
       this.Settings = settings;
-      this.ProgressService = progressService;
 
       this.IrcMainViewModel = new IrcMainViewModel();
       this.IrcMainViewModel.Parent = this;
