@@ -16,7 +16,7 @@
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Window.Resources>
-  <Grid>
+  <Grid Width="330">
     <Grid.Resources>
       <BooleanToVisibilityConverter x:Key="booleanToVisbility"/>
     </Grid.Resources>
@@ -28,8 +28,8 @@
     </Grid.RowDefinitions>
     <Grid Grid.Row="1">
       <Grid.ColumnDefinitions>
-        <ColumnDefinition/>
-        <ColumnDefinition Width="180"/>
+        <ColumnDefinition Width="150"/>
+        <ColumnDefinition Width="150"/>
       </Grid.ColumnDefinitions>
 
       <Grid.RowDefinitions>
@@ -50,10 +50,10 @@
       <!-- Network -->
       <TextBlock FontSize="18" Grid.Row="0" Text="network" Padding="5"/>
       <Label Grid.Column="0" Grid.Row="1" Content="Name:"/>
-      <TextBox Grid.Column="1" Grid.Row="1" Height="20" Width="180" x:Name="Network_Name"/>
+      <TextBox Grid.Column="1" Grid.Row="1" Height="20"  x:Name="Network_Name"/>
 
       <Label Grid.Column="0" Grid.Row="2" Content="Address:"/>
-      <TextBox Grid.Column="1" Grid.Row="2" Height="20" Width="180" x:Name="Network_Address"/>
+      <TextBox Grid.Column="1" Grid.Row="2" Height="20"  x:Name="Network_Address"/>
 
       <!-- Identity -->
       <TextBlock FontSize="18" Grid.Row="4" Text="identity" Padding="5"/>
