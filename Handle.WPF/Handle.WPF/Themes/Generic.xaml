@@ -277,7 +277,7 @@
                 <RowDefinition Height="*"/>
               </Grid.RowDefinitions>
               <Grid>
-                <ProgressBar Height="10" Width="350" Visibility="{TemplateBinding ShowProgressBar, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <ProgressBar Height="10" Width="350" Visibility="{TemplateBinding ShowProgressBar, Converter={StaticResource BooleanToVisibilityConverter}}" IsIndeterminate="True"/>
               </Grid>
               <Grid x:Name="PART_TitleBar" Height="45" Visibility="{TemplateBinding ShowTitleBar, Converter={StaticResource BooleanToVisibilityConverter}}">
                 <Grid.Background>
