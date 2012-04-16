@@ -56,7 +56,7 @@ namespace Handle.WPF
     [Import]
     public FilterService FilterService { get; set; }
 
-    [Import(RequiredCreationPolicy = CreationPolicy.Shared)]
+    [Import]
     public IProgressService ProgressService { get; set; }
 
     /// <summary>

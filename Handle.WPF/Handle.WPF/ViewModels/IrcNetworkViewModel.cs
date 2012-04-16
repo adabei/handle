@@ -43,6 +43,8 @@ namespace Handle.WPF
 
     public bool Closable { get; set; }
 
+    public IProgressService ProgressService { get; set; }
+
     /// <summary>
     /// Initializes a new instance of the IrcNetworkViewModel class
     /// </summary>
@@ -71,7 +73,7 @@ namespace Handle.WPF
           RealName = id.RealName ?? "Rumpelstilzchen",
         };
       }
-
+      this.ProgressService = IoC.Get<IProgressService>();
 
       this.Client = new IrcClient();
       this.Client.Registered += this.clientRegistered;
@@ -79,12 +81,14 @@ namespace Handle.WPF
       // TODO Display Popup
       this.Client.ConnectFailed += delegate(object sender, IrcErrorEventArgs e)
       {
+        this.ProgressService.Hide();
         Console.WriteLine("Couldn't connect to server");
       };
 
       using (var connectedEvent = new ManualResetEventSlim(false))
       {
         this.Client.Connected += (sender, e) => connectedEvent.Set();
+        this.ProgressService.Show();
         client.Connect(network.Address, false, info);
 
         if (!connectedEvent.Wait(1000))
@@ -118,6 +122,7 @@ namespace Handle.WPF
 
     private void clientRegistered(object sender, EventArgs e)
     {
+      this.ProgressService.Hide();
       this.Client.LocalUser.JoinedChannel += this.localUserJoinedChannel;
       this.Client.LocalUser.InviteReceived += this.localUserInviteReceived;
       var istvm = new IrcStatusTabViewModel(this.Client);
