@@ -358,8 +358,9 @@ namespace Handle.WPF
             {
               longStr.Add(args[i]);
             }
+          
           var message = string.Join(" ", longStr.ToArray());
-
+          
           foreach (var u in this.Channel.Users)
           {
             if (u.User.NickName == args[0])
