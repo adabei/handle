@@ -188,6 +188,8 @@
   <SolidColorBrush x:Key="HoverHyperlinkForegroundBrush" Color="{DynamicResource BlackColor}"/>
   <SolidColorBrush x:Key="HoverHyperlinkBackgroundBrush" Color="{DynamicResource WhiteColor}"/>
 
+  <SolidColorBrush x:Key="ButtonBorderBrush" Color="{DynamicResource BlackColor}" />
+  <SolidColorBrush x:Key="ButtonMouseOverBorderBrush" Color="{DynamicResource BlackColor}" />
   <SolidColorBrush x:Key="TextBoxBorderBrush" Color="{DynamicResource Gray1}" />
   <SolidColorBrush x:Key="ControlBorderBrush" Color="{DynamicResource Gray1}" />
   <SolidColorBrush x:Key="TextBoxMouseOverBorderBrush" Color="{DynamicResource HighlightDarkColor}" />

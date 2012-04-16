@@ -135,124 +135,45 @@
     </Setter>
   </Style>
 
-  <!-- style for default button -->
-  <Style TargetType="{x:Type Button}">
-    <Setter Property="MinHeight"
-                Value="25" />
-    <Setter Property="FontWeight"
-                Value="Bold" />
-    <Setter Property="FontSize"
-                Value="10" />
-    <Setter Property="FontFamily"
-                Value="{DynamicResource DefaultFont}" />
-    <Setter Property="Background"
-                Value="{DynamicResource GrayBrush7}" />
-    <Setter Property="BorderBrush"
-                Value="{DynamicResource TextBoxBorderBrush}" />
-    <Setter Property="Foreground"
-                Value="{DynamicResource TextBrush}" />
-    <Setter Property="Padding"
-                Value="5,6" />
-    <Setter Property="BorderThickness"
-                Value="1" />
+  <Style x:Key="{x:Type Button}" TargetType="{x:Type Button}">
     <Setter Property="Template">
       <Setter.Value>
         <ControlTemplate TargetType="Button">
-          <Grid>
+          <Border Name="RootElement">
             <VisualStateManager.VisualStateGroups>
-              <VisualStateGroup x:Name="CommonStates">
-                <VisualState x:Name="Normal" />
-                <VisualState x:Name="MouseOver">
+              <VisualStateGroup Name="CommonStates">
+                <VisualState Name="Normal" />
+                <VisualState Name="MouseOver">
                   <Storyboard>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
-                                                                       Storyboard.TargetName="MouseOverBorder">
-                      <EasingDoubleKeyFrame KeyTime="0"
-                                                                  Value="1" />
-                    </DoubleAnimationUsingKeyFrames>
+                    <ColorAnimation Storyboard.TargetName="BorderBrush"  Storyboard.TargetProperty="Color"  To="Gray" Duration="0"/>
+                    <ColorAnimation Storyboard.TargetName="FontColor"  Storyboard.TargetProperty="Color" To="White" Duration="0"/>
                   </Storyboard>
                 </VisualState>
-                <VisualState x:Name="Pressed">
+                <VisualState Name="Pressed">
                   <Storyboard>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
-                                                                       Storyboard.TargetName="PressedBorder">
-                      <EasingDoubleKeyFrame KeyTime="0"
-                                                                  Value="1" />
-                    </DoubleAnimationUsingKeyFrames>
+                    <ColorAnimation Storyboard.TargetName="BorderBrush"  Storyboard.TargetProperty="Color" To="Black"/>
+                    <ColorAnimation Storyboard.TargetName="FontColor"  Storyboard.TargetProperty="Color" To="White" />
                   </Storyboard>
                 </VisualState>
-                <VisualState x:Name="Disabled">
-                  <Storyboard>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity"
-                                                                       Storyboard.TargetName="DisabledVisualElement">
-                      <SplineDoubleKeyFrame KeyTime="0"
-                                                                  Value="0.7" />
-                    </DoubleAnimationUsingKeyFrames>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
-                                                                       Storyboard.TargetName="contentPresenter">
-                      <EasingDoubleKeyFrame KeyTime="0"
-                                                                  Value="0.3" />
-                    </DoubleAnimationUsingKeyFrames>
-                  </Storyboard>
-                </VisualState>
-              </VisualStateGroup>
-              <VisualStateGroup x:Name="FocusStates">
-                <VisualState x:Name="Focused">
-                  <Storyboard>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
-                                                                       Storyboard.TargetName="FocusRectangle">
-                      <EasingDoubleKeyFrame KeyTime="0"
-                                                                  Value="1" />
-                    </DoubleAnimationUsingKeyFrames>
-                    <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
-                                                                       Storyboard.TargetName="FocusInnerRectangle">
-                      <EasingDoubleKeyFrame KeyTime="0"
-                                                                  Value="1" />
-                    </DoubleAnimationUsingKeyFrames>
-                  </Storyboard>
-                </VisualState>
-                <VisualState x:Name="Unfocused" />
               </VisualStateGroup>
             </VisualStateManager.VisualStateGroups>
-            <Border x:Name="Background"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                Background="{TemplateBinding Background}"
-                                CornerRadius="3" />
-            <Rectangle x:Name="DisabledVisualElement"
-                                   Fill="{DynamicResource ControlsDisabledBrush}"
-                                   IsHitTestVisible="false"
-                                   Opacity="0"
-                                   RadiusY="3"
-                                   RadiusX="3" />
-            <Border x:Name="MouseOverBorder"
-                                Background="{DynamicResource GrayBrush8}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="3.5"
-                                Opacity="0" />
-            <Border x:Name="PressedBorder"
-                                Background="{DynamicResource GrayBrush5}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="3.5"
-                                Opacity="0" />
-            <Rectangle x:Name="FocusRectangle"
-                                   Stroke="{DynamicResource TextBoxMouseOverInnerBorderBrush}"
-                                   RadiusY="4"
-                                   RadiusX="4"
-                                   Margin="-1"
-                                   Opacity="0" />
-            <Rectangle x:Name="FocusInnerRectangle"
-                                   StrokeThickness="{TemplateBinding BorderThickness}"
-                                   Stroke="{DynamicResource TextBoxMouseOverBorderBrush}"
-                                   RadiusX="3"
-                                   RadiusY="3"
-                                   Opacity="0" />
-            <ContentPresenter x:Name="contentPresenter"
-                                          ContentTemplate="{TemplateBinding ContentTemplate}"
-                                          Content="{TemplateBinding Content, Converter={StaticResource ToUpperConverter}}"
-                                          HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                          Margin="{TemplateBinding Padding}"
-                                          VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
-          </Grid>
+
+
+            <Grid Background="Transparent" >
+              <Border BorderBrush="Black" BorderThickness="1,1,1,1">
+                <Border.Background>
+                  <SolidColorBrush x:Name="BorderBrush" Color="White"/>
+                </Border.Background>
+
+                <ContentPresenter x:Name="ContentSite" VerticalAlignment="Center" HorizontalAlignment="Center" ContentSource="Content" 
+				                        TextBlock.FontFamily="Segoe WP Light" TextBlock.FontSize="12">
+                  <TextBlock.Foreground>
+                    <SolidColorBrush x:Name="FontColor" Color="Black"/>
+                  </TextBlock.Foreground>
+                </ContentPresenter>
+              </Border>
+            </Grid>
+          </Border>
         </ControlTemplate>
       </Setter.Value>
     </Setter>
