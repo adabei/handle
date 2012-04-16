@@ -11,13 +11,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using Handle.WPF.Controls;
 
 namespace Handle.WPF
 {
   /// <summary>
   /// Interaktionslogik für NotificationToastView.xaml
   /// </summary>
-  public partial class NotificationToastView : Window
+  public partial class NotificationToastView : MetroWindow
   {
     public NotificationToastView()
     {

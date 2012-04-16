@@ -1,17 +1,23 @@
-﻿<Window x:Class="Handle.WPF.NotificationToastView"
+﻿<Controls:MetroWindow x:Class="Handle.WPF.NotificationToastView"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:Handle.WPF.Controls"
         xmlns:cal="http://www.caliburnproject.org"
-        Title="NotificationToastView" Height="215" Width="300" AllowsTransparency="True" WindowStyle="None" >
+        Title="NotificationToastView" Height="225" Width="300" ShowTitleBar="False">
   <Window.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/Handle.WPF;component/Styles/Colours.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Handle.WPF;component/Styles/Fonts.xaml" />
         <ResourceDictionary Source="pack://application:,,,/Handle.WPF;component/Styles/Controls.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Handle.WPF;component/Styles/Accents/Blue.xaml" />
+        <ResourceDictionary Source="pack://application:,,,/Handle.WPF;component/Styles/Accents/BaseLight.xaml" />
       </ResourceDictionary.MergedDictionaries>
     </ResourceDictionary>
   </Window.Resources>
     <Grid cal:Message.Attach="[Event MouseDown] = [Action ShowTab]">   
     <Grid.RowDefinitions>
+      <RowDefinition Height="7"></RowDefinition>
       <RowDefinition Height="20"></RowDefinition>
       <RowDefinition Height="40"></RowDefinition>
       <RowDefinition Height="30"></RowDefinition>
@@ -19,7 +25,8 @@
       <RowDefinition Height="20"></RowDefinition>
       <RowDefinition Height="50"></RowDefinition>
     </Grid.RowDefinitions>
-    <StackPanel Grid.Row="0" Background="#CC119EDA">
+    <StackPanel Grid.Row="0" Background="#CC119EDA"></StackPanel>
+    <StackPanel Grid.Row="1">
       <Button x:Name="CloseButton" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center"
                 Margin="2,0,0,0"
                 Width="25"
@@ -29,10 +36,10 @@
                 Opacity="1" FontFamily="Marlett" Foreground="Black"
                 Content="r" Click="CloseButtonClick" />
     </StackPanel>
-    <TextBlock x:Name="Network" Grid.Row="1" FontSize="20" FontWeight="Bold" />
-    <TextBlock x:Name="Channel" Grid.Row="2" FontSize="18"  FontWeight="Bold"/>
-    <TextBlock x:Name="User" Grid.Row="3" FontSize="16"/>
-    <TextBlock x:Name="TimeStamp" Grid.Row="4" FontSize="16"/>
-    <TextBlock x:Name="Message" Grid.Row="5" TextWrapping="Wrap" FontSize="16"/>
+    <TextBlock x:Name="Network" Grid.Row="2" FontSize="20" FontWeight="Bold" />
+    <TextBlock x:Name="Channel" Grid.Row="3" FontSize="18"  FontWeight="Bold"/>
+    <TextBlock x:Name="User" Grid.Row="4" FontSize="16"/>
+    <TextBlock x:Name="TimeStamp" Grid.Row="5" FontSize="16"/>
+    <TextBlock x:Name="Message" Grid.Row="6" TextWrapping="Wrap" FontSize="16"/>
   </Grid>
-</Window>
+</Controls:MetroWindow>
