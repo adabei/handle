@@ -64,9 +64,10 @@ namespace Handle.WPF
     /// </summary>
     /// <param name="settings">The Settings singleton, filled in by MEF</param>
     [ImportingConstructor]
-    public ShellViewModel(Settings settings)
+    public ShellViewModel(Settings settings, IProgressService progressService)
     {
       this.Settings = settings;
+      this.ProgressService = progressService;
 
       this.IrcMainViewModel = new IrcMainViewModel();
       this.IrcMainViewModel.Parent = this;

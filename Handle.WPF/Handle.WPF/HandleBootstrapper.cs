@@ -60,6 +60,7 @@ namespace Handle.WPF
 
       batch.AddExportedValue<IWindowManager>(new WindowManager());
       batch.AddExportedValue<IEventAggregator>(eventAggregator);
+      batch.AddExportedValue<IProgressService>(new ProgressService());
       batch.AddExportedValue<Settings>(settings);
       batch.AddExportedValue<FilterService>(fs);
 
