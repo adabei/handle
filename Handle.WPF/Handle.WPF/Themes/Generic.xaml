@@ -323,7 +323,8 @@
                                 Panel.ZIndex="1"
                                 Grid.RowSpan="2"
                                 VerticalAlignment="Top"
-                                HorizontalAlignment="Right"/>
+                                HorizontalAlignment="Right"
+                                Visibility="{TemplateBinding ShowWindowCommands, Converter={StaticResource BooleanToVisibilityConverter}}"/>
               <ContentPresenter Grid.Row="1"/>
             </Grid>
           </Controls:MetroContentControl>

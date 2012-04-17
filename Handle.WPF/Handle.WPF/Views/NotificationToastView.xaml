@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:Handle.WPF.Controls"
         xmlns:cal="http://www.caliburnproject.org"
-        Title="NotificationToastView" Height="225" Width="300" ShowTitleBar="False">
+        Title="NotificationToastView" Height="225" Width="300" ShowTitleBar="False" ShowWindowCommands="False">
   <Window.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
