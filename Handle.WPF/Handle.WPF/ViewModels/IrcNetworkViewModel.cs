@@ -39,6 +39,9 @@ namespace Handle.WPF
   /// </summary>
   public class IrcNetworkViewModel : ConductorBase<dynamic>, IHaveClosableTabControl
   {
+    public delegate void NickInUseEventHandler(IrcProtocolErrorEventArgs e);
+    public event NickInUseEventHandler NickInUse;
+
     private IrcClient client;
 
     public bool Closable { get; set; }
@@ -77,6 +80,7 @@ namespace Handle.WPF
 
       this.Client = new IrcClient();
       this.Client.Registered += this.clientRegistered;
+      this.Client.ProtocolError += this.clientProtocolError;
 
       // TODO Display Popup
       this.Client.ConnectFailed += delegate(object sender, IrcErrorEventArgs e)
@@ -96,6 +100,19 @@ namespace Handle.WPF
           this.Client.Dispose();
           return;
         }
+      }
+    }
+
+    private void clientProtocolError(object sender, IrcProtocolErrorEventArgs e)
+    {
+      switch (e.Code)
+      {
+        // Nick is already in use
+        case 433:
+          if (this.NickInUse != null)
+            this.NickInUse(e);
+          this.Client.LocalUser.SetNickName(this.Client.LocalUser.NickName + "_temp" + DateTime.Now.Millisecond);
+          break;
       }
     }
 
