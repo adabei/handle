@@ -276,7 +276,7 @@ namespace Handle.WPF
       else
       {
         command = this.Message.Substring(1, this.Message.Length - 1);
-        args = new string[] { this.Message };
+        args = new string[] { };
       }
 
       IrcNetworkViewModel invm = (IrcNetworkViewModel)this.Parent;
@@ -400,10 +400,26 @@ namespace Handle.WPF
 
           break;
         case "nick":
-          this.Channel.Client.LocalUser.SetNickName(args[0]);
-          this.Messages.Add(new Message("Changed nick to " + args[0],
+          if (args.Length == 0)
+          {
+            this.Messages.Add(new Message("You are " + this.Channel.Client.LocalUser.NickName + ".",
                             DateTime.Now.ToString(this.Settings.TimestampFormat),
                             "=!=", MessageLevels.Clientside));
+          }
+          else if (args.Length == 1)
+          {
+            this.Channel.Client.LocalUser.SetNickName(args[0]);
+            this.Messages.Add(new Message("Changed nick to " + args[0] + ".",
+                              DateTime.Now.ToString(this.Settings.TimestampFormat),
+                              "=!=", MessageLevels.Clientside));
+          }
+          else
+          {
+            this.Messages.Add(new Message("Invalid number of arguments for command '/nick'.",
+                              DateTime.Now.ToString(this.Settings.TimestampFormat),
+                              "=!=", MessageLevels.Clientside, MessageLevels.Error));
+          }
+          
           break;
         case "quit":
           for (int i = 0; i < invm.Items.Count; i++)

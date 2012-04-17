@@ -41,6 +41,7 @@ namespace Handle.WPF
     Modes,
     Topic,
     Clientside,
-    Notice
+    Notice,
+    Error
   }
 }
