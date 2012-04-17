@@ -399,6 +399,12 @@ namespace Handle.WPF
                               target.NickName, MessageLevels.Private));
 
           break;
+        case "nick":
+          this.Channel.Client.LocalUser.SetNickName(args[0]);
+          this.Messages.Add(new Message("Changed nick to " + args[0],
+                            DateTime.Now.ToString(this.Settings.TimestampFormat),
+                            "=!=", MessageLevels.Clientside));
+          break;
         case "quit":
           for (int i = 0; i < invm.Items.Count; i++)
           {
