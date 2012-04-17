@@ -145,6 +145,14 @@ namespace Handle.WPF
 
     public void ShowSettings()
     {
+      foreach (var item in this.Items)
+      {
+        if (item is SettingsViewModel)
+        {
+          this.ActivateItem(item);
+          return;
+        }
+      }
       var svm = new SettingsViewModel(this.Settings.ShallowCopy());
       svm.SaveButtonPressed += SaveSettings;
       ActivateItem(svm);

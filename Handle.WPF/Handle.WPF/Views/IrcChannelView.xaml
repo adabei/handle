@@ -171,7 +171,7 @@
       </StackPanel>
     </ScrollViewer>
 
-    <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
+    <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
       <Image  Height="35" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action OpenContextMenu]" ToolTip="Connect to network or channel"
               Source="/Handle.WPF;component/Images/add_small.png" Margin="2" Opacity="0.6">
         <Image.ContextMenu>
