@@ -5,12 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-  <Grid>
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="Auto"/>
-    </Grid.RowDefinitions>
-    <TextBlock Grid.Row="0" FontSize="22">hold your horses</TextBlock>
-    <TextBlock Grid.Row="1" FontSize="19">press ctrl+n or click here to connect to a network</TextBlock>
-  </Grid>
+
+  <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+    <TextBlock FontSize="20">press ctrl+n or ctrl+q to connect</TextBlock>
+  </StackPanel>
 </UserControl>

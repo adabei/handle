@@ -143,7 +143,7 @@ namespace Handle.WPF
       {
         this.ConnectButtonPressed(this.Networks[networks.IndexOf(n)]);
       }
-      saveGlobalIdentity();
+      SaveGlobalIdentity();
     }
 
     public void Join(Network n, MouseButtonEventArgs e) 
@@ -187,7 +187,6 @@ namespace Handle.WPF
 
     public void Cancel()
     {
-      saveGlobalIdentity();
       this.TryClose();
     }
 
@@ -266,7 +265,7 @@ namespace Handle.WPF
       this.saveNetworks();
     }
 
-    private void saveGlobalIdentity()
+    public void SaveGlobalIdentity()
     {
       FileStream fs = new FileStream(Settings.PATH + "identity.json", FileMode.Create);
       try

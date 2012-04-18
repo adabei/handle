@@ -4,7 +4,7 @@
         xmlns:Controls="clr-namespace:Handle.WPF.Controls"
         TitleText="network list" Height="370" Width="320"
         xmlns:cal="http://www.caliburnproject.org" MinHeight="370" MinWidth="320">
-<Window.Resources>
+  <Window.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/Handle.WPF;component/Styles/Colours.xaml" />
@@ -16,7 +16,7 @@
       <BooleanToVisibilityConverter x:Key="booltovis"></BooleanToVisibilityConverter>
     </ResourceDictionary>
   </Window.Resources>
-  
+
   <Grid Height="320" Width="300">
     <Grid.RowDefinitions>
       <RowDefinition Height="Auto"/>
@@ -39,17 +39,20 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Row="0" FontSize="18" Text="global identity" Padding="2"/>
-        
+
         <Label Grid.Column="0" Grid.Row="1">Nick name:</Label>
-        <TextBox Grid.Column="1" Grid.Row="1" x:Name="GlobalIdentity_Name" Height="20" Width="150"/>
+        <TextBox Grid.Column="1" Grid.Row="1" x:Name="GlobalIdentity_Name" Height="20" Width="150" 
+                 cal:Message.Attach="[Event TextChanged] = [Action SaveGlobalIdentity]"/>
 
         <Label Grid.Column="0" Grid.Row="2">Alternative:</Label>
-        <TextBox Grid.Column="1" Grid.Row="2" x:Name="GlobalIdentity_Alternative" Height="20" Width="150"/>
+        <TextBox Grid.Column="1" Grid.Row="2" x:Name="GlobalIdentity_Alternative" Height="20" Width="150" 
+                 cal:Message.Attach="[Event TextChanged] = [Action SaveGlobalIdentity]"/>
 
         <Label Grid.Column="0" Grid.Row="3">Real name:</Label>
-        <TextBox Grid.Column="1" Grid.Row="3" x:Name="GlobalIdentity_RealName" Height="20" Width="150"/>
+        <TextBox Grid.Column="1" Grid.Row="3" x:Name="GlobalIdentity_RealName" Height="20" Width="150" 
+                 cal:Message.Attach="[Event TextChanged] = [Action SaveGlobalIdentity]"/>
       </Grid>
-      
+
       <TextBlock Grid.Row="0" FontSize="18" Text="networks" Padding="2"/>
       <Grid>
         <Grid.ColumnDefinitions>
@@ -76,7 +79,7 @@
                         <Style TargetType="{x:Type Image}">
                           <Style.Triggers>
                             <DataTrigger Binding="{Binding IsFavorite}" Value="True">
-                              <Setter Property="Opacity" Value="1">                           
+                              <Setter Property="Opacity" Value="1">
                               </Setter>
                             </DataTrigger>
 
