@@ -321,7 +321,7 @@ namespace Handle.WPF
           }
           else
           {
-            this.Settings.Completions[args[0]] = string.Join(" ", args.Range(1,-1));
+            this.Settings.Completions[args[0]] = string.Join(" ", args.Range(1, -1));
           }
           this.Settings.Save();
           break;
@@ -350,7 +350,7 @@ namespace Handle.WPF
           IrcPrivateConversationViewModel ipcvm = null;
           IrcUser target = null;
 
-          var message = string.Join(" ", args.Range(1,-1));
+          var message = string.Join(" ", args.Range(1, -1));
 
           foreach (var u in this.Channel.Users)
           {
@@ -439,8 +439,8 @@ namespace Handle.WPF
           break;
         default:
           this.Messages.Add(new Message(string.Format("Unknown command \"{0}\".", command),
-                                        DateTime.Now.ToString(this.Settings.TimestampFormat), 
-                                        "=!=", 
+                                        DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                        "=!=",
                                         MessageLevels.Clientside, MessageLevels.Error));
           break;
       }
@@ -513,28 +513,35 @@ namespace Handle.WPF
       this.Messages.Clear();
     }
 
+    /// <summary>
+    /// Allows saving the current conversation to a text file
+    /// </summary>
     public void SaveMessages()
     {
-      var icv = GetView() as IrcChannelView;
       var dlg = new Microsoft.Win32.SaveFileDialog();
       dlg.DefaultExt = ".txt";
       dlg.Filter = "Text Documents (*.txt)|*.txt";
       if (dlg.ShowDialog() == true)
       {
         string filename = dlg.FileName;
-        FileStream fs = new FileStream(filename, FileMode.Create);
-        StreamWriter sw = new StreamWriter(fs);
+
         try
         {
-          foreach (Message m in this.Messages)
+          using (var fs = new FileStream(filename, FileMode.Create))
+          using (var sw = new StreamWriter(fs))
           {
-            sw.WriteLine(m.Received + ":" + m.Sender + ":" + m.Text);
+            foreach (var m in this.Messages)
+            {
+              sw.WriteLine(string.Format("<{0}>{1}:{2}", m.Received, m.Sender, m.Text));
+            }
           }
         }
-        finally
+        catch
         {
-          sw.Close();
-          fs.Close();
+          this.Messages.Add(new Message("There was problem saving the messages",
+                                        DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                        "=!=",
+                                        MessageLevels.Clientside, MessageLevels.Error));
         }
       }
     }
