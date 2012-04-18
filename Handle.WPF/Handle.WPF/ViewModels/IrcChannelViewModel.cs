@@ -354,13 +354,13 @@ namespace Handle.WPF
           IrcPrivateConversationViewModel ipcvm = null;
           IrcUser target = null;
           var longStr = new List<string>();
-            for (int i = 1; i < args.Length; i++)
-            {
-              longStr.Add(args[i]);
-            }
-          
+          for (int i = 1; i < args.Length; i++)
+          {
+            longStr.Add(args[i]);
+          }
+
           var message = string.Join(" ", longStr.ToArray());
-          
+
           foreach (var u in this.Channel.Users)
           {
             if (u.User.NickName == args[0])
@@ -400,26 +400,25 @@ namespace Handle.WPF
 
           break;
         case "nick":
-          if (args.Length == 0)
+          switch (args.Length)
           {
-            this.Messages.Add(new Message("You are " + this.Channel.Client.LocalUser.NickName + ".",
-                            DateTime.Now.ToString(this.Settings.TimestampFormat),
-                            "=!=", MessageLevels.Clientside));
+            case 0:
+              this.Messages.Add(new Message("You are " + this.Channel.Client.LocalUser.NickName + ".",
+                                            DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                            "=!=", MessageLevels.Clientside));
+              break;
+            case 1:
+              this.Channel.Client.LocalUser.SetNickName(args[0]);
+              this.Messages.Add(new Message("Changed nick to " + args[0] + ".",
+                                            DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                            "=!=", MessageLevels.Clientside));
+              break;
+            default:
+              this.Messages.Add(new Message("Invalid number of arguments for command '/nick'.",
+                                            DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                            "=!=", MessageLevels.Clientside, MessageLevels.Error));
+              break;
           }
-          else if (args.Length == 1)
-          {
-            this.Channel.Client.LocalUser.SetNickName(args[0]);
-            this.Messages.Add(new Message("Changed nick to " + args[0] + ".",
-                              DateTime.Now.ToString(this.Settings.TimestampFormat),
-                              "=!=", MessageLevels.Clientside));
-          }
-          else
-          {
-            this.Messages.Add(new Message("Invalid number of arguments for command '/nick'.",
-                              DateTime.Now.ToString(this.Settings.TimestampFormat),
-                              "=!=", MessageLevels.Clientside, MessageLevels.Error));
-          }
-          
           break;
         case "quit":
           for (int i = 0; i < invm.Items.Count; i++)
