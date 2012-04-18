@@ -53,7 +53,7 @@
           </ContextMenu>
         </Image.ContextMenu>
       </Image>
-      <TextBox x:Name="Message" Width="300" Height="30"/>
+      <TextBox x:Name="Message" Width="350" Height="30"/>
       <Controls:ImageButton x:Name="Send" ImageSource="/Handle.WPF;component/Images/message.png" ToolTip="SendMessage" Height="35" Width="35"></Controls:ImageButton>
     </StackPanel>
   </Grid>
