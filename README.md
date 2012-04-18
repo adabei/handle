@@ -12,7 +12,7 @@ An installer for Windows is available [here](http://www2.htlwrn.ac.at/handle/dow
 - .NET Framework 4.0 or higher
 
 ## See also
-- [Official website](http://www2.htlwrn.ac.at/handle)
+- [Official website](http://www2.htlwrn.ac.at/handle) _- source for the website is available under the "gh-pages" branch_
 - IRC: #handle on [freenode](http://freenode.net)
 - [Issue tracker](https://github.com/adabei/handle/issues)
 - [Wiki](https://github.com/adabei/handle/wiki)
