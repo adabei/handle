@@ -46,8 +46,8 @@
       <TextBox Grid.Column="1" Grid.Row="4" Height="20" Width="150" x:Name="Network_ConnectCommands"/>
     </Grid>
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,20,8">
-      <Image x:Name="OkButton" ToolTip="OK" Height="40" Source="/Handle.WPF;component/Images/ok.png" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Ok]" Margin="5"/>
-      <Image x:Name="CancelButton" ToolTip="Cancel" Height="40" Source="/Handle.WPF;component/Images/cancel.png" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Cancel]" Margin="5"/>
+      <Controls:ImageButton x:Name="Ok" ToolTip="OK" ImageSource="/Handle.WPF;component/Images/ok.png" Margin="5" Height="35" Width="35"></Controls:ImageButton>
+      <Controls:ImageButton x:Name="Cancel" ToolTip="Cancel" ImageSource="/Handle.WPF;component/Images/cancel.png" Margin="5" Height="35" Width="35"></Controls:ImageButton>
     </StackPanel>
   </Grid>
 </Controls:MetroWindow>

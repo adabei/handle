@@ -363,4 +363,37 @@
     </Setter>
     <Setter Property="Template" Value="{StaticResource WindowTemplateKey}"/>
   </Style>
+  <Style TargetType="{x:Type Controls:ImageButton}">
+    <Setter Property="Template">
+      <Setter.Value>
+        <ControlTemplate TargetType="{x:Type Controls:ImageButton}">
+          <Border>
+          <Grid Opacity="1" x:Name="grid">
+          <Image Source="{TemplateBinding ImageSource}" Stretch="UniformToFill">
+          </Image>
+          </Grid>
+          </Border>
+          <ControlTemplate.Triggers>
+            <Trigger Property="IsMouseOver"
+                                 Value="True">
+              <Setter TargetName="grid"
+                                    Property="Opacity"
+                                    Value="0.75" />
+            </Trigger>
+            <Trigger Property="IsMouseOver"
+                                 Value="False">
+              <Setter TargetName="grid"
+                                    Property="Opacity"
+                                    Value="0.5" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+              <Setter TargetName="grid"
+                                    Property="Opacity"
+                                    Value="1" />
+            </Trigger>
+          </ControlTemplate.Triggers>
+        </ControlTemplate>
+      </Setter.Value>
+    </Setter>
+  </Style>
 </ResourceDictionary>

@@ -140,6 +140,7 @@
     <Compile Include="Behaviours\StylizedBehaviorCollection.cs" />
     <Compile Include="Behaviours\StylizedBehaviors.cs" />
     <Compile Include="Behaviours\TiltBehavior.cs" />
+    <Compile Include="Controls\ImageButton.cs" />
     <Compile Include="Converters\NickConverter.cs" />
     <Compile Include="FilterService.cs" />
     <Compile Include="INotificationProvider.cs" />
@@ -460,13 +461,13 @@
     <Resource Include="Images\search.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Images\heart.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Images\message.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="handle.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\heart1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

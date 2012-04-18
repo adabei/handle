@@ -39,8 +39,8 @@
       </ListView.View>
     </ListView>
     <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5,5,10,10">
-      <Image x:Name="JoinButton" ToolTip="Connect" Height="40" Source="/Handle.WPF;component/Images/connect_small.png" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Join]" Margin="5" Opacity="0.6"/>
-      <Image x:Name="CancelButton" ToolTip="Cancel" Height="40" Source="/Handle.WPF;component/Images/cancel.png" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Cancel]" Margin="5" Opacity="0.6"/>
+      <Controls:ImageButton x:Name="Join" ToolTip="Connect" ImageSource="/Handle.WPF;component/Images/connect_small.png" Margin="5" Height="35" Width="35"></Controls:ImageButton>
+      <Controls:ImageButton x:Name="Cancel" ToolTip="Cancel" ImageSource="/Handle.WPF;component/Images/cancel.png" Margin="5" Height="35" Width="35"></Controls:ImageButton>
     </StackPanel>
 
   </Grid>
