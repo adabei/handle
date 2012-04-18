@@ -372,7 +372,10 @@ namespace Handle.WPF
 
           if (target == null)
           {
-            Console.WriteLine("Error, user does not exist!");
+            this.Messages.Add(new Message("User does not exist!",
+                                          DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                          "=!=",
+                                          MessageLevels.Clientside, MessageLevels.Error));
             return;
           }
 
@@ -445,7 +448,9 @@ namespace Handle.WPF
           break;
         default:
           this.Messages.Add(new Message(string.Format("Unknown command \"{0}\".", command),
-                                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!=", MessageLevels.Clientside));
+                                        DateTime.Now.ToString(this.Settings.TimestampFormat), 
+                                        "=!=", 
+                                        MessageLevels.Clientside, MessageLevels.Error));
           break;
       }
       this.Message = string.Empty;
