@@ -40,8 +40,8 @@
         </ItemsControl>
       </StackPanel>
     </ScrollViewer>
-
-    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+    <!--AppBar-->
+    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,3">
       <Image  Height="35" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action OpenContextMenu]" ToolTip="Connect to network or channel"
               Source="/Handle.WPF;component/Images/add_small.png" Margin="2" Opacity="0.6">
         <Image.ContextMenu>
@@ -52,7 +52,7 @@
         </Image.ContextMenu>
       </Image>
       <TextBox x:Name="Message" Width="350" Height="30"/>
-      <Controls:ImageButton x:Name="Send" ImageSource="/Handle.WPF;component/Images/message.png" ToolTip="SendMessage" Height="35" Width="35"></Controls:ImageButton>
+      <Controls:ImageButton x:Name="Send" ImageSource="/Handle.WPF;component/Images/message.png" ToolTip="SendMessage" Height="35" Width="35" Margin="10,0,0,0"></Controls:ImageButton>
     </StackPanel>
   </Grid>
 </UserControl>

@@ -36,7 +36,7 @@
           <CheckBox Content="Use easy search" x:Name="Settings_UseDumbSearch" Grid.Row="1" Grid.Column="0"/>
 
           <Label Content="Leave message:" Grid.Row="2" Grid.Column="0"/>
-          <TextBox x:Name="Settings_LeaveMessage" Grid.Row="2" Grid.Column="1"/>
+          <TextBox x:Name="Settings_LeaveMessage" Grid.Row="2" Grid.Column="1" Height="27" Margin="0,0,0,3"/>
 
           <Label Content="Timestamp format:" Grid.Row="3" Grid.Column="0"/>
           <TextBox x:Name="Settings_TimestampFormat" Grid.Row="3" Grid.Column="1"/>

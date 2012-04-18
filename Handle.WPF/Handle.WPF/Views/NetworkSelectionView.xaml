@@ -42,11 +42,11 @@
 
         <Label Grid.Column="0" Grid.Row="1">Nick name:</Label>
         <TextBox Grid.Column="1" Grid.Row="1" x:Name="GlobalIdentity_Name" Height="20" Width="150" 
-                 cal:Message.Attach="[Event TextChanged] = [Action SaveGlobalIdentity]"/>
+                 cal:Message.Attach="[Event TextChanged] = [Action SaveGlobalIdentity]" Margin="0,0,0,3"/>
 
         <Label Grid.Column="0" Grid.Row="2">Alternative:</Label>
         <TextBox Grid.Column="1" Grid.Row="2" x:Name="GlobalIdentity_Alternative" Height="20" Width="150" 
-                 cal:Message.Attach="[Event TextChanged] = [Action SaveGlobalIdentity]"/>
+                 cal:Message.Attach="[Event TextChanged] = [Action SaveGlobalIdentity]" Margin="0,0,0,3"/>
 
         <Label Grid.Column="0" Grid.Row="3">Real name:</Label>
         <TextBox Grid.Column="1" Grid.Row="3" x:Name="GlobalIdentity_RealName" Height="20" Width="150" 
