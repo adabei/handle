@@ -32,12 +32,15 @@ namespace Handle.WPF
   /// </summary>
   public static class ArrayExtension
   {
-    public static T[] Range<T>(this T[] sourceArray, int start, int end)
+    public static T[] Range<T>(this T[] sourceArray, int start, int end, bool exclude = false)
     {
       if (end < 0)
         end = sourceArray.Length + end;
 
       int length = end - start;
+      if (!exclude)
+        length++;
+
       T[] result = new T[length];
       Array.Copy(sourceArray, start, result, 0, length);
       return result;

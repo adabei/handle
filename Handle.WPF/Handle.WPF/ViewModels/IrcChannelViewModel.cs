@@ -106,6 +106,7 @@ namespace Handle.WPF
     public IrcChannelViewModel(IrcChannel channel, string networkName, Settings settings)
     {
       this.Settings = settings;
+      this.Message = string.Empty;
       this.Messages = new BindableCollection<Message>();
       this.Closable = true;
       this.DisplayName = channel.Name;
@@ -353,13 +354,8 @@ namespace Handle.WPF
         case "msg":
           IrcPrivateConversationViewModel ipcvm = null;
           IrcUser target = null;
-          var longStr = new List<string>();
-          for (int i = 1; i < args.Length; i++)
-          {
-            longStr.Add(args[i]);
-          }
 
-          var message = string.Join(" ", longStr.ToArray());
+          var message = string.Join(" ", args.Range(1,-1));
 
           foreach (var u in this.Channel.Users)
           {
