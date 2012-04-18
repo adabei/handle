@@ -19,7 +19,7 @@
     </Grid.RowDefinitions>
 
     <ScrollViewer Grid.Row="1">
-      <ItemsControl x:Name="Messages">
+      <ItemsControl x:Name="Messages" FontFamily="{Binding Settings.FontFamily}" FontSize="{Binding Settings.FontSize}">
         <ItemsControl.ItemTemplate>
           <DataTemplate>
             <StackPanel Orientation="Vertical">

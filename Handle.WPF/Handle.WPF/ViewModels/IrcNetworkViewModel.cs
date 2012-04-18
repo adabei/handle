@@ -148,6 +148,7 @@ namespace Handle.WPF
       istvm.JoinChannelClicked += this.JoinChannel;
       this.Client.LocalUser.MessageReceived += this.localUserMessageReceived;
       this.Items.Add(istvm);
+      this.ActivateItem(istvm);
     }
 
     private void localUserInviteReceived(object sender, IrcChannelInvitationEventArgs e)
