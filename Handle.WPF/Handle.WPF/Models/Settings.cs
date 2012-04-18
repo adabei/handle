@@ -77,22 +77,49 @@ namespace Handle.WPF
     /// </summary>
     public string TimestampFormat { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the client will use a dumbed-down search instead of pure regular expressions
+    /// </summary>
     public bool UseFuzzySearch { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the client will advertise joins
+    /// </summary>
     public bool AdvertiseJoins { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the client will advertise parts
+    /// </summary>
     public bool AdvertiseParts { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether notification toasts will be shown for important messages
+    /// </summary>
     public bool NotificationToast { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether the taskbar will blink for important messages
+    /// </summary>
     public bool TaskbarBlinking { get; set; }
 
+    /// <summary>
+    /// Gets or sets a value indicating whether a sound will be played for important messages
+    /// </summary>
     public bool MakeSound { get; set; }
 
+    /// <summary>
+    /// Gets or sets the path of the sound file for notifications
+    /// </summary>
     public string SoundPath { get; set; }
 
+    /// <summary>
+    /// Gets or sets the list of filter patterns
+    /// </summary>
     public List<String> FilterPatterns { get; set; }
 
+    /// <summary>
+    /// Gets or sets the dictionary for completions (Key will be replaced with Value)
+    /// </summary>
     public Dictionary<string, string> Completions { get; set; }
 
     /// <summary>
