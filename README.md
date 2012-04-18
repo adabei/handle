@@ -18,4 +18,4 @@ An installer for Windows is available [here](http://www2.htlwrn.ac.at/handle/dow
 - [Wiki](https://github.com/adabei/handle/wiki)
 
 ## License
-Handle is licensed under the MIT license. See LICENSE for details.
+Handle is released under the MIT license. See LICENSE for details.
