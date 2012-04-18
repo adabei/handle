@@ -60,14 +60,14 @@
       <CheckBox Grid.Column="0" Grid.Row="5" Content="use custom identity" x:Name="Network_UseCustomIdentity"/>
 
       <Label Grid.Column="0" Grid.Row="6" Content="Nick name:" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
-      <TextBox Grid.Column="1" Grid.Row="6" x:Name="Network_Identity_Name" Height="20" Width="180" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
+      <TextBox Grid.Column="1" Grid.Row="6" x:Name="Network_Identity_Name" Height="20" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
 
       <Label Grid.Column="0" Grid.Row="7" Content="Alternative:" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
       <TextBox Grid.Column="1" Grid.Row="7" x:Name="Network_Identity_Alternative" 
-               Height="20" Width="180" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
+               Height="20" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
 
       <Label Grid.Column="0" Grid.Row="8" Content="Real name:" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
-      <TextBox Grid.Column="1" Grid.Row="8" x:Name="Network_Identity_RealName" Height="20" Width="180" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
+      <TextBox Grid.Column="1" Grid.Row="8" x:Name="Network_Identity_RealName" Height="20" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
 
     </Grid>
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,10,10">

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:Controls="clr-namespace:Handle.WPF.Controls"
         xmlns:cal="http://www.caliburnproject.org"
-        Title="NotificationToastView" Height="225" Width="300" ShowTitleBar="False" ShowWindowCommands="False">
+        Title="NotificationToastView" Height="150" Width="300" ShowTitleBar="False" ShowWindowCommands="False">
   <Window.Resources>
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
@@ -18,28 +18,33 @@
     <Grid cal:Message.Attach="[Event MouseDown] = [Action ShowTab]">   
     <Grid.RowDefinitions>
       <RowDefinition Height="7"></RowDefinition>
-      <RowDefinition Height="20"></RowDefinition>
-      <RowDefinition Height="40"></RowDefinition>
-      <RowDefinition Height="30"></RowDefinition>
-      <RowDefinition Height="20"></RowDefinition>
-      <RowDefinition Height="20"></RowDefinition>
+      <RowDefinition Height="15"></RowDefinition>
+      <RowDefinition Height="25"></RowDefinition>
+      <RowDefinition Height="15"></RowDefinition>
       <RowDefinition Height="50"></RowDefinition>
     </Grid.RowDefinitions>
     <StackPanel Grid.Row="0" Background="#CC119EDA"></StackPanel>
     <StackPanel Grid.Row="1">
       <Button x:Name="CloseButton" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Center"
                 Margin="2,0,0,0"
-                Width="25"
-                Height="20"
+                Width="15"
+                Height="15"
                 Style="{DynamicResource ChromelessButtonStyle}"
                 ToolTip="Close"
                 Opacity="1" FontFamily="Marlett" Foreground="Black"
                 Content="r" Click="CloseButtonClick" />
     </StackPanel>
-    <TextBlock x:Name="Network" Grid.Row="2" FontSize="20" FontWeight="Bold" />
-    <TextBlock x:Name="Channel" Grid.Row="3" FontSize="18"  FontWeight="Bold"/>
-    <TextBlock x:Name="User" Grid.Row="4" FontSize="16"/>
-    <TextBlock x:Name="TimeStamp" Grid.Row="5" FontSize="16"/>
-    <TextBlock x:Name="Message" Grid.Row="6" TextWrapping="Wrap" FontSize="16"/>
+    <StackPanel Orientation="Horizontal" Grid.Row="2">
+      <TextBlock x:Name="Channel" FontSize="16"  FontWeight="Bold"/>
+    <TextBlock x:Name="Point" FontSize="16"  FontWeight="Bold" Text="."/>
+    <TextBlock x:Name="Network" FontSize="16" FontWeight="Bold" />
+    </StackPanel>
+    <StackPanel Grid.Row="3" Orientation="Horizontal">
+      <TextBlock x:Name="User" FontSize="14"/>
+      <TextBlock x:Name="Points" Text=":" FontSize="14"/>
+    </StackPanel>
+    <StackPanel Grid.Row="4" Orientation="Horizontal">
+      <TextBlock x:Name="Message" TextWrapping="Wrap" FontSize="12" Width="279"/>
+    </StackPanel>
   </Grid>
 </Controls:MetroWindow>
