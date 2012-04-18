@@ -440,7 +440,6 @@ namespace Handle.WPF
       this.Channel.UserLeft -= this.channelUserLeft;
       this.Channel.NoticeReceived -= this.channelNoticeReceived;
       this.Channel.TopicChanged -= this.channelTopicChanged;
-
       this.Channel.Leave(message);
 
       if (this.Settings.CanLog && this.logger != null)

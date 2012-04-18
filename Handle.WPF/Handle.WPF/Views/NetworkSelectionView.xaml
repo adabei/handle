@@ -71,7 +71,7 @@
                 <GridViewColumnHeader Click="SortClick" Content="Fav" Tag="Fav"></GridViewColumnHeader>
                 <GridViewColumn.CellTemplate>
                   <DataTemplate>
-                    <Image Source="/Handle.WPF;component/Images/heart.png" Height="25"  cal:Message.Attach="[Event MouseLeftButtonUp] = [Action ChangeFavF($datacontext)]">
+                    <Image Source="/Handle.WPF;component/Images/heart1.png" Height="25"  cal:Message.Attach="[Event MouseLeftButtonUp] = [Action ChangeFavF($datacontext)]">
                       <Image.Style>
                         <Style TargetType="{x:Type Image}">
                           <Style.Triggers>
@@ -95,16 +95,16 @@
           </ListView.View>
         </ListView>
         <StackPanel Grid.Row="0" Grid.Column="1" Orientation="Vertical" VerticalAlignment="Center">
-          <Image  Height="25" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Import]" ToolTip="Import networks" Source="/Handle.WPF;component/Images/import.png" Margin="5" Opacity="0.6"/>
-          <Image  Height="25" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Export]" ToolTip="Export selected network(s)" Source="/Handle.WPF;component/Images/save.png" Margin="5" Opacity="0.6"/>
+          <Controls:ImageButton x:Name="Import" ImageSource="/Handle.WPF;component/Images/import.png" ToolTip="Import networks" Margin="5" Height="25" Width="25"></Controls:ImageButton>
+          <Controls:ImageButton x:Name="Export" ImageSource="/Handle.WPF;component/Images/save.png" ToolTip="Export selected network(s)" Margin="5" Height="25" Width="25"></Controls:ImageButton>
         </StackPanel>
       </Grid>
     </StackPanel>
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="5,10,5,10">
-      <Image  Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Add]" ToolTip="Add a new network" Source="/Handle.WPF;component/Images/add_small.png" Margin="0,0,20,0" Opacity="0.6"/>
-      <Image  Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Edit]" ToolTip="Edit network" Source="/Handle.WPF;component/Images/edit_small.png" Margin="0,0,20,0" Opacity="0.6"/>
-      <Image  Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Remove]" ToolTip="Remove selected network(s)" Source="/Handle.WPF;component/Images/delete.png" Margin="0,0,20,0" Opacity="0.6"/>
-      <Image  Height="40" cal:Message.Attach="[Event MouseLeftButtonUp] = [Action Connect]" ToolTip="Connect" Source="/Handle.WPF;component/Images/connect_small.png" Opacity="0.6"/>
+      <Controls:ImageButton x:Name="Add" ImageSource="/Handle.WPF;component/Images/add_small.png" Margin="0,0,20,0" ToolTip="Add a new network" Height="35" Width="35"></Controls:ImageButton>
+      <Controls:ImageButton x:Name="Edit" ImageSource="/Handle.WPF;component/Images/edit_small.png" Margin="0,0,20,0"  ToolTip="Edit network" Height="35" Width="35"></Controls:ImageButton>
+      <Controls:ImageButton x:Name="Remove" ImageSource="/Handle.WPF;component/Images/delete.png" Margin="0,0,20,0"  ToolTip="Remove selected network(s)" Height="35" Width="35"></Controls:ImageButton>
+      <Controls:ImageButton x:Name="Connect" ImageSource="/Handle.WPF;component/Images/connect_small.png" ToolTip="Connect" Height="35" Width="35"></Controls:ImageButton>
     </StackPanel>
   </Grid>
 </Controls:MetroWindow>
