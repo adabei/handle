@@ -35,6 +35,7 @@ namespace Handle.WPF.Converters
   using System.Windows.Documents;
   using System.Windows.Media;
   using Caliburn.Micro;
+  using System.Windows;
 
   /// <summary>
   /// Represents a concrete ValueConverter to convert strings, possibly containing links, to TextBlocks
@@ -94,11 +95,20 @@ namespace Handle.WPF.Converters
       }
 
       TextBlock tb = new TextBlock();
+      var msg = value as Handle.WPF.Message;
       foreach (var inline in inlines)
       {
-        if ((value as Handle.WPF.Message).Levels.Contains(MessageLevels.Highlight))
+        if (inline is Run)
         {
-          if (inline is Run)
+          if (msg.Levels.Contains(MessageLevels.Highlight))
+          {
+            inline.FontWeight = FontWeights.DemiBold;
+          }
+          else if (msg.Levels.Contains(MessageLevels.Join))
+          {
+            inline.Foreground = Brushes.Green;
+          }
+          else if (msg.Levels.Contains(MessageLevels.Part))
           {
             inline.Foreground = Brushes.Red;
           }
