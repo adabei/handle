@@ -32,6 +32,15 @@ namespace Handle.WPF
   /// </summary>
   public static class ArrayExtension
   {
+    /// <summary>
+    /// Returns a range given start and end. If the last parameter is omitted or false the return value will include the end object, otherwise it will be excluded.
+    /// </summary>
+    /// <typeparam name="T">The type of the Array</typeparam>
+    /// <param name="sourceArray">Returns a range of an array</param>
+    /// <param name="start">Start index of the range</param>
+    /// <param name="end">End index of the range</param>
+    /// <param name="exclude">If true the range will include the end object</param>
+    /// <returns></returns>
     public static T[] Range<T>(this T[] sourceArray, int start, int end, bool exclude = false)
     {
       if (end < 0)
