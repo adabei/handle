@@ -321,12 +321,7 @@ namespace Handle.WPF
           }
           else
           {
-            var longString = new List<string>();
-            for (int i = 1; i < args.Length; i++)
-            {
-              longString.Add(args[i]);
-            }
-            this.Settings.Completions[args[0]] = string.Join(" ", longString.ToArray());
+            this.Settings.Completions[args[0]] = string.Join(" ", args.Range(1,-1));
           }
           this.Settings.Save();
           break;
