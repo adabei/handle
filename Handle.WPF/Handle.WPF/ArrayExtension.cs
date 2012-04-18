@@ -1,5 +1,5 @@
 ﻿// -----------------------------------------------------------------------
-// <copyright file="MessageLevels.cs" company="">
+// <copyright file="ArrayExtension.cs" company="">
 // Copyright (c) 2011 Bernhard Schwarz, Florian Lembeck
 //
 // Permission is hereby granted, free of charge, to any person obtaining
@@ -25,23 +25,34 @@
 
 namespace Handle.WPF
 {
+  using System;
+
   /// <summary>
-  /// TODO: Update summary.
+  /// Provides extension methods for Arrays.
   /// </summary>
-  public enum MessageLevels
+  public static class ArrayExtension
   {
-    Public,
-    Private,
-    Join,
-    Part,
-    Highlight,
-    Image,
-    Nick,
-    Quit,
-    Modes,
-    Topic,
-    Clientside,
-    Notice,
-    Error
+    /// <summary>
+    /// Returns a range given start and end. If the last parameter is omitted or false the return value will include the end object, otherwise it will be excluded.
+    /// </summary>
+    /// <typeparam name="T">The type of the Array</typeparam>
+    /// <param name="sourceArray">Returns a range of an array</param>
+    /// <param name="start">Start index of the range</param>
+    /// <param name="end">End index of the range</param>
+    /// <param name="exclude">If true the range will include the end object</param>
+    /// <returns></returns>
+    public static T[] Range<T>(this T[] sourceArray, int start, int end, bool exclude = false)
+    {
+      if (end < 0)
+        end = sourceArray.Length + end;
+
+      int length = end - start;
+      if (!exclude)
+        length++;
+
+      T[] result = new T[length];
+      Array.Copy(sourceArray, start, result, 0, length);
+      return result;
+    }
   }
 }

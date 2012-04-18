@@ -106,6 +106,7 @@ namespace Handle.WPF
     public IrcChannelViewModel(IrcChannel channel, string networkName, Settings settings)
     {
       this.Settings = settings;
+      this.Message = string.Empty;
       this.Messages = new BindableCollection<Message>();
       this.Closable = true;
       this.DisplayName = channel.Name;
@@ -276,7 +277,7 @@ namespace Handle.WPF
       else
       {
         command = this.Message.Substring(1, this.Message.Length - 1);
-        args = new string[] { this.Message };
+        args = new string[] { };
       }
 
       IrcNetworkViewModel invm = (IrcNetworkViewModel)this.Parent;
@@ -320,12 +321,7 @@ namespace Handle.WPF
           }
           else
           {
-            var longString = new List<string>();
-            for (int i = 1; i < args.Length; i++)
-            {
-              longString.Add(args[i]);
-            }
-            this.Settings.Completions[args[0]] = string.Join(" ", longString.ToArray());
+            this.Settings.Completions[args[0]] = string.Join(" ", args.Range(1, -1));
           }
           this.Settings.Save();
           break;
@@ -353,14 +349,9 @@ namespace Handle.WPF
         case "msg":
           IrcPrivateConversationViewModel ipcvm = null;
           IrcUser target = null;
-          var longStr = new List<string>();
-            for (int i = 1; i < args.Length; i++)
-            {
-              longStr.Add(args[i]);
-            }
-          
-          var message = string.Join(" ", longStr.ToArray());
-          
+
+          var message = string.Join(" ", args.Range(1, -1));
+
           foreach (var u in this.Channel.Users)
           {
             if (u.User.NickName == args[0])
@@ -372,7 +363,10 @@ namespace Handle.WPF
 
           if (target == null)
           {
-            Console.WriteLine("Error, user does not exist!");
+            this.Messages.Add(new Message("User does not exist!",
+                                          DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                          "=!=",
+                                          MessageLevels.Clientside, MessageLevels.Error));
             return;
           }
 
@@ -399,6 +393,27 @@ namespace Handle.WPF
                               target.NickName, MessageLevels.Private));
 
           break;
+        case "nick":
+          switch (args.Length)
+          {
+            case 0:
+              this.Messages.Add(new Message("You are " + this.Channel.Client.LocalUser.NickName + ".",
+                                            DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                            "=!=", MessageLevels.Clientside));
+              break;
+            case 1:
+              this.Channel.Client.LocalUser.SetNickName(args[0]);
+              this.Messages.Add(new Message("Changed nick to " + args[0] + ".",
+                                            DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                            "=!=", MessageLevels.Clientside));
+              break;
+            default:
+              this.Messages.Add(new Message("Invalid number of arguments for command '/nick'.",
+                                            DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                            "=!=", MessageLevels.Clientside, MessageLevels.Error));
+              break;
+          }
+          break;
         case "quit":
           for (int i = 0; i < invm.Items.Count; i++)
           {
@@ -424,7 +439,9 @@ namespace Handle.WPF
           break;
         default:
           this.Messages.Add(new Message(string.Format("Unknown command \"{0}\".", command),
-                                        DateTime.Now.ToString(this.Settings.TimestampFormat), "=!=", MessageLevels.Clientside));
+                                        DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                        "=!=",
+                                        MessageLevels.Clientside, MessageLevels.Error));
           break;
       }
       this.Message = string.Empty;
@@ -495,28 +512,35 @@ namespace Handle.WPF
       this.Messages.Clear();
     }
 
+    /// <summary>
+    /// Allows saving the current conversation to a text file
+    /// </summary>
     public void SaveMessages()
     {
-      var icv = GetView() as IrcChannelView;
       var dlg = new Microsoft.Win32.SaveFileDialog();
       dlg.DefaultExt = ".txt";
       dlg.Filter = "Text Documents (*.txt)|*.txt";
       if (dlg.ShowDialog() == true)
       {
         string filename = dlg.FileName;
-        FileStream fs = new FileStream(filename, FileMode.Create);
-        StreamWriter sw = new StreamWriter(fs);
+
         try
         {
-          foreach (Message m in this.Messages)
+          using (var fs = new FileStream(filename, FileMode.Create))
+          using (var sw = new StreamWriter(fs))
           {
-            sw.WriteLine(m.Received + ":" + m.Sender + ":" + m.Text);
+            foreach (var m in this.Messages)
+            {
+              sw.WriteLine(string.Format("<{0}>{1}:{2}", m.Received, m.Sender, m.Text));
+            }
           }
         }
-        finally
+        catch
         {
-          sw.Close();
-          fs.Close();
+          this.Messages.Add(new Message("There was problem saving the messages",
+                                        DateTime.Now.ToString(this.Settings.TimestampFormat),
+                                        "=!=",
+                                        MessageLevels.Clientside, MessageLevels.Error));
         }
       }
     }
