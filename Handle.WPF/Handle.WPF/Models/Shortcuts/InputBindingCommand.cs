@@ -47,11 +47,6 @@ namespace Handle.WPF
     public ModifierKeys GestureModifier { get; set; }
     public MouseAction MouseGesture { get; set; }
 
-    public bool CanExecute(object parameter)
-    {
-      return canExecutePredicate(parameter);
-    }
-
     public InputBindingCommand(Action executeDelegate)
     {
       this.executeDelegate = x => executeDelegate();
@@ -62,6 +57,11 @@ namespace Handle.WPF
     {
       this.executeDelegate = executeDelegate;
       this.canExecutePredicate = x => true;
+    }
+
+    public bool CanExecute(object parameter)
+    {
+      return this.canExecutePredicate(parameter);
     }
 
     public void Execute(object parameter)

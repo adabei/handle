@@ -1,11 +1,11 @@
-﻿using System;
-using System.Globalization;
-using System.Windows;
-using System.Windows.Data;
-using System.Windows.Markup;
-
-namespace Handle.WPF.Converters
+﻿namespace Handle.WPF.Converters
 {
+  using System;
+  using System.Globalization;
+  using System.Windows;
+  using System.Windows.Data;
+  using System.Windows.Markup;
+
   [MarkupExtensionReturnType(typeof(IValueConverter))]
   public abstract class MarkupConverter : MarkupExtension, IValueConverter
   {

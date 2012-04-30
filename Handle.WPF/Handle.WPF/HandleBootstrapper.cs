@@ -33,6 +33,7 @@ namespace Handle.WPF
   using System.IO;
   using System.Linq;
   using Caliburn.Micro;
+  using IronRuby;
 
   public class HandleBootstrapper : Bootstrapper<IShell>
   {
@@ -91,6 +92,15 @@ namespace Handle.WPF
     protected override void BuildUp(object instance)
     {
       this.container.SatisfyImportsOnce(instance);
+    }
+
+    private void LoadPlugins()
+    {
+      var engine = Ruby.CreateEngine();
+      var scope = engine.CreateScope();
+      var paths = engine.GetSearchPaths().ToList();
+      paths.Add(Settings.PATH + "plugins");
+      engine.Execute("plugin.rb");
     }
   }
 }
