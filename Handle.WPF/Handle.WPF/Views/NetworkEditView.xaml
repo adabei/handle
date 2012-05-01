@@ -18,7 +18,7 @@
   </Window.Resources>
   <Grid>
     <Grid.Resources>
-      <BooleanToVisibilityConverter x:Key="booleanToVisbility"/>
+      <BooleanToVisibilityConverter x:Key="booleanToVisibility"/>
     </Grid.Resources>
 
     <Grid.RowDefinitions>
@@ -62,15 +62,15 @@
       <TextBlock FontSize="18" Grid.Row="4" Text="identity" Padding="5"/>
       <CheckBox Grid.Column="0" Grid.Row="5" Content="use custom identity" x:Name="Network_UseCustomIdentity"/>
 
-      <Label Grid.Column="0" Grid.Row="6" Content="Nick name:" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
-      <TextBox Grid.Column="1" Grid.Row="6" x:Name="Network_Identity_Name" Height="20" Width="150" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}" Margin="0,0,0,3"/>
+      <Label Grid.Column="0" Grid.Row="6" Content="Nick name:" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisibility}}"/>
+      <TextBox Grid.Column="1" Grid.Row="6" x:Name="Network_Identity_Name" Height="20" Width="150" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisibility}}" Margin="0,0,0,3"/>
 
-      <Label Grid.Column="0" Grid.Row="7" Content="Alternative:" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
+      <Label Grid.Column="0" Grid.Row="7" Content="Alternative:" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisibility}}"/>
       <TextBox Grid.Column="1" Grid.Row="7" x:Name="Network_Identity_Alternative" 
-               Height="20" Width="150" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}" Margin="0,0,0,3"/>
+               Height="20" Width="150" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisibility}}" Margin="0,0,0,3"/>
 
-      <Label Grid.Column="0" Grid.Row="8" Content="Real name:" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
-      <TextBox Grid.Column="1" Grid.Row="8" x:Name="Network_Identity_RealName" Height="20" Width="150" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
+      <Label Grid.Column="0" Grid.Row="8" Content="Real name:" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisibility}}"/>
+      <TextBox Grid.Column="1" Grid.Row="8" x:Name="Network_Identity_RealName" Height="20" Width="150" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisibility}}"/>
 
       <CheckBox Grid.Column="0" Grid.Row="9" Content="favorite" x:Name="Network_IsFavorite"/>
 
