@@ -118,7 +118,7 @@ namespace Handle.WPF
 
     private void localUserMessageReceived(object sender, IrcMessageEventArgs e)
     {
-      IrcPrivateConversationViewModel ipcvm = null;
+      IrcQueryViewModel ipcvm = null;
       foreach (var item in this.Items)
       {
         if (item.DisplayName == e.Source.Name)
@@ -129,7 +129,7 @@ namespace Handle.WPF
 
       if (ipcvm == null)
       {
-        ipcvm = new IrcPrivateConversationViewModel(e.Source as IrcUser, this.Client, this.Settings);
+        ipcvm = new IrcQueryViewModel(e.Source as IrcUser, this.Client, this.Settings);
         this.Items.Add(ipcvm);
         ipcvm.Messages.Add(new Message(e.Text,
                               DateTime.Now.ToString(this.Settings.TimestampFormat),

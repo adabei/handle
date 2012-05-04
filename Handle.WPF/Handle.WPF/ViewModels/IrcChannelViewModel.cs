@@ -347,7 +347,7 @@ namespace Handle.WPF
           }
           break;
         case "msg":
-          IrcPrivateConversationViewModel ipcvm = null;
+          IrcQueryViewModel ipcvm = null;
           IrcUser target = null;
 
           var message = string.Join(" ", args.Range(1, -1));
@@ -380,7 +380,7 @@ namespace Handle.WPF
 
           if (ipcvm == null)
           {
-            ipcvm = new IrcPrivateConversationViewModel(target, this.Channel.Client, this.Settings);
+            ipcvm = new IrcQueryViewModel(target, this.Channel.Client, this.Settings);
             (this.Parent as IrcNetworkViewModel).Items.Add(ipcvm);
           }
 
@@ -629,7 +629,7 @@ namespace Handle.WPF
 
     public void Query(IrcChannelUser user)
     {
-      IrcPrivateConversationViewModel ipcvm = null;
+      IrcQueryViewModel ipcvm = null;
       foreach (var item in (this.Parent as IrcNetworkViewModel).Items)
       {
         if (item.DisplayName == user.User.NickName)
@@ -640,7 +640,7 @@ namespace Handle.WPF
 
       if (ipcvm == null)
       {
-        ipcvm = new IrcPrivateConversationViewModel(user.User, this.Channel.Client, this.Settings);
+        ipcvm = new IrcQueryViewModel(user.User, this.Channel.Client, this.Settings);
         (this.Parent as IrcNetworkViewModel).Items.Add(ipcvm);
       }
 

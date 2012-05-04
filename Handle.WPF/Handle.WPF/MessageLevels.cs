@@ -37,7 +37,6 @@ namespace Handle.WPF
     Highlight,
     Image,
     Nick,
-    Quit,
     Modes,
     Topic,
     Clientside,
