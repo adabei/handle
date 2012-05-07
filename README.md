@@ -1,8 +1,9 @@
 # Handle
-Handle is an IRC client made for Windows using the Metro design language and state of the art technologies.
+Handle is an IRC client for Windows using the Metro design language and state-of-the-art technology.
 
-According to the [Pareto principle](https://en.wikipedia.org/wiki/Pareto_principle) there is a good chance you use 20% of your current client's features 80% of the time which is exactly where Handle shines. 
-Our goal is to polish these 20% while keeping the rest in the background, and in result provide a superior experience.
+
+According to the [80-20 rule](https://en.wikipedia.org/wiki/Pareto_principle) there is a good chance you only use 20% of your current client's features 80% of the time. 
+_We have a laser sharp focus on those 20%._
 
 ## Install
 An installer for Windows is available [here](http://www2.htlwrn.ac.at/handle/download).
