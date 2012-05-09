@@ -59,7 +59,6 @@ namespace Handle.WPF
     protected virtual void PlaySoundThread()
     {
       this.isPlaying = true;
-      //PlaySync plays the sound in the same thread and doesn't return till it is finished.
       try
       {
         PlaySync();
@@ -68,6 +67,7 @@ namespace Handle.WPF
       {
         Console.WriteLine(ex.ToString());
       }
+
       this.isPlaying = false;
     }
   }

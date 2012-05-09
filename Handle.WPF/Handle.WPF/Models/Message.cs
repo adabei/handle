@@ -29,13 +29,28 @@ namespace Handle.WPF
 using System.Collections.Generic;
 
   /// <summary>
-  /// TODO: Update summary.
+  /// A class representing a message sent or received.
   /// </summary>
   public class Message
   {
+    /// <summary>
+    /// Gets or sets the message's text
+    /// </summary>
     public string Text { get; set; }
+
+    /// <summary>
+    /// Gets or sets the timestamp
+    /// </summary>
     public string Received { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name of the sender
+    /// </summary>
     public string Sender { get; set; }
+
+    /// <summary>
+    /// Gets or sets the set of message levels
+    /// </summary>
     public HashSet<MessageLevels> Levels { get; set; }
 
     public Message(string text, string received, string sender, params MessageLevels[] levels)

@@ -41,6 +41,10 @@ namespace Handle.WPF
     private FileStream fs;
     private StreamWriter sw;
 
+    /// <summary>
+    /// Initializes a new instance of the Logger class.
+    /// </summary>
+    /// <param name="path">Specifies the file path</param>
     public Logger(string path)
     {
       logQueue = new Queue<string>();
@@ -57,6 +61,10 @@ namespace Handle.WPF
       fs.Close();
     }
 
+    /// <summary>
+    /// Adds a new message to the log
+    /// </summary>
+    /// <param name="message">The message to be added</param>
     public void Append(string message)
     {
       new Action<string>(writeToLog).BeginInvoke(message, null, null);
@@ -79,7 +87,7 @@ namespace Handle.WPF
       return (DateTime.Now - lastFlushed).TotalSeconds >= MaxLogAge;
     }
 
-    public void flushLog()
+    private void flushLog()
     {
       while (logQueue.Count > 0)
       {

@@ -34,32 +34,34 @@ namespace Handle.WPF
   using System.Windows.Threading;
   using Caliburn.Micro;
 
+  /// <summary>
+  /// A class representing a INotificationProvider implementation to show toasts.
+  /// </summary>
   class ToastProvider : INotificationProvider
   {
+    private Screen screen;
+    private IWindowManager windowManager;
 
-    Screen screen;
-
-    public ToastProvider(Screen s) 
+    public ToastProvider(Screen s)
     {
       this.screen = s;
+      try
+      {
+        this.windowManager = IoC.Get<IWindowManager>();
+      }
+      catch
+      {
+        this.windowManager = new WindowManager();
+      }
     }
 
     public void Notify(MessageFilterEventArgs e)
     {
-      IWindowManager wm;
-      try
-      {
-        wm = IoC.Get<IWindowManager>();
-      }
-      catch
-      {
-        wm = new WindowManager();
-      }
       Window x = screen.GetView() as Window;
-      var ntvm = new NotificationToastViewModel(e,x);
+      var ntvm = new NotificationToastViewModel(e, x);
       x.Dispatcher.Invoke(DispatcherPriority.Background, new ThreadStart(delegate
       {
-        wm.ShowWindow(ntvm);
+        this.windowManager.ShowWindow(ntvm);
       }));
     }
   }

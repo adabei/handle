@@ -110,6 +110,7 @@ namespace Handle.WPF
 
 				return FlashWindowEx(ref fi);
 			}
+
 			return false;
 		}
 
@@ -138,6 +139,7 @@ namespace Handle.WPF
 
 				return FlashWindowEx(ref fi);
 			}
+
 			return false;
 		}
 
@@ -153,6 +155,7 @@ namespace Handle.WPF
 				FLASHWINFO fi = Create_FLASHWINFO(form.Handle, FLASHW_ALL, uint.MaxValue, 0);
 				return FlashWindowEx(ref fi);
 			}
+
 			return false;
 		}
 
@@ -168,6 +171,7 @@ namespace Handle.WPF
 				FLASHWINFO fi = Create_FLASHWINFO(form.Handle, FLASHW_STOP, uint.MaxValue, 0);
 				return FlashWindowEx(ref fi);
 			}
+
 			return false;
 		}
 

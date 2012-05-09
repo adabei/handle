@@ -88,6 +88,9 @@ namespace Handle.WPF
 
     private Identity identity;
 
+    /// <summary>
+    /// Gets or sets the identity associated with the network.
+    /// </summary>
     public Identity Identity
     {
       get
@@ -100,6 +103,10 @@ namespace Handle.WPF
       }
     }
 
+    /// <summary>
+    /// Creates a shallow copy of the network.
+    /// </summary>
+    /// <returns>A shallow copy</returns>
     public Network ShallowCopy()
     {
       return (Network)this.MemberwiseClone();
