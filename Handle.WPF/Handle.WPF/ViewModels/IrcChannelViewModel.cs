@@ -191,6 +191,7 @@ namespace Handle.WPF
       Message m = new Message(e.Text,
                               DateTime.Now.ToString(this.Settings.TimestampFormat),
                               e.Source.Name, MessageLevels.Public);
+      // TODO The whole message should be checked
       if (this.filterService.IsImportant(m.Text))
         m.Levels.Add(MessageLevels.Highlight);
 
