@@ -50,6 +50,11 @@ namespace Handle.WPF
       this.NotificationProviders = new List<INotificationProvider>();
     }
 
+    /// <summary>
+    /// Check whether the given message is important or not
+    /// </summary>
+    /// <param name="message">The message</param>
+    /// <returns></returns>
     public bool IsImportant(string message)
     {
       return this.Patterns.Exists(regex => regex.IsMatch(message));

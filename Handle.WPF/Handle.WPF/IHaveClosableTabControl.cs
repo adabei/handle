@@ -1,6 +1,6 @@
 ﻿// -----------------------------------------------------------------------
 // <copyright file="IHasClosableTabControl.cs" company="">
-// Copyright (c) 2011 Bernhard Schwarz, Florian Lembeck
+// Copyright (c) 2011-2012 Bernhard Schwarz, Florian Lembeck
 //
 // Permission is hereby granted, free of charge, to any person obtaining
 // a copy of this software and associated documentation files (the
@@ -31,7 +31,7 @@ namespace Handle.WPF
   using System.Text;
 
   /// <summary>
-  /// TODO: Update summary.
+  /// Represents an interface to a TabControl that has TabItems that are closable
   /// </summary>
   public interface IHaveClosableTabControl
   {

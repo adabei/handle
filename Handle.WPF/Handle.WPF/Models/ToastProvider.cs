@@ -55,6 +55,10 @@ namespace Handle.WPF
       }
     }
 
+    /// <summary>
+    /// Notifies the user by displaying a toast in the bottom right corner
+    /// </summary>
+    /// <param name="e">Contains the channel, user, etc. of the important message</param>
     public void Notify(MessageFilterEventArgs e)
     {
       Window x = screen.GetView() as Window;

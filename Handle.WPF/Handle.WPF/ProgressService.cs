@@ -34,7 +34,7 @@ namespace Handle.WPF
   using System.Threading;
 
   /// <summary>
-  /// TODO: Update summary.
+  /// Represents a class to track progress of long lasting operations.
   /// </summary>
   [Export(typeof(IProgressService))]
   public class ProgressService : PropertyChangedBase, IProgressService

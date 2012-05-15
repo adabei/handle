@@ -43,6 +43,10 @@ namespace Handle.WPF
       this.screen = s;
     }
 
+    /// <summary>
+    /// Notifies the user by making the taskbar icon blink.
+    /// </summary>
+    /// <param name="args">Contains the channel, user, etc. of the important message</param>
     public void Notify(MessageFilterEventArgs args) 
     {
       Window x = screen.GetView() as Window;

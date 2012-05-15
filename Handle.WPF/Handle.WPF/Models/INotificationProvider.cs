@@ -31,7 +31,7 @@ namespace Handle.WPF
   using System.Text;
 
   /// <summary>
-  /// TODO: Update summary.
+  /// Provides an interface for the different notification providers.
   /// </summary>
   public interface INotificationProvider
   {

@@ -35,11 +35,17 @@ namespace Handle.WPF
   class SoundProvider : INotificationProvider
   {
     private Settings settings;
+
     [ImportingConstructor]
     public SoundProvider(Settings settings)
     {
       this.settings = settings;
     }
+
+    /// <summary>
+    /// Plays sound to notify the user of an important message
+    /// </summary>
+    /// <param name="args"></param>
     public void Notify(MessageFilterEventArgs args)
     {
       if (this.settings.SoundPath != "")
