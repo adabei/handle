@@ -1,4 +1,11 @@
-﻿using System.Windows;
+﻿// -----------------------------------------------------------------------
+// <copyright file="LayoutInvalidationCatcher.cs" company="">
+// Microsoft Public License (Ms-PL)
+// http://www.opensource.org/licenses/MS-PL
+// </copyright>
+// -----------------------------------------------------------------------
+
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Handle.WPF.Controls

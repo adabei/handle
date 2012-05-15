@@ -1,8 +1,15 @@
-﻿using System;
-using System.Runtime.InteropServices;
+﻿// -----------------------------------------------------------------------
+// <copyright file="CREATESTRUCT.cs" company="">
+// Microsoft Public License (Ms-PL)
+// http://www.opensource.org/licenses/MS-PL
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace Handle.WPF.Native
 {
+  using System;
+  using System.Runtime.InteropServices;
+
   [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Auto)]
   public struct CREATESTRUCT
   {

@@ -1,16 +1,22 @@
-﻿using System;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Interactivity;
-using System.Windows.Interop;
-using System.Windows.Media;
-using Handle.WPF.Controls;
-using Handle.WPF.Native;
+﻿// -----------------------------------------------------------------------
+// <copyright file="BorderlessWindowBehavior.xaml.cs" company="">
+// Microsoft Public License (Ms-PL)
+// http://www.opensource.org/licenses/MS-PL
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace Handle.WPF.Behaviours
 {
+  using System;
+  using System.Runtime.InteropServices;
+  using System.Windows;
+  using System.Windows.Controls;
+  using System.Windows.Interactivity;
+  using System.Windows.Interop;
+  using System.Windows.Media;
+  using Handle.WPF.Controls;
+  using Handle.WPF.Native;
+
   public class BorderlessWindowBehavior : Behavior<Window>
   {
     [DllImport("dwmapi", PreserveSig = false)]

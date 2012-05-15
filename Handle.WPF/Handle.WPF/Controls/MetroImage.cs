@@ -1,9 +1,16 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
+﻿// -----------------------------------------------------------------------
+// <copyright file="MetroImage.cs" company="">
+// Microsoft Public License (Ms-PL)
+// http://www.opensource.org/licenses/MS-PL
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace Handle.WPF.Controls
 {
+  using System.Windows;
+  using System.Windows.Controls;
+  using System.Windows.Media;
+
   public class MetroImage : Control
   {
     public MetroImage()

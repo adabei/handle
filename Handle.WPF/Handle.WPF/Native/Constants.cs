@@ -1,4 +1,11 @@
-﻿namespace Handle.WPF.Native
+﻿// -----------------------------------------------------------------------
+// <copyright file="Constants.cs" company="">
+// Microsoft Public License (Ms-PL)
+// http://www.opensource.org/licenses/MS-PL
+// </copyright>
+// -----------------------------------------------------------------------
+
+namespace Handle.WPF.Native
 {
   public static class Constants
   {

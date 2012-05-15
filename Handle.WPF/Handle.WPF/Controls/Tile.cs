@@ -1,9 +1,16 @@
-﻿using System;
-using System.Windows;
-using System.Windows.Controls;
+﻿// -----------------------------------------------------------------------
+// <copyright file="Tile.cs" company="">
+// Microsoft Public License (Ms-PL)
+// http://www.opensource.org/licenses/MS-PL
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace Handle.WPF.Controls
 {
+  using System;
+  using System.Windows;
+  using System.Windows.Controls;
+
   public class Tile : Button
   {
     public Tile()

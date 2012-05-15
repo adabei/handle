@@ -1,14 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
-using System.Windows.Interactivity;
-using System.Windows.Media;
-using Handle.WPF.Controls;
+﻿// -----------------------------------------------------------------------
+// <copyright file="TiltBehavior.xaml.cs" company="">
+// Microsoft Public License (Ms-PL)
+// http://www.opensource.org/licenses/MS-PL
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace Handle.WPF.Behaviours
 {
+  using System;
+  using System.Collections.Generic;
+  using System.Windows;
+  using System.Windows.Controls;
+  using System.Windows.Input;
+  using System.Windows.Interactivity;
+  using System.Windows.Media;
+  using Handle.WPF.Controls;
+
   public class TiltBehavior : Behavior<FrameworkElement>
   {
     public static readonly DependencyProperty KeepDraggingProperty =

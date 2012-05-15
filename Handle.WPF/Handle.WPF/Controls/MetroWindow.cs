@@ -1,8 +1,15 @@
-﻿using System.Windows;
-using System.Windows.Input;
+﻿// -----------------------------------------------------------------------
+// <copyright file="MetroWindow.cs" company="">
+// Microsoft Public License (Ms-PL)
+// http://www.opensource.org/licenses/MS-PL
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace Handle.WPF.Controls
 {
+  using System.Windows;
+  using System.Windows.Input;
+
   [TemplatePart(Name = PART_TitleBar, Type = typeof(UIElement))]
   [TemplatePart(Name = PART_WindowCommands, Type = typeof(WindowCommands))]
   public class MetroWindow : Window

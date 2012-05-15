@@ -1,12 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Media;
-using Handle.WPF.Controls;
+﻿// -----------------------------------------------------------------------
+// <copyright file="ReloadBehavior.xaml.cs" company="">
+// Microsoft Public License (Ms-PL)
+// http://www.opensource.org/licenses/MS-PL
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace Handle.WPF.Behaviours
 {
+  using System.Collections.Generic;
+  using System.Linq;
+  using System.Windows;
+  using System.Windows.Controls;
+  using System.Windows.Media;
+  using Handle.WPF.Controls;
+
   public static class ReloadBehavior
   {
     public static DependencyProperty OnDataContextChangedProperty =

@@ -1,8 +1,15 @@
-﻿using System.Windows;
-using System.Windows.Interactivity;
+﻿// -----------------------------------------------------------------------
+// <copyright file="StylizedBehaviors.xaml.cs" company="">
+// Microsoft Public License (Ms-PL)
+// http://www.opensource.org/licenses/MS-PL
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace Handle.WPF.Behaviours
 {
+  using System.Windows;
+  using System.Windows.Interactivity;
+
   public class StylizedBehaviors
   {
     private static readonly DependencyProperty OriginalBehaviorProperty = DependencyProperty.RegisterAttached(@"OriginalBehaviorInternal", typeof(Behavior), typeof(StylizedBehaviors), new UIPropertyMetadata(null));

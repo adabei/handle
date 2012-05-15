@@ -1,9 +1,16 @@
-﻿using System;
-using System.Runtime.InteropServices;
-using System.Windows;
+﻿// -----------------------------------------------------------------------
+// <copyright file="RECT.cs" company="">
+// Microsoft Public License (Ms-PL)
+// http://www.opensource.org/licenses/MS-PL
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace Handle.WPF.Native
 {
+  using System;
+  using System.Runtime.InteropServices;
+  using System.Windows;
+
   [StructLayout(LayoutKind.Sequential, Pack = 0)]
   public struct RECT
   {

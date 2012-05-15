@@ -1,4 +1,5 @@
-﻿// <copyright file="StartupView.xaml.cs" company="">
+﻿// -----------------------------------------------------------------------
+// <copyright file="StartupView.xaml.cs" company="">
 // Copyright (c) 2011-2012 Bernhard Schwarz, Florian Lembeck
 //
 // Permission is hereby granted, free of charge, to any person obtaining

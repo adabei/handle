@@ -1,6 +1,13 @@
 ﻿namespace Handle.WPF.Converters
 {
   using System;
+  // -----------------------------------------------------------------------
+  // <copyright file="MarkupConverter.cs" company="">
+  // Microsoft Public License (Ms-PL)
+  // http://www.opensource.org/licenses/MS-PL
+  // </copyright>
+  // -----------------------------------------------------------------------
+
   using System.Globalization;
   using System.Windows;
   using System.Windows.Data;

@@ -1,9 +1,15 @@
-﻿using System.Windows;
-using System.Windows.Controls;
-
+﻿// -----------------------------------------------------------------------
+// <copyright file="MetroContentControl.cs" company="">
+// Microsoft Public License (Ms-PL)
+// http://www.opensource.org/licenses/MS-PL
+// </copyright>
+// -----------------------------------------------------------------------
 
 namespace Handle.WPF.Controls
 {
+  using System.Windows;
+  using System.Windows.Controls;
+
   /// <summary>
   /// Originally from http://xamlcoder.com/blog/2010/11/04/creating-a-metro-ui-style-control/
   /// </summary>
