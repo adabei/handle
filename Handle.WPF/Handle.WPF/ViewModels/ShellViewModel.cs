@@ -85,6 +85,9 @@ namespace Handle.WPF
       ActivateItem(svm);
     }
 
+    /// <summary>
+    /// Adds notification providers to the FilterService based on the settings
+    /// </summary>
     private void setNotificationProviders()
     {
       this.FilterService.NotificationProviders.Clear();
@@ -108,6 +111,9 @@ namespace Handle.WPF
       this.setNotificationProviders();
     }
 
+    /// <summary>
+    /// Displays the NetworkSelectionViewModel
+    /// </summary>
     private void ShowNetworkSelection()
     {
       IWindowManager wm;
@@ -126,6 +132,9 @@ namespace Handle.WPF
       wm.ShowWindow(nsvm);
     }
 
+    /// <summary>
+    /// Displays the NetworkQuickConnectViewModel
+    /// </summary>
     public void ShowNetworkQuickConnect()
     {
       IWindowManager wm;
@@ -142,7 +151,9 @@ namespace Handle.WPF
       wm.ShowWindow(nqcvm);
     }
 
-
+    /// <summary>
+    /// Makes the SettingsViewModel the ActiveItem
+    /// </summary>
     public void ShowSettings()
     {
       foreach (var item in this.Items)
@@ -158,6 +169,10 @@ namespace Handle.WPF
       ActivateItem(svm);
     }
 
+    /// <summary>
+    /// Saves settings to file
+    /// </summary>
+    /// <param name="settings">The settings object</param>
     private void SaveSettings(Settings settings)
     {
       PropertyUpdater.Update(this.Settings).With(settings);
