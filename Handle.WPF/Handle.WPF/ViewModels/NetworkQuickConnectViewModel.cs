@@ -25,24 +25,55 @@
 
 namespace Handle.WPF
 {
-  using System;
   using System.Collections.Generic;
-  using System.Linq;
-  using System.Text;
   using System.Windows.Input;
-  using Caliburn.Micro;
 
   public class NetworkQuickConnectViewModel : ViewModelBase
   {
-    public NetworkQuickConnectViewModel()
+    private readonly bool forceCustomIdentity;
+    private bool useCustomIdentity;
+
+    public bool UseCustomIdentity
     {
-      this.GlobalIdentity = Identity.GlobalIdentity();
+      get
+      {
+        if (this.forceCustomIdentity)
+        {
+          return true;
+        }
+        else
+        {
+          return this.useCustomIdentity;
+        }
+      }
+      set
+      {
+        this.useCustomIdentity = value;
+        this.NotifyOfPropertyChange(() => this.UseCustomIdentity);
+      }
     }
+
+    public string NetworkName { get; set; }
+    public string NetworkAddress { get; set; }
+
+    public string IdentityName { get; set; }
+    public string IdentityAlternative { get; set; }
+    public string IdentityRealName { get; set; }
 
     public delegate void ConnectEventHandler(Network network);
     public event ConnectEventHandler ConnectButtonPressed;
 
-    public Identity GlobalIdentity { get; set; }
+    public NetworkQuickConnectViewModel()
+    {
+      this.NetworkName = string.Empty;
+      this.NetworkAddress = string.Empty;
+
+      this.IdentityName = string.Empty;
+      this.IdentityAlternative = string.Empty;
+      this.IdentityRealName = string.Empty;
+
+      this.UseCustomIdentity = this.forceCustomIdentity = Identity.GlobalIdentity() == null;
+    }
 
     public override IEnumerable<InputBindingCommand> GetInputBindingCommands()
     {
@@ -59,17 +90,20 @@ namespace Handle.WPF
 
     public void Connect()
     {
-      var nqcv = this.GetView() as NetworkQuickConnectView;
-      Network quick;
-      if (nqcv.Network_UseCustomIdentity.IsChecked == true)
+      if (this.UseCustomIdentity)
       {
-        quick = new Network(nqcv.Network_Name.Text, nqcv.Network_Address.Text, false, "",new Identity(nqcv.Network_Identity_Name.Text,"",nqcv.Network_Identity_Alternative.Text,nqcv.Network_Identity_RealName.Text),true);
+        this.ConnectButtonPressed(new Network(this.NetworkName,
+                                              this.NetworkAddress,
+                                              false, string.Empty,
+                                              new Identity(this.IdentityName, string.Empty,
+                                                           this.IdentityAlternative,
+                                                           this.IdentityRealName),
+                                              true));
       }
-      else 
+      else
       {
-        quick = new Network(nqcv.Network_Name.Text, nqcv.Network_Address.Text, false, "", this.GlobalIdentity);
+        this.ConnectButtonPressed(new Network(this.NetworkName, this.NetworkAddress, false, string.Empty, Identity.GlobalIdentity(), false));
       }
-      this.ConnectButtonPressed(quick);
     }
   }
 }

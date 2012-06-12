@@ -50,24 +50,24 @@
       <!-- Network -->
       <TextBlock FontSize="18" Grid.Row="0" Text="network" Padding="5"/>
       <Label Grid.Column="0" Grid.Row="1" Content="Name:"/>
-      <TextBox Grid.Column="1" Grid.Row="1" Height="20"  x:Name="Network_Name" Margin="0,0,0,3"/>
+      <TextBox Grid.Column="1" Grid.Row="1" Height="20"  x:Name="NetworkName" Margin="0,0,0,3"/>
 
       <Label Grid.Column="0" Grid.Row="2" Content="Address:"/>
-      <TextBox Grid.Column="1" Grid.Row="2" Height="20"  x:Name="Network_Address"/>
+      <TextBox Grid.Column="1" Grid.Row="2" Height="20"  x:Name="NetworkAddress"/>
 
       <!-- Identity -->
       <TextBlock FontSize="18" Grid.Row="4" Text="identity" Padding="5"/>
-      <CheckBox Grid.Column="0" Grid.Row="5" Content="use custom identity" x:Name="Network_UseCustomIdentity" IsChecked="False" />
+      <CheckBox Grid.Column="0" Grid.Row="5" Content="use custom identity" x:Name="UseCustomIdentity" IsChecked="{Binding UseCustomIdentity}"/>
 
-      <Label Grid.Column="0" Grid.Row="6" Content="Nick name:" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
-      <TextBox Grid.Column="1" Grid.Row="6" x:Name="Network_Identity_Name" Height="20" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}" Margin="0,0,0,3"/>
+      <Label Grid.Column="0" Grid.Row="6" Content="Nick name:" Visibility="{Binding ElementName=UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
+      <TextBox Grid.Column="1" Grid.Row="6" x:Name="IdentityName" Height="20" Visibility="{Binding ElementName=UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}" Margin="0,0,0,3"/>
 
-      <Label Grid.Column="0" Grid.Row="7" Content="Alternative:" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
-      <TextBox Grid.Column="1" Grid.Row="7" x:Name="Network_Identity_Alternative" 
-               Height="20" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}" Margin="0,0,0,3"/>
+      <Label Grid.Column="0" Grid.Row="7" Content="Alternative:" Visibility="{Binding ElementName=UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
+      <TextBox Grid.Column="1" Grid.Row="7" x:Name="IdentityAlternative" 
+               Height="20" Visibility="{Binding ElementName=UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}" Margin="0,0,0,3"/>
 
-      <Label Grid.Column="0" Grid.Row="8" Content="Real name:" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
-      <TextBox Grid.Column="1" Grid.Row="8" x:Name="Network_Identity_RealName" Height="20" Visibility="{Binding ElementName=Network_UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
+      <Label Grid.Column="0" Grid.Row="8" Content="Real name:" Visibility="{Binding ElementName=UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
+      <TextBox Grid.Column="1" Grid.Row="8" x:Name="IdentityRealName" Height="20" Visibility="{Binding ElementName=UseCustomIdentity, Path=IsChecked, Converter={StaticResource booleanToVisbility}}"/>
 
     </Grid>
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,10,10">

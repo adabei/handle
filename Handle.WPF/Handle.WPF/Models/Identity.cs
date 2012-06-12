@@ -93,20 +93,20 @@ namespace Handle.WPF
 
     public static Identity GlobalIdentity()
     {
-      FileStream fs = new FileStream(Settings.PATH + "identity.json", FileMode.OpenOrCreate);
       Identity identity;
-      try
+
+      using (var fs = new FileStream(Settings.PATH + "identity.json", FileMode.OpenOrCreate))
       {
-        identity = JsonSerializer.DeserializeFromStream<Identity>(fs) ?? new Identity(String.Empty, String.Empty, String.Empty, String.Empty);
+        try
+        {
+          identity = JsonSerializer.DeserializeFromStream<Identity>(fs);
+        }
+        catch
+        {
+          identity = null;
+        }
       }
-      catch
-      {
-        identity = new Identity(String.Empty, String.Empty, String.Empty, String.Empty);
-      }
-      finally
-      {
-        fs.Close();
-      }
+
       return identity;
     }
   }
